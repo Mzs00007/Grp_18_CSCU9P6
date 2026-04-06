@@ -22,29 +22,15 @@ import java.util.*;
 import java.util.List;
 
 /**
- * CandidateScreen — MVC View for all Candidate interactions.
- *
- * Simplified to match the plain Swing style used by LoginFrame / AdminScreen.
- * All actions route through CandidateController.
- * Lobby gatekeeper cross-references SystemTimer (read-only).
- *
  * Assigned to: MJAMishkat
  * Tickets: VCFS-013 (Registration), VCFS-014 (Manual/Auto Booking), VCFS-016
  * (Lobby)
  */
 public class CandidateScreen extends JFrame implements PropertyChangeListener {
 
-    // =========================================================
-    // MVC WIRING
-    // =========================================================
     private final CareerFairSystem system;
 
-    /**
-     * Controller is created AFTER registration (not at frame-construction time).
-     * This lets us pass the candidate's email into its constructor, scoping
-     * this instance to exactly one user — the session-management strategy
-     * required by the brief when no persistent database is available.
-     */
+
     private CandidateController controller;
 
     // =========================================================
@@ -52,9 +38,6 @@ public class CandidateScreen extends JFrame implements PropertyChangeListener {
     // =========================================================
     private Candidate loggedInCandidate = null;
 
-    // =========================================================
-    // CARD LAYOUT — switches between screens
-    // =========================================================
     private CardLayout cardLayout;
     private JPanel cardContainer;
 
