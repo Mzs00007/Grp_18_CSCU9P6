@@ -1,0 +1,13 @@
+# Ignore compiled classes and build outputs
+out/
+target/
+*.class
+
+# Ignore diagnostic log files, but keep the directory
+logs/*.log
+
+# IDE specific settings
+.idea/
+*.iml
+.settings/
+.vscode/
