@@ -158,13 +158,14 @@ public class CareerFairSystem implements PropertyChangeListener {
      * @param name Display name of the organization
      * @return     The newly created Organization
      */
-    Organization addOrganization(String name) {
-        Organization org = new Organization();
-        org.name   = name;
-        org.fair   = fair;
-        org.booths = new ArrayList<>();
+    public Organization addOrganization(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Organization name cannot be empty");
+        }
+        Organization org = new Organization(name);
+        org.setFair(fair);
         fair.organizations.add(org);
-        System.out.println("[CareerFairSystem] Organization added: " + name);
+        Logger.log(LogLevel.INFO, "Organization added: " + name);
         return org;
     }
 
@@ -174,14 +175,16 @@ public class CareerFairSystem implements PropertyChangeListener {
      * @param title Display name for the booth
      * @return      The newly created Booth
      */
-    Booth addBooth(Organization org, String title) {
-        if (org == null) throw new IllegalArgumentException("Organization cannot be null.");
-        Booth booth = new Booth();
-        booth.title        = title;
-        booth.organization = org;
-        booth.recruiters   = new ArrayList<>();
-        org.booths.add(booth);
-        System.out.println("[CareerFairSystem] Booth '" + title + "' added to '" + org.name + "'");
+    public Booth addBooth(Organization org, String title) {
+        if (org == null) {
+            throw new IllegalArgumentException("Organization cannot be null.");
+        }
+        if (title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException("Booth title cannot be empty");
+        }
+        Booth booth = new Booth(title);
+        org.addBooth(booth);
+        Logger.log(LogLevel.INFO, "Booth '" + title + "' added to '" + org.getName() + "'");
         return booth;
     }
 
@@ -194,26 +197,23 @@ public class CareerFairSystem implements PropertyChangeListener {
      * @param booth       The booth to assign this recruiter to
      * @return            The newly created and assigned Recruiter
      */
-    Recruiter registerRecruiter(String displayName, String email, Booth booth) {
-        if (booth == null) throw new IllegalArgumentException("Booth cannot be null.");
+    public Recruiter registerRecruiter(String displayName, String email, Booth booth) {
+        if (booth == null) {
+            throw new IllegalArgumentException("Booth cannot be null.");
+        }
 
         // Enforce unique email across entire system
         for (Offer o : getAllOffers()) {
-            if (o.publisher != null && email.equalsIgnoreCase(o.publisher.email)) {
+            if (o.getPublisher() != null && email.equalsIgnoreCase(o.getPublisher().getEmail())) {
                 throw new IllegalStateException(
                     "[CareerFairSystem] Recruiter email already exists: " + email);
             }
         }
 
-        Recruiter recruiter = new Recruiter();
-        recruiter.displayName = displayName;
-        recruiter.email       = email;
-        recruiter.booth       = booth;
-        recruiter.offers      = new ArrayList<>();
+        Recruiter recruiter = new Recruiter(email, displayName, email);
         booth.assignRecruiter(recruiter);
-
-        System.out.println("[CareerFairSystem] Recruiter registered: "
-                + displayName + " → Booth: " + booth.title);
+        Logger.log(LogLevel.INFO, "Recruiter registered: "
+                + displayName + " -> Booth: " + booth.getTitle());
         return recruiter;
     }
 
@@ -225,13 +225,23 @@ public class CareerFairSystem implements PropertyChangeListener {
      * @param interestTags Comma-separated interest tags e.g. "Java,AI"
      * @return             The newly created Candidate
      */
-    Candidate registerCandidate(String displayName, String email,
+    public Candidate registerCandidate(String displayName, String email,
                                  String cvSummary, String interestTags) {
-        Candidate candidate = new Candidate();
-        candidate.displayName = displayName;
-        candidate.email       = email;
-        candidate.reservations = new ArrayList<>();
-        System.out.println("[CareerFairSystem] Candidate registered: " + displayName);
+        if (displayName == null || displayName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Display name cannot be empty");
+        }
+        if (email == null || email.trim().isEmpty()) {
+            throw new IllegalArgumentException("Email cannot be empty");
+        }
+        
+        Candidate candidate = new Candidate(email, displayName, email);
+        if (cvSummary != null && !cvSummary.trim().isEmpty()) {
+            candidate.getProfile().setCvSummary(cvSummary);
+        }
+        if (interestTags != null && !interestTags.trim().isEmpty()) {
+            candidate.getProfile().setInterestTags(interestTags);
+        }
+        Logger.log(LogLevel.INFO, "[CareerFairSystem] Candidate registered: " + displayName);
         return candidate;
     }
 
@@ -277,40 +287,39 @@ public class CareerFairSystem implements PropertyChangeListener {
                 + " min) is shorter than slot duration (" + durationMins + " min).");
         }
 
-        if (recruiter == null || recruiter.offers == null) {
+        if (recruiter == null || recruiter.getOffers() == null) {
             throw new IllegalArgumentException("[PARSER] Invalid recruiter.");
         }
 
         LocalDateTime cursor = blockStart;
         int slotsCreated = 0;
 
-        System.out.println("[PARSER] Parsing block for " + recruiter.displayName
+        Logger.log(LogLevel.INFO, "[PARSER] Parsing block for " + recruiter.getDisplayName()
                 + ": " + blockStart + " → " + blockEnd
                 + " | " + durationMins + " min slots");
 
         // Core loop: generate one Offer per slot until cursor overshoots blockEnd
         while (!cursor.plusMinutes(durationMins).isAfter(blockEnd)) {
             Offer slot = new Offer();
-            slot.title        = title;
-            slot.startTime    = cursor;
-            slot.endTime      = cursor.plusMinutes(durationMins);
-            slot.durationMins = durationMins;
-            slot.topicTags    = topicTags;
-            slot.capacity     = capacity;
-            slot.publisher    = recruiter;
-            slot.reservations = new ArrayList<>();
+            slot.setTitle(title);
+            slot.setStartTime(cursor);
+            slot.setEndTime(cursor.plusMinutes(durationMins));
+            slot.setDurationMins(durationMins);
+            slot.setTopicTags(topicTags);
+            slot.setCapacity(capacity);
+            slot.setPublisher(recruiter);
 
-            recruiter.offers.add(slot);
+            recruiter.addOffer(slot);
             slotsCreated++;
 
-            System.out.println("[PARSER] Slot " + slotsCreated + ": "
-                    + slot.startTime + " → " + slot.endTime);
+            Logger.log(LogLevel.INFO, "[PARSER] Slot " + slotsCreated + ": "
+                    + slot.getStartTime() + " → " + slot.getEndTime());
 
             cursor = cursor.plusMinutes(durationMins);
         }
 
-        System.out.println("[PARSER] Complete: " + slotsCreated + " slots for "
-                + recruiter.displayName);
+        Logger.log(LogLevel.INFO, "[PARSER] Complete: " + slotsCreated + " slots for "
+                + recruiter.getDisplayName());
         return slotsCreated;
     }
 
@@ -336,7 +345,7 @@ public class CareerFairSystem implements PropertyChangeListener {
      * @param request   Contains desiredTags and preferredOrgs
      * @return          Confirmed Reservation, or null if no match found
      */
-    Reservation autoBook(Candidate candidate, Request request) {
+    public Reservation autoBook(Candidate candidate, Request request) {
 
         // Phase guard
         LocalDateTime now = SystemTimer.getInstance().getNow();
@@ -345,34 +354,34 @@ public class CareerFairSystem implements PropertyChangeListener {
             return null;
         }
 
-        if (candidate == null || request == null || request.desiredTags == null) {
+        if (candidate == null || request == null || request.getDesiredTags() == null) {
             throw new IllegalArgumentException("[MATCHENGINE] Invalid candidate or request.");
         }
 
         // Parse desired tags: "Java, AI, Cloud" → ["java", "ai", "cloud"]
         List<String> desiredTags = Arrays.asList(
-                request.desiredTags.toLowerCase().split(",\\s*"));
+                request.getDesiredTags().toLowerCase().split(",\\s*"));
 
-        System.out.println("[MATCHENGINE] Searching for: " + candidate.displayName
+        Logger.log(LogLevel.INFO, "[MATCHENGINE] Searching for: " + candidate.getDisplayName()
                 + " | Tags: " + desiredTags);
 
         Map<Offer, Integer> scoreMap = new HashMap<>();
 
         for (Offer offer : getAllOffers()) {
-            if (offer.topicTags == null || offer.startTime == null) continue;
+            if (offer.getTopicTags() == null || offer.getStartTime() == null) continue;
 
             // --- COLLISION DETECTION ---
             // Two windows [A_start, A_end) and [B_start, B_end) overlap when:
             //   A_start < B_end  AND  B_start < A_end
             boolean conflict = false;
-            if (candidate.reservations != null) {
-                for (Reservation existing : candidate.reservations) {
-                    if (existing.scheduledStart == null || existing.scheduledEnd == null) continue;
-                    if (existing.scheduledStart.isBefore(offer.endTime)
-                            && offer.startTime.isBefore(existing.scheduledEnd)) {
+            if (candidate.getReservations() != null && !candidate.getReservations().isEmpty()) {
+                for (Reservation existing : candidate.getReservations()) {
+                    if (existing.getScheduledStart() == null || existing.getScheduledEnd() == null) continue;
+                    if (existing.getScheduledStart().isBefore(offer.getEndTime())
+                            && offer.getStartTime().isBefore(existing.getScheduledEnd())) {
                         conflict = true;
                         System.out.println("[MATCHENGINE] Conflict at "
-                                + offer.startTime + " — skipped.");
+                                + offer.getStartTime() + " — skipped.");
                         break;
                     }
                 }
@@ -381,7 +390,7 @@ public class CareerFairSystem implements PropertyChangeListener {
 
             // --- TAG SCORING ---
             List<String> offerTags = Arrays.asList(
-                    offer.topicTags.toLowerCase().split(",\\s*"));
+                    offer.getTopicTags().toLowerCase().split(",\\s*"));
             int score = 0;
             for (String tag : desiredTags) {
                 if (offerTags.contains(tag.trim())) score++;
@@ -389,7 +398,7 @@ public class CareerFairSystem implements PropertyChangeListener {
 
             if (score > 0) {
                 scoreMap.put(offer, score);
-                System.out.println("[MATCHENGINE] Offer @ " + offer.startTime
+                System.out.println("[MATCHENGINE] Offer @ " + offer.getStartTime()
                         + " score=" + score + "/" + desiredTags.size());
             }
         }
@@ -404,25 +413,28 @@ public class CareerFairSystem implements PropertyChangeListener {
                 scoreMap.entrySet(),
                 Map.Entry.comparingByValue()).getKey();
 
-        System.out.println("[MATCHENGINE] Winner: " + bestOffer.startTime
+        System.out.println("[MATCHENGINE] Winner: " + bestOffer.getStartTime()
                 + " (score=" + scoreMap.get(bestOffer) + ")");
 
         // Create confirmed Reservation
         Reservation reservation = new Reservation();
-        reservation.candidate      = candidate;
-        reservation.offer          = bestOffer;
-        reservation.scheduledStart = bestOffer.startTime;
-        reservation.scheduledEnd   = bestOffer.endTime;
-        reservation.state          = ReservationState.CONFIRMED;
+        reservation.setCandidate(candidate);
+        reservation.setOffer(bestOffer);
+        reservation.setScheduledStart(bestOffer.getStartTime());
+        reservation.setScheduledEnd(bestOffer.getEndTime());
+        reservation.setState(ReservationState.CONFIRMED);
 
-        if (candidate.reservations == null) candidate.reservations = new ArrayList<>();
-        candidate.reservations.add(reservation);
-        if (bestOffer.reservations == null) bestOffer.reservations = new ArrayList<>();
-        bestOffer.reservations.add(reservation);
+        if (candidate.getReservations() != null) {
+            // Add to existing collection
+            ((java.util.ArrayList<Reservation>) candidate.getReservations()).add(reservation);
+        }
+        if (bestOffer.getReservations() != null) {
+            ((java.util.ArrayList<Reservation>) bestOffer.getReservations()).add(reservation);
+        }
 
-        System.out.println("[MATCHENGINE] CONFIRMED: " + candidate.displayName
-                + " → " + bestOffer.startTime
-                + " with " + (bestOffer.publisher != null ? bestOffer.publisher.displayName : "unknown"));
+        System.out.println("[MATCHENGINE] CONFIRMED: " + candidate.getDisplayName()
+                + " → " + bestOffer.getStartTime()
+                + " with " + (bestOffer.getPublisher() != null ? bestOffer.getPublisher().getDisplayName() : "unknown"));
         return reservation;
     }
 
@@ -434,17 +446,99 @@ public class CareerFairSystem implements PropertyChangeListener {
         List<Offer> allOffers = new ArrayList<>();
         if (fair.organizations == null) return allOffers;
         for (Organization org : fair.organizations) {
-            if (org.booths == null) continue;
-            for (Booth booth : org.booths) {
-                if (booth.recruiters == null) continue;
-                for (Recruiter recruiter : booth.recruiters) {
-                    if (recruiter.offers != null) {
-                        allOffers.addAll(recruiter.offers);
+            if (org.getBooths() == null) continue;
+            for (Booth booth : org.getBooths()) {
+                if (booth.getRecruiters() == null) continue;
+                for (Recruiter recruiter : booth.getRecruiters()) {
+                    if (recruiter.getOffers() != null && !recruiter.getOffers().isEmpty()) {
+                        allOffers.addAll(recruiter.getOffers());
                     }
                 }
             }
         }
         return allOffers;
+    }
+
+    // =========================================================
+    // PUBLIC QUERY METHODS (for controllers)
+    // =========================================================
+
+    /**
+     * Find an organization by name.
+     * @param name Organization name to search for
+     * @return The Organization if found, null otherwise
+     */
+    public Organization getOrganizationByName(String name) {
+        if (name == null || fair.organizations == null) return null;
+        for (Organization org : fair.organizations) {
+            if (name.equals(org.getName())) {
+                return org;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Find a booth by name (searches all organizations).
+     * @param name Booth name to search for
+     * @return The Booth if found, null otherwise
+     */
+    public Booth getBoothByName(String name) {
+        if (name == null || fair.organizations == null) return null;
+        for (Organization org : fair.organizations) {
+            if (org.getBooths() == null) continue;
+            for (Booth booth : org.getBooths()) {
+                if (name.equals(booth.getTitle())) {
+                    return booth;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Parse timeline strings (format: "yyyy-MM-ddTHH:mm") and configure the fair.
+     * @param openStr Bookings open time
+     * @param closeStr Bookings close time
+     * @param startStr Fair start time
+     * @param endStr Fair end time
+     */
+    public void setFairTimes(String openStr, String closeStr, String startStr, String endStr) {
+        // Parse strings to LocalDateTime
+        // Simple parser: assumes "yyyy-MM-ddTHH:mm" format
+        LocalDateTime open = parseTimeString(openStr);
+        LocalDateTime close = parseTimeString(closeStr);
+        LocalDateTime start = parseTimeString(startStr);
+        LocalDateTime end = parseTimeString(endStr);
+
+        // Delegate to CareerFair
+        fair.setTimes(open, close, start, end);
+        Logger.log(LogLevel.INFO, "Fair times set via controller: open=" + openStr + ", close=" + closeStr + ", start=" + startStr + ", end=" + endStr);
+    }
+
+    /**
+     * Parse a time string in format "yyyy-MM-ddTHH:mm".
+     * @param timeStr The time string to parse
+     * @return LocalDateTime object
+     * @throws IllegalArgumentException if format is invalid
+     */
+    private LocalDateTime parseTimeString(String timeStr) {
+        if (timeStr == null || !timeStr.matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}")) {
+            throw new IllegalArgumentException("Time must be in format yyyy-MM-ddTHH:mm, got: " + timeStr);
+        }
+
+        // Split "2026-04-07T09:00"
+        String[] parts = timeStr.split("T");
+        String[] dateParts = parts[0].split("-");
+        String[] timeParts = parts[1].split(":");
+
+        int year = Integer.parseInt(dateParts[0]);
+        int month = Integer.parseInt(dateParts[1]);
+        int day = Integer.parseInt(dateParts[2]);
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
+
+        return new LocalDateTime(year, month, day, hour, minute);
     }
 
     // =========================================================

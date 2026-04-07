@@ -57,6 +57,29 @@ public class LocalDateTime {
         this.inner = inner;
     }
 
+    /**
+     * Parse a LocalDateTime from a time string (HH:mm format).
+     * Assumes the current date (2026-01-01 for testing).
+     * 
+     * Example: LocalDateTime.parse("09:30") → LocalDateTime(2026, 1, 1, 9, 30)
+     * 
+     * @param timeStr Time string in "HH:mm" format
+     * @return LocalDateTime object
+     * @throws IllegalArgumentException if format is invalid
+     */
+    public static LocalDateTime parse(String timeStr) {
+        if (timeStr == null || !timeStr.matches("\\d{1,2}:\\d{2}")) {
+            throw new IllegalArgumentException("Time must be in HH:mm format");
+        }
+        String[] parts = timeStr.split(":");
+        int hour = Integer.parseInt(parts[0]);
+        int minute = Integer.parseInt(parts[1]);
+        if (hour < 0 || hour > 23 || minute < 0 || minute > 59) {
+            throw new IllegalArgumentException("Invalid hour or minute values");
+        }
+        return new LocalDateTime(2026, 1, 1, hour, minute);
+    }
+
     // =========================================================
     // TIME ARITHMETIC
     // =========================================================
@@ -161,6 +184,15 @@ public class LocalDateTime {
     @Override
     public String toString() {
         return this.inner.format(DISPLAY_FORMAT);
+    }
+
+    /**
+     * Format this LocalDateTime using the provided DateTimeFormatter.
+     * @param formatter The formatter to use
+     * @return Formatted string
+     */
+    public String format(DateTimeFormatter formatter) {
+        return this.inner.format(formatter);
     }
 
     /**

@@ -1,6 +1,8 @@
 package vcfs.models.booking;
 
 import vcfs.core.LocalDateTime;
+import vcfs.core.Logger;
+import vcfs.core.LogLevel;
 import vcfs.models.enums.ReservationState;
 import vcfs.models.users.Candidate;
 
@@ -9,27 +11,44 @@ import vcfs.models.users.Candidate;
  */
 public class Reservation {
 
-	public Candidate candidate;
-	public Offer offer;
-	public MeetingSession session;
-	public ReservationState state;
-	public LocalDateTime scheduledStart;
-	public LocalDateTime scheduledEnd;
+	private Candidate candidate;
+	private Offer offer;
+	private MeetingSession session;
+	private ReservationState state;
+	private LocalDateTime scheduledStart;
+	private LocalDateTime scheduledEnd;
+
+	/**
+	 * Create an empty Reservation.
+	 */
+	public Reservation() {
+		this.candidate = null;
+		this.offer = null;
+		this.session = null;
+		this.state = null;
+		this.scheduledStart = null;
+		this.scheduledEnd = null;
+	}
 
 	/**
 	 * Cancel the reservation (reason recorded by policy).
-	 * @param reason
+	 * @param reason The cancellation reason
+	 * @throws IllegalArgumentException if reason is invalid
 	 */
 	public void cancel(String reason) {
+		if (reason == null || reason.trim().isEmpty()) {
+			throw new IllegalArgumentException("Cancellation reason cannot be empty");
+		}
 		this.state = ReservationState.CANCELLED;
-		System.out.println("[Reservation] Cancelled for " 
-			+ (candidate != null ? candidate.displayName : "unknown") 
+		Logger.log(LogLevel.INFO, "Cancelled for " 
+			+ (candidate != null ? candidate.getDisplayName() : "unknown") 
 			+ ": " + reason);
 	}
 
 	/**
 	 * True iff reservation is active at time now.
-	 * @param now
+	 * @param now The time to check
+	 * @return True if active
 	 */
 	public boolean isActive(LocalDateTime now) {
 		if (state != ReservationState.CONFIRMED && state != ReservationState.IN_PROGRESS) {
@@ -39,6 +58,35 @@ public class Reservation {
 			return false;
 		}
 		return now.isAfterOrEqual(scheduledStart) && now.isBeforeOrEqual(scheduledEnd);
+	}
+
+	public Candidate getCandidate() { return candidate; }
+	public void setCandidate(Candidate candidate) { this.candidate = candidate; }
+	
+	public Offer getOffer() { return offer; }
+	public void setOffer(Offer offer) { this.offer = offer; }
+	
+	public MeetingSession getSession() { return session; }
+	public void setSession(MeetingSession session) { this.session = session; }
+	
+	public ReservationState getState() { return state; }
+	public void setState(ReservationState state) { this.state = state; }
+	
+	public LocalDateTime getScheduledStart() { return scheduledStart; }
+	public void setScheduledStart(LocalDateTime scheduledStart) { this.scheduledStart = scheduledStart; }
+	
+	public LocalDateTime getScheduledEnd() { return scheduledEnd; }
+	public void setScheduledEnd(LocalDateTime scheduledEnd) { this.scheduledEnd = scheduledEnd; }
+
+	@Override
+	public String toString() {
+		return "Reservation{" +
+				"candidate=" + (candidate != null ? candidate.getDisplayName() : "unknown") +
+				", offer=" + (offer != null ? offer.getTitle() : "none") +
+				", state=" + state +
+				", scheduledStart=" + scheduledStart +
+				", scheduledEnd=" + scheduledEnd +
+				'}';
 	}
 
 }

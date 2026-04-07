@@ -2,6 +2,8 @@ package vcfs.models.booking;
 
 import java.util.*;
 import vcfs.core.LocalDateTime;
+import vcfs.core.Logger;
+import vcfs.core.LogLevel;
 import vcfs.models.structure.VirtualRoom;
 import vcfs.models.audit.AttendanceRecord;
 import vcfs.models.enums.MeetingState;
@@ -13,57 +15,167 @@ import vcfs.models.users.Candidate;
  */
 public class MeetingSession {
 
-	public VirtualRoom room;
-	public Lobby lobby;
-	public Collection<AttendanceRecord> attendanceRecords;
-	public Reservation reservation;
-	public MeetingState state;
+	private VirtualRoom room;
+	private Lobby lobby;
+	private Collection<AttendanceRecord> attendanceRecords;
+	private Reservation reservation;
+	private MeetingState state;
 
 	/**
-	 * Start the session (WAITING â†’ IN_PROGRESS).
-	 * @param now
+	 * Create an empty MeetingSession.
 	 */
-	public void start(LocalDateTime now) {
-		// TODO - implement MeetingSession.start
-		throw new UnsupportedOperationException();
+	public MeetingSession() {
+		this.room = null;
+		this.lobby = new Lobby();
+		this.attendanceRecords = new ArrayList<>();
+		this.reservation = null;
+		this.state = MeetingState.WAITING;
 	}
 
 	/**
-	 * End the session (IN_PROGRESS â†’ ENDED) and finalise records.
-	 * @param now
+	 * Get the virtual room for this session.
+	 */
+	public VirtualRoom getRoom() {
+		return room;
+	}
+
+	/**
+	 * Set the virtual room for this session.
+	 * @param room The virtual room
+	 */
+	public void setRoom(VirtualRoom room) {
+		this.room = room;
+	}
+
+	/**
+	 * Get the lobby for this session.
+	 */
+	public Lobby getLobby() {
+		return lobby;
+	}
+
+	/**
+	 * Get all attendance records.
+	 */
+	public Collection<AttendanceRecord> getAttendanceRecords() {
+		return Collections.unmodifiableCollection(attendanceRecords);
+	}
+
+	/**
+	 * Get the reservation for this session.
+	 */
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	/**
+	 * Set the reservation for this session.
+	 * @param reservation The reservation
+	 */
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+
+	/**
+	 * Get the session state.
+	 */
+	public MeetingState getState() {
+		return state;
+	}
+
+	/**
+	 * Set the session state.
+	 * @param state The meeting state
+	 */
+	public void setState(MeetingState state) {
+		if (state == null) {
+			throw new IllegalArgumentException("Meeting state cannot be null");
+		}
+		this.state = state;
+	}
+
+	/**
+	 * Start the session.
+	 * @param now The current time
+	 */
+	public void start(LocalDateTime now) {
+		if (state != MeetingState.WAITING) {
+			Logger.log(LogLevel.WARNING, "Attempted to start session that is not waiting");
+			return;
+		}
+		state = MeetingState.IN_PROGRESS;
+		Logger.log(LogLevel.INFO, "MeetingSession started at " + now);
+	}
+
+	/**
+	 * End the session and finalise records.
+	 * @param now The current time
 	 */
 	public void end(LocalDateTime now) {
-		// TODO - implement MeetingSession.end
-		throw new UnsupportedOperationException();
+		if (state != MeetingState.IN_PROGRESS) {
+			Logger.log(LogLevel.WARNING, "Attempted to end session that is not in progress");
+			return;
+		}
+		state = MeetingState.ENDED;
+		Logger.log(LogLevel.INFO, "MeetingSession ended at " + now);
 	}
 
 	/**
 	 * Create/update attendance record when a candidate joins.
-	 * @param candidate
-	 * @param now
+	 * @param candidate The candidate joining
+	 * @param now The join time
+	 * @return The attendance record
 	 */
 	public AttendanceRecord recordJoin(Candidate candidate, LocalDateTime now) {
-		// TODO - implement MeetingSession.recordJoin
-		throw new UnsupportedOperationException();
+		if (candidate == null) {
+			throw new IllegalArgumentException("Candidate cannot be null");
+		}
+		AttendanceRecord record = new AttendanceRecord();
+		record.session = this;
+		record.joinTime = now;
+		attendanceRecords.add(record);
+		Logger.log(LogLevel.INFO, "Join recorded for " + candidate.getDisplayName());
+		return record;
 	}
 
 	/**
 	 * Update attendance record when a candidate leaves.
-	 * @param candidate
-	 * @param now
+	 * @param candidate The candidate leaving
+	 * @param now The leave time
 	 */
 	public void recordLeave(Candidate candidate, LocalDateTime now) {
-		// TODO - implement MeetingSession.recordLeave
-		throw new UnsupportedOperationException();
+		if (candidate == null) {
+			throw new IllegalArgumentException("Candidate cannot be null");
+		}
+		for (AttendanceRecord record : attendanceRecords) {
+			if (record.joinTime != null && record.leaveTime == null) {
+				record.leaveTime = now;
+				Logger.log(LogLevel.INFO, "Leave recorded for " + candidate.getDisplayName());
+				return;
+			}
+		}
 	}
 
 	/**
-	 * Set session outcome (attended / no-show / ended-early).
-	 * @param outcome
+	 * Set session outcome.
+	 * @param outcome The outcome
 	 */
 	public void setOutcome(AttendanceOutcome outcome) {
-		// TODO - implement MeetingSession.setOutcome
-		throw new UnsupportedOperationException();
+		if (outcome == null) {
+			throw new IllegalArgumentException("Outcome cannot be null");
+		}
+		for (AttendanceRecord record : attendanceRecords) {
+			record.outcome = outcome;
+		}
+		Logger.log(LogLevel.INFO, "Session outcome set to: " + outcome);
+	}
+
+	@Override
+	public String toString() {
+		return "MeetingSession{" +
+				"state=" + state +
+				", records=" + attendanceRecords.size() +
+				'}';
 	}
 
 }

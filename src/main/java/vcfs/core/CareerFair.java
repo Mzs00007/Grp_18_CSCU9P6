@@ -96,7 +96,7 @@ public class CareerFair {
      * @param startTime When the live fair begins
      * @param endTime   When the fair ends completely
      */
-    void setTimes(LocalDateTime openTime, LocalDateTime closeTime,
+    public void setTimes(LocalDateTime openTime, LocalDateTime closeTime,
                   LocalDateTime startTime, LocalDateTime endTime) {
 
         // === Validate chronological ordering ===
@@ -257,5 +257,13 @@ public class CareerFair {
      */
     FairPhase getCurrentPhase() {
         return currentPhase;
+    }
+
+    /**
+     * Get all participating organizations.
+     * Used by AdminController to find organizations by name.
+     */
+    public Collection<Organization> getOrganizations() {
+        return organizations;
     }
 }

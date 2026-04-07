@@ -8,9 +8,66 @@ import vcfs.core.LocalDateTime;
  */
 public class AuditEntry {
 
-	public CareerFair fair;
-	public LocalDateTime timestamp;
-	public String eventType;
+	private CareerFair fair;
+	private LocalDateTime timestamp;
+	private String eventType;
+
+	/**
+	 * Create an audit entry.
+	 * @param fair The career fair
+	 * @param timestamp The time of the event
+	 * @param eventType The type of event
+	 */
+	public AuditEntry(CareerFair fair, LocalDateTime timestamp, String eventType) {
+		setFair(fair);
+		setTimestamp(timestamp);
+		setEventType(eventType);
+	}
+
+	/**
+	 * Get the career fair.
+	 */
+	public CareerFair getFair() {
+		return fair;
+	}
+
+	/**
+	 * Set the career fair.
+	 * @param fair The fair
+	 */
+	public void setFair(CareerFair fair) {
+		this.fair = fair;
+	}
+
+	/**
+	 * Get the timestamp.
+	 */
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+
+	/**
+	 * Set the timestamp.
+	 * @param timestamp The time
+	 */
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	/**
+	 * Get the event type.
+	 */
+	public String getEventType() {
+		return eventType;
+	}
+
+	/**
+	 * Set the event type.
+	 * @param eventType The type
+	 */
+	public void setEventType(String eventType) {
+		this.eventType = eventType;
+	}
 
 	/**
 	 * Format the entry for display/export.

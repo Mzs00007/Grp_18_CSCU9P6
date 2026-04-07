@@ -3,45 +3,114 @@ package vcfs.models.users;
 import java.util.*;
 import vcfs.models.booking.Offer;
 import vcfs.models.structure.Booth;
+import vcfs.core.Logger;
+import vcfs.core.LogLevel;
 
 /**
  * Recruiter assigned to a Booth; publishes Offers and hosts sessions.
  */
 public class Recruiter extends User {
 
-	public Collection<Offer> offers;
-	public Booth booth;
+	private Collection<Offer> offers;
+	private Booth booth;
+
+	/**
+	 * Create a Recruiter with required user details.
+	 * @param id Unique recruiter identifier
+	 * @param displayName Recruiter's display name
+	 * @param email Recruiter's email address
+	 */
+	public Recruiter(String id, String displayName, String email) {
+		super(id, displayName, email);
+		this.offers = new ArrayList<>();
+		this.booth = null;
+	}
+
+	/**
+	 * Get all offers published by this recruiter.
+	 */
+	public Collection<Offer> getOffers() {
+		return Collections.unmodifiableCollection(offers);
+	}
+
+	/**
+	 * Internal method to add an offer to this recruiter's collection.
+	 * Used by CareerFairSystem.parseAvailabilityIntoOffers().
+	 * @param offer The offer to add (cannot be null)
+	 * @throws IllegalArgumentException if offer is null
+	 */
+	public void addOffer(Offer offer) {
+		if (offer == null) {
+			throw new IllegalArgumentException("Offer cannot be null");
+		}
+		this.offers.add(offer);
+	}
+
+	/**
+	 * Get the booth assigned to this recruiter.
+	 */
+	public Booth getBooth() {
+		return booth;
+	}
+
+	/**
+	 * Set the booth assigned to this recruiter.
+	 * @param booth The booth to assign (can be null for unassignment)
+	 */
+	public void setBooth(Booth booth) {
+		this.booth = booth;
+	}
 
 	/**
 	 * Create a new offer owned by this recruiter (system registers it).
-	 * @param title
-	 * @param durationMins
-	 * @param topicTags
-	 * @param capacity
+	 * @param title Title of the offer (cannot be empty)
+	 * @param durationMins Duration in minutes (must be positive)
+	 * @param topicTags Topic tags for the offer (cannot be empty)
+	 * @param capacity Capacity for the offer (must be positive)
+	 * @return The created Offer
+	 * @throws IllegalArgumentException if any parameter is invalid
 	 */
 	public Offer publishOffer(String title, int durationMins, String topicTags, int capacity) {
-		if (this.offers == null) {
-			this.offers = new ArrayList<>();
+		if (title == null || title.trim().isEmpty()) {
+			throw new IllegalArgumentException("Title cannot be empty");
 		}
+		if (durationMins <= 0) {
+			throw new IllegalArgumentException("Duration must be positive");
+		}
+		if (topicTags == null || topicTags.trim().isEmpty()) {
+			throw new IllegalArgumentException("Topic tags cannot be empty");
+		}
+		if (capacity <= 0) {
+			throw new IllegalArgumentException("Capacity must be positive");
+		}
+
 		Offer offer = new Offer();
-		offer.title = title;
-		offer.durationMins = durationMins;
-		offer.topicTags = topicTags;
-		offer.capacity = capacity;
-		offer.publisher = this;
-		offer.reservations = new ArrayList<>();
+		offer.setTitle(title);
+		offer.setDurationMins(durationMins);
+		offer.setTopicTags(topicTags);
+		offer.setCapacity(capacity);
+		offer.setPublisher(this);
 		this.offers.add(offer);
-		System.out.println("[Recruiter] Offer published by " + this.displayName + ": " + title);
+		
+		Logger.log(LogLevel.INFO, "Offer published by " + this.getDisplayName() + ": " + title);
 		return offer;
 	}
 
 	/**
 	 * Request cancellation of a reservation as a recruiter (policy enforced by system).
-	 * @param reservationId
-	 * @param reason
+	 * @param reservationId ID of the reservation to cancel
+	 * @param reason Reason for cancellation
+	 * @throws IllegalArgumentException if parameters are invalid
 	 */
 	public void cancelReservation(String reservationId, String reason) {
-		System.out.println("[Recruiter] Cancellation requested by " + this.displayName 
+		if (reservationId == null || reservationId.trim().isEmpty()) {
+			throw new IllegalArgumentException("Reservation ID cannot be empty");
+		}
+		if (reason == null || reason.trim().isEmpty()) {
+			throw new IllegalArgumentException("Reason cannot be empty");
+		}
+
+		Logger.log(LogLevel.INFO, "Cancellation requested by " + this.getDisplayName() 
 			+ ": " + reservationId + " (" + reason + ")");
 	}
 
@@ -49,14 +118,14 @@ public class Recruiter extends User {
 	 * Return a human-readable view of the recruiter's schedule.
 	 */
 	public String viewSchedule() {
-		if (offers == null || offers.isEmpty()) {
-			return "[Recruiter] " + this.displayName + " has no published offers.";
+		if (offers.isEmpty()) {
+			return "[Recruiter] " + this.getDisplayName() + " has no published offers.";
 		}
-		StringBuilder sb = new StringBuilder("[Recruiter] " + this.displayName + "'s Offers:\n");
+		StringBuilder sb = new StringBuilder("[Recruiter] " + this.getDisplayName() + "'s Offers:\n");
 		for (Offer o : offers) {
-			sb.append("  - ").append(o.title)
-				.append(" @ ").append(o.startTime != null ? o.startTime : "not scheduled")
-				.append(" (").append(o.durationMins).append(" min, cap=").append(o.capacity).append(")\n");
+			sb.append("  - ").append(o.getTitle())
+				.append(" @ ").append(o.getStartTime() != null ? o.getStartTime() : "not scheduled")
+				.append(" (").append(o.getDurationMins()).append(" min, cap=").append(o.getCapacity()).append(")\n");
 		}
 		return sb.toString();
 	}

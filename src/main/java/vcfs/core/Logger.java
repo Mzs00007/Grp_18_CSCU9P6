@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Logger {
@@ -20,7 +19,7 @@ public class Logger {
     }
 
     private static String getLogFilePath() {
-        String today = LocalDateTime.now().format(DATE_FORMAT);
+        String today = SystemTimer.getInstance().getNow().format(DATE_FORMAT);
         return LOG_DIR + File.separator + "session_" + today + ".log";
     }
 
@@ -50,7 +49,7 @@ public class Logger {
         String fileName = (caller != null) ? caller.getFileName() : "Unknown";
         int lineNumber = (caller != null) ? caller.getLineNumber() : -1;
         
-        String timestamp = LocalDateTime.now().format(TIME_FORMAT);
+        String timestamp = SystemTimer.getInstance().getNow().format(TIME_FORMAT);
         
         // Plain text log entry for the file to keep it clean
         String fileLogEntry = String.format("[%s] [%s] [%s:%d] - %s",
