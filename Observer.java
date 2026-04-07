@@ -4,6 +4,7 @@
  */
 package com.mycompany.admin;
 
+import com.mycompany.admin.*; 
 /**
  *
  * @author leiyam
