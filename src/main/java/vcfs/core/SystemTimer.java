@@ -100,7 +100,7 @@ public class SystemTimer {
      */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
-        System.out.println("[SystemTimer] Listener registered: "
+        Logger.log(LogLevel.INFO, "Listener registered: "
                 + listener.getClass().getSimpleName());
     }
 
@@ -136,7 +136,7 @@ public class SystemTimer {
         LocalDateTime oldTime = this.now;
         this.now = this.now.plusMinutes(mins);
 
-        System.out.println("[SystemTimer] +" + mins + "min  →  "
+        Logger.log(LogLevel.INFO, "+" + mins + "min  →  "
                 + oldTime + " ──► " + this.now);
 
         // Broadcast: all registered listeners receive this automatically
@@ -163,7 +163,7 @@ public class SystemTimer {
         LocalDateTime oldTime = this.now;
         this.now = time;
 
-        System.out.println("[SystemTimer] JUMP  →  " + this.now);
+        Logger.log(LogLevel.INFO, "JUMP  →  " + this.now);
 
         // Broadcast to all registered listeners
         support.firePropertyChange("time", oldTime, this.now);

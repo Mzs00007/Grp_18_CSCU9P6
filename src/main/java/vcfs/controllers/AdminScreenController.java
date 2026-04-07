@@ -36,7 +36,6 @@ public class AdminScreenController {
             
             // Log the action
             Logger.log(LogLevel.INFO, "Organization created: " + name);
-            System.out.println("[AdminScreenController] ✓ Organization created: " + name);
         } catch (Exception e) {
             Logger.log(LogLevel.ERROR, "Failed to create organization: " + name, e);
             throw e;
@@ -72,7 +71,6 @@ public class AdminScreenController {
             
             // Log the action
             Logger.log(LogLevel.INFO, "Booth created: " + boothName + " in " + orgName);
-            System.out.println("[AdminScreenController] ✓ Booth created: " + boothName + " in " + orgName);
         } catch (Exception e) {
             Logger.log(LogLevel.ERROR, "Failed to create booth: " + boothName, e);
             throw e;
@@ -111,7 +109,6 @@ public class AdminScreenController {
             
             // Log the action
             Logger.log(LogLevel.INFO, "Recruiter assigned: " + recruiterName + " to " + boothName);
-            System.out.println("[AdminScreenController] ✓ Recruiter assigned: " + recruiterName + " to " + boothName);
         } catch (Exception e) {
             Logger.log(LogLevel.ERROR, "Failed to assign recruiter: " + recruiterName, e);
             throw e;
@@ -141,7 +138,6 @@ public class AdminScreenController {
                 + ", close=" + closeStr 
                 + ", start=" + startStr 
                 + ", end=" + endStr);
-            System.out.println("[AdminScreenController] ✓ Timeline configured");
         } catch (Exception e) {
             Logger.log(LogLevel.ERROR, "Failed to set timeline", e);
             throw e;

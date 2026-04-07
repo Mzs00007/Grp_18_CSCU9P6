@@ -19,10 +19,10 @@ import vcfs.models.enums.AttendanceOutcome;
  */
 public class AttendanceRecord {
 
-	public MeetingSession session;
-	public LocalDateTime joinTime;
-	public LocalDateTime leaveTime;
-	public AttendanceOutcome outcome;
+	private MeetingSession session;
+	private LocalDateTime joinTime;
+	private LocalDateTime leaveTime;
+	private AttendanceOutcome outcome;
 
 	/**
 	 * Create an empty attendance record.
@@ -32,6 +32,38 @@ public class AttendanceRecord {
 		this.joinTime = null;
 		this.leaveTime = null;
 		this.outcome = null;
+	}
+
+	public MeetingSession getSession() {
+		return session;
+	}
+
+	public void setSession(MeetingSession session) {
+		this.session = session;
+	}
+
+	public LocalDateTime getJoinTime() {
+		return joinTime;
+	}
+
+	public void setJoinTime(LocalDateTime joinTime) {
+		this.joinTime = joinTime;
+	}
+
+	public LocalDateTime getLeaveTime() {
+		return leaveTime;
+	}
+
+	public void setLeaveTime(LocalDateTime leaveTime) {
+		this.leaveTime = leaveTime;
+	}
+
+	public AttendanceOutcome getOutcome() {
+		return outcome;
+	}
+
+	public void setOutcome(AttendanceOutcome outcome) {
+		this.outcome = outcome;
 	}
 
 	/**
@@ -60,6 +92,3 @@ public class AttendanceRecord {
 	}
 
 }
-
-
-

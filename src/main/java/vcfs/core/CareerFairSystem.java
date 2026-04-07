@@ -67,7 +67,7 @@ public class CareerFairSystem implements PropertyChangeListener {
         // will automatically call our propertyChange() method.
         SystemTimer.getInstance().addPropertyChangeListener(this);
 
-        System.out.println("[CareerFairSystem] Singleton created. Observer registered.");
+        Logger.info("[CareerFairSystem] Singleton created. Observer registered.");
     }
 
     /** Access the single CareerFairSystem instance */
@@ -139,7 +139,7 @@ public class CareerFairSystem implements PropertyChangeListener {
     public void configureTimes(LocalDateTime openTime, LocalDateTime closeTime,
                         LocalDateTime startTime, LocalDateTime endTime) {
         fair.setTimes(openTime, closeTime, startTime, endTime);
-        System.out.println("[CareerFairSystem] Fair times configured.");
+        Logger.info("[CareerFairSystem] Fair times configured.");
     }
 
     /**
@@ -155,7 +155,7 @@ public class CareerFairSystem implements PropertyChangeListener {
         fair.bookingsCloseTime  = null;
         fair.startTime          = null;
         fair.endTime            = null;
-        System.out.println("[CareerFairSystem] Fair data reset. All collections cleared.");
+        Logger.info("[CareerFairSystem] Fair data reset. All collections cleared.");
     }
 
     // =========================================================
@@ -367,7 +367,7 @@ public class CareerFairSystem implements PropertyChangeListener {
         // Phase guard
         LocalDateTime now = SystemTimer.getInstance().getNow();
         if (!fair.canBook(now)) {
-            System.out.println("[MATCHENGINE] Rejected — Phase: " + fair.getCurrentPhase());
+            Logger.info("[MATCHENGINE] Rejected — Phase: " + fair.getCurrentPhase());
             return null;
         }
 
@@ -421,7 +421,7 @@ public class CareerFairSystem implements PropertyChangeListener {
         }
 
         if (scoreMap.isEmpty()) {
-            System.out.println("[MATCHENGINE] No matching offers found.");
+            Logger.info("[MATCHENGINE] No matching offers found.");
             return null;
         }
 

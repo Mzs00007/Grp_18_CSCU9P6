@@ -141,8 +141,8 @@ public class MeetingSession {
 			throw new IllegalArgumentException("Candidate cannot be null");
 		}
 		AttendanceRecord record = new AttendanceRecord();
-		record.session = this;
-		record.joinTime = now;
+		record.setSession(this);
+		record.setJoinTime(now);
 		attendanceRecords.add(record);
 		Logger.log(LogLevel.INFO, "Join recorded for " + candidate.getDisplayName());
 		return record;
@@ -158,8 +158,8 @@ public class MeetingSession {
 			throw new IllegalArgumentException("Candidate cannot be null");
 		}
 		for (AttendanceRecord record : attendanceRecords) {
-			if (record.joinTime != null && record.leaveTime == null) {
-				record.leaveTime = now;
+			if (record.getJoinTime() != null && record.getLeaveTime() == null) {
+				record.setLeaveTime(now);
 				Logger.log(LogLevel.INFO, "Leave recorded for " + candidate.getDisplayName());
 				return;
 			}
@@ -175,7 +175,7 @@ public class MeetingSession {
 			throw new IllegalArgumentException("Outcome cannot be null");
 		}
 		for (AttendanceRecord record : attendanceRecords) {
-			record.outcome = outcome;
+			record.setOutcome(outcome);
 		}
 		Logger.log(LogLevel.INFO, "Session outcome set to: " + outcome);
 	}
