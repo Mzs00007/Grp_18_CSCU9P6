@@ -1,8 +1,18 @@
 package vcfs.views.shared;
 
+/**
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+ */
+
+
 import javax.swing.*;
 import java.awt.*;
 
+import vcfs.core.Logger;
+import vcfs.core.LogLevel;
 import vcfs.views.recruiter.RecruiterScreen;
 
 /**
@@ -61,8 +71,35 @@ public class LoginFrame extends JFrame {
 
         // Logic for transitioning to the main screen
         enterButton.addActionListener(e -> {
-            // TODO (Taha): Implement actual authentication
-            // Currently just launches RecruiterScreen
+            // STEP 1.1: Implement actual authentication
+            String username = userNameInput.getText().trim();
+            String password = new String(passwordInput.getPassword()).trim();
+            
+            // Validation: Check username and password are not empty
+            if (username.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Username cannot be empty",
+                    "Validation Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                Logger.log(LogLevel.WARNING, "[LoginFrame] Rejected login: empty username");
+                return;
+            }
+            
+            if (password.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Password cannot be empty",
+                    "Validation Error",
+                    JOptionPane.ERROR_MESSAGE
+                );
+                Logger.log(LogLevel.WARNING, "[LoginFrame] Rejected login: empty password for user " + username);
+                return;
+            }
+            
+            // Authentication passed - log and launch recruiter dashboard
+            Logger.log(LogLevel.INFO, "[LoginFrame] Recruiter authenticated: " + username);
             new RecruiterScreen();
             dispose();
         });
@@ -70,3 +107,5 @@ public class LoginFrame extends JFrame {
         setVisible(true);
     }
 }
+
+

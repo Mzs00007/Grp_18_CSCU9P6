@@ -1,231 +1,172 @@
-## Administrator Module
+# Virtual Career Fair System (VCFS)
+**Group 9 - CSCU9P6**
 
-### System Role
-
-This module manages the **Preparing State** of the application. It is responsible for initializing system data, configuring the event timeline, and monitoring system activity via audit logging.
-
-
-## Architecture Overview
-
-The module follows an **MVC + Observer Pattern design**:
-
-```
-        +------------------------+
-        |  AdministratorScreen   |
-        |        (View)          |
-        +-----------+------------+
-                    |
-                    v
-        +------------------------+
-        |    AdminController     |
-        |      (Controller)      |
-        +-----------+------------+
-                    |
-                    v
-        +------------------------+
-        |     CentralModel       |
-        |        (Model)         |
-        +-----------+------------+
-                    |
-        notifyObservers()
-                    |
-                    v
-        +------------------------+
-        |  AdministratorScreen   |
-        |     (Audit Log)        |
-        +------------------------+
-```
-
-
-## Components
-
-### 1. AdministratorScreen (View)
-
-* Built using Java Swing
-* Provides UI for:
-
-  * Organization creation
-  * Booth creation
-  * Recruiter assignment
-  * Timeline configuration
-* Displays a live **Audit Log**
-
-
-### 2. AdminController (Controller)
-
-* Handles all user actions from the UI
-* Communicates with the Model
-* Responsible for:
-
-  * Creating entities
-  * Assigning relationships
-  * Passing timeline data
-
-
-### 3. CentralModel (Model)
-
-* Stores all system data:
-
-  * Organizations
-  * Booths
-  * Recruiters
-* Maintains:
-
-  * System timeline
-  * Runtime data (reservations, sessions, notifications)
-
-
-### 4. Observer Pattern (Audit Logging)
-
-* The Model acts as **Observable**
-* AdministratorScreen acts as **Observer**
-* Any module can log events via:
-
-```java
-notifyObservers("Event description");
-```
-
-
-## System Timeline
-
-The following timestamps must be defined:
-
-* `BookingsOpenTime`
-* `BookingsCloseTime`
-* `StartTime`
-* `EndTime`
-
-Format:
-
-```
-yyyy-MM-ddTHH:mm
-```
-
-These values are used by the **SystemTimer module** to control system state transitions.
-
-
-## Data Lifecycle Management
-
-### Purge Operation
-
-Triggered when transitioning:
-
-```
-Dormant → Preparing
-```
-
-Method:
-
-```java
-model.purgeData();
-```
-
-Clears:
-
-* Reservations
-* Meeting Sessions
-* Notifications
-
-
-## Integration Guidelines
-
-* Use `CentralModel` as the single data source
-* Avoid redundant data structures
-* All system events should be logged using:
-
-```java
-notifyObservers(...)
-```
-
+## Project Leadership & Architecture
+**Project Manager & Lead Developer:** Zaid Siddiqui  
+**Collaborators:** Taha, YAMI, MJAMishkat, Mohamed
 
 ---
 
-## Developer Notes
+## 🏗️ System Architecture Overview
 
-Hey team
+The VCFS application is built upon an **Enterprise-Grade Java Architecture** utilizing strict **Model-View-Controller (MVC)** separation, the **Observer Pattern**, and a robust **State Machine**.
 
-This is the **Admin side of the system**, which basically sets everything up before the fair starts.
+### 1. High-Level MVC Flow
+```mermaid
+graph TD
+    subgraph View Layer [Java Swing UI]
+        A[AdminScreen]
+        R[RecruiterScreen]
+        C[CandidateScreen]
+    end
 
-### What this part does
+    subgraph Controller Layer [Business Logic]
+        AC[AdminController]
+        RC[RecruiterController]
+        CC[CandidateController]
+    end
 
-* This is the **first screen of the app**
-* Lets the admin:
+    subgraph Core Layer [VCFS Engine]
+        CFS[CareerFairSystem Facade]
+        CF[CareerFair State Machine]
+        ST[SystemTimer Observer]
+    end
 
-  * Create Organizations
-  * Create Booths under those orgs
-  * Assign Recruiters to booths
-  * Set the system timeline
-* Also shows a **live Audit Log** of everything happening in the system
+    subgraph Model Layer [Data Entities]
+        M1[Users: Candidate, Recruiter]
+        M2[Structure: Org, Booth, Room]
+        M3[Booking: Offer, Request, Reservation]
+    end
 
+    A --> AC
+    R --> RC
+    C --> CC
 
-### How to work with my part
+    AC --> CFS
+    RC --> CFS
+    CC --> CFS
 
-#### Model usage
-
-* Please use the **CentralModel** as the main data source
-* Don’t create duplicate lists/data in your own classes
-
-
-#### Logging events (IMPORTANT)
-
-If your feature does anything like:
-
-* booking a slot
-* cancelling a meeting
-* sending notifications
-
-Just call:
-
-```java
-model.notifyObservers("Your message here");
+    CFS --> CF
+    CFS --> ST
+    CFS --> M1
+    CFS --> M2
+    CFS --> M3
+    
+    ST -.->|Notifies| CFS
 ```
 
-That will automatically show up in the Admin Audit Log
+### 2. The Core State Machine (VCFS-002)
+The CareerFair class enforces a strict, chronological state machine to control what actions are permitted at any given time.
 
+```mermaid
+stateDiagram-v2
+    [*] --> DORMANT : App Launch
+    DORMANT --> PREPARING : Admin configures timeline
+    PREPARING --> BOOKINGS_OPEN : Clock hits BookingsOpenTime
+    BOOKINGS_OPEN --> BOOKINGS_CLOSED : Clock hits BookingsCloseTime
+    BOOKINGS_CLOSED --> FAIR_LIVE : Clock hits FairStartTime
+    FAIR_LIVE --> DORMANT : Clock hits FairEndTime
 
-#### Timeline format
+    note right of PREPARING
+      Admin creates Orgs, Booths, Recruiters
+      Recruiters publish Offers
+    end note
 
-When working with time, use:
+    note right of BOOKINGS_OPEN
+      Candidates browse and book Offers
+    end note
 
+    note right of FAIR_LIVE
+      Users join Virtual Rooms
+    end note
 ```
-yyyy-MM-ddTHH:mm
+
+### 3. VCFS-001: SystemTimer (Observer Pattern)
+A centralized, simulated clock that dictates the flow of time for the entire system, allowing for rigorous testing of time-based constraints without waiting for real-world time to pass.
+
+```mermaid
+sequenceDiagram
+    participant UI as SystemTimerScreen
+    participant ST as SystemTimer (Observable)
+    participant CFS as CareerFairSystem (Observer)
+    participant CF as CareerFair (State Machine)
+
+    UI->>ST: stepMinutes(30)
+    activate ST
+    ST->>ST: now = now.plusMinutes(30)
+    ST-->>CFS: propertyChange("time", old, new)
+    activate CFS
+    CFS->>CF: evaluatePhase(now)
+    activate CF
+    CF-->>CFS: phase updated
+    deactivate CF
+    CFS-->>ST: Handled
+    deactivate CFS
+    deactivate ST
 ```
 
-Example:
+### 4. VCFS-003 & 004: Booking Algorithms
+The system implements complex algorithms to parse recruiter availability into discrete booking slots, and a tag-weighted matching engine to automatically pair candidates with the best available offers.
 
+```mermaid
+graph LR
+    subgraph VCFS-003 Parsing
+        A[3-Hour Block: 09:00-12:00] --> B[parseAvailabilityIntoOffers]
+        B --> O1[Offer: 09:00-09:30]
+        B --> O2[Offer: 09:30-10:00]
+        B --> O3[...]
+        B --> O6[Offer: 11:30-12:00]
+    end
+
+    subgraph VCFS-004 Matching
+        C[Candidate Tags: Java, Spring] --> M[Match Engine]
+        O1 --> M
+        O2 --> M
+        M -->|Score: 2/2| R[Reservation Created]
+    end
 ```
-2026-04-05T14:00
+
+---
+
+## 📁 Directory Structure & Team Responsibilities
+
+To prevent merge conflicts and ensure code quality, the project is strictly divided by domain:
+
+| Team Member | Primary Responsibility | Isolated Folder Path |
+|-------------|----------------------|----------------------|
+| **Zaid** | Project Management, Core System | `src/main/java/vcfs/core/` |
+| **YAMI** | Admin UI & Lifecycle | `src/main/java/vcfs/views/admin/` |
+| **Taha** | Recruiter UI & Virtual Room | `src/main/java/vcfs/views/recruiter/` |
+| **MJAMishkat** | Candidate UI & Booking | `src/main/java/vcfs/views/candidate/` |
+| **Mohamed** | Architecture & QA | `src/test/java/vcfs/` |
+
+---
+
+## 🚀 How to Run
+
+A batch script is provided to compile and run the entire system cleanly:
+
+1. Double click `run_vcfs.bat`
+2. Or from command line:
+```cmd
+.\run_vcfs.bat
 ```
 
-
-#### Data Reset
-
-* When system leaves **Dormant → Preparing**
-* Call:
-
-```java
-model.purgeData();
+Alternatively, manually compile and run:
+```cmd
+mkdir bin
+javac -d bin (Get-ChildItem -Path src\main\java -Filter *.java -Recurse)
+java -cp bin vcfs.App
 ```
 
-This clears:
+---
 
-* reservations
-* sessions
-* notifications
+## 🧪 Running Tests
+The project features a comprehensive JUnit test suite (>80 tests) covering all core logic, boundary conditions, and state transitions.
 
+*Note: JUnit platform console standalone jar is required in `lib/` directory.*
 
-### Structure (simple)
-
-* `AdministratorScreen` → UI
-* `AdminController` → handles actions
-* `CentralModel` → shared system data
-* `Observer` → audit log system
-
-
-### TLDR
-
-* I handle setup + logging
-* You guys plug into the model
-* Use `notifyObservers()` for logging anything important
-
-Let me know if you need help connecting your part
+```cmd
+javac -cp "lib\*;bin" -d bin (Get-ChildItem -Path src\test\java -Filter *.java -Recurse | Select-Object -ExpandProperty FullName)
+java -jar lib\junit-platform-console-standalone-1.9.2.jar --class-path bin --scan-classpath
+```

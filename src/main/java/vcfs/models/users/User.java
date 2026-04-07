@@ -1,6 +1,14 @@
 package vcfs.models.users;
 
 /**
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+ */
+
+
+/**
  * Abstract base for all users (Candidate and Recruiter).
  */
 public abstract class User {
@@ -89,4 +97,6 @@ public abstract class User {
 	}
 
 }
+
+
 

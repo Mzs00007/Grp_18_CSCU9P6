@@ -1,5 +1,13 @@
 package vcfs.core;
 
+/**
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+ */
+
+
 import vcfs.models.audit.AuditEntry;
 import vcfs.models.enums.FairPhase;
 import vcfs.models.structure.Organization;
@@ -267,3 +275,5 @@ public class CareerFair {
         return organizations;
     }
 }
+
+

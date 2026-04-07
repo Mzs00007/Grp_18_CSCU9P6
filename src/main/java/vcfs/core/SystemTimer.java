@@ -1,5 +1,13 @@
 package vcfs.core;
 
+/**
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+ */
+
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -161,3 +169,5 @@ public class SystemTimer {
         support.firePropertyChange("time", oldTime, this.now);
     }
 }
+
+

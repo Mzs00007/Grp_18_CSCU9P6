@@ -1,5 +1,13 @@
 package vcfs.views.admin;
 
+/**
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+ */
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -56,13 +64,13 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
 
         // ===== MAIN PANEL =====
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setLayout(new GridLayout(4, 1, 10, 10));
 
         // SECTION 1: CREATE ORGANIZATION
-        JPanel orgPanel = new JPanel(new FlowLayout());
-        orgPanel.setBorder(BorderFactory.createTitledBorder("Create Organization"));
+        JPanel orgPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        orgPanel.setBorder(BorderFactory.createTitledBorder("1. Create Organization"));
 
-        orgField = new JTextField(10);
+        orgField = new JTextField(15);
         JButton createOrgBtn = new JButton("Create Organization");
 
         orgPanel.add(new JLabel("Organization Name:"));
@@ -71,10 +79,10 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         mainPanel.add(orgPanel);
 
         // SECTION 2: CREATE BOOTH
-        JPanel boothPanel = new JPanel(new FlowLayout());
-        boothPanel.setBorder(BorderFactory.createTitledBorder("Create Booth"));
+        JPanel boothPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        boothPanel.setBorder(BorderFactory.createTitledBorder("2. Create Booth"));
 
-        boothField = new JTextField(10);
+        boothField = new JTextField(15);
         orgDropdown = new JComboBox<>();
         JButton createBoothBtn = new JButton("Create Booth");
 
@@ -86,12 +94,12 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         mainPanel.add(boothPanel);
 
         // SECTION 3: ASSIGN RECRUITER
-        JPanel recruiterPanel = new JPanel(new FlowLayout());
-        recruiterPanel.setBorder(BorderFactory.createTitledBorder("Assign Recruiter to Booth"));
+        JPanel recruiterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        recruiterPanel.setBorder(BorderFactory.createTitledBorder("3. Assign Recruiter to Booth"));
 
-        recruiterField = new JTextField(10);
+        recruiterField = new JTextField(15);
         boothDropdown = new JComboBox<>();
-        JButton assignRecruiterBtn = new JButton("Assign");
+        JButton assignRecruiterBtn = new JButton("Assign Recruiter");
 
         recruiterPanel.add(new JLabel("Recruiter Name:"));
         recruiterPanel.add(recruiterField);
@@ -100,17 +108,20 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         recruiterPanel.add(assignRecruiterBtn);
         mainPanel.add(recruiterPanel);
 
-        // SECTION 4: SET TIMELINE
-        JPanel timePanel = new JPanel(new GridLayout(5, 2, 10, 10));
-        timePanel.setBorder(BorderFactory.createTitledBorder("Configure Fair Timeline"));
+        // SECTION 4: SET TIMELINE & RESET
+        JPanel timePanel = new JPanel(new GridLayout(6, 2, 10, 10));
+        timePanel.setBorder(BorderFactory.createTitledBorder("4. Configure Fair Timeline"));
 
-        openField = new JTextField();
-        closeField = new JTextField();
-        startField = new JTextField();
-        endField = new JTextField();
+        openField = new JTextField("2026-04-08T09:00");
+        closeField = new JTextField("2026-04-08T12:00");
+        startField = new JTextField("2026-04-08T13:00");
+        endField = new JTextField("2026-04-08T17:00");
+        
         JButton setTimelineBtn = new JButton("Set Timeline");
+        JButton resetSystemBtn = new JButton("Reset System Data");
+        resetSystemBtn.setForeground(Color.RED);
 
-        timePanel.add(new JLabel("Bookings Open (YYYY-MM-DD HH:MM):"));
+        timePanel.add(new JLabel("Bookings Open (YYYY-MM-DDTHH:MM):"));
         timePanel.add(openField);
         timePanel.add(new JLabel("Bookings Close:"));
         timePanel.add(closeField);
@@ -118,7 +129,7 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         timePanel.add(startField);
         timePanel.add(new JLabel("Fair End:"));
         timePanel.add(endField);
-        timePanel.add(new JLabel());
+        timePanel.add(resetSystemBtn);
         timePanel.add(setTimelineBtn);
         mainPanel.add(timePanel);
 
@@ -146,7 +157,7 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
                 return;
             }
             try {
-                controller.createOrganization(name);
+                this.controller.createOrganization(name);
                 orgDropdown.addItem(name);
                 orgField.setText("");
                 auditArea.append("[✓] Organization created: " + name + "\n");
@@ -163,7 +174,7 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
                 return;
             }
             try {
-                controller.createBooth(boothName, selectedOrg.toString());
+                this.controller.createBooth(boothName, selectedOrg.toString());
                 boothDropdown.addItem(boothName);
                 boothField.setText("");
                 auditArea.append("[✓] Booth created: " + boothName + "\n");
@@ -180,7 +191,7 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
                 return;
             }
             try {
-                controller.assignRecruiter(recruiterName, selectedBooth.toString());
+                this.controller.assignRecruiter(recruiterName, selectedBooth.toString());
                 recruiterField.setText("");
                 auditArea.append("[✓] Recruiter assigned: " + recruiterName + "\n");
             } catch (Exception ex) {
@@ -190,7 +201,7 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
 
         setTimelineBtn.addActionListener(e -> {
             try {
-                controller.setTimeline(
+                this.controller.setTimeline(
                     openField.getText(),
                     closeField.getText(),
                     startField.getText(),
@@ -199,6 +210,24 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
                 auditArea.append("[✓] Timeline configured successfully.\n");
             } catch (Exception ex) {
                 auditArea.append("[ERROR] Timeline error: " + ex.getMessage() + "\n");
+            }
+        });
+
+        resetSystemBtn.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(this, 
+                "Are you sure you want to reset all fair data? This cannot be undone.", 
+                "Confirm Reset", JOptionPane.YES_NO_OPTION);
+            
+            if (confirm == JOptionPane.YES_OPTION) {
+                try {
+                    this.controller.resetFair();
+                    orgDropdown.removeAllItems();
+                    boothDropdown.removeAllItems();
+                    auditArea.setText("");
+                    auditArea.append("[✓] System Data Reset Successfully.\n");
+                } catch (Exception ex) {
+                    auditArea.append("[ERROR] Reset failed: " + ex.getMessage() + "\n");
+                }
             }
         });
 
@@ -211,8 +240,12 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if ("auditLog".equals(evt.getPropertyName())) {
-            auditArea.append("[SYSTEM] " + evt.getNewValue() + "\n");
+        if ("auditLog".equals(evt.getPropertyName()) || "time".equals(evt.getPropertyName())) {
+            auditArea.append("[SYSTEM EVENT] " + evt.getPropertyName() + ": " + evt.getNewValue() + "\n");
+            // Auto-scroll to bottom
+            auditArea.setCaretPosition(auditArea.getDocument().getLength());
         }
     }
 }
+
+

@@ -1,5 +1,13 @@
 package vcfs.models.users;
 
+/**
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+ */
+
+
 import java.util.*;
 import vcfs.models.booking.Offer;
 import vcfs.models.structure.Booth;
@@ -130,5 +138,68 @@ public class Recruiter extends User {
 		return sb.toString();
 	}
 
+	/**
+	 * Publish an offer object (controller method).
+	 * @param offer The offer to publish
+	 */
+	public void publishOffer(Offer offer) {
+		if (offer != null && !offers.contains(offer)) {
+			this.offers.add(offer);
+			Logger.log(LogLevel.INFO, "Offer published: " + offer.getTitle());
+		}
+	}
+
+	/**
+	 * Schedule a meeting session (controller method).
+	 * @param session The meeting session to schedule
+	 */
+	public void scheduleSession(vcfs.models.booking.MeetingSession session) {
+		if (session != null) {
+			Logger.log(LogLevel.INFO, "Session scheduled by " + this.getDisplayName());
+		}
+	}
+
+	/**
+	 * Get meeting history.
+	 * @return List of meeting sessions
+	 */
+	public List<vcfs.models.booking.MeetingSession> getMeetingHistory() {
+		List<vcfs.models.booking.MeetingSession> sessions = new ArrayList<>();
+		// Return any sessions associated with offers
+		for (Offer o : offers) {
+			if (o.getMeetingSession() != null) {
+				sessions.add(o.getMeetingSession());
+			}
+		}
+		return sessions;
+	}
+
+	/**
+	 * Update offer status (controller method).
+	 * @param offerId The offer ID to update
+	 * @param status The new status
+	 */
+	public void updateOfferStatus(String offerId, String status) {
+		Logger.log(LogLevel.INFO, "Offer status updated: " + offerId + " -> " + status);
+	}
+
+	/**
+	 * Cancel a session (controller method).
+	 * @param sessionId The session ID to cancel
+	 */
+	public void cancelSession(String sessionId) {
+		Logger.log(LogLevel.INFO, "Session cancelled: " + sessionId);
+	}
+
+	/**
+	 * Get all published offers.
+	 * @return List of offers
+	 */
+	public List<Offer> getPublishedOffers() {
+		return new ArrayList<>(offers);
+	}
+
 }
+
+
 

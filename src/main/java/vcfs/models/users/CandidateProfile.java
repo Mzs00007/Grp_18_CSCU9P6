@@ -1,6 +1,14 @@
 package vcfs.models.users;
 
 /**
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+ */
+
+
+/**
  * Candidate profile data used for auto-booking (string data is sufficient, file uploading of CVs is not required).
  */
 public class CandidateProfile {
@@ -8,6 +16,7 @@ public class CandidateProfile {
 	private Candidate candidate;
 	private String cvSummary;
 	private String interestTags;
+	private String phoneNumber;
 
 	/**
 	 * Create an empty profile.
@@ -72,6 +81,21 @@ public class CandidateProfile {
 	}
 
 	/**
+	 * Get the phone number.
+	 */
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	/**
+	 * Set the phone number.
+	 * @param phoneNumber The phone number
+	 */
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	/**
 	 * Update the candidate's profile fields.
 	 * @param cvSummary The CV summary
 	 * @param interestTags The interest tags
@@ -90,4 +114,6 @@ public class CandidateProfile {
 	}
 
 }
+
+
 

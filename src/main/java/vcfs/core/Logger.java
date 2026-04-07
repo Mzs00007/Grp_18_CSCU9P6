@@ -1,5 +1,13 @@
 package vcfs.core;
 
+/**
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+ */
+
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -97,3 +105,5 @@ public class Logger {
     public static void critical(String message) { log(LogLevel.CRITICAL, message); }
     public static void critical(String message, Throwable t) { log(LogLevel.CRITICAL, message, t); }
 }
+
+

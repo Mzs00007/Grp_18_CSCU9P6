@@ -1,5 +1,13 @@
 package vcfs.models.audit;
 
+/**
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+ */
+
+
 import vcfs.core.CareerFair;
 import vcfs.core.LocalDateTime;
 
@@ -81,4 +89,6 @@ public class AuditEntry {
 	}
 
 }
+
+
 

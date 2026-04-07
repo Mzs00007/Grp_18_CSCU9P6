@@ -1,16 +1,16 @@
 package vcfs;
 
+import javax.swing.*;
+
+import vcfs.controllers.AdminScreenController;
 import vcfs.core.CareerFairSystem;
+import vcfs.core.LogLevel;
+import vcfs.core.Logger;
 import vcfs.core.SystemTimer;
 import vcfs.views.admin.AdminScreen;
 import vcfs.views.candidate.CandidateScreen;
 import vcfs.views.recruiter.RecruiterScreen;
 import vcfs.views.shared.SystemTimerScreen;
-
-import javax.swing.*;
-
-import vcfs.core.Logger;
-import vcfs.core.LogLevel;
 
 /**
  * VCFS Application Entry Point.
@@ -36,17 +36,34 @@ public class App {
                 System.out.println(" Project Manager: Zaid");
                 System.out.println("========================================");
 
-                // TODO (Zaid): Initialise Singleton CareerFairSystem
-                // CareerFairSystem system = CareerFairSystem.getInstance();
+                // VCFS-001: Initialize Singleton CareerFairSystem
+                CareerFairSystem.getInstance();
+                Logger.info("✅ CareerFairSystem Singleton initialized");
 
-                // TODO (YAMI): Open the Administrator Screen
-                // new AdminScreen(system).setVisible(true);
+                // Initialize system timer (for VCFS-002 Observer pattern)
+                SystemTimer.getInstance();
+                Logger.info("✅ SystemTimer initialized");
 
-                // TODO (MJAMishkat): Open the Candidate Screen
-                // new CandidateScreen(system).setVisible(true);
+                // Create Admin Controller
+                AdminScreenController adminController = new AdminScreenController();
+                Logger.info("✅ AdminScreenController created");
 
-                // TODO (Taha): Open the Recruiter Screen
-                // new RecruiterScreen(system).setVisible(true);
+                // Open Administrator Screen - Primary interface for fair setup
+                AdminScreen adminScreen = new AdminScreen(adminController);
+                adminScreen.setVisible(true);
+                Logger.info("✅ Admin Screen opened");
+
+                // Open additional screens for demonstration
+                RecruiterScreen recruiterScreen = new RecruiterScreen();
+                recruiterScreen.setVisible(true);
+                Logger.log(LogLevel.INFO, "✅ Recruiter Screen opened");
+                
+                CandidateScreen candidateScreen = new CandidateScreen();
+                candidateScreen.setVisible(true);
+                Logger.log(LogLevel.INFO, "✅ Candidate Screen opened");
+                
+                new SystemTimerScreen(); // Just instantiate to initialize
+                Logger.log(LogLevel.INFO, "✅ SystemTimerScreen initialized for time control");
             });
             
             // Simulating a random critical error for testing our new Logger!
@@ -58,3 +75,4 @@ public class App {
         }
     }
 }
+

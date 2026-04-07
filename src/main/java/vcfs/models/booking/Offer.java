@@ -1,5 +1,13 @@
 package vcfs.models.booking;
 
+/**
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+ */
+
+
 import vcfs.core.LocalDateTime;
 import vcfs.core.Logger;
 import vcfs.core.LogLevel;
@@ -17,6 +25,7 @@ public class Offer {
 	private int durationMins;
 	private String topicTags;
 	private int capacity;
+	private MeetingSession meetingSession;
 
 	/**
 	 * VCFS-003 (Zaid): Start time of this discrete availability slot.
@@ -189,6 +198,22 @@ public class Offer {
 	}
 
 	/**
+	 * Get the meeting session for this offer.
+	 * @return The meeting session, or null if not set
+	 */
+	public MeetingSession getMeetingSession() {
+		return meetingSession;
+	}
+
+	/**
+	 * Set the meeting session for this offer.
+	 * @param session The meeting session
+	 */
+	public void setMeetingSession(MeetingSession session) {
+		this.meetingSession = session;
+	}
+
+	/**
 	 * Update offer metadata (title/tags, duration, capacity).
 	 * @param title New title (cannot be empty)
 	 * @param durationMins New duration (must be positive)
@@ -215,4 +240,6 @@ public class Offer {
 	}
 
 }
+
+
 

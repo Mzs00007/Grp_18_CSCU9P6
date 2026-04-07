@@ -1,5 +1,13 @@
 package vcfs.models.booking;
 
+/**
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+ */
+
+
 import vcfs.models.users.Candidate;
 import vcfs.core.Logger;
 import vcfs.core.LogLevel;
@@ -9,6 +17,7 @@ import vcfs.core.LogLevel;
  */
 public class Request {
 
+	private String id;
 	private Candidate requester;
 	private String desiredTags;
 	private String preferredOrgs;
@@ -37,6 +46,22 @@ public class Request {
 	 */
 	public void setRequester(Candidate requester) {
 		this.requester = requester;
+	}
+
+	/**
+	 * Get the request ID.
+	 * @return The unique request ID
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * Set the request ID.
+	 * @param id The unique request ID
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**
@@ -122,4 +147,6 @@ public class Request {
 	}
 
 }
+
+
 

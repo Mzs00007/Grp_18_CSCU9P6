@@ -1,5 +1,13 @@
 package vcfs.models.booking;
 
+/**
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+ */
+
+
 import java.util.*;
 import vcfs.models.users.Candidate;
 import vcfs.core.Logger;
@@ -88,5 +96,31 @@ public class Lobby {
 		return sb.toString();
 	}
 
+	/**
+	 * Get all meeting sessions (returns single session if set).
+	 * @return List of meeting sessions
+	 */
+	public List<MeetingSession> getMeetingSessions() {
+		List<MeetingSession> sessions = new ArrayList<>();
+		if (session != null) {
+			sessions.add(session);
+		}
+		return sessions;
+	}
+
+	/**
+	 * Get available sessions (sessions not full).
+	 * @return List of available sessions
+	 */
+	public List<MeetingSession> getAvailableSessions() {
+		List<MeetingSession> available = new ArrayList<>();
+		if (session != null && session.getLobby().getWaitingQueue().size() < 10) {
+			available.add(session);
+		}
+		return available;
+	}
+
 }
+
+
 

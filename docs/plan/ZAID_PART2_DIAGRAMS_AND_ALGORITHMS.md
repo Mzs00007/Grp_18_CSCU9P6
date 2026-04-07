@@ -677,6 +677,489 @@ The mathematical formula for overlap: Two intervals `[A_start, A_end]` and `[B_s
 ### Full MatchEngine Implementation (in `CareerFairSystem.java`)
 
 ```java
+---
+
+## Diagram 6 — MVC Architecture: Full Layer Separation
+
+```mermaid
+graph TB
+    subgraph Users["👥 End Users"]
+        Admin["Admin User"]
+        Recruiter_User["Recruiter User"]
+        Candidate_User["Candidate User"]
+    end
+
+    subgraph View_Layer["🖥️ VIEW LAYER - Java Swing GUI"]
+        AdminScreen["AdminScreen.java<br/>YAMI"]
+        RecruiterScreen["RecruiterScreen.java<br/>Taha"]
+        CandidateScreen["CandidateScreen.java<br/>MJAMishkat"]
+        LoginFrame["LoginFrame.java<br/>Anonymous"]
+        SystemTimerScreen["SystemTimerScreen.java<br/>Shared"]
+    end
+
+    subgraph Controller_Layer["⚙️ CONTROLLER LAYER - Business Logic"]
+        AdminController["AdminScreenController.java<br/>- createOrganization()<br/>- assignRecruiter()<br/>- setFairTimeline()"]
+        RecruiterController["RecruiterController.java<br/>- publishOffer()<br/>- scheduleSession()<br/>- viewMeetingHistory()"]
+        CandidateController["CandidateController.java<br/>- submitMeetingRequest()<br/>- viewAvailableLobbies()<br/>- updateProfile()"]
+    end
+
+    subgraph Model_Layer["📊 MODEL LAYER - Pure Data"]
+        Users_Model["users/<br/>- User (abstract)<br/>- Candidate<br/>- Recruiter"]
+        Booking_Model["booking/<br/>- Offer<br/>- Reservation<br/>- Request<br/>- Lobby<br/>- MeetingSession"]
+        Structure_Model["structure/<br/>- Organization<br/>- Booth<br/>- VirtualRoom"]
+        Audit_Model["audit/<br/>- AttendanceRecord<br/>- AuditEntry"]
+    end
+
+    subgraph Core_Layer["🔧 CORE SYSTEM - Orchestration & Timing"]
+        CareerFairSystem["CareerFairSystem<br/>(Singleton Facade)<br/>- parseAvailabilityIntoOffers()<br/>- autoBook()<br/>- Observes SystemTimer"]
+        CareerFair["CareerFair<br/>(State + Rules)<br/>- evaluatePhase()<br/>- canBook()<br/>- isLive()"]
+        SystemTimer["SystemTimer<br/>(Observable)<br/>- stepMinutes()<br/>- PublishesPropertyChangeEvents"]
+        Logger["Logger & LogLevel<br/>(Cross-cutting)<br/>- Log all operations"]
+    end
+
+    %% Connections View → Controller
+    Admin -->|"Clicks"| AdminScreen
+    Recruiter_User -->|"Clicks"| RecruiterScreen
+    Candidate_User -->|"Clicks"| CandidateScreen
+    
+    AdminScreen -->|"Call methods"| AdminController
+    RecruiterScreen -->|"Call methods"| RecruiterController
+    CandidateScreen -->|"Call methods"| CandidateController
+    LoginFrame -->|"Creates session"| AdminScreen
+
+    %% Connections Controller → Model
+    AdminController -->|"Create"| Users_Model
+    AdminController -->|"Create"| Structure_Model
+    RecruiterController -->|"Create/Update"| Booking_Model
+    CandidateController -->|"Access/Filter"| Booking_Model
+
+    %% Connections Model ↔ Core
+    CareerFairSystem -->|"Manages"| Users_Model
+    CareerFairSystem -->|"Manages"| Booking_Model
+    CareerFairSystem -->|"Manages"| Structure_Model
+    CareerFairSystem -->|"Observes"| SystemTimer
+    CareerFairSystem -->|"Evaluates with"| CareerFair
+    Logger -->|"Logs from"| CareerFairSystem
+    Logger -->|"Logs from"| Booking_Model
+
+    %% UI refresh loop
+    SystemTimer -->|"PropertyChangeEvent:'time'"| SystemTimerScreen
+    SystemTimer -->|"PropertyChangeEvent:'time'"| AdminScreen
+    SystemTimer -->|"PropertyChangeEvent:'time'"| CandidateScreen
+
+    style View_Layer fill:#e8f5e9
+    style Controller_Layer fill:#fff3e0
+    style Model_Layer fill:#f3e5f5
+    style Core_Layer fill:#e3f2fd
+```
+
+---
+
+## Diagram 7 — Reservation Lifecycle State Machine
+
+```mermaid
+stateDiagram-v2
+    direction LR
+
+    [*] --> PENDING : Candidate requests/autoBooks\nReservation.state = PENDING
+
+    PENDING --> CONFIRMED : Admin approves\nor autoBook confirms\nstate = CONFIRMED
+
+    CONFIRMED --> ACTIVE : SystemTimer.now >= scheduledStart\nMeetingSession created\nCandidate enters room
+
+    ACTIVE --> COMPLETED : SessionTimer.now >= scheduledEnd\nAttendanceRecord finalized\nstate = COMPLETED
+
+    COMPLETED --> [*] : Audit logged\nReservation closed
+
+    %% Alternative paths
+    PENDING --> REJECTED : Admin rejects\nstate = REJECTED
+    REJECTED --> [*] : Notification sent
+
+    CONFIRMED --> CANCELLED : Candidate cancels\nstate = CANCELLED
+
+    CANCELLED --> [*] : Audit logged\n'Cancelled by candidate'
+
+    ACTIVE --> ENDED_EARLY : Candidate leaves\nbefore session end
+
+    ENDED_EARLY --> [*] : Attendance marked\n'LEFT_EARLY'
+
+    note right of PENDING
+      Created by autoBook() or manual request
+      Not yet confirmed
+      Lobby does not exist yet
+    end note
+
+    note right of CONFIRMED
+      Secured in system
+      Lobby++ for early arrivals
+      VirtualRoom staged
+    end note
+
+    note right of ACTIVE
+      In real-time execution
+      recordJoin() called
+      Attendance tracking live
+    end note
+
+    note right of COMPLETED
+      Session ended naturally
+      Outcome: ATTENDED or NO_SHOW
+      Audit trail intact
+    end note
+```
+
+---
+
+## Diagram 8 — Controller-to-System Communication (Sequence)
+
+```mermaid
+sequenceDiagram
+    participant UI as Swing UI<br/>(Screen)
+    participant Ctrl as Controller
+    participant CFS as CareerFairSystem<br/>(Singleton)
+    participant Model as Model Objects
+    participant Timer as SystemTimer
+
+    rect rgb(200, 220, 255)
+        Note over UI,CFS: Admin Creates Offer (VCFS-003 Scenario)
+    end
+
+    UI->>Ctrl: onPublishOffer(recruiterName, title,<br/>blockStart, blockEnd, durationMins)
+    activate Ctrl
+
+    Ctrl->>CFS: parseAvailabilityIntoOffers(recruiter, title,<br/>durationMins, tags, capacity,<br/>blockStart, blockEnd)
+    activate CFS
+
+    CFS->>CFS: Check currentPhase == BOOKINGS_OPEN?
+    alt Phase not correct
+        CFS-->>Ctrl: throw IllegalStateException
+        Ctrl-->>UI: displayError("Cannot publish<br/>during this phase")
+    else Phase OK
+        CFS->>CFS: cursor = blockStart<br/>while (cursor + duration <= blockEnd)
+        CFS->>Model: Create new Offer<br/>offer.setStartTime(cursor)<br/>offer.setEndTime(cursor + duration)
+        CFS->>Model: recruiter.addOffer(offer)
+        CFS->>CFS: cursor += durationMins<br/>repeat loop
+        CFS-->>Ctrl: return slotsCreated
+        Ctrl-->>UI: displayMessage(slotsCreated<br/>" slots created")
+    end
+    deactivate CFS
+    deactivate Ctrl
+
+    rect rgb(220, 255, 200)
+        Note over UI,CFS: Candidate Books (VCFS-004 Scenario)
+    end
+
+    UI->>Ctrl: onAutoBook(candidateId, requestId)
+    activate Ctrl
+
+    Ctrl->>CFS: autoBook(candidate, request)
+    activate CFS
+
+    CFS->>CFS: Check BOOKINGS_OPEN?
+    CFS->>CFS: desiredTags = parse(request.getDesiredTags())
+    CFS->>CFS: allOffers = getAllOffers()
+
+    loop For each offer
+        CFS->>CFS: Check collision with candidate.reservations
+        alt Conflict detected
+            CFS->>CFS: Skip offer
+        else No conflict
+            CFS->>CFS: score = tagIntersection(offer.tags, desiredTags)
+            CFS->>CFS: scoreMap.put(offer, score)
+        end
+    end
+
+    CFS->>CFS: bestOffer = max(scoreMap)
+    CFS->>Model: Create Reservation<br/>reservation.setCandidate(candidate)<br/>reservation.setOffer(bestOffer)<br/>reservation.setState(CONFIRMED)
+    CFS-->>Ctrl: return reservation
+    Ctrl-->>UI: displayMessage("Booking confirmed!")
+    deactivate CFS
+    deactivate Ctrl
+```
+
+---
+
+## Diagram 9 — System Timer & Observer Pattern (VCFS-001/002)
+
+```mermaid
+graph TB
+    subgraph SystemTimer["SystemTimer<br/>(Observable)"]
+        Now["now: LocalDateTime<br/>currentValue: 2026-04-07T09:00"]
+        Support["PropertyChangeSupport<br/>(holds listeners)"]
+    end
+
+    subgraph Listeners["📡 All Observers"]
+        CFS["CareerFairSystem<br/>propertyChange() {<br/>  tick();<br/>  fair.evaluatePhase();<br/>}"]
+        AdminScreen["AdminScreen<br/>propertyChange() {<br/>  updateTimeLabel();<br/>}"]
+        CandidateScreen["CandidateScreen<br/>propertyChange() {<br/>  refreshOffers();<br/>}"]
+        Logger["Logger<br/>propertyChange() {<br/>  logTimeChange();<br/>}"]
+    end
+
+    subgraph Timeline["⏰ Time Flow"]
+        Step1["Admin clicks<br/>'Advance 30 min'"]
+        Step2["stepMinutes(30) called"]
+        Step3["now = 2026-04-07T09:30"]
+        Step4["firePropertyChange('time',<br/>old, new)"]
+        Step5["Listeners notified"]
+    end
+
+    SystemTimer -->|"stores"| Now
+    SystemTimer -->|"manages"| Support
+    
+    Support -->|"notifies"| CFS
+    Support -->|"notifies"| AdminScreen
+    Support -->|"notifies"| CandidateScreen
+    Support -->|"notifies"| Logger
+
+    Step1 --> Step2
+    Step2 --> Step3
+    Step3 --> Step4
+    Step4 --> Step5
+    Step5 -->|"All receive update"| Listeners
+
+    style Now fill:#fffde7
+    style Support fill:#fff9c4
+    style Listeners fill:#e1f5fe
+```
+
+---
+
+## Diagram 10 — Complete Offer Creation Pipeline (VCFS-003: parseAvailabilityIntoOffers)
+
+```mermaid
+graph LR
+    Input["Input:<br/>blockStart: 09:00<br/>blockEnd: 12:00<br/>durationMins: 30<br/>capacity: 2<br/>tags: 'Java, AI'"]
+
+    Phase_Check["Check Phase<br/>== BOOKINGS_OPEN?"<br/><br/>❌ NO → Throw error<br/>✅ YES → Continue"]
+
+    Duration_Check["Check Block Duration<br/>blockEnd - blockStart<br/>= 180 minutes<br/><br/>>= 30? ✅ YES"]
+
+    Loop["Create Slots<br/>Cursor = 09:00<br/>While (cursor is valid)"]
+
+    Slot1["Slot 1:<br/>09:00 - 09:30<br/>capacity: 2<br/>tags: Java, AI"]
+
+    Slot2["Slot 2:<br/>09:30 - 10:00<br/>capacity: 2<br/>tags: Java, AI"]
+
+    Slot3["Slot 3:<br/>10:00 - 10:30<br/>capacity: 2<br/>tags: Java, AI"]
+
+    Slot4["Slot 4:<br/>10:30 - 11:00<br/>capacity: 2<br/>tags: Java, AI"]
+
+    Slot5["Slot 5:<br/>11:00 - 11:30<br/>capacity: 2<br/>tags: Java, AI"]
+
+    SlotFail["11:30 - 12:00 slot<br/>Would end at 12:00<br/>✅ VALID but LAST"]
+
+    Add["recruiter.addOffer(slot)<br/>slot added to system"]
+
+    Result["Result:<br/>6 Offer objects created<br/>→ returnValue = 6"]
+
+    Input --> Phase_Check
+    Phase_Check -->|"YES"| Duration_Check
+    Duration_Check --> Loop
+    
+    Loop -->|"cursor=09:00"| Slot1
+    Loop -->|"cursor=09:30"| Slot2
+    Loop -->|"cursor=10:00"| Slot3
+    Loop -->|"cursor=10:30"| Slot4
+    Loop -->|"cursor=11:00"| Slot5
+    Loop -->|"cursor=11:30"| SlotFail
+    
+    Slot1 --> Add
+    Slot2 --> Add
+    Slot3 --> Add
+    Slot4 --> Add
+    Slot5 --> Add
+    SlotFail --> Add
+    
+    Add --> Result
+
+    style Input fill:#f8bbd0
+    style Phase_Check fill:#fff9c4
+    style Duration_Check fill:#fff9c4
+    style Result fill:#c8e6c9
+```
+
+---
+
+## Diagram 11 — Controller Architecture & Responsibilities
+
+```mermaid
+classDiagram
+    class AdminScreenController {
+        -view: AdminScreen
+        -system: CareerFairSystem
+        +onCreateOrganization(name) void
+        +onAddBooth(org, title) void
+        +onRegisterRecruiter(name, email, booth) void
+        +onSetFairTimes(open, close, start, end) void
+        +onPublishOffers(recruiter, availability) void
+        +onResetFair() void
+    }
+
+    class RecruiterController {
+        -view: RecruiterView
+        -system: CareerFairSystem
+        -currentRecruiter: Recruiter
+        +setCurrentRecruiter(recruiter) void
+        +publishOffer(offer) void
+        +scheduleSession(session) void
+        +viewLobbySessions(lobbyId) void
+        +viewMeetingHistory() void
+        +updateOfferStatus(offerId, status) void
+        +cancelSession(sessionId) void
+        +getPublishedOffers() List
+    }
+
+    class CandidateController {
+        -view: CandidateView
+        -system: CareerFairSystem
+        -currentCandidate: Candidate
+        +setCurrentCandidate(candidate) void
+        +submitMeetingRequest(request) void
+        +viewAvailableLobbies() void
+        +viewLobbyInfo(lobbyId) void
+        +viewMeetingSchedule() void
+        +cancelMeetingRequest(requestId) void
+        +viewRequestHistory() void
+        +updateProfile(phone, email) void
+        +getAvailableSessions(lobbyId) List
+    }
+
+    AdminScreenController -->|"works with"| CareerFairSystem
+    RecruiterController -->|"works with"| CareerFairSystem
+    CandidateController -->|"works with"| CareerFairSystem
+```
+
+---
+
+## Diagram 12 — Implementation Status Checklist (As of April 7, 2026)
+
+```mermaid
+graph TD
+    A["✅ COMPLETED"]
+    B["🔄 IN PROGRESS"]
+    C["⏳ PENDING"]
+
+    A1["✅ LocalDateTime.java<br/>(Custom Immutable DateTime)"]
+    A2["✅ SystemTimer.java<br/>(Observable Timer)"]
+    A3["✅ Logger.java & LogLevel.java<br/>(Logging System)"]
+    A4["✅ FairPhase enum<br/>(6 lifecycle phases)"]
+    A5["✅ CareerFair.java<br/>(State machine + rules)"]
+    A6["✅ Model Classes<br/>(User, Candidate, Recruiter, Offer, etc.)"]
+    
+    B1["🔄 CareerFairSystem.java<br/>(VCFS-001,002: Singleton + Observer)<br/>(VCFS-003: parseAvailabilityIntoOffers)<br/>(VCFS-004: autoBook)"]
+    B2["🔄 AdminScreenController.java<br/>(Admin operations)"]
+    B3["🔄 CandidateController.java<br/>(Candidate operations)"]
+    B4["🔄 RecruiterController.java<br/>(Recruiter operations)"]
+    
+    C1["⏳ AdminScreen.java<br/>(Admin UI - YAMI)"]
+    C2["⏳ RecruiterScreen.java<br/>(Recruiter UI - Taha)"]
+    C3["⏳ CandidateScreen.java<br/>(Candidate UI - MJAMishkat)"]
+    C4["⏳ JUnit Tests<br/>(Mohamed - Testing)"]
+    C5["⏳ Integration Testing<br/>(Full System Flow)"]
+    C6["⏳ Video Demo<br/>(20 minutes)"]
+
+    A --> A1 & A2 & A3 & A4 & A5 & A6
+    B --> B1 & B2 & B3 & B4
+    C --> C1 & C2 & C3 & C4 & C5 & C6
+
+    style A fill:#c8e6c9
+    style B fill:#fff9c4
+    style C fill:#ffccbc
+```
+
+---
+
+## Diagram 13 — Data Flow: Complete Booking Scenario
+
+```mermaid
+graph LR
+    Start["Candidate logs in"]
+    
+    Step1["1. CareerFairSystem<br/>loads all Offers<br/>getAllOffers()"]
+    Step2["2. CandidateScreen<br/>displays available<br/>offers by tag"]
+    Step3["3. Candidate clicks<br/>'Auto Book'"]
+    
+    Step4["4. CandidateController<br/>.autoBook(candidate,<br/>request)"]
+    Step5["5. CareerFairSystem<br/>.autoBook() handles:<br/>- Phase check<br/>- Tag parsing<br/>- Collision detection<br/>- Score calculation<br/>- Winner selection"]
+    
+    Step6["6. Create Reservation<br/>state = CONFIRMED"]
+    Step7["7. Add to candidate<br/>reservations"]
+    Step8["8. Add to offer<br/>reservations"]
+    
+    Step9["9. Return to view"]
+    Step10["10. DisplayMessage<br/>'Booking confirmed!'"]
+    
+    Step11["11. SystemTimer tick"]
+    Step12["12. scheduledStart reached"]
+    Step13["13. MeetingSession created<br/>session.start()"]
+    
+    Step14["14. Candidate/Recruiter<br/>join virtual room"]
+    Step15["15. recordJoin() called<br/>AttendanceRecord created"]
+    
+    Step16["16. Meeting happens"]
+    Step17["17. scheduledEnd reached<br/>session.end()"]
+    
+    Step18["18. recordLeave() called<br/>Outcome = ATTENDED"]
+    Step19["19. AuditEntry logged"]
+    Step20["20. Reservation state<br/>=COMPLETED"]
+    
+    Start --> Step1 --> Step2 --> Step3
+    Step3 --> Step4 --> Step5
+    Step5 --> Step6 --> Step7 --> Step8
+    Step8 --> Step9 --> Step10
+    Step10 --> Step11 --> Step12 --> Step13
+    Step13 --> Step14 --> Step15
+    Step15 --> Step16 --> Step17
+    Step17 --> Step18 --> Step19 --> Step20
+
+    style Start fill:#c8e6c9
+    style Step6 fill:#fff9c4
+    style Step13 fill:#fff9c4
+    style Step20 fill:#c8e6c9
+```
+
+---
+
+## Summary: What's Done vs What's Left
+
+| Component | Status | Owner | Est. Hours Left |
+|-----------|--------|-------|-----------------|
+| **LocalDateTime** | ✅ DONE | Zaid | 0 |
+| **SystemTimer** | ✅ DONE | Zaid | 0 |
+| **CareerFair + FairPhase** | ✅ DONE | Zaid | 0 |
+| **Model Classes** | ✅ DONE | Team | 0 |
+| **CareerFairSystem** | 🔄 70% DONE | Zaid | 2 |
+| **Controllers** | 🔄 60% DONE | Zaid | 3 |
+| **Observer Pattern** | ✅ DONE | Zaid | 0 |
+| **UI Screens** | ⏳ NOT STARTED | YAMI/Taha/MJAMishkat | 8 |
+| **JUnit Tests** | ⏳ NOT STARTED | Mohamed | 4 |
+| **Integration Testing** | ⏳ NOT STARTED | Team | 2 |
+| **Video Demo** | ⏳ NOT STARTED | Zaid | 3 |
+| **Documentation** | ✅ DONE | Zaid | 0 |
+
+---
+
+## Critical Fixes Needed (Before Final Submission):
+
+1. **Remove duplicate AdminController.java** — keep only AdminScreenController.java
+2. **Fix Logger.java imports** — use vcfs.core.LocalDateTime, NOT java.time.LocalDateTime
+3. **Add null checks** in all Controllers
+4. **Complete Offer.getMeetingSession()** method
+5. **Add Request.getId()** method
+6. **Add CandidateProfile methods** (setPhoneNumber, etc.)
+7. **Ensure view interfaces** are created (RecruiterView, CandidateView)
+8. **Complete integration** between all controllers and screens
+
+---
+
+## Next Steps (Priority Order):
+
+1. **TODAY**: Fix all 24 compilation errors
+2. **TODAY**: Complete CareerFairSystem.java methods
+3. **TOMORROW**: Create/update all UI screens
+4. **TOMORROW**: Run full integration test
+5. **SUBMISSION DAY**: Record demo video, submit all forms
+
 /**
  * ============================================================
  * VCFS-004: Tag-Weighted MatchEngine

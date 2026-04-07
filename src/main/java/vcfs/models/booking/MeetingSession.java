@@ -1,5 +1,13 @@
 package vcfs.models.booking;
 
+/**
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+ */
+
+
 import java.util.*;
 import vcfs.core.LocalDateTime;
 import vcfs.core.Logger;
@@ -20,6 +28,7 @@ public class MeetingSession {
 	private Collection<AttendanceRecord> attendanceRecords;
 	private Reservation reservation;
 	private MeetingState state;
+	private String title;
 
 	/**
 	 * Create an empty MeetingSession.
@@ -30,6 +39,7 @@ public class MeetingSession {
 		this.attendanceRecords = new ArrayList<>();
 		this.reservation = null;
 		this.state = MeetingState.WAITING;
+		this.title = "Meeting Session";
 	}
 
 	/**
@@ -178,5 +188,23 @@ public class MeetingSession {
 				'}';
 	}
 
+	/**
+	 * Get the title of this meeting session.
+	 * @return The session title
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * Set the title of this meeting session.
+	 * @param title The session title
+	 */
+	public void setTitle(String title) {
+		this.title = title != null ? title : "Meeting Session";
+	}
+
 }
+
+
 

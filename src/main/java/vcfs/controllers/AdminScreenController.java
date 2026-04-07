@@ -1,5 +1,13 @@
 package vcfs.controllers;
 
+/**
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+ */
+
+
 import vcfs.core.*;
 import vcfs.models.users.Recruiter;
 import vcfs.models.structure.Organization;
@@ -139,4 +147,13 @@ public class AdminScreenController {
             throw e;
         }
     }
+
+    /**
+     * Admin: Reset the system data
+     */
+    public void resetFair() {
+        CareerFairSystem.getInstance().resetFairData();
+    }
 }
+
+

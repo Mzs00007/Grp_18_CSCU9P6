@@ -1,5 +1,13 @@
 package vcfs.models.users;
 
+/**
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+ */
+
+
 import java.util.*;
 import vcfs.models.booking.Request;
 import vcfs.models.booking.Reservation;
@@ -127,5 +135,65 @@ public class Candidate extends User {
 		return sb.toString();
 	}
 
+	/**
+	 * Submit a meeting request (controller method).
+	 * @param request The request to submit
+	 */
+	public void submitRequest(Request request) {
+		if (request != null && !requests.contains(request)) {
+			this.requests.add(request);
+		}
+	}
+
+	/**
+	 * Get the candidate's meeting schedule as a list of meeting sessions.
+	 * @return List of meeting sessions
+	 */
+	public List<vcfs.models.booking.MeetingSession> getMeetingSchedule() {
+		List<vcfs.models.booking.MeetingSession> schedule = new ArrayList<>();
+		for (Reservation r : reservations) {
+			if (r.getSession() != null) {
+				schedule.add(r.getSession());
+			}
+		}
+		return schedule;
+	}
+
+	/**
+	 * Cancel a request by ID (controller method).
+	 * @param requestId The request ID to cancel
+	 */
+	public void cancelRequest(String requestId) {
+		requests.removeIf(r -> r != null && requestId.equals(r.getId()));
+	}
+
+	/**
+	 * Get the request history.
+	 * @return List of all requests
+	 */
+	public List<Request> getRequestHistory() {
+		return new ArrayList<>(requests);
+	}
+
+	/**
+	 * Set the candidate's phone number.
+	 * @param phoneNumber The phone number
+	 */
+	public void setPhoneNumber(String phoneNumber) {
+		if (this.profile != null) {
+			this.profile.setPhoneNumber(phoneNumber);
+		}
+	}
+
+	/**
+	 * Override email setter.
+	 * @param email The new email
+	 */
+	public void setEmail(String email) {
+		super.setEmail(email);
+	}
+
 }
+
+
 

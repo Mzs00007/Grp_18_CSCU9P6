@@ -1,149 +1,140 @@
 package vcfs.controllers;
 
-import vcfs.core.CareerFairSystem;
-import vcfs.core.Logger;
-import vcfs.core.LogLevel;
-import vcfs.models.users.Candidate;
-import vcfs.models.users.CandidateProfile;
-import vcfs.models.booking.Request;
-import vcfs.models.booking.Reservation;
-
 /**
- * MVC Controller for all Candidate actions.
- *
- * Assigned to: MJAMishkat
- * Tickets: VCFS-013, VCFS-014, VCFS-015, VCFS-016
- *
- * Receives events from CandidateScreen (View) and
- * delegates to CareerFairSystem (Model/CoreFacade).
- * Contains NO business logic — only routing and validation.
+ * Virtual Career Fair System (VCFS)
+ * Group 9 - CSCU9P6
+ * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
+ * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
  */
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import vcfs.core.CareerFairSystem;
+import vcfs.models.booking.Request;
+import vcfs.models.booking.MeetingSession;
+import vcfs.models.booking.Lobby;
+import vcfs.models.users.Candidate;
+import vcfs.views.candidate.CandidateView;
+
 public class CandidateController {
-
+    private final CandidateView view;
     private final CareerFairSystem system;
+    private Candidate currentCandidate;
 
-    public CandidateController(CareerFairSystem system) {
-        if (system == null) {
-            throw new IllegalArgumentException("CareerFairSystem cannot be null");
-        }
+    public CandidateController(CandidateView view, CareerFairSystem system) {
+        this.view = view;
         this.system = system;
     }
 
-    /**
-     * Register a new candidate with their basic profile information
-     * @param displayName Candidate's display name
-     * @param email Candidate's unique email
-     * @param cvSummary CV summary text
-     * @param tags Interest tags (comma-separated)
-     * @return The created Candidate, or null on failure
-     */
-    public Candidate onRegister(String displayName, String email, String cvSummary, String tags) {
-        if (displayName == null || displayName.trim().isEmpty()) {
-            Logger.log(LogLevel.ERROR, "Cannot register candidate with empty display name");
-            return null;
-        }
-        if (email == null || email.trim().isEmpty()) {
-            Logger.log(LogLevel.ERROR, "Cannot register candidate with empty email");
-            return null;
-        }
-
-        try {
-            Candidate candidate = system.registerCandidate(displayName, email, cvSummary, tags);
-            if (candidate != null) {
-                CandidateProfile profile = new CandidateProfile();
-                profile.setCvSummary(cvSummary != null ? cvSummary : "");
-                profile.setInterestTags(tags != null ? tags : "");
-                Logger.log(LogLevel.INFO, "[CandidateController] Candidate registered: " + displayName);
-            }
-            return candidate;
-        } catch (Exception e) {
-            Logger.log(LogLevel.ERROR, "[CandidateController] Failed to register candidate: " + e.getMessage());
-            return null;
-        }
+    public void setCurrentCandidate(Candidate candidate) {
+        this.currentCandidate = candidate;
     }
 
-    /**
-     * Manually book a candidate to a specific offer at a specific time
-     * @param candidate The candidate to book
-     * @param offerId The offer ID/index
-     * @return The created Reservation, or null on failure
-     */
-    public Reservation onManualBook(Candidate candidate, String offerId) {
-        if (candidate == null) {
-            Logger.log(LogLevel.ERROR, "Cannot book: candidate is null");
-            return null;
+    public void submitMeetingRequest(Request request) {
+        if (currentCandidate == null) {
+            view.displayError("No candidate logged in.");
+            return;
         }
-        if (offerId == null || offerId.trim().isEmpty()) {
-            Logger.log(LogLevel.ERROR, "Cannot book: offer ID is empty");
-            return null;
-        }
-
-        try {
-            Logger.log(LogLevel.INFO, "[CandidateController] Manual booking for " + candidate.getDisplayName() 
-                + " to offer " + offerId);
-            // Note: Full implementation would require looking up offer by ID
-            // For now, this logs the action
-            return null;
-        } catch (Exception e) {
-            Logger.log(LogLevel.ERROR, "[CandidateController] Failed to perform manual booking: " + e.getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * Trigger auto-booking based on candidate preferences
-     * @param candidate The candidate requesting auto-booking
-     * @param request The candidate's booking request with preferences
-     * @return The created Reservation if successful, null otherwise
-     */
-    public Reservation onAutoBook(Candidate candidate, Request request) {
-        if (candidate == null) {
-            Logger.log(LogLevel.ERROR, "Cannot auto-book: candidate is null");
-            return null;
-        }
+        
         if (request == null) {
-            Logger.log(LogLevel.ERROR, "Cannot auto-book: request is null");
-            return null;
-        }
-
-        try {
-            Reservation reservation = system.autoBook(candidate, request);
-            if (reservation != null) {
-                Logger.log(LogLevel.INFO, "[CandidateController] Auto-booking successful for " 
-                    + candidate.getDisplayName());
-            } else {
-                Logger.log(LogLevel.WARNING, "[CandidateController] Auto-booking failed - no matching offers");
-            }
-            return reservation;
-        } catch (Exception e) {
-            Logger.log(LogLevel.ERROR, "[CandidateController] Failed to perform auto-booking: " + e.getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * Candidate joins a booked session via the session lobby
-     * @param candidate The candidate joining
-     * @param reservationId The reservation ID
-     */
-    public void onJoinSession(Candidate candidate, String reservationId) {
-        if (candidate == null) {
-            Logger.log(LogLevel.ERROR, "Cannot join session: candidate is null");
+            view.displayError("Request cannot be null.");
             return;
         }
-        if (reservationId == null || reservationId.trim().isEmpty()) {
-            Logger.log(LogLevel.ERROR, "Cannot join session: reservation ID is empty");
-            return;
-        }
-
-        try {
-            Logger.log(LogLevel.INFO, "[CandidateController] Candidate " + candidate.getDisplayName() 
-                + " joining session: " + reservationId);
-            // Note: Full implementation would involve Lobby Gatekeeper logic
-            // For now, this logs the action
-        } catch (Exception e) {
-            Logger.log(LogLevel.ERROR, "[CandidateController] Failed to join session: " + e.getMessage());
-        }
+        
+        currentCandidate.submitRequest(request);
+        view.displayMessage("Meeting request submitted successfully.");
     }
 
+    public void viewAvailableLobbies() {
+        List<Lobby> lobbies = system.getAllLobbies();
+        view.displayLobbies(lobbies);
+    }
+
+    public void viewLobbyInfo(String lobbyId) {
+        if (lobbyId == null || lobbyId.isEmpty()) {
+            view.displayError("Lobby ID cannot be empty.");
+            return;
+        }
+        
+        Optional<Lobby> lobby = system.getLobby(lobbyId);
+        if (lobby.isEmpty()) {
+            view.displayError("Lobby not found: " + lobbyId);
+            return;
+        }
+        
+        view.displayLobbyDetails(lobby.get());
+    }
+
+    public void viewMeetingSchedule() {
+        if (currentCandidate == null) {
+            view.displayError("No candidate logged in.");
+            return;
+        }
+        
+        List<MeetingSession> schedule = currentCandidate.getMeetingSchedule();
+        view.displaySchedule(schedule);
+    }
+
+    public void cancelMeetingRequest(String requestId) {
+        if (currentCandidate == null) {
+            view.displayError("No candidate logged in.");
+            return;
+        }
+        
+        if (requestId == null || requestId.isEmpty()) {
+            view.displayError("Request ID cannot be empty.");
+            return;
+        }
+        
+        currentCandidate.cancelRequest(requestId);
+        view.displayMessage("Meeting request cancelled: " + requestId);
+    }
+
+    public void viewRequestHistory() {
+        if (currentCandidate == null) {
+            view.displayError("No candidate logged in.");
+            return;
+        }
+        
+        List<Request> history = currentCandidate.getRequestHistory();
+        view.displayRequestHistory(history);
+    }
+
+    public void updateProfile(String phone, String email) {
+        if (currentCandidate == null) {
+            view.displayError("No candidate logged in.");
+            return;
+        }
+        
+        if (phone == null || phone.isEmpty() || email == null || email.isEmpty()) {
+            view.displayError("Phone and email cannot be empty.");
+            return;
+        }
+        
+        currentCandidate.setPhoneNumber(phone);
+        currentCandidate.setEmail(email);
+        view.displayMessage("Profile updated successfully.");
+    }
+
+    public List<MeetingSession> getAvailableSessions(String lobbyId) {
+        if (lobbyId == null || lobbyId.isEmpty()) {
+            return new ArrayList<>();
+        }
+        
+        Optional<Lobby> lobby = system.getLobby(lobbyId);
+        if (lobby.isEmpty()) {
+            return new ArrayList<>();
+        }
+        
+        return lobby.get().getAvailableSessions();
+    }
+
+    public Candidate getCurrentCandidate() {
+        return currentCandidate;
+    }
 }
+
+
