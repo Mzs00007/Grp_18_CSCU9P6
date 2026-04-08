@@ -1264,3 +1264,90 @@ java.lang.IllegalArgumentException: [CareerFair] Bookings close time must be BEF
 [2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Recruiter portal
 [2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Candidate portal
 [2026-04-01 08:00:00] [WARNING] - [CandidateLoginFrame] Candidate not found: zaid@gmail.com
+[2026-04-01 08:00:00] [INFO] - 🚀 Initializing Virtual Career Fair System (Demo Edition)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 📱 [1/7] Launching user interface framework...
+[2026-04-01 08:00:00] [INFO] - [2/7] Initializing core backend system...
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] -   ✓ CareerFairSystem Singleton active
+[2026-04-01 08:00:00] [INFO] - [3/7] Initializing data persistence engine...
+[2026-04-01 08:00:00] [INFO] - 📦 [Persistence] Auto-save engine started (every 5 seconds)
+[2026-04-01 08:00:00] [INFO] -   ✓ Auto-save engine running (checkpoints every 5 seconds)
+[2026-04-01 08:00:00] [INFO] - [4/7] Starting system time controller...
+[2026-04-01 08:00:00] [INFO] -   ✓ SystemTimer running (compressed demo time)
+[2026-04-01 08:00:00] [INFO] - [5/7] Loading demo data (3 orgs, 3 recruiters, 3 candidates, 6+ slots)...
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] -   ✓ Demo data fully initialized and ready
+[2026-04-01 08:00:00] [INFO] - [6/7] Launching main portal selector...
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] -   ✓ Main Menu displayed - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - [7/7] Starting demo time control panel...
+[2026-04-01 08:00:00] [INFO] -   ✓ Time control ready (simulates 2-hour fair in 2 minutes)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 🎬 SYSTEM READY FOR DEMONSTRATION TO 100-PERSON AUDIENCE (2337ms startup)
+[2026-04-01 08:00:00] [INFO] -    ✅ Observer pattern: ACTIVE (PropertyChangeListener monitoring)
+[2026-04-01 08:00:00] [INFO] -    ✅ MVC architecture: CONFIRMED (Model-View-Controller separation)
+[2026-04-01 08:00:00] [INFO] -    ✅ Thread-safe backend: ENGAGED (ConcurrentHashMap, synchronized collections)
+[2026-04-01 08:00:00] [INFO] -    ✅ Data persistence: RUNNING (auto-save every 5 seconds, crash recovery enabled)
+[2026-04-01 08:00:00] [INFO] -    ✅ Portal system: READY (3 portals for Candidate/Recruiter/Admin)
+[2026-04-01 08:00:00] [INFO] -    ✅ Demo data: LOADED (3 orgs, 3 recruiters, 3 candidates, 6+ interview slots)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 📌 HOW TO USE:
+[2026-04-01 08:00:00] [INFO] -    1. Click a ROLE BUTTON (Candidate/Recruiter/Admin) to enter portal
+[2026-04-01 08:00:00] [INFO] -    2. Select a USERNAME to login
+[2026-04-01 08:00:00] [INFO] -    3. Each portal has a FLOW GUIDE button (?) to explain how it works
+[2026-04-01 08:00:00] [INFO] -    4. Use SYSTEMTIMER to advance time through the fair (lower right)
+[2026-04-01 08:00:00] [INFO] -    5. Watch real-time sync: bookings appear across all 3 portals instantly!
+[2026-04-01 08:00:00] [INFO] -    6. AUDIT LOG shows every system action (Admin portal → Audit Log tab)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Admin role selected
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [UserSession] Initialized. No user logged in.
+[2026-04-01 08:00:00] [INFO] - [UserSession] Admin logged in: admin
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Administrator
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] Admin authenticated: admin
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] AdminScreen created and initialized
+[2026-04-01 08:0

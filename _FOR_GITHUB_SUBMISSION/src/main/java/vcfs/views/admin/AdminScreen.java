@@ -174,31 +174,58 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
     /**
      * Observer callback - receives system notifications
      * Called when CareerFairSystem broadcasts PropertyChange events
+     * 
+     * CRITICAL: All Swing UI updates must happen on the Event Dispatch Thread (EDT)
+     * PropertyChangeSupport fires events on its own thread, so we must use
+     * SwingUtilities.invokeLater() to marshal calls back to EDT
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String prop = evt.getPropertyName();
         
-        // Log time and audit events
+        // Log time and audit events - these can be on any thread
         if ("auditLog".equals(prop) || "time".equals(prop)) {
-            auditArea.append("[SYSTEM EVENT] " + prop + ": " + evt.getNewValue() + "\n");
-            // Auto-scroll to bottom
-            auditArea.setCaretPosition(auditArea.getDocument().getLength());
+            // Even audit area updates must be on EDT for safety
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                auditArea.append("[SYSTEM EVENT] " + prop + ": " + evt.getNewValue() + "\n");
+                auditArea.setCaretPosition(auditArea.getDocument().getLength());
+            });
         }
         
         // CRITICAL FIX: Refresh UI when data changes
         // This ensures all portals see updates from other portals immediately
+        // THREADING FIX: Wrap all Swing updates in SwingUtilities.invokeLater() for EDT
         if ("organizations".equals(prop)) {
             Logger.log(LogLevel.INFO, "[AdminScreen] Organizations updated - refreshing dropdowns");
-            refreshOrganizationDropdown();
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                refreshOrganizationDropdown();
+                refreshDisplay(); // Also refresh general display metrics
+            });
         }
         if ("booths".equals(prop)) {
             Logger.log(LogLevel.INFO, "[AdminScreen] Booths updated - refreshing booth dropdown");
-            refreshBoothDropdown();
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                refreshBoothDropdown();
+            });
         }
-        if ("recruiters".equals(prop) || "candidates".equals(prop) || "offers".equals(prop)) {
-            Logger.log(LogLevel.INFO, "[AdminScreen] System data updated - refreshing display");
-            refreshDisplay();
+        if ("recruiters".equals(prop)) {
+            Logger.log(LogLevel.INFO, "[AdminScreen] Recruiters updated - refreshing recruiter table");
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                refreshRecruitersTable();
+                refreshBoothDropdown(); // Update booth dropdown too since recruiters might be assigned
+            });
+        }
+        if ("candidates".equals(prop)) {
+            Logger.log(LogLevel.INFO, "[AdminScreen] Candidates updated - refreshing candidate table");
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                refreshCandidatesTable();
+            });
+        }
+        if ("offers".equals(prop)) {
+            Logger.log(LogLevel.INFO, "[AdminScreen] Offers updated - refreshing offers table");
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                refreshOffersTable();
+            });
         }
     }
 
@@ -1038,22 +1065,30 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         if (this.candidatesTableModel == null) return;
         this.candidatesTableModel.setRowCount(0);
         try {
-            java.lang.reflect.Method m = CareerFairSystem.getInstance().getClass().getMethod("getAllCandidates");
-            java.util.List<?> candidates = (java.util.List<?>) m.invoke(CareerFairSystem.getInstance());
-            if (candidates != null) {
-                for (Object c : candidates) {
-                    if (c instanceof vcfs.models.users.Candidate) {
-                        vcfs.models.users.Candidate cand = (vcfs.models.users.Candidate) c;
-                        String skills = (cand.getProfile() != null) ? cand.getProfile().getInterestTags() : "N/A";
-                        String bio = (cand.getProfile() != null) ? cand.getProfile().getCvSummary() : "N/A";
-                        this.candidatesTableModel.addRow(new Object[]{cand.getDisplayName(), cand.getEmail(), bio, skills});
-                    }
-                }
-            }
-            if (this.candidatesTableModel.getRowCount() == 0) {
+            // CRITICAL FIX: Get candidates directly from system, not via reflection
+            // This ensures ALL candidates are shown with proper synchronization
+            java.util.List<vcfs.models.users.Candidate> allCandidates = 
+                CareerFairSystem.getInstance().getAllCandidates();
+            
+            if (allCandidates == null || allCandidates.isEmpty()) {
                 this.candidatesTableModel.addRow(new Object[]{"(No candidates yet)", "-", "-", "-"});
+                return;
             }
-        } catch (Exception ex) { Logger.log(LogLevel.ERROR, "Error loading candidates", ex); }
+            
+            // Display each candidate with their bio and skills
+            for (vcfs.models.users.Candidate cand : allCandidates) {
+                String skills = (cand.getProfile() != null) ? cand.getProfile().getInterestTags() : "N/A";
+                String bio = (cand.getProfile() != null) ? cand.getProfile().getCvSummary() : "N/A";
+                this.candidatesTableModel.addRow(new Object[]{
+                    cand.getDisplayName(), 
+                    cand.getEmail(), 
+                    bio, 
+                    skills
+                });
+            }
+        } catch (Exception ex) { 
+            Logger.log(LogLevel.ERROR, "Error loading candidates", ex); 
+        }
     }
 
     private JPanel createOffersTab() {

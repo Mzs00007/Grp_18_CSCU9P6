@@ -537,16 +537,20 @@ public class CandidateScreen extends JFrame implements CandidateView, PropertyCh
     /**
      * Observer callback - receives system notifications from CareerFairSystem.
      * Updates candidate screen when phase changes, candidates are added, or time advances.
+     * 
+     * CRITICAL: All Swing UI updates must happen on the Event Dispatch Thread (EDT)
+     * PropertyChangeSupport fires events on its own thread, so we must use
+     * SwingUtilities.invokeLater() to marshal calls back to EDT
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String prop = evt.getPropertyName();
         if ("phase".equals(prop)) {
             Logger.log(LogLevel.INFO, "[CandidateScreen] Phase changed: " + evt.getNewValue());
-            refreshDisplay();
+            javax.swing.SwingUtilities.invokeLater(() -> refreshDisplay());
         } else if ("candidates".equals(prop) || "offers".equals(prop)) {
             Logger.log(LogLevel.INFO, "[CandidateScreen] System data updated: " + prop);
-            refreshDisplay();
+            javax.swing.SwingUtilities.invokeLater(() -> refreshDisplay());
         }
     }
 }

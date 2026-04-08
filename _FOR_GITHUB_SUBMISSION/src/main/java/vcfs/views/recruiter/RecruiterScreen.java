@@ -288,16 +288,20 @@ public class RecruiterScreen extends JFrame implements RecruiterView, PropertyCh
     /**
      * Observer callback - receives system notifications from CareerFairSystem.
      * Updates recruiter screen when phase changes, recruiters are added, or time advances.
+     * 
+     * CRITICAL: All Swing UI updates must happen on the Event Dispatch Thread (EDT)
+     * PropertyChangeSupport fires events on its own thread, so we must use
+     * SwingUtilities.invokeLater() to marshal calls back to EDT
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String prop = evt.getPropertyName();
         if ("phase".equals(prop)) {
             Logger.log(LogLevel.INFO, "[RecruiterScreen] Phase changed: " + evt.getNewValue());
-            refreshDisplay();
+            javax.swing.SwingUtilities.invokeLater(() -> refreshDisplay());
         } else if ("recruiters".equals(prop) || "offers".equals(prop)) {
             Logger.log(LogLevel.INFO, "[RecruiterScreen] System data updated: " + prop);
-            refreshDisplay();
+            javax.swing.SwingUtilities.invokeLater(() -> refreshDisplay());
         }
     }
 }

@@ -349,13 +349,17 @@ public class PublishOfferPanel extends JPanel implements PropertyChangeListener 
     /**
      * PropertyChangeListener - Updates table when offers change in system
      * Ensures recruiter sees new offers published by others (if system updates)
+     * 
+     * CRITICAL: All Swing UI updates must happen on the Event Dispatch Thread (EDT)
+     * PropertyChangeSupport fires events on its own thread, so we must use
+     * SwingUtilities.invokeLater() to marshal calls back to EDT
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String prop = evt.getPropertyName();
         if ("offers".equals(prop) || "offer_published".equals(prop)) {
             Logger.log(LogLevel.INFO, "[PublishOfferPanel] Offers updated - refreshing table");
-            refreshOffersTable();
+            javax.swing.SwingUtilities.invokeLater(() -> refreshOffersTable());
         }
     }
 }
