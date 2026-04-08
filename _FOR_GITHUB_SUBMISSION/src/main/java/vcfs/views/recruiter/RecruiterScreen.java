@@ -197,21 +197,40 @@ public class RecruiterScreen extends JFrame implements RecruiterView, PropertyCh
         guidanceTitle.setForeground(new Color(39, 174, 96));
 
         JTextArea guidanceText = new JTextArea(
-            "STEP 1️⃣  PUBLISH OFFER\n" +
-            "    → Go to 'Publish Offer' tab\n" +
-            "    → Enter job title, description, duration, and skills required\n" +
-            "    → Click 'Publish' and watch the Offers table in Admin Console update\n\n" +
-            "STEP 2️⃣  MANAGE SCHEDULE\n" +
+            "STEP 1️⃣  PUBLISH RECRUITMENT OFFER\n" +
+            "    → Go to 'Publish Offer' tab at the top\n" +
+            "    → Enter job title (e.g., 'Senior Developer', 'Data Scientist')\n" +
+            "    → Enter job description with requirements\n" +
+            "    → Set interview duration (e.g., 30 mins, 60 mins)\n" +
+            "    → Enter required skills (e.g., Java, Python, React)\n" +
+            "    → Click 'Publish Offer' button\n" +
+            "    → Your offer appears in Candidates' 'Browse Offers' tab immediately!\n" +
+            "    → Also visible in Admin Console 'Offers' table\n\n" +
+            "STEP 2️⃣  CONFIGURE YOUR AVAILABLE INTERVIEW SLOTS\n" +
             "    → Go to 'Manage Schedule' tab\n" +
-            "    → Set available meeting times (when candidates can book you)\n" +
-            "    → View booking requests from candidates\n" +
-            "    → Accept or decline interview requests\n\n" +
-            "STEP 3️⃣  VIRTUAL RECRUITING\n" +
+            "    → Define time slots when you're available to interview\n" +
+            "    → Candidates can book into these available slots\n" +
+            "    → View incoming booking requests from candidates\n" +
+            "    → Accept or decline interview requests as they arrive\n" +
+            "    → System updates Admin Console LIVE with all booking changes\n\n" +
+            "STEP 3️⃣  CONDUCT VIRTUAL INTERVIEWS\n" +
             "    → Go to 'Virtual Room' tab\n" +
-            "    → See confirmed meetings with candidates\n" +
-            "    → Join video meeting rooms to conduct interviews\n\n" +
-            "💡 REMEMBER: Publish offers FIRST so candidates can find and book you!\n" +
-            "✓ After every action, check Admin Console data tables to confirm updates!"
+            "    → See your confirmed interviews with candidates\n" +
+            "    → When meeting time arrives, click 'Join' to start video call\n" +
+            "    → Conduct interview with candidate\n" +
+            "    → Provide feedback and interview results\n\n" +
+            "🔄 MULTI-PORTAL SYNC DEMO:\n" +
+            "    ① After publishing offer → Switch to Admin Console\n" +
+            "    ② Check Admin 'Offers' tab - see your offer listed\n" +
+            "    ③ Check Audit Log at bottom - see 'Offer Published' event\n" +
+            "    ④ Then switch to Candidate Portal & show offer appears there\n" +
+            "    ⑤ Have candidate book → Watch Admin log show 'Booking Created'\n\n" +
+            "💡 KEY POINTS FOR DEMO:\n" +
+            "    • Publish offer FIRST so candidates can search & book\n" +
+            "    • Every action (publish, accept, decline) syncs INSTANTLY across all portals\n" +
+            "    • Admin Console Audit Log shows all recruiter operations in real-time\n" +
+            "    • All changes persist and are tracked by SystemStateManager\n" +
+            "✓ This is how REAL-TIME multi-user system coordination works!"
         );
         guidanceText.setEditable(false);
         guidanceText.setFont(new Font("Arial", Font.PLAIN, 11));

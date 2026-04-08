@@ -243,28 +243,43 @@ public class CandidateScreen extends JFrame implements CandidateView, PropertyCh
 
         JTextArea guidanceText = new JTextArea();
         guidanceText.setText(
-            "STEP 1️⃣  SEARCH & BOOK OFFERS\n" +
-            "    → Go to 'Browse Offers' tab\n" +
-            "    → See all available recruitment interviews from companies\n" +
-            "    → Enter your interest subject tags (e.g., Software, Data Science, Finance)\n" +
-            "    → Click 'Auto-Book Best Matches' to get matched with recruiters\n" +
-            "    → System automatically books you into recruiter's available slots\n\n" +
-            "STEP 2️⃣  VIEW YOUR SCHEDULED MEETINGS\n" +
+            "STEP 1️⃣  SEARCH & BOOK INTERVIEW OFFERS\n" +
+            "    → Go to 'Browse Offers' tab to see available interviews\n" +
+            "    → See all recruitment opportunities from participating companies\n" +
+            "    → Enter your job interest tags (e.g., Software, Data Science, AI/ML)\n" +
+            "    → View matching offers from recruiters in relevant fields\n" +
+            "    → Click 'Auto-Book Best Matches' to let system match you with recruiters\n" +
+            "    → System books you into recruiter's first available time slot\n" +
+            "    → Check Booking Confirmation dialog that appears\n\n" +
+            "STEP 2️⃣  VIEW YOUR SCHEDULED INTERVIEW MEETINGS\n" +
             "    → Go to 'My Schedule' tab\n" +
             "    → See all confirmed interview times with recruiters\n" +
-            "    → Write personal notes and prepare for each meeting\n" +
-            "    → Check recruiter details and interview duration\n\n" +
-            "STEP 3️⃣  JOIN VIRTUAL INTERVIEW ROOM\n" +
-            "    → Go to 'Virtual Room' tab\n" +
-            "    → When meeting time arrives, click 'Join' button\n" +
-            "    → Connect with recruiter via video conference\n" +
-            "    → Conduct your interview - have a great conversation!\n\n" +
-            "STEP 4️⃣  VIEW INTERVIEW RESULTS (After recruiting fair ends)\n" +
-            "    → Wait for fair to close - Admin will record attendance\n" +
-            "    → See interview outcomes and feedback\n" +
-            "    → Track which opportunities moved forward\n\n" +
-            "💡 TIPS: Upload a compelling CV and skills in your profile first!\n" +
-            "✓ System syncs instantly - after you book, check Admin Console to see updates!"
+            "    → Date, time, recruiter name, company, and position shown\n" +
+            "    → Write personal prep notes for each interview\n" +
+            "    → Cancel if needed (if your schedule conflicts)\n\n" +
+            "STEP 3️⃣  JOIN VIRTUAL RECRUITER MEETING\n" +
+            "    → Go to 'Virtual Room' tab when interview time approaches\n" +
+            "    → See 'Join' button for confirmed interviews\n" +
+            "    → When meeting starts, click 'Join' to enter video conference\n" +
+            "    → Conduct your interview with recruiter\n\n" +
+            "STEP 4️⃣  VIEW INTERVIEW OUTCOMES (After fair ends)\n" +
+            "    → After admin closes recruiting fair\n" +
+            "    → View interview feedback and results in 'Results' tab\n" +
+            "    → See which recruiters advanced your application\n\n" +
+            "🔄 DEMO SYNC VERIFICATION:\n" +
+            "    ① First publish offers from Recruiter Portal\n" +
+            "    ② Switch to Candidate Portal (this screen)\n" +
+            "    ③ Offers appear in Browse Offers tab (system synced!)\n" +
+            "    ④ Click Auto-Book → creates booking\n" +
+            "    ⑤ Switch back to Admin Console\n" +
+            "    ⑥ Check 'Bookings' table - shows your new booking\n" +
+            "    ⑦ Check Audit Log - shows 'Booking Created' event\n\n" +
+            "💡 SYNC DEMONSTRATION:\n" +
+            "    • Offers published by recruiters appear here INSTANTLY\n" +
+            "    • Your bookings are recorded in Admin system IMMEDIATELY\n" +
+            "    • All three portals see changes at the same time\n" +
+            "    • SessionManager tracks every action\n" +
+            "✓ This shows real-time multi-user coordination across all portals!"
         );
         guidanceText.setFont(new Font("Arial", Font.PLAIN, 11));
         guidanceText.setEditable(false);
