@@ -167,10 +167,9 @@ public class AdminLoginFrame extends JFrame {
 
         try {
             AdminScreenController controller = new AdminScreenController();
+            // AdminScreen now registers itself as a listener in its constructor
             AdminScreen adminScreen = new AdminScreen(controller);
-            // REGISTER: AdminScreen as listener to system events
-            CareerFairSystem.getInstance().addPropertyChangeListener(adminScreen);
-            Logger.log(LogLevel.INFO, "[AdminLoginFrame] AdminScreen registered as listener");
+            Logger.log(LogLevel.INFO, "[AdminLoginFrame] AdminScreen created and initialized");
         } catch (Exception ex) {
             Logger.log(LogLevel.ERROR, "[AdminLoginFrame] Failed to launch AdminScreen", ex);
             JOptionPane.showMessageDialog(frame, "Error launching admin portal: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

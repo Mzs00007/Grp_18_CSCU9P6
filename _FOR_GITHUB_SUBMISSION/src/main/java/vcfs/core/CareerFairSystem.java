@@ -141,13 +141,6 @@ public class CareerFairSystem implements PropertyChangeListener {
     private final Set<String> registeredEmails = Collections.synchronizedSet(new HashSet<>());
 
     /**
-     * Tracks all registered recruiters in the system.
-     * THREAD-SAFE: Uses thread-safe collections.
-     * CRITICAL: Used for admin display - recruiters shown even if no offers published yet.
-     */
-    private final List<Recruiter> recruitersList = Collections.synchronizedList(new ArrayList<>());
-
-    /**
      * Tracks all registered candidates in the system.
      * THREAD-SAFE: Uses thread-safe collections.
      * Used for candidate lookups and admin display.

@@ -21,6 +21,7 @@ import vcfs.models.users.Recruiter;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.*;
 
 /**
@@ -84,6 +85,13 @@ public class CareerFairSystem implements PropertyChangeListener {
 
     CareerFair fair;
 
+    /**
+     * PropertyChangeSupport for broadcasting system events to all registered listeners (UI screens).
+     * Enables multi-portal synchronization: when state changes, all screens update automatically.
+     * Used for: phase changes, fair timeline updates, system time, audit log entries.
+     */
+    private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+
     // =========================================================
     // VCFS-001/002: OBSERVER CALLBACK + TICK
     // =========================================================
@@ -126,6 +134,39 @@ public class CareerFairSystem implements PropertyChangeListener {
     /** Expose the CareerFair for Admin configuration (YAMI uses via AdminController) */
     public CareerFair getFair() {
         return fair;
+    }
+
+    // =========================================================
+    // OBSERVER: LISTENER MANAGEMENT FOR UI SCREENS
+    // =========================================================
+
+    /**
+     * Register a listener to receive property change events from the system.
+     * Used by UI screens (AdminScreen, RecruiterScreen, CandidateScreen) to stay in sync
+     * with system state changes.
+     * @param listener The PropertyChangeListener to register
+     */
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    /**
+     * Remove a listener from receiving property change events.
+     * @param listener The PropertyChangeListener to remove
+     */
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
+    }
+
+    /**
+     * Fire a property change event to all registered listeners.
+     * Used internally to notify screens of system state changes.
+     * @param propertyName The name of the property that changed
+     * @param oldValue The old value
+     * @param newValue The new value
+     */
+    protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
+        propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
     }
 
     // =========================================================

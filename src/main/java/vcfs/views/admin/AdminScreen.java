@@ -231,6 +231,11 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
             }
         });
 
+        // ===== REGISTER AS OBSERVER =====
+        // This ensures AdminScreen receives property change events from CareerFairSystem
+        // whether it's created via login or directly via App.java
+        vcfs.core.CareerFairSystem.getInstance().addPropertyChangeListener(this);
+
         setVisible(true);
     }
 

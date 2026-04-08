@@ -1053,3 +1053,142 @@ java.lang.IllegalArgumentException: [CareerFair] Bookings close time must be BEF
 [2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Recruiter role selected
 [2026-04-01 08:00:00] [WARNING] - [LoginFrame] Recruiter not found: ZAID
 [2026-04-01 08:00:00] [WARNING] - [LoginFrame] Recruiter not found: C
+[2026-04-01 08:00:00] [INFO] - Starting up Virtual Career Fair System...
+[2026-04-01 08:00:00] [INFO] - Initializing UI threads...
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Virtual Career Fair System (VCFS)
+[2026-04-01 08:00:00] [INFO] - Group 18 — CSCU9P6
+[2026-04-01 08:00:00] [INFO] - Project Manager: Zaid
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] - ✅ CareerFairSystem Singleton initialized
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimer initialized
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] - ✅ Demo data initialized
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ Main Menu opened - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimerScreen initialized for time control
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Demo mode activated
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching demo mode - all 3 portals
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Demo mode window ready
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Admin portal
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Recruiter portal
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Candidate portal
+[2026-04-01 08:00:00] [INFO] - [UserSession] Initialized. No user logged in.
+[2026-04-01 08:00:00] [INFO] - [UserSession] Admin logged in: admin
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Administrator
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] Admin authenticated: admin
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] AdminScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] System data updated - refreshing display
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] Refreshing display with latest data
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] All tables refreshed
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): ZAID
+[2026-04-01 08:00:00] [INFO] - [UserSession] Recruiter logged in: ZAID
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Recruiter
+[2026-04-01 08:00:00] [INFO] - [LoginFrame] Recruiter authenticated: ZAID
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Refreshed offers table - found 0 offers
+[2026-04-01 08:00:00] [INFO] - [RecruiterController] Viewing meeting history for ZAID (0 sessions)
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] No sessions to display
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Launched for ZAID
+[2026-04-01 08:00:00] [INFO] - [LoginFrame] RecruiterScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] System data updated - refreshing display
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] Refreshing display with latest data
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] All tables refreshed
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: ZAID
+[2026-04-01 08:00:00] [INFO] - [UserSession] Candidate logged in: ZAID
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Candidate
+[2026-04-01 08:00:00] [INFO] - [CandidateLoginFrame] Candidate authenticated: mzs@gmail.com
+[2026-04-01 08:00:00] [INFO] - [CandidateLoginFrame] CandidateScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - [CandidateScreen] Back to Main Menu
+[2026-04-01 08:00:00] [INFO] - [UserSession] User logged out: ZAID
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Recruiter role selected
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] System data updated - refreshing display
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] Refreshing display with latest data
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] All tables refreshed
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] System data updated: recruiters
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Refreshing display
+[2026-04-01 08:00:00] [INFO] - [RecruiterController] Viewing meeting history for ZAID (0 sessions)
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] No sessions to display
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): a
+[2026-04-01 08:00:00] [INFO] - [UserSession] Recruiter logged in: a
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Recruiter
+[2026-04-01 08:00:00] [INFO] - [LoginFrame] Recruiter authenticated: a
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Refreshed offers table - found 0 offers
+[2026-04-01 08:00:00] [INFO] - [RecruiterController] Viewing meeting history for a (0 sessions)
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] No sessions to display
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Launched for a
+[2026-04-01 08:00:00] [INFO] - [LoginFrame] RecruiterScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - Offer published: a
+[2026-04-01 08:00:00] [INFO] - [RecruiterController] Offer published by a: a
+[2026-04-01 08:00:00] [INFO] - [UIHelpers] Success: Offer 'a' published successfully!
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Refreshed offers table - found 0 offers
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Offer published: a
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Refreshed offers table - found 0 offers
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Refreshed offers table - found 0 offers
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Refreshed offers table - found 0 offers
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Refreshed offers table - found 0 offers
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Refreshed offers table - found 0 offers
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Refreshed offers table - found 0 offers
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Refreshed offers table - found 0 offers
+[2026-04-01 08:00:00] [ERROR] - [UIHelpers] Error: Offer title cannot be empty.
+[2026-04-01 08:00:00] [WARNING] - [PublishOfferPanel] Rejected: empty title
+[2026-04-01 08:00:00] [INFO] - [SchedulePanel] Refresh clicked
+[2026-04-01 08:00:00] [INFO] - [RecruiterController] Viewing meeting history for a (0 sessions)
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] No sessions to display
+[2026-04-01 08:00:00] [INFO] - [UIHelpers] Info: Schedule updated successfully.
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Logout clicked
+[2026-04-01 08:00:00] [INFO] - [UserSession] User logged out: a
+[2026-04-01 08:00:00] [INFO] - [UIHelpers] Info: You have been logged out successfully.
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Demo mode activated
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching demo mode - all 3 portals
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Demo mode window ready
+[2026-04-01 08:00:00] [WARNING] - [PublishOfferPanel] No current recruiter in session
+[2026-04-01 08:00:00] [WARNING] - [PublishOfferPanel] No current recruiter in session
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Logout clicked
+[2026-04-01 08:00:00] [INFO] - [UserSession] User logged out: (Not logged in)
+[2026-04-01 08:00:00] [INFO] - [UIHelpers] Info: You have been logged out successfully.
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
