@@ -39,11 +39,11 @@ public class RecruiterScreen extends JFrame implements RecruiterView, PropertyCh
 
     public RecruiterScreen() {
         setTitle("VCFS - Recruiter Portal");
-        setSize(900, 700);
+        setSize(1000, 750);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(true);
-        setMinimumSize(new Dimension(700, 550));
+        setMinimumSize(new Dimension(800, 600));
         setLayout(new BorderLayout(10, 10));
         
         // Set background
@@ -63,12 +63,12 @@ public class RecruiterScreen extends JFrame implements RecruiterView, PropertyCh
         headerPanel.setBackground(new Color(63, 81, 181));
         headerPanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
         
-        JLabel titleLabel = new JLabel("Recruiter Portal");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        JLabel titleLabel = new JLabel("📢 RECRUITER PORTAL - Publish Offers & Manage Bookings");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleLabel.setForeground(Color.WHITE);
         
         String recruiterName = (currentRecruiter != null) ? currentRecruiter.getDisplayName() : "Recruiter";
-        JLabel userLabel = new JLabel("👤 Welcome, " + recruiterName);
+        JLabel userLabel = new JLabel("👤 Welcome, " + recruiterName + " | You can publish offers, schedule meetings, and participate in virtual recruiting");
         userLabel.setFont(new Font("Arial", Font.PLAIN, 12));
         userLabel.setForeground(new Color(225, 230, 245));
         
@@ -170,28 +170,39 @@ public class RecruiterScreen extends JFrame implements RecruiterView, PropertyCh
 
         mainPanel.add(statusBar, BorderLayout.NORTH);
 
-        // ===== GUIDANCE PANEL (Workflow Instructions) =====
+        // ===== COMPREHENSIVE GUIDANCE PANEL (Workflow Instructions) =====
         JPanel guidancePanel = new JPanel(new BorderLayout());
-        guidancePanel.setBackground(Color.WHITE);
+        guidancePanel.setBackground(new Color(230, 245, 240));
         guidancePanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(76, 175, 80), 2),
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)
+            BorderFactory.createLineBorder(new Color(76, 175, 80), 3),
+            BorderFactory.createEmptyBorder(12, 12, 12, 12)
         ));
 
-        JLabel guidanceTitle = new JLabel("📋 Workflow Steps:");
+        JLabel guidanceTitle = new JLabel("🚀 RECRUITER WORKFLOW - Complete These Steps in Order:");
         guidanceTitle.setFont(new Font("Arial", Font.BOLD, 13));
-        guidanceTitle.setForeground(new Color(76, 175, 80));
+        guidanceTitle.setForeground(new Color(39, 174, 96));
 
         JTextArea guidanceText = new JTextArea(
-            "STEP 1️⃣ : Click 'Publish Offer' tab → Enter interview details → Submit\n" +
-            "STEP 2️⃣ : Click 'Schedule' tab → Set meeting times with candidates\n" +
-            "STEP 3️⃣ : Click 'Virtual Room' tab → Join video meetings\n\n" +
-            "💡 TIP: Make sure to publish offers BEFORE candidates can book you!"
+            "STEP 1️⃣  PUBLISH OFFER\n" +
+            "    → Go to 'Publish Offer' tab\n" +
+            "    → Enter job title, description, duration, and skills required\n" +
+            "    → Click 'Publish' and watch the Offers table in Admin Console update\n\n" +
+            "STEP 2️⃣  MANAGE SCHEDULE\n" +
+            "    → Go to 'Manage Schedule' tab\n" +
+            "    → Set available meeting times (when candidates can book you)\n" +
+            "    → View booking requests from candidates\n" +
+            "    → Accept or decline interview requests\n\n" +
+            "STEP 3️⃣  VIRTUAL RECRUITING\n" +
+            "    → Go to 'Virtual Room' tab\n" +
+            "    → See confirmed meetings with candidates\n" +
+            "    → Join video meeting rooms to conduct interviews\n\n" +
+            "💡 REMEMBER: Publish offers FIRST so candidates can find and book you!\n" +
+            "✓ After every action, check Admin Console data tables to confirm updates!"
         );
         guidanceText.setEditable(false);
         guidanceText.setFont(new Font("Arial", Font.PLAIN, 11));
-        guidanceText.setBackground(new Color(240, 250, 240));
-        guidanceText.setForeground(new Color(33, 33, 33));
+        guidanceText.setBackground(new Color(245, 252, 250));
+        guidanceText.setForeground(new Color(30, 30, 30));
         guidanceText.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
         guidanceText.setLineWrap(true);
         guidanceText.setWrapStyleWord(true);

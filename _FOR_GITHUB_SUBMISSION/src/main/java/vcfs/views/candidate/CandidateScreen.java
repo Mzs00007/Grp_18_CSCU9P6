@@ -33,11 +33,11 @@ public class CandidateScreen extends JFrame implements CandidateView, PropertyCh
 
     public CandidateScreen() {
         setTitle("VCFS - Candidate Portal");
-        setSize(900, 700);
+        setSize(1000, 750);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(true);
-        setMinimumSize(new Dimension(700, 550));
+        setMinimumSize(new Dimension(800, 600));
         setLayout(new BorderLayout(10, 10));
         
         // Set background
@@ -57,12 +57,12 @@ public class CandidateScreen extends JFrame implements CandidateView, PropertyCh
         headerPanel.setBackground(new Color(76, 175, 80));
         headerPanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
         
-        JLabel titleLabel = new JLabel("Candidate Portal");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        JLabel titleLabel = new JLabel("🎓 CANDIDATE PORTAL - Find & Book Interviews");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleLabel.setForeground(Color.WHITE);
         
         String candidateName = (currentCandidate != null) ? currentCandidate.getDisplayName() : "Candidate";
-        JLabel userLabel = new JLabel("👤 Welcome, " + candidateName);
+        JLabel userLabel = new JLabel("👤 Welcome, " + candidateName + " | Browse offers from recruiters and schedule your interviews");
         userLabel.setFont(new Font("Arial", Font.PLAIN, 12));
         userLabel.setForeground(new Color(225, 245, 225));
         
@@ -214,37 +214,50 @@ public class CandidateScreen extends JFrame implements CandidateView, PropertyCh
 
         mainPanel.add(statusBarPanel, BorderLayout.NORTH);
 
-        // ===== WORKFLOW GUIDANCE PANEL =====
+        // ===== COMPREHENSIVE WORKFLOW GUIDANCE PANEL =====
         JPanel guidancePanel = new JPanel(new BorderLayout(10, 10));
-        guidancePanel.setBackground(new Color(255, 250, 225));
+        guidancePanel.setBackground(new Color(255, 250, 230));
         guidancePanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(255, 193, 7), 2),
-            BorderFactory.createEmptyBorder(10, 15, 10, 15)
+            BorderFactory.createLineBorder(new Color(255, 193, 7), 3),
+            BorderFactory.createEmptyBorder(12, 15, 12, 15)
         ));
 
-        JLabel guidanceTitle = new JLabel("💡 Your 3-Step Booking Journey:");
-        guidanceTitle.setFont(new Font("Arial", Font.BOLD, 12));
+        JLabel guidanceTitle = new JLabel("🚀 YOUR INTERVIEW BOOKING WORKFLOW - 4 Simple Steps:");
+        guidanceTitle.setFont(new Font("Arial", Font.BOLD, 13));
+        guidanceTitle.setForeground(new Color(200, 120, 0));
         guidancePanel.add(guidanceTitle, BorderLayout.NORTH);
 
         JTextArea guidanceText = new JTextArea();
         guidanceText.setText(
-            "📤 Step 1: Search & Book\n" +
-            "   → Enter desired job tags and max appointments\n" +
-            "   → System auto-matches you with available offers\n\n" +
-            "📅 Step 2: Review Schedule\n" +
-            "   → Check all your confirmed meeting times\n" +
-            "   → Prepare notes for each recruiter\n\n" +
-            "🚪 Step 3: Join Virtual Room\n" +
-            "   → Enter virtual room when meeting time arrives\n" +
-            "   → Connect with recruiter via video conference\n\n" +
-            "💡 Pro Tip: Start with 'Software', 'Data Science', or 'Graduate Scheme' tags to explore opportunities!"
+            "STEP 1️⃣  SEARCH & BOOK OFFERS\n" +
+            "    → Go to 'Browse Offers' tab\n" +
+            "    → See all available recruitment interviews from companies\n" +
+            "    → Enter your interest subject tags (e.g., Software, Data Science, Finance)\n" +
+            "    → Click 'Auto-Book Best Matches' to get matched with recruiters\n" +
+            "    → System automatically books you into recruiter's available slots\n\n" +
+            "STEP 2️⃣  VIEW YOUR SCHEDULED MEETINGS\n" +
+            "    → Go to 'My Schedule' tab\n" +
+            "    → See all confirmed interview times with recruiters\n" +
+            "    → Write personal notes and prepare for each meeting\n" +
+            "    → Check recruiter details and interview duration\n\n" +
+            "STEP 3️⃣  JOIN VIRTUAL INTERVIEW ROOM\n" +
+            "    → Go to 'Virtual Room' tab\n" +
+            "    → When meeting time arrives, click 'Join' button\n" +
+            "    → Connect with recruiter via video conference\n" +
+            "    → Conduct your interview - have a great conversation!\n\n" +
+            "STEP 4️⃣  VIEW INTERVIEW RESULTS (After recruiting fair ends)\n" +
+            "    → Wait for fair to close - Admin will record attendance\n" +
+            "    → See interview outcomes and feedback\n" +
+            "    → Track which opportunities moved forward\n\n" +
+            "💡 TIPS: Upload a compelling CV and skills in your profile first!\n" +
+            "✓ System syncs instantly - after you book, check Admin Console to see updates!"
         );
-        guidanceText.setFont(new Font("Courier", Font.PLAIN, 10));
+        guidanceText.setFont(new Font("Arial", Font.PLAIN, 11));
         guidanceText.setEditable(false);
         guidanceText.setLineWrap(true);
         guidanceText.setWrapStyleWord(true);
-        guidanceText.setBackground(new Color(255, 250, 225));
-        guidanceText.setForeground(new Color(33, 33, 33));
+        guidanceText.setBackground(new Color(255, 250, 230));
+        guidanceText.setForeground(new Color(40, 40, 40));
         guidancePanel.add(guidanceText, BorderLayout.CENTER);
 
         mainPanel.add(guidancePanel, BorderLayout.CENTER);

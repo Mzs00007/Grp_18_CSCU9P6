@@ -597,6 +597,44 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         tab.setBackground(new Color(240, 245, 250));
         tab.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        // ===== GETTING STARTED GUIDANCE PANEL =====
+        JPanel gettingStartedPanel = new JPanel(new BorderLayout());
+        gettingStartedPanel.setBackground(new Color(255, 240, 200));
+        gettingStartedPanel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(255, 165, 0), 2),
+            BorderFactory.createEmptyBorder(10, 15, 10, 15)
+        ));
+        
+        JLabel gettingStartedTitle = new JLabel("🚀 GETTING STARTED - Complete This Setup:");
+        gettingStartedTitle.setFont(new Font("Arial", Font.BOLD, 13));
+        gettingStartedTitle.setForeground(new Color(200, 100, 0));
+        
+        JPanel guidanceTextPanel = new JPanel();
+        guidanceTextPanel.setLayout(new BoxLayout(guidanceTextPanel, BoxLayout.Y_AXIS));
+        guidanceTextPanel.setBackground(new Color(255, 240, 200));
+        guidanceTextPanel.add(gettingStartedTitle);
+        
+        String[] steps = {
+            "1️⃣  CREATE ORGANIZATIONS - Set up company booths that will participate",
+            "2️⃣  ADD BOOTHS - Create booth spaces within each organization",
+            "3️⃣  ASSIGN RECRUITERS - Link recruiters to booths with email addresses",
+            "4️⃣  CONFIGURE TIMELINE - Set fair opening/closing and event start/end times",
+            "5️⃣  SWITCH TO OTHER TABS - View Organizations, Recruiters, Candidates, and Offers",
+            "6️⃣  MONITOR AUDIT LOG - Track all system events in real-time"
+        };
+        
+        for (String step : steps) {
+            JLabel stepLabel = new JLabel(step);
+            stepLabel.setFont(new Font("Arial", Font.PLAIN, 11));
+            stepLabel.setForeground(new Color(100, 50, 0));
+            guidanceTextPanel.add(stepLabel);
+            guidanceTextPanel.add(Box.createVerticalStrut(2));
+        }
+        
+        gettingStartedPanel.add(guidanceTextPanel, BorderLayout.WEST);
+        tab.add(gettingStartedPanel);
+        tab.add(Box.createVerticalStrut(10));
+
         // Dashboard at top
         JPanel dashboardPanel = createStatusDashboard();
         tab.add(dashboardPanel);
@@ -609,46 +647,61 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         formsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Section 1: Organization Management
-        JPanel orgSection = createSectionPanel("1️⃣  Create Organization");
+        JPanel orgSection = createSectionPanel("1️⃣  CREATE ORGANIZATION");
+        JLabel orgDescLabel = new JLabel("💡 Add participating companies to the fair. Each org will have booths.");
+        orgDescLabel.setFont(new Font("Arial", Font.ITALIC, 10));
+        orgDescLabel.setForeground(new Color(100, 100, 100));
         orgField = new JTextField(30);
-        JButton createOrgBtn = createStyledButton("Create", new Color(76, 175, 80));
-        JPanel orgInputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        JButton createOrgBtn = createStyledButton("✓ Create", new Color(76, 175, 80));
+        JPanel orgInputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
         orgInputPanel.setBackground(Color.WHITE);
-        orgInputPanel.add(new JLabel("Name:"));
+        orgInputPanel.add(new JLabel("Organization Name:"));
         orgInputPanel.add(orgField);
         orgInputPanel.add(createOrgBtn);
+        orgSection.setLayout(new BorderLayout(5, 5));
+        orgSection.add(orgDescLabel, BorderLayout.NORTH);
         orgSection.add(orgInputPanel, BorderLayout.CENTER);
         formsPanel.add(orgSection);
         formsPanel.add(Box.createVerticalStrut(10));
 
         // Section 2: Booth Management
-        JPanel boothSection = createSectionPanel("2️⃣  Create Booth");
+        JPanel boothSection = createSectionPanel("2️⃣  CREATE BOOTH");
+        JLabel boothDescLabel = new JLabel("💡 Create booth spaces within each organization for recruiters to operate.");
+        boothDescLabel.setFont(new Font("Arial", Font.ITALIC, 10));
+        boothDescLabel.setForeground(new Color(100, 100, 100));
         boothField = new JTextField(15);
         orgDropdown = new JComboBox<>();
-        JButton createBoothBtn = createStyledButton("Create", new Color(76, 175, 80));
-        JPanel boothInputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        JButton createBoothBtn = createStyledButton("✓ Create", new Color(76, 175, 80));
+        JPanel boothInputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
         boothInputPanel.setBackground(Color.WHITE);
-        boothInputPanel.add(new JLabel("Booth:"));
+        boothInputPanel.add(new JLabel("Booth Name:"));
         boothInputPanel.add(boothField);
         boothInputPanel.add(new JLabel("  Organization:"));
         boothInputPanel.add(orgDropdown);
         boothInputPanel.add(createBoothBtn);
+        boothSection.setLayout(new BorderLayout(5, 5));
+        boothSection.add(boothDescLabel, BorderLayout.NORTH);
         boothSection.add(boothInputPanel, BorderLayout.CENTER);
         formsPanel.add(boothSection);
         formsPanel.add(Box.createVerticalStrut(10));
 
         // Section 3: Recruiter Assignment
-        JPanel recruiterSection = createSectionPanel("3️⃣  Assign Recruiter");
+        JPanel recruiterSection = createSectionPanel("3️⃣  ASSIGN RECRUITER");
+        JLabel recruiterDescLabel = new JLabel("💡 Assign recruiters (by email) to specific booth spaces. This email will be used for recruiter login.");
+        recruiterDescLabel.setFont(new Font("Arial", Font.ITALIC, 10));
+        recruiterDescLabel.setForeground(new Color(100, 100, 100));
         recruiterField = new JTextField(15);
         boothDropdown = new JComboBox<>();
-        JButton assignRecruiterBtn = createStyledButton("Assign", new Color(33, 150, 243));
-        JPanel recruiterInputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        JButton assignRecruiterBtn = createStyledButton("✓ Assign", new Color(33, 150, 243));
+        JPanel recruiterInputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
         recruiterInputPanel.setBackground(Color.WHITE);
-        recruiterInputPanel.add(new JLabel("Recruiter:"));
+        recruiterInputPanel.add(new JLabel("Recruiter Email:"));
         recruiterInputPanel.add(recruiterField);
         recruiterInputPanel.add(new JLabel("  Booth:"));
         recruiterInputPanel.add(boothDropdown);
         recruiterInputPanel.add(assignRecruiterBtn);
+        recruiterSection.setLayout(new BorderLayout(5, 5));
+        recruiterSection.add(recruiterDescLabel, BorderLayout.NORTH);
         recruiterSection.add(recruiterInputPanel, BorderLayout.CENTER);
         formsPanel.add(recruiterSection);
         formsPanel.add(Box.createVerticalStrut(10));
@@ -660,7 +713,10 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         orgDropdown.addItemListener(e -> refreshBoothDropdown());
 
         // Section 4: Timeline
-        JPanel timelineSection = createSectionPanel("4️⃣  Set Fair Timeline");
+        JPanel timelineSection = createSectionPanel("4️⃣  CONFIGURE FAIR TIMELINE");
+        JLabel timelineDescLabel = new JLabel("💡 Set when the fair booking window opens/closes and when the actual fair events run (start/end times).");
+        timelineDescLabel.setFont(new Font("Arial", Font.ITALIC, 10));
+        timelineDescLabel.setForeground(new Color(100, 100, 100));
         Calendar cal = Calendar.getInstance();
         cal.set(2026, Calendar.APRIL, 8, 9, 0);
         openDateSpinner = new JSpinner(new SpinnerDateModel(cal.getTime(), null, null, Calendar.DAY_OF_MONTH));
@@ -669,24 +725,40 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         startTimeSpinner = new JSpinner(new SpinnerNumberModel(13, 0, 23, 1));
         endTimeSpinner = new JSpinner(new SpinnerNumberModel(17, 0, 23, 1));
         
-        JPanel timelineInputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        JPanel timelineInputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
         timelineInputPanel.setBackground(Color.WHITE);
-        timelineInputPanel.add(new JLabel("Open:"));
+        timelineInputPanel.add(new JLabel("Booking Opens:"));
         timelineInputPanel.add(openDateSpinner);
         timelineInputPanel.add(openTimeSpinner);
-        timelineInputPanel.add(new JLabel("  Close:"));
+        timelineInputPanel.add(new JLabel("  Closes:"));
         timelineInputPanel.add(closeTimeSpinner);
         
-        JButton setTimelineBtn = createStyledButton("Set Timeline", new Color(76, 175, 80));
-        JButton resetBtn = createStyledButton("Reset System", new Color(244, 67, 54));
-        JPanel timelineBtnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
+        JLabel fairStartLabel = new JLabel("Fair Runs:  ");
+        fairStartLabel.setFont(new Font("Arial", Font.BOLD, 11));
+        JPanel fairRunPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
+        fairRunPanel.setBackground(Color.WHITE);
+        fairRunPanel.add(fairStartLabel);
+        fairRunPanel.add(new JLabel("Start Time:"));
+        fairRunPanel.add(startTimeSpinner);
+        fairRunPanel.add(new JLabel("  End Time:"));
+        fairRunPanel.add(endTimeSpinner);
+        
+        JButton setTimelineBtn = createStyledButton("✓ Set Timeline", new Color(76, 175, 80));
+        JButton resetBtn = createStyledButton("⟲ Reset System", new Color(244, 67, 54));
+        JPanel timelineBtnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5));
         timelineBtnPanel.setBackground(Color.WHITE);
         timelineBtnPanel.add(setTimelineBtn);
         timelineBtnPanel.add(resetBtn);
         
         timelineSection.setLayout(new BorderLayout(5, 5));
-        timelineSection.add(timelineInputPanel, BorderLayout.WEST);
-        timelineSection.add(timelineBtnPanel, BorderLayout.EAST);
+        JPanel timelineAllPanel = new JPanel();
+        timelineAllPanel.setLayout(new BoxLayout(timelineAllPanel, BoxLayout.Y_AXIS));
+        timelineAllPanel.setBackground(Color.WHITE);
+        timelineAllPanel.add(timelineInputPanel);
+        timelineAllPanel.add(fairRunPanel);
+        timelineAllPanel.add(timelineBtnPanel);
+        timelineSection.add(timelineDescLabel, BorderLayout.NORTH);
+        timelineSection.add(timelineAllPanel, BorderLayout.CENTER);
         formsPanel.add(timelineSection);
 
         JScrollPane scroll = new JScrollPane(formsPanel);
@@ -753,9 +825,25 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         tab.setBackground(new Color(240, 245, 250));
         tab.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel titleLabel = new JLabel("🏢 All Organizations in the Fair");
+        // Header with guidance
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setBackground(new Color(240, 245, 250));
+        
+        JLabel titleLabel = new JLabel("🏢 ALL ORGANIZATIONS PARTICIPATING IN FAIR");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        tab.add(titleLabel, BorderLayout.NORTH);
+        
+        JLabel descLabel = new JLabel("Create organizations in the Setup tab. Each organization can have multiple booths. Watch the Booths count increase as you add them.");
+        descLabel.setFont(new Font("Arial", Font.ITALIC, 11));
+        descLabel.setForeground(new Color(100, 100, 100));
+        
+        JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
+        titlePanel.setBackground(new Color(240, 245, 250));
+        titlePanel.add(titleLabel);
+        titlePanel.add(descLabel);
+        headerPanel.add(titlePanel, BorderLayout.CENTER);
+        
+        tab.add(headerPanel, BorderLayout.NORTH);
 
         this.organizationsTableModel = new javax.swing.table.DefaultTableModel(
             new String[]{"Organization Name", "Booths", "Status"}, 0) {
@@ -804,9 +892,25 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         tab.setBackground(new Color(240, 245, 250));
         tab.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel titleLabel = new JLabel("👔 All Recruiters & Their Assignments");
+        // Header with guidance
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setBackground(new Color(240, 245, 250));
+        
+        JLabel titleLabel = new JLabel("👔 ALL RECRUITERS REGISTERED IN SYSTEM");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        tab.add(titleLabel, BorderLayout.NORTH);
+        
+        JLabel descLabel = new JLabel("You must assign recruiters in the Setup tab FIRST. This table shows all registered recruiters and their published offers.");
+        descLabel.setFont(new Font("Arial", Font.ITALIC, 11));
+        descLabel.setForeground(new Color(100, 100, 100));
+        
+        JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
+        titlePanel.setBackground(new Color(240, 245, 250));
+        titlePanel.add(titleLabel);
+        titlePanel.add(descLabel);
+        headerPanel.add(titlePanel, BorderLayout.CENTER);
+        
+        tab.add(headerPanel, BorderLayout.NORTH);
 
         this.recruitersTableModel = new javax.swing.table.DefaultTableModel(
             new String[]{"Recruiter Name", "Email", "Organization", "Offers Published"}, 0) {
@@ -875,9 +979,25 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         tab.setBackground(new Color(240, 245, 250));
         tab.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel titleLabel = new JLabel("👨 All Registered Candidates");
+        // Header with guidance
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setBackground(new Color(240, 245, 250));
+        
+        JLabel titleLabel = new JLabel("👨 ALL REGISTERED CANDIDATES");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        tab.add(titleLabel, BorderLayout.NORTH);
+        
+        JLabel descLabel = new JLabel("Candidates register through the Candidate Portal. They can search for offers published by recruiters and book meetings.");
+        descLabel.setFont(new Font("Arial", Font.ITALIC, 11));
+        descLabel.setForeground(new Color(100, 100, 100));
+        
+        JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
+        titlePanel.setBackground(new Color(240, 245, 250));
+        titlePanel.add(titleLabel);
+        titlePanel.add(descLabel);
+        headerPanel.add(titlePanel, BorderLayout.CENTER);
+        
+        tab.add(headerPanel, BorderLayout.NORTH);
 
         this.candidatesTableModel = new javax.swing.table.DefaultTableModel(
             new String[]{"Candidate Name", "Email", "Bio", "Skills"}, 0) {
@@ -935,9 +1055,25 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         tab.setBackground(new Color(240, 245, 250));
         tab.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JLabel titleLabel = new JLabel("📋 All Published Offers");
+        // Header with guidance
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setBackground(new Color(240, 245, 250));
+        
+        JLabel titleLabel = new JLabel("📋 ALL PUBLISHED OFFERS - CANDIDATES WILL SEE THESE");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        tab.add(titleLabel, BorderLayout.NORTH);
+        
+        JLabel descLabel = new JLabel("Offers are created by recruiters in the Recruiter Portal. Watch this list populate as recruiters publish opportunities.");
+        descLabel.setFont(new Font("Arial", Font.ITALIC, 11));
+        descLabel.setForeground(new Color(100, 100, 100));
+        
+        JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
+        titlePanel.setBackground(new Color(240, 245, 250));
+        titlePanel.add(titleLabel);
+        titlePanel.add(descLabel);
+        headerPanel.add(titlePanel, BorderLayout.CENTER);
+        
+        tab.add(headerPanel, BorderLayout.NORTH);
 
         this.offersTableModel = new javax.swing.table.DefaultTableModel(
             new String[]{"Offer Title", "Recruiter", "Duration", "Tags", "Bookings", "Capacity"}, 0) {
