@@ -525,35 +525,60 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
 
         dashboardPanel.add(metricsPanel, BorderLayout.WEST);
 
-        // ===== CENTER SECTION: WORKFLOW GUIDANCE =====
-        JPanel guidancePanel = new JPanel();
-        guidancePanel.setLayout(new BoxLayout(guidancePanel, BoxLayout.Y_AXIS));
-        guidancePanel.setBackground(new Color(230, 245, 255));
+        // ===== CENTER SECTION: COMPREHENSIVE WORKFLOW GUIDANCE =====
+        JPanel guidancePanel = new JPanel(new BorderLayout(10, 10));
+        guidancePanel.setBackground(new Color(255, 250, 230));
+        guidancePanel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(255, 193, 7), 3),
+            BorderFactory.createEmptyBorder(12, 15, 12, 15)
+        ));
 
-        JLabel workflowTitle = new JLabel("📋 ADMIN SETUP WORKFLOW:");
-        workflowTitle.setFont(new Font("Arial", Font.BOLD, 11));
-        workflowTitle.setForeground(new Color(25, 70, 130));
-        guidancePanel.add(workflowTitle);
+        JLabel guidanceTitle = new JLabel("🚀 ADMIN SYSTEM SETUP - 5 Setup Steps + Monitoring:");
+        guidanceTitle.setFont(new Font("Arial", Font.BOLD, 13));
+        guidanceTitle.setForeground(new Color(200, 120, 0));
+        guidancePanel.add(guidanceTitle, BorderLayout.NORTH);
 
-        JLabel step1 = new JLabel("Step 1️⃣  Create Organizations");
-        step1.setFont(new Font("Arial", Font.PLAIN, 10));
-        guidancePanel.add(step1);
-
-        JLabel step2 = new JLabel("Step 2️⃣  Add Booths to Organizations");
-        step2.setFont(new Font("Arial", Font.PLAIN, 10));
-        guidancePanel.add(step2);
-
-        JLabel step3 = new JLabel("Step 3️⃣  Assign Recruiters to Booths");
-        step3.setFont(new Font("Arial", Font.PLAIN, 10));
-        guidancePanel.add(step3);
-
-        JLabel step4 = new JLabel("Step 4️⃣  Configure Timeline (Calendar Dates/Times)");
-        step4.setFont(new Font("Arial", Font.PLAIN, 10));
-        guidancePanel.add(step4);
-
-        JLabel step5 = new JLabel("Step 5️⃣  Monitor System via Audit Log Below");
-        step5.setFont(new Font("Arial", Font.PLAIN, 10));
-        guidancePanel.add(step5);
+        JTextArea guidanceText = new JTextArea();
+        guidanceText.setText(
+            "STEP 1️⃣  CREATE ORGANIZATIONS\n" +
+            "    → Enter company name (e.g., 'Apple', 'Google', 'Microsoft')\n" +
+            "    → Click 'Create Organization' button in Management tab\n" +
+            "    → View created organizations in Organizations table below\n" +
+            "    → Each organization can have multiple recruitment booths\n\n" +
+            "STEP 2️⃣  ADD BOOTHS TO ORGANIZATIONS\n" +
+            "    → Select an organization from the dropdown menu\n" +
+            "    → Enter booth title/name (e.g., 'Software Dev Booth', 'Data Eng')\n" +
+            "    → Click 'Create Booth' button\n" +
+            "    → Each booth hosts interviews for one specific role/team\n\n" +
+            "STEP 3️⃣  ASSIGN RECRUITERS TO BOOTHS\n" +
+            "    → Select organization and booth from dropdowns\n" +
+            "    → Enter recruiter name and email address\n" +
+            "    → Click 'Assign Recruiter' button\n" +
+            "    → View assigned recruiters in Recruiters table\n" +
+            "    → Recruiters can then log in and publish interview offers\n\n" +
+            "STEP 4️⃣  CONFIGURE TIMELINE (CRITICAL FOR DEMO!)\n" +
+            "    → Go to 'Set Timeline' section\n" +
+            "    → Set FAIR OPEN DATE - when candidates can start booking (today/tomorrow)\n" +
+            "    → Set FAIR START TIME - when interviews begin (e.g., 09:00 AM)\n" +
+            "    → Set FAIR END TIME - when interviews stop (e.g., 05:00 PM)\n" +
+            "    → Set FAIR CLOSE TIME - when booking closes (end of day)\n" +
+            "    → Click 'Set Timeline' to activate - THIS STARTS THE FAIR!\n\n" +
+            "STEP 5️⃣  SWITCH TO OTHER PORTALS & MONITOR\n" +
+            "    → Use buttons to switch to Recruiter Portal → Create interview offers\n" +
+            "    → Use buttons to switch to Candidate Portal → Browse and book interviews\n" +
+            "    → Watch AUDIT LOG at bottom update LIVE with all system events\n" +
+            "    → System automatically syncs data across all 3 portals\n\n" +
+            "💡 DEMO FLOW: Organizations → Booths → Recruiters → Timeline → SWITCH PORTALS\n" +
+            "✓ LIVE TRACKING: Every action (org create, booth add, booking) logs to Audit Log\n" +
+            "✓ All other users see updates INSTANTLY via SessionManager sync!"
+        );
+        guidanceText.setFont(new Font("Arial", Font.PLAIN, 11));
+        guidanceText.setEditable(false);
+        guidanceText.setLineWrap(true);
+        guidanceText.setWrapStyleWord(true);
+        guidanceText.setBackground(new Color(255, 250, 230));
+        guidanceText.setForeground(new Color(40, 40, 40));
+        guidancePanel.add(guidanceText, BorderLayout.CENTER);
 
         dashboardPanel.add(guidancePanel, BorderLayout.CENTER);
 
@@ -644,33 +669,62 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
             BorderFactory.createEmptyBorder(10, 15, 10, 15)
         ));
         
-        JLabel gettingStartedTitle = new JLabel("🚀 GETTING STARTED - Complete This Setup:");
+        JLabel gettingStartedTitle = new JLabel("🚀 MANAGEMENT TAB - STEP-BY-STEP DEMO WALKTHROUGH:");
         gettingStartedTitle.setFont(new Font("Arial", Font.BOLD, 13));
         gettingStartedTitle.setForeground(new Color(200, 100, 0));
         
-        JPanel guidanceTextPanel = new JPanel();
-        guidanceTextPanel.setLayout(new BoxLayout(guidanceTextPanel, BoxLayout.Y_AXIS));
-        guidanceTextPanel.setBackground(new Color(255, 240, 200));
-        guidanceTextPanel.add(gettingStartedTitle);
+        JTextArea guidanceAreaTab = new JTextArea();
+        guidanceAreaTab.setText(
+            "📋 COMPLETE ADMIN SETUP WORKFLOW:\n\n" +
+            "SECTION 1️⃣  CREATE ORGANIZATION\n" +
+            "    → Enter company name in text field (e.g., 'TechCorp Inc')\n" +
+            "    → Click '✓ Create' button → Organization added to system\n" +
+            "    → You'll see it appear in Organizations table below\n" +
+            "    → Creates business structure for booth assignments\n\n" +
+            "SECTION 2️⃣  ADD BOOTH\n" +
+            "    → Select organization from 'Org Dropdown' menu\n" +
+            "    → Enter booth title (e.g., 'Senior Software Engineer', 'Data Scientist')\n" +
+            "    → Click '✓ Create' button → Booth added to that organization\n" +
+            "    → Multiple booths per organization = different interview tracks\n\n" +
+            "SECTION 3️⃣  ASSIGN RECRUITER\n" +
+            "    → Select organization and booth using dropdowns\n" +
+            "    → Enter recruiter full name (e.g., 'Alice Johnson')\n" +
+            "    → Enter recruiter email (e.g., 'alice@techcorp.com')\n" +
+            "    → Click '✓ Assign' → Recruiter linked to that booth\n" +
+            "    → Recruiter can now log in and publish interview offers\n\n" +
+            "SECTION 4️⃣  CONFIGURE TIMELINE (DO THIS WHEN READY TO START FAIR)\n" +
+            "    → Set FAIR OPEN DATE: Pick date (default today) - when booking opens\n" +
+            "    → Set FAIR START TIME: Pick time (e.g., 09:00 AM)\n" +
+            "    → Set FAIR END TIME: Pick time (e.g., 17:00/5:00 PM)\n" +
+            "    → Set FAIR CLOSE TIME: Pick time (e.g., 18:00/6:00 PM) - booking deadline\n" +
+            "    → Click '✓ Set Timeline' button → FAIR GOES LIVE!\n" +
+            "    → After this: Recruiters can publish offers, Candidates can book\n\n" +
+            "🔄 THEN DEMONSTRATE BY:\n" +
+            "    ① Click '👔 View Recruiter Portal' → Go to Recruiter Portal\n" +
+            "    ② Create interview offers from recruiter side\n" +
+            "    ③ Click back to Admin → Check Audit Log (all events logged)\n" +
+            "    ④ IMPORTANT: As you work, watch Audit Log update LIVE at bottom\n" +
+            "    ⑤ Click '👨 View Candidate Portal' → Show candidate side\n" +
+            "    ⑥ In Candidate Portal, book interviews → Check Admin Log\n\n" +
+            "✅ WHAT TO SHOW:\n" +
+            "    • Org/Booth/Recruiter creation in real-time\n" +
+            "    • Timeline activation (starts recruiting phase)\n" +
+            "    • LIVE Audit Log showing all operations\n" +
+            "    • Cross-portal sync (changes visible in all 3 portals instantly)\n" +
+            "    • Recruiter Portal creating offers → shows in Admin log\n" +
+            "    • Candidate booking → shows as 'Booking Created' in Admin log"
+        );
+        guidanceAreaTab.setFont(new Font("Arial", Font.PLAIN, 10));
+        guidanceAreaTab.setEditable(false);
+        guidanceAreaTab.setLineWrap(true);
+        guidanceAreaTab.setWrapStyleWord(true);
+        guidanceAreaTab.setBackground(new Color(255, 240, 200));
+        guidanceAreaTab.setForeground(new Color(50, 30, 0));
         
-        String[] steps = {
-            "1️⃣  CREATE ORGANIZATIONS - Set up company booths that will participate",
-            "2️⃣  ADD BOOTHS - Create booth spaces within each organization",
-            "3️⃣  ASSIGN RECRUITERS - Link recruiters to booths with email addresses",
-            "4️⃣  CONFIGURE TIMELINE - Set fair opening/closing and event start/end times",
-            "5️⃣  SWITCH TO OTHER TABS - View Organizations, Recruiters, Candidates, and Offers",
-            "6️⃣  MONITOR AUDIT LOG - Track all system events in real-time"
-        };
+        JScrollPane guidanceScrollPane = new JScrollPane(guidanceAreaTab);
+        guidanceScrollPane.setBackground(new Color(255, 240, 200));
+        gettingStartedPanel.add(guidanceScrollPane, BorderLayout.CENTER);
         
-        for (String step : steps) {
-            JLabel stepLabel = new JLabel(step);
-            stepLabel.setFont(new Font("Arial", Font.PLAIN, 11));
-            stepLabel.setForeground(new Color(100, 50, 0));
-            guidanceTextPanel.add(stepLabel);
-            guidanceTextPanel.add(Box.createVerticalStrut(2));
-        }
-        
-        gettingStartedPanel.add(guidanceTextPanel, BorderLayout.WEST);
         tab.add(gettingStartedPanel);
         tab.add(Box.createVerticalStrut(10));
 
