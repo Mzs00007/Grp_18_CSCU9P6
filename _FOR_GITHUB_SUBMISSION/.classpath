@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+    <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+    <classpathentry kind="src" path="src/test/java" including="**/*.java"/>
+    <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+    
+    <!-- JUnit 5 Jupiter API -->
+    <classpathentry kind="lib" path="lib/junit-jupiter-api-5.9.2.jar"/>
+    
+    <!-- JUnit 5 Jupiter Engine (runtime) -->
+    <classpathentry kind="lib" path="lib/junit-jupiter-engine-5.9.2.jar"/>
+    
+    <!-- JUnit Platform Commons (shared utilities) -->
+    <classpathentry kind="lib" path="lib/junit-platform-commons-1.9.2.jar"/>
+    
+    <!-- JUnit Platform Engine (runtime foundation) -->
+    <classpathentry kind="lib" path="lib/junit-platform-engine-1.9.2.jar"/>
+    
+    <!-- API Guardian (used by JUnit annotations) -->
+    <classpathentry kind="lib" path="lib/apiguardian-api-1.1.2.jar"/>
+    
+    <classpathentry kind="output" path="build/bin"/>
+</classpath>

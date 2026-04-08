@@ -91,9 +91,10 @@ public class AdminScreenController {
                 throw new IllegalArgumentException("Organization not found: " + orgName);
             }
             
-            // Create and add the booth
-            Booth booth = new Booth(boothName);
-            org.addBooth(booth);
+            // CRITICAL FIX: Use system.addBooth() to ensure firePropertyChange("booths") is called
+            // This broadcasts booth creation to ALL portals (AdminScreen, RecruiterScreen, CandidateScreen)
+            // so their dropdowns and displays refresh automatically
+            Booth booth = system.addBooth(org, boothName);
             
             // Log the action
             Logger.log(LogLevel.INFO, "[AdminScreenController] Booth created successfully: " + boothName + " in " + orgName);

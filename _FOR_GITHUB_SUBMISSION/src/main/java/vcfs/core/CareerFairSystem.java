@@ -248,10 +248,15 @@ public class CareerFairSystem implements PropertyChangeListener {
     /**
      * Admin: validate and set the fair timeline.
      * Delegates to CareerFair.setTimes() which also validates boundaries.
+     * Broadcasts "timeline" event so all portals can update UI (e.g., display fair hours).
      */
     public void configureTimes(LocalDateTime openTime, LocalDateTime closeTime,
                         LocalDateTime startTime, LocalDateTime endTime) {
         fair.setTimes(openTime, closeTime, startTime, endTime);
+        
+        // CRITICAL FIX: Broadcast timeline change so all portals refresh
+        firePropertyChange("timeline", null, new Object[] {openTime, closeTime, startTime, endTime});
+        
         Logger.info("[CareerFairSystem] Fair times configured.");
     }
 
@@ -260,6 +265,7 @@ public class CareerFairSystem implements PropertyChangeListener {
      * Safely clears every collection without causing NPEs.
      * Also clears all performance caches to ensure fresh state.
      * Called by YAMI's AdminController.onResetFair().
+     * Broadcasts "reset" event so all portals refresh their displays.
      */
     public void resetFairData() {
         if (fair.organizations != null) fair.organizations.clear();
@@ -274,6 +280,11 @@ public class CareerFairSystem implements PropertyChangeListener {
         invalidateOfferCache();
         invalidateOrgCache();
         invalidateBoothCache();
+        
+        // CRITICAL FIX: Broadcast reset event so ALL portals refresh immediately
+        // Portals will see organizations, recruiters, candidates, and offers all cleared
+        firePropertyChange("reset", null, "SYSTEM_RESET");
+        firePropertyChange("organizations", null, fair.organizations);
         
         Logger.info("[CareerFairSystem] Fair data reset. All collections and caches cleared.");
     }
@@ -758,6 +769,7 @@ public class CareerFairSystem implements PropertyChangeListener {
 
     /**
      * Parse timeline strings (format: "yyyy-MM-ddTHH:mm") and configure the fair.
+     * Broadcasts "timeline" event so all portals can update UI if needed.
      * @param openStr Bookings open time
      * @param closeStr Bookings close time
      * @param startStr Fair start time
@@ -773,6 +785,10 @@ public class CareerFairSystem implements PropertyChangeListener {
 
         // Delegate to CareerFair
         fair.setTimes(open, close, start, end);
+        
+        // CRITICAL FIX: Broadcast timeline change so ALL portals (AdminScreen, etc.) refresh
+        firePropertyChange("timeline", null, new Object[] {open, close, start, end});
+        
         Logger.log(LogLevel.INFO, "Fair times set via controller: open=" + openStr + ", close=" + closeStr + ", start=" + startStr + ", end=" + endStr);
     }
 
