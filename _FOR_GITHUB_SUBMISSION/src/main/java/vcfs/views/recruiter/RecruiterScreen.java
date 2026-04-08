@@ -126,9 +126,16 @@ public class RecruiterScreen extends JFrame implements RecruiterView, PropertyCh
         
         add(headerPanel, BorderLayout.NORTH);
 
-        // ===== STATUS & GUIDANCE DASHBOARD =====
+        // ===== STATUS & GUIDANCE DASHBOARD WITH PAGE-LEVEL SCROLLER =====
         JPanel dashboardPanel = createStatusDashboard();
-        add(dashboardPanel, BorderLayout.CENTER);
+        
+        // P2 FIX: Wrap dashboard in page-level scroller for content overflow
+        JScrollPane pageScroller = new JScrollPane(dashboardPanel,
+            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        pageScroller.getVerticalScrollBar().setUnitIncrement(16);
+        
+        add(pageScroller, BorderLayout.CENTER);
         
         // ===== REGISTER AS OBSERVER =====
         // RecruiterScreen receives property change events from CareerFairSystem

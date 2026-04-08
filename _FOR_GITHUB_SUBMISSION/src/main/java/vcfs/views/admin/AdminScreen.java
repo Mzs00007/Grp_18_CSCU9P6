@@ -134,7 +134,7 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         
         add(headerPanel, BorderLayout.NORTH);
 
-        // ===== TABBED INTERFACE =====
+        // ===== TABBED INTERFACE WITH PAGE-LEVEL SCROLLER =====
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setFont(new Font("Arial", Font.PLAIN, 12));
         tabbedPane.setBackground(new Color(240, 245, 250));
@@ -163,7 +163,13 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         JPanel auditTab = createAuditLogTab();
         tabbedPane.addTab("📊 Audit Log & System Events", auditTab);
 
-        add(tabbedPane, BorderLayout.CENTER);
+        // P2 FIX: Wrap tabbed pane in page-level scroller for content overflow
+        JScrollPane pageScroller = new JScrollPane(tabbedPane,
+            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        pageScroller.getVerticalScrollBar().setUnitIncrement(16);
+        
+        add(pageScroller, BorderLayout.CENTER);
 
         // ===== REGISTER AS OBSERVER =====
         // This ensures AdminScreen receives property change events from CareerFairSystem
@@ -721,7 +727,10 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         guidanceAreaTab.setBackground(new Color(255, 240, 200));
         guidanceAreaTab.setForeground(new Color(50, 30, 0));
         
-        JScrollPane guidanceScrollPane = new JScrollPane(guidanceAreaTab);
+        // P2 FIX: No vertical scrollbar - page-level scroller handles vertical
+        JScrollPane guidanceScrollPane = new JScrollPane(guidanceAreaTab,
+            JScrollPane.VERTICAL_SCROLLBAR_NEVER,
+            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         guidanceScrollPane.setBackground(new Color(255, 240, 200));
         gettingStartedPanel.add(guidanceScrollPane, BorderLayout.CENTER);
         
@@ -947,7 +956,12 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         table.setFont(new Font("Arial", Font.PLAIN, 11));
         table.setRowHeight(25);
         table.setBackground(Color.WHITE);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+        
+        // P2 FIX: Set proper column widths for organizations display
+        table.getColumnModel().getColumn(0).setPreferredWidth(300); // Organization Name
+        table.getColumnModel().getColumn(1).setPreferredWidth(100); // Booths
+        table.getColumnModel().getColumn(2).setPreferredWidth(150); // Status
 
         JButton refreshBtn = new JButton("🔄 Refresh Data");
         refreshBtn.addActionListener(e -> refreshOrganizationsTable());
@@ -959,7 +973,7 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
 
         // Add responsive scrolling (vertical AND horizontal)
         JScrollPane scrollPane = new JScrollPane(table,
-            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.VERTICAL_SCROLLBAR_NEVER,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.getViewport().setBackground(Color.WHITE);
         tab.add(scrollPane, BorderLayout.CENTER);
@@ -1014,7 +1028,13 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         table.setFont(new Font("Arial", Font.PLAIN, 11));
         table.setRowHeight(25);
         table.setBackground(Color.WHITE);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+        
+        // P2 FIX: Set proper column widths for recruiters display
+        table.getColumnModel().getColumn(0).setPreferredWidth(200); // Name
+        table.getColumnModel().getColumn(1).setPreferredWidth(150); // Company
+        table.getColumnModel().getColumn(2).setPreferredWidth(100); // Offers
+        table.getColumnModel().getColumn(3).setPreferredWidth(100); // Status
 
         JButton refreshBtn = new JButton("🔄 Refresh Data");
         refreshBtn.addActionListener(e -> refreshRecruitersTable());
@@ -1026,7 +1046,7 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
 
         // Add responsive scrolling (vertical AND horizontal)
         JScrollPane scrollPane = new JScrollPane(table,
-            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.VERTICAL_SCROLLBAR_NEVER,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.getViewport().setBackground(Color.WHITE);
         tab.add(scrollPane, BorderLayout.CENTER);
@@ -1101,7 +1121,13 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         table.setFont(new Font("Arial", Font.PLAIN, 11));
         table.setRowHeight(25);
         table.setBackground(Color.WHITE);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+        
+        // P2 FIX: Set proper column widths for candidates display
+        table.getColumnModel().getColumn(0).setPreferredWidth(200); // Name
+        table.getColumnModel().getColumn(1).setPreferredWidth(200); // Email
+        table.getColumnModel().getColumn(2).setPreferredWidth(120); // Bookings
+        table.getColumnModel().getColumn(3).setPreferredWidth(100); // Status
 
         JButton refreshBtn = new JButton("🔄 Refresh Data");
         refreshBtn.addActionListener(e -> refreshCandidatesTable());
@@ -1113,7 +1139,7 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
 
         // Add responsive scrolling (vertical AND horizontal)
         JScrollPane scrollPane = new JScrollPane(table,
-            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.VERTICAL_SCROLLBAR_NEVER,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.getViewport().setBackground(Color.WHITE);
         tab.add(scrollPane, BorderLayout.CENTER);
@@ -1185,7 +1211,15 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         table.setFont(new Font("Arial", Font.PLAIN, 11));
         table.setRowHeight(25);
         table.setBackground(Color.WHITE);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+        
+        // P2 FIX: Set proper column widths for offers display
+        table.getColumnModel().getColumn(0).setPreferredWidth(180); // Title
+        table.getColumnModel().getColumn(1).setPreferredWidth(180); // Recruiter
+        table.getColumnModel().getColumn(2).setPreferredWidth(120); // Duration
+        table.getColumnModel().getColumn(3).setPreferredWidth(100); // Capacity
+        table.getColumnModel().getColumn(4).setPreferredWidth(100); // Booked
+        table.getColumnModel().getColumn(5).setPreferredWidth(120); // Available
 
         JButton refreshBtn = new JButton("🔄 Refresh Data");
         refreshBtn.addActionListener(e -> refreshOffersTable());
@@ -1197,7 +1231,7 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
 
         // Add responsive scrolling (vertical AND horizontal)
         JScrollPane scrollPane = new JScrollPane(table,
-            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.VERTICAL_SCROLLBAR_NEVER,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.getViewport().setBackground(Color.WHITE);
         tab.add(scrollPane, BorderLayout.CENTER);
@@ -1245,7 +1279,10 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         auditArea.append("[2026-04-08 08:00:00] Admin logged in\n");
         auditArea.append("[2026-04-08 08:00:00] Demo data loaded\n");
 
-        JScrollPane scroll = new JScrollPane(auditArea);
+        // P2 FIX: No vertical scrollbar - page-level scroller handles vertical
+        JScrollPane scroll = new JScrollPane(auditArea,
+            JScrollPane.VERTICAL_SCROLLBAR_NEVER,
+            JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100)));
         tab.add(scroll, BorderLayout.CENTER);
 

@@ -294,10 +294,18 @@ public class CandidateScreen extends JFrame implements CandidateView, PropertyCh
         availableOffersTable.setRowHeight(25);
         availableOffersTable.setBackground(Color.WHITE);
         availableOffersTable.setGridColor(new Color(220, 220, 220));
-        availableOffersTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        availableOffersTable.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+        
+        // P2 FIX: Set proper column widths to display all data
+        availableOffersTable.getColumnModel().getColumn(0).setPreferredWidth(200); // Offer Title
+        availableOffersTable.getColumnModel().getColumn(1).setPreferredWidth(150); // Recruiter
+        availableOffersTable.getColumnModel().getColumn(2).setPreferredWidth(100); // Duration
+        availableOffersTable.getColumnModel().getColumn(3).setPreferredWidth(150); // Topics
+        availableOffersTable.getColumnModel().getColumn(4).setPreferredWidth(130); // Spaces Available
+        availableOffersTable.getColumnModel().getColumn(5).setPreferredWidth(80);  // Capacity
         
         JScrollPane browseScroll = new JScrollPane(availableOffersTable,
-            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.VERTICAL_SCROLLBAR_NEVER,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         browseScroll.setBorder(BorderFactory.createLineBorder(new Color(150, 150, 150)));
         browseOffersPanel.add(browseScroll, BorderLayout.CENTER);
@@ -419,11 +427,16 @@ public class CandidateScreen extends JFrame implements CandidateView, PropertyCh
         scheduleTable.setBackground(Color.WHITE);
         scheduleTable.setGridColor(new Color(200, 200, 200));
         scheduleTable.setRowHeight(25);
-        scheduleTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        scheduleTable.getTableHeader().setBackground(new Color(240, 240, 240));
+        scheduleTable.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+        
+        // P2 FIX: Set proper column widths for schedule display
+        scheduleTable.getColumnModel().getColumn(0).setPreferredWidth(250); // Session Title
+        scheduleTable.getColumnModel().getColumn(1).setPreferredWidth(180); // Start Time
+        scheduleTable.getColumnModel().getColumn(2).setPreferredWidth(120); // Duration
+        scheduleTable.getColumnModel().getColumn(3).setPreferredWidth(100); // Status
         
         JScrollPane tableScroll = new JScrollPane(scheduleTable,
-            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.VERTICAL_SCROLLBAR_NEVER,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         tableScroll.setBorder(BorderFactory.createLineBorder(new Color(150, 150, 150)));
         mySchedulePanel.add(tableScroll, BorderLayout.CENTER);
@@ -600,11 +613,19 @@ public class CandidateScreen extends JFrame implements CandidateView, PropertyCh
         availableOffersTable.setRowHeight(25);
         availableOffersTable.setBackground(Color.WHITE);
         availableOffersTable.setGridColor(new Color(220, 220, 220));
-        availableOffersTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        availableOffersTable.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
         
-        // Add responsive scrolling (vertical AND horizontal)
+        // P2 FIX: Set proper column widths to display all data
+        availableOffersTable.getColumnModel().getColumn(0).setPreferredWidth(200); // Offer Title
+        availableOffersTable.getColumnModel().getColumn(1).setPreferredWidth(150); // Recruiter
+        availableOffersTable.getColumnModel().getColumn(2).setPreferredWidth(100); // Duration
+        availableOffersTable.getColumnModel().getColumn(3).setPreferredWidth(150); // Topics
+        availableOffersTable.getColumnModel().getColumn(4).setPreferredWidth(130); // Spaces Available
+        availableOffersTable.getColumnModel().getColumn(5).setPreferredWidth(80);  // Capacity
+        
+        // Add responsive scrolling (horizontal only for tables)
         JScrollPane browseScroll = new JScrollPane(availableOffersTable,
-            JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+            JScrollPane.VERTICAL_SCROLLBAR_NEVER,
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         browseScroll.setBorder(BorderFactory.createLineBorder(new Color(150, 150, 150)));
         browseOffersPanel.add(browseScroll, BorderLayout.CENTER);
