@@ -11,6 +11,7 @@ import vcfs.core.Logger;
 import vcfs.core.SystemTimer;
 import vcfs.core.SessionManager;
 import vcfs.core.SystemStateManager;
+import vcfs.core.DemoAssistant;
 import vcfs.models.users.Recruiter;
 import vcfs.views.admin.AdminScreen;
 import vcfs.views.candidate.CandidateScreen;
@@ -67,6 +68,11 @@ public class App {
                 SessionManager sessionManager = SessionManager.getInstance();
                 sessionManager.enableLiveMode();
                 Logger.info("  ✓ Session Manager active (real-time activity tracking)");
+                
+                // Initialize demonstration script for 20-minute guided demo
+                Logger.info("[3.7/7] Preparing demonstration assistant...");
+                DemoAssistant demoAssistant = DemoAssistant.getInstance();
+                Logger.info("  ✓ Demo Assistant ready (20-minute workflow available)");
 
                 // Initialize system timer (for VCFS-002 Observer pattern)
                 Logger.info("[4/7] Starting system time controller...");
@@ -97,6 +103,7 @@ public class App {
                 Logger.info("   ✅ Data persistence: RUNNING (auto-save every 5 seconds, crash recovery enabled)");
                 Logger.info("   ✅ Operation tracking: ENABLED (all actions recorded in state manager)");
                 Logger.info("   ✅ Live session monitoring: ENABLED (real-time activity logs in all portals)");
+                Logger.info("   ✅ Demo assistant: READY (20-minute guided demonstration workflow)");
                 Logger.info("   ✅ Portal system: READY (3 portals for Candidate/Recruiter/Admin)");
                 Logger.info("   ✅ Demo data: LOADED (3 orgs, 3 recruiters, 3 candidates, 6+ interview slots)");
                 Logger.info("═══════════════════════════════════════════════════════════════════════════════════");
