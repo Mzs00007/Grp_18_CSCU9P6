@@ -878,6 +878,12 @@ public class CandidateScreen extends JFrame implements CandidateView, PropertyCh
         } else if ("candidates".equals(prop) || "offers".equals(prop)) {
             Logger.log(LogLevel.INFO, "[CandidateScreen] System data updated: " + prop);
             javax.swing.SwingUtilities.invokeLater(() -> refreshDisplay());
+        } else if ("reset".equals(prop)) {
+            Logger.log(LogLevel.INFO, "[CandidateScreen] System reset - clearing all displays");
+            javax.swing.SwingUtilities.invokeLater(() -> refreshDisplay());
+        } else if ("timeline".equals(prop)) {
+            Logger.log(LogLevel.INFO, "[CandidateScreen] Timeline updated - refreshing display");
+            javax.swing.SwingUtilities.invokeLater(() -> refreshDisplay());
         }
     }
 }

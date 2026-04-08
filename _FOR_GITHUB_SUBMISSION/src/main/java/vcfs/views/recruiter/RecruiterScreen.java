@@ -337,6 +337,12 @@ public class RecruiterScreen extends JFrame implements RecruiterView, PropertyCh
         } else if ("recruiters".equals(prop) || "offers".equals(prop)) {
             Logger.log(LogLevel.INFO, "[RecruiterScreen] System data updated: " + prop);
             javax.swing.SwingUtilities.invokeLater(() -> refreshDisplay());
+        } else if ("reset".equals(prop)) {
+            Logger.log(LogLevel.INFO, "[RecruiterScreen] System reset - clearing all displays");
+            javax.swing.SwingUtilities.invokeLater(() -> refreshDisplay());
+        } else if ("timeline".equals(prop)) {
+            Logger.log(LogLevel.INFO, "[RecruiterScreen] Timeline updated - refreshing display");
+            javax.swing.SwingUtilities.invokeLater(() -> refreshDisplay());
         }
     }
 }

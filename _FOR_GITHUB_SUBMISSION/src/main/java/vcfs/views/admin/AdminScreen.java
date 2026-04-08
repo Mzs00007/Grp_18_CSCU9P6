@@ -243,6 +243,23 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
                 refreshOffersTable();
             });
         }
+        if ("timeline".equals(prop)) {
+            Logger.log(LogLevel.INFO, "[AdminScreen] Timeline updated - refreshing display");
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                refreshDisplay();
+            });
+        }
+        if ("reset".equals(prop)) {
+            Logger.log(LogLevel.INFO, "[AdminScreen] System reset - clearing all displays");
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                refreshOrganizationDropdown();
+                refreshBoothDropdown();
+                refreshRecruitersTable();
+                refreshCandidatesTable();
+                refreshOffersTable();
+                refreshDisplay();
+            });
+        }
     }
 
     /**
