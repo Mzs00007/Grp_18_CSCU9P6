@@ -24,6 +24,10 @@ public class Logger {
     private static BufferedWriter logWriter = null;
     private static String lastLogFile = null;
     private static final Object WRITER_LOCK = new Object();
+    
+    // Demo mode constants (visible to presenter for real-time feedback)
+    public static final String VERSION = "VCFS v2.0.1 (Demo Edition)";
+    public static final boolean DEMO_MODE = true;
 
     static {
         File dir = new File(LOG_DIR);
@@ -49,6 +53,9 @@ public class Logger {
     private static final String ANSI_YELLOW = "\u001B[33m";
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_BOLD_RED = "\u001B[1;31m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_BOLD_GREEN = "\u001B[1;32m";
+    private static final String ANSI_BOLD_CYAN = "\u001B[1;36m";
 
     public static void log(LogLevel level, String message) {
         log(level, message, null);
@@ -65,12 +72,12 @@ public class Logger {
         String fileLogEntry = String.format("[%s] [%s] - %s",
                 timestamp, level.name(), message);
                 
-        // Colored log entry for the console
+        // Colored log entry for the console with emoji indicators
         String colorLevel = switch (level) {
-            case INFO -> ANSI_CYAN + "INFO" + ANSI_RESET;
-            case WARNING -> ANSI_YELLOW + "WARNING" + ANSI_RESET;
-            case ERROR -> ANSI_RED + "ERROR" + ANSI_RESET;
-            case CRITICAL -> ANSI_BOLD_RED + "CRITICAL" + ANSI_RESET;
+            case INFO -> ANSI_CYAN + "ℹ INFO" + ANSI_RESET;
+            case WARNING -> ANSI_YELLOW + "⚠ WARNING" + ANSI_RESET;
+            case ERROR -> ANSI_RED + "✗ ERROR" + ANSI_RESET;
+            case CRITICAL -> ANSI_BOLD_RED + "⛔ CRITICAL" + ANSI_RESET;
         };
         
         String consoleLogEntry = String.format("[%s] [%s] - %s",

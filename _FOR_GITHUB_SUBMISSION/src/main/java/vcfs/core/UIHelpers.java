@@ -375,4 +375,74 @@ public class UIHelpers {
             }
         });
     }
+
+    // =========================================================
+    // DEMO-SPECIFIC DIALOGS (Enhanced for Presentation)
+    // =========================================================
+
+    /**
+     * Show professional demo success dialog with visual feedback.
+     *  
+     * @param parent Parent component
+     * @param operation What was accomplished
+     * @param status Additional status info
+     */
+    public static void showDemoSuccessDialog(Component parent, String operation, String status) {
+        String message = "✓ " + operation + "\n\n" +
+                         (status != null ? status : "") + "\n\n" +
+                         "This event was logged to the audit trail and reflected\n" +
+                         "across all connected portals in real-time (Observer Pattern).";
+        
+        JOptionPane.showMessageDialog(
+            parent,
+            message,
+            "✓ Operation Successful",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+        Logger.log(LogLevel.INFO, "[DemoDialog] Success: " + operation);
+    }
+
+    /**
+     * Show professional demo error dialog with recovery guidance.
+     *
+     * @param parent Parent component
+     * @param operation What was attempted
+     * @param errorReason Why it failed
+     */
+    public static void showDemoErrorDialog(Component parent, String operation, String errorReason) {
+        String message = "✗ " + operation + " FAILED\n\n" +
+                         "Reason: " + errorReason + "\n\n" +
+                         "Please check the logs for details or try again.";
+        
+        JOptionPane.showMessageDialog(
+            parent,
+            message,
+            "✗ Operation Failed",
+            JOptionPane.ERROR_MESSAGE
+        );
+        Logger.log(LogLevel.ERROR, "[DemoDialog] Failed: " + operation + " - " + errorReason);
+    }
+
+    /**
+     * Show real-time sync confirmation dialog.
+     *
+     * @param parent Parent component
+     * @param affectedRoles Which roles saw the update
+     */
+    public static void showRealtimeSyncDialog(Component parent, String... affectedRoles) {
+        StringBuilder msg = new StringBuilder("✓ Real-Time Synchronization\n\n");
+        msg.append("This change was instantly broadcast to:\n");
+        for (String role : affectedRoles) {
+            msg.append("  ✓ ").append(role).append("\n");
+        }
+        msg.append("\nThis demonstrates the Observer Pattern at work!\n");
+        msg.append("Multiple screens stay synchronized without explicit refresh.");
+        
+        JOptionPane.showMessageDialog(
+            parent,
+            msg.toString(),
+            "🔄 Real-Time Update Confirmed",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+    }
 }

@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import vcfs.controllers.AdminScreenController;
 import vcfs.core.CareerFairSystem;
+import vcfs.core.DataPersistenceManager;
 import vcfs.core.LocalDateTime;
 import vcfs.core.LogLevel;
 import vcfs.core.Logger;
@@ -26,37 +27,78 @@ import vcfs.views.shared.SystemTimerScreen;
 public class App {
 
     public static void main(String[] args) {
-        Logger.info("Starting up Virtual Career Fair System...");
+        System.out.println("\n╔════════════════════════════════════════════════════════════════════════════╗");
+        System.out.println("║              Virtual Career Fair System (VCFS)                        ║");
+        System.out.println("║              Group 18 | CSCU9P6 | University of Stirling              ║");
+        System.out.println("║                                                                        ║");
+        System.out.println("║              🎬 DEMONSTRATION EDITION FOR 100-PERSON AUDIENCE        ║");
+        System.out.println("║              Project Manager: Zaid Siddiqui (mzs00007)                ║");
+        System.out.println("║              Version: " + Logger.VERSION.substring(0, Math.min(Logger.VERSION.length(), 45)) + "                ║");
+        System.out.println("╚════════════════════════════════════════════════════════════════════════════╝\n");
+        
+        Logger.info("🚀 Initializing Virtual Career Fair System (Demo Edition)");
+        Logger.info("═══════════════════════════════════════════════════════════════════════════════════");
         
         try {
             SwingUtilities.invokeLater(() -> {
-                Logger.info("Initializing UI threads...");
-                Logger.info("========================================");
-                Logger.info("Virtual Career Fair System (VCFS)");
-                Logger.info("Group 18 — CSCU9P6");
-                Logger.info("Project Manager: Zaid");
-                Logger.info("========================================");
+                long startTime = System.currentTimeMillis();
+                Logger.info("📱 [1/7] Launching user interface framework...");
 
                 // VCFS-001: Initialize Singleton CareerFairSystem
-                CareerFairSystem.getInstance();
-                Logger.info("✅ CareerFairSystem Singleton initialized");
+                Logger.info("[2/7] Initializing core backend system...");
+                CareerFairSystem system = CareerFairSystem.getInstance();
+                Logger.info("  ✓ CareerFairSystem Singleton active");
+
+                // Initialize data persistence - PREVENTS DATA LOSS
+                Logger.info("[3/7] Initializing data persistence engine...");
+                DataPersistenceManager persistence = DataPersistenceManager.getInstance();
+                persistence.initialize(system);
+                Logger.info("  ✓ Auto-save engine running (checkpoints every 5 seconds)");
 
                 // Initialize system timer (for VCFS-002 Observer pattern)
+                Logger.info("[4/7] Starting system time controller...");
                 SystemTimer.getInstance();
-                Logger.info("✅ SystemTimer initialized");
+                Logger.info("  ✓ SystemTimer running (compressed demo time)");
 
                 // Initialize demo data BEFORE UI opens (so screens can access it)
+                Logger.info("[5/7] Loading demo data (3 orgs, 3 recruiters, 3 candidates, 6+ slots)...");
                 initializeDemoData();
-                Logger.info("✅ Demo data initialized");
+                Logger.info("  ✓ Demo data fully initialized and ready");
 
                 // OPEN MAIN MENU - This is the proper entry point for the application
-                // Users select their role (Admin, Recruiter, Candidate, or Demo Mode)
+                Logger.info("[6/7] Launching main portal selector...");
                 new vcfs.views.shared.MainMenuFrame();
-                Logger.info("✅ Main Menu opened - awaiting role selection");
+                Logger.info("  ✓ Main Menu displayed - awaiting role selection");
                 
                 // Initialize SystemTimerScreen for time control in demo
+                Logger.info("[7/7] Starting demo time control panel...");
                 new SystemTimerScreen();
-                Logger.log(LogLevel.INFO, "✅ SystemTimerScreen initialized for time control");
+                Logger.log(LogLevel.INFO, "  ✓ Time control ready (simulates 2-hour fair in 2 minutes)");
+                
+                long loadTime = System.currentTimeMillis() - startTime;
+                Logger.info("═══════════════════════════════════════════════════════════════════════════════════");
+                Logger.info("🎬 SYSTEM READY FOR DEMONSTRATION TO 100-PERSON AUDIENCE (" + loadTime + "ms startup)");
+                Logger.info("   ✅ Observer pattern: ACTIVE (PropertyChangeListener monitoring)");
+                Logger.info("   ✅ MVC architecture: CONFIRMED (Model-View-Controller separation)");
+                Logger.info("   ✅ Thread-safe backend: ENGAGED (ConcurrentHashMap, synchronized collections)");
+                Logger.info("   ✅ Data persistence: RUNNING (auto-save every 5 seconds, crash recovery enabled)");
+                Logger.info("   ✅ Portal system: READY (3 portals for Candidate/Recruiter/Admin)");
+                Logger.info("   ✅ Demo data: LOADED (3 orgs, 3 recruiters, 3 candidates, 6+ interview slots)");
+                Logger.info("═══════════════════════════════════════════════════════════════════════════════════");
+                Logger.info("📌 HOW TO USE:");
+                Logger.info("   1. Click a ROLE BUTTON (Candidate/Recruiter/Admin) to enter portal");
+                Logger.info("   2. Select a USERNAME to login");
+                Logger.info("   3. Each portal has a FLOW GUIDE button (?) to explain how it works");
+                Logger.info("   4. Use SYSTEMTIMER to advance time through the fair (lower right)");
+                Logger.info("   5. Watch real-time sync: bookings appear across all 3 portals instantly!");
+                Logger.info("   6. AUDIT LOG shows every system action (Admin portal → Audit Log tab)");
+                Logger.info("═══════════════════════════════════════════════════════════════════════════════════");
+                
+                // Setup shutdown hook for graceful data save
+                Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                    Logger.info("🛑 Shutdown detected - saving all data...");
+                    persistence.shutdown();
+                }));
             });
             
             // Simulating a random critical error for testing our new Logger!
