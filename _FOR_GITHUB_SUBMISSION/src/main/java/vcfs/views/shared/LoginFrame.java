@@ -188,13 +188,64 @@ public class LoginFrame extends JFrame {
     }
     
     /**
+     * DEMO RECRUITER CREDENTIALS FOR TESTING
+     * Fixed credentials hardcoded for quick testing without admin setup
+     */
+    private static final java.util.Map<String, String> RECRUITER_DEMO_CREDS = java.util.Map.ofEntries(
+        java.util.Map.entry("Ahmed Hassan", "recruiter123"),
+        java.util.Map.entry("Mohamed Ali", "recruiter456"),
+        java.util.Map.entry("Fatima Khan", "recruiter789"),
+        java.util.Map.entry("David Smith", "recruiter999"),
+        java.util.Map.entry("Sarah Johnson", "recruiter555")
+    );
+
+    /**
+     * Validate recruiter credentials - DEMO CREDENTIALS OR REGISTERED RECRUITERS
+     */
+    private Recruiter validateRecruiterCredentials(String username, String password) {
+        // Check DEMO credentials first (for quick testing)
+        if (RECRUITER_DEMO_CREDS.containsKey(username) && 
+            RECRUITER_DEMO_CREDS.get(username).equals(password)) {
+            // Demo credential matched - find or create recruiter
+            Recruiter rec = findRecruiterByUsername(username);
+            if (rec == null) {
+                // Create demo recruiter if doesn't exist
+                try {
+                    String email = username.toLowerCase().replace(" ", ".") + "@demo.com";
+                    rec = CareerFairSystem.getInstance().registerRecruiter(username, email, null);
+                    Logger.log(LogLevel.INFO, "[LoginFrame] Demo recruiter created: " + username);
+                } catch (Exception e) {
+                    Logger.log(LogLevel.ERROR, "[LoginFrame] Failed to create demo recruiter", e);
+                    return null;
+                }
+            }
+            return rec;
+        }
+        
+        // Check existing recruiters in system
+        Recruiter existing = findRecruiterByUsername(username);
+        if (existing != null) {
+            // For existing recruiters, password validation would go here
+            // For now, accept any password for registered recruiters (demo mode)
+            return existing;
+        }
+        
+        return null;
+    }
+
+    /**
      * Find existing recruiter by username (display name)
-     * Searches through all registered recruiters in the system
      */
     private Recruiter findRecruiterByUsername(String username) {
         try {
             for (vcfs.models.booking.Offer offer : CareerFairSystem.getInstance().getAllOffers()) {
                 Recruiter rec = offer.getPublisher();
+                if (rec != null && rec.getDisplayName().equalsIgnoreCase(username)) {
+                    return rec;
+                }
+            }
+            // Also check registered recruiters list
+            for (Recruiter rec : CareerFairSystem.getInstance().getAllRecruiters()) {
                 if (rec != null && rec.getDisplayName().equalsIgnoreCase(username)) {
                     return rec;
                 }
@@ -222,12 +273,21 @@ public class LoginFrame extends JFrame {
         }
         
         try {
-            // FIX: Find existing recruiter instead of registering new one
-            // This prevents duplicate recruiters and login loops
-            Recruiter recruiter = findRecruiterByUsername(username);
+            // Validate credentials (demo or registered)
+            Recruiter recruiter = validateRecruiterCredentials(username, password);
             
             if (recruiter == null) {
-                JOptionPane.showMessageDialog(frame, "No recruiter found with that username.\nAvailable recruiters are registered in the system.", "Authentication Failed", JOptionPane.ERROR_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(frame, 
+                    "Recruiter not found.\n\nWould you like to create a new recruiter account?\n" +
+                    "(Username: " + username + ")", 
+                    "New Account?", 
+                    JOptionPane.YES_NO_OPTION);
+                
+                if (result == JOptionPane.YES_OPTION) {
+                    // Sign up new recruiter
+                    performRecruiterSignup(username, password, frame);
+                    return;
+                }
                 Logger.log(LogLevel.WARNING, "[LoginFrame] Recruiter not found: " + username);
                 return;
             }
@@ -239,7 +299,6 @@ public class LoginFrame extends JFrame {
             Logger.log(LogLevel.INFO, "[LoginFrame] Recruiter authenticated: " + username);
             
             RecruiterScreen recruiterScreen = new RecruiterScreen();
-            // REGISTER: RecruiterScreen as listener to system events
             CareerFairSystem.getInstance().addPropertyChangeListener(recruiterScreen);
             Logger.log(LogLevel.INFO, "[LoginFrame] RecruiterScreen registered as listener");
             
@@ -247,6 +306,39 @@ public class LoginFrame extends JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(frame, "Login failed: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             Logger.log(LogLevel.ERROR, "[LoginFrame] Error: " + ex.getMessage());
+        }
+    }
+    
+    /**
+     * Sign up new recruiter account
+     */
+    private void performRecruiterSignup(String username, String password, JFrame frame) {
+        try {
+            String email = username.toLowerCase().replace(" ", ".") + "@recruiter.com";
+            
+            // Register new recruiter in system
+            Recruiter recruiter = CareerFairSystem.getInstance().registerRecruiter(username, email, null);
+            
+            JOptionPane.showMessageDialog(frame, 
+                "✓ Account created successfully!\n\n" +
+                "Username: " + username + "\n" +
+                "Email: " + email + "\n\n" +
+                "Logging you in now...", 
+                "Welcome!", 
+                JOptionPane.INFORMATION_MESSAGE);
+            
+            // Auto-login
+            UserSession.getInstance().setCurrentRecruiter(recruiter);
+            UserSession.getInstance().setCurrentRole(UserSession.UserRole.RECRUITER);
+            Logger.log(LogLevel.INFO, "[LoginFrame] New recruiter account created and logged in: " + username);
+            
+            RecruiterScreen recruiterScreen = new RecruiterScreen();
+            CareerFairSystem.getInstance().addPropertyChangeListener(recruiterScreen);
+            
+            ((JFrame) frame).dispose();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(frame, "Signup failed: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            Logger.log(LogLevel.ERROR, "[LoginFrame] Signup error: " + ex.getMessage());
         }
     }
 }

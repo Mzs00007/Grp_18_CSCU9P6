@@ -190,6 +190,54 @@ public class CandidateLoginFrame extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * DEMO CANDIDATE CREDENTIALS FOR TESTING
+     * Fixed credentials hardcoded for quick testing without admin setup
+     */
+    private static final java.util.Map<String, String[]> CANDIDATE_DEMO_CREDS = 
+        java.util.Map.ofEntries(
+            java.util.Map.entry("alice@email.com", new String[]{"candidate123", "Alice Brown"}),
+            java.util.Map.entry("bob@email.com", new String[]{"candidate456", "Bob Wilson"}),
+            java.util.Map.entry("chloe@email.com", new String[]{"candidate789", "Chloe Davis"}),
+            java.util.Map.entry("diana@email.com", new String[]{"candidate999", "Diana Martinez"}),
+            java.util.Map.entry("ethan@email.com", new String[]{"candidate555", "Ethan Taylor"})
+        );
+
+    /**
+     * Validate candidate credentials - DEMO CREDENTIALS OR REGISTERED CANDIDATES
+     */
+    private Candidate validateCandidateCredentials(String email, String password, String displayName) {
+        // Check DEMO credentials first (for quick testing)
+        if (CANDIDATE_DEMO_CREDS.containsKey(email.toLowerCase())) {
+            String[] creds = CANDIDATE_DEMO_CREDS.get(email.toLowerCase());
+            if (creds[0].equals(password)) {
+                // Demo credential matched - find or create candidate
+                Candidate cand = findCandidateByEmail(email);
+                if (cand == null) {
+                    // Create demo candidate if doesn't exist
+                    try {
+                        cand = CareerFairSystem.getInstance().registerCandidate(creds[1], email, "Demo candidate", "Software,Data");
+                        Logger.log(LogLevel.INFO, "[CandidateLoginFrame] Demo candidate created: " + email);
+                    } catch (Exception e) {
+                        Logger.log(LogLevel.ERROR, "[CandidateLoginFrame] Failed to create demo candidate", e);
+                        return null;
+                    }
+                }
+                return cand;
+            }
+        }
+        
+        // Check existing candidates in system
+        Candidate existing = findCandidateByEmail(email);
+        if (existing != null) {
+            // For existing candidates, password validation would go here
+            // For now, accept any password for registered candidates (demo mode)
+            return existing;
+        }
+        
+        return null;
+    }
+
     private void performCandidateLogin(JTextField emailField, JPasswordField passwordField, JTextField displayField, CandidateLoginFrame frame) {
         String email = emailField.getText().trim();
         String password = new String(passwordField.getPassword()).trim();
@@ -214,12 +262,21 @@ public class CandidateLoginFrame extends JFrame {
         }
 
         try {
-            // FIX: Find existing candidate by email instead of registering new one
-            // This prevents duplicate candidates and login loops
-            Candidate candidate = findCandidateByEmail(email);
+            // Validate credentials (demo or registered)
+            Candidate candidate = validateCandidateCredentials(email, password, displayName);
             
             if (candidate == null) {
-                JOptionPane.showMessageDialog(frame, "No candidate found with that email.\\nPlease check your email or register at the fair.", "Authentication Failed", JOptionPane.ERROR_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(frame, 
+                    "Candidate account not found.\n\nWould you like to create a new candidate account?\n" +
+                    "(Email: " + email + ", Name: " + displayName + ")", 
+                    "New Account?", 
+                    JOptionPane.YES_NO_OPTION);
+                
+                if (result == JOptionPane.YES_OPTION) {
+                    // Sign up new candidate
+                    performCandidateSignup(email, password, displayName, frame);
+                    return;
+                }
                 Logger.log(LogLevel.WARNING, "[CandidateLoginFrame] Candidate not found: " + email);
                 return;
             }
@@ -231,7 +288,6 @@ public class CandidateLoginFrame extends JFrame {
             JOptionPane.showMessageDialog(frame, "Login successful! Welcome, " + candidate.getDisplayName(), "Success", JOptionPane.INFORMATION_MESSAGE);
             
             CandidateScreen candidateScreen = new CandidateScreen();
-            // REGISTER: CandidateScreen as listener to system events
             CareerFairSystem.getInstance().addPropertyChangeListener(candidateScreen);
             Logger.log(LogLevel.INFO, "[CandidateLoginFrame] CandidateScreen registered as listener");
             
@@ -243,8 +299,38 @@ public class CandidateLoginFrame extends JFrame {
     }
     
     /**
+     * Sign up new candidate account
+     */
+    private void performCandidateSignup(String email, String password, String displayName, CandidateLoginFrame frame) {
+        try {
+            // Register new candidate in system
+            Candidate candidate = CareerFairSystem.getInstance().registerCandidate(displayName, email, "New candidate profile", "Software,Data");
+            
+            JOptionPane.showMessageDialog(frame, 
+                "✓ Account created successfully!\n\n" +
+                "Email: " + email + "\n" +
+                "Name: " + displayName + "\n\n" +
+                "Logging you in now...", 
+                "Welcome!", 
+                JOptionPane.INFORMATION_MESSAGE);
+            
+            // Auto-login
+            UserSession.getInstance().setCurrentCandidate(candidate);
+            UserSession.getInstance().setCurrentRole(UserSession.UserRole.CANDIDATE);
+            Logger.log(LogLevel.INFO, "[CandidateLoginFrame] New candidate account created and logged in: " + email);
+            
+            CandidateScreen candidateScreen = new CandidateScreen();
+            CareerFairSystem.getInstance().addPropertyChangeListener(candidateScreen);
+            
+            frame.dispose();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(frame, "Signup failed: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            Logger.log(LogLevel.ERROR, "[CandidateLoginFrame] Signup error: " + ex.getMessage());
+        }
+    }
+    
+    /**
      * Find existing candidate by email
-     * Searches through all registered candidates in the system
      */
     private Candidate findCandidateByEmail(String email) {
         try {
