@@ -119,6 +119,7 @@ public class AdminScreenController {
 
     /**
      * Assign a recruiter to a booth.
+     * CRITICAL FIX: Uses system.registerRecruiter() to ensure recruiter is tracked in system's recruitersList.
      * @param recruiterName Recruiter name (cannot be empty)
      * @param boothName Booth name (must exist in system)
      * @throws IllegalArgumentException if parameters are invalid
@@ -143,15 +144,12 @@ public class AdminScreenController {
                 throw new IllegalArgumentException("Booth not found: " + boothName);
             }
             
-            // Generate unique recruiter ID (R + timestamp + random) for global uniqueness
-            String recruiterId = "R" + System.currentTimeMillis() + "_" + (int)(Math.random() * 1000);
+            // Generate unique recruiter email (R + timestamp + random) for global uniqueness
+            String email = "recruiter_" + System.currentTimeMillis() + "_" + (int)(Math.random() * 1000) + "@fair.com";
             
-            // Generate unique email using the unique recruiter ID (not just name, which could collide)
-            String email = recruiterId.toLowerCase() + "@company.com";
-            Recruiter recruiter = new Recruiter(recruiterId, recruiterName, email);
-            
-            // Assign to booth
-            booth.assignRecruiter(recruiter);
+            // CRITICAL FIX: Use system.registerRecruiter() to register in system AND assign to booth
+            // This ensures recruiter appears in AdminScreen's recruiter table via getAllRecruiters()
+            Recruiter recruiter = system.registerRecruiter(recruiterName, email, booth);
             
             // Log the action
             Logger.log(LogLevel.INFO, "[AdminScreenController] Recruiter assigned successfully: " + recruiterName + " to booth " + boothName);
