@@ -9,6 +9,8 @@ package vcfs.controllers;
 
 
 import vcfs.core.*;
+import vcfs.core.SystemStateManager;
+import vcfs.core.SessionManager;
 import vcfs.models.users.Recruiter;
 import vcfs.models.structure.Organization;
 import vcfs.models.structure.Booth;
@@ -43,8 +45,22 @@ public class AdminScreenController {
             
             // Log the action
             Logger.log(LogLevel.INFO, "[AdminScreenController] Organization created successfully: " + name);
+            
+            // RECORD OPERATION: Track organization creation
+            SystemStateManager.getInstance().recordStateChange("ORG_CREATED",
+                "Organization created: " + name, true);
+            
+            // RECORD SESSION ACTIVITY: For admin activity tracking
+            SessionManager.getInstance().recordActivity("Admin", "Administrator",
+                "ORG_CREATED", "Created organization: " + name);
+                
         } catch (Exception e) {
             Logger.log(LogLevel.ERROR, "[AdminScreenController] Failed to create organization: " + name, e);
+            
+            // RECORD FAILURE
+            SystemStateManager.getInstance().recordStateChange("ORG_CREATE_FAILED",
+                "Organization creation failed: " + name + " - " + e.getMessage(), false);
+                
             throw e;
         }
     }
@@ -81,8 +97,22 @@ public class AdminScreenController {
             
             // Log the action
             Logger.log(LogLevel.INFO, "[AdminScreenController] Booth created successfully: " + boothName + " in " + orgName);
+            
+            // RECORD OPERATION: Track booth creation
+            SystemStateManager.getInstance().recordStateChange("BOOTH_CREATED",
+                "Booth created: " + boothName + " in organization: " + orgName, true);
+            
+            // RECORD SESSION ACTIVITY
+            SessionManager.getInstance().recordActivity("Admin", "Administrator",
+                "BOOTH_CREATED", "Created booth: " + boothName + " under " + orgName);
+                
         } catch (Exception e) {
             Logger.log(LogLevel.ERROR, "[AdminScreenController] Failed to create booth: " + boothName, e);
+            
+            // RECORD FAILURE
+            SystemStateManager.getInstance().recordStateChange("BOOTH_CREATE_FAILED",
+                "Booth creation failed: " + boothName + " - " + e.getMessage(), false);
+                
             throw e;
         }
     }
@@ -125,8 +155,22 @@ public class AdminScreenController {
             
             // Log the action
             Logger.log(LogLevel.INFO, "[AdminScreenController] Recruiter assigned successfully: " + recruiterName + " to booth " + boothName);
+            
+            // RECORD OPERATION: Track recruiter assignments
+            SystemStateManager.getInstance().recordStateChange("RECRUITER_ASSIGNED",
+                "Recruiter assigned: " + recruiterName + " to booth: " + boothName, true);
+            
+            // RECORD SESSION ACTIVITY
+            SessionManager.getInstance().recordActivity("Admin", "Administrator",
+                "RECRUITER_ASSIGNED", "Assigned recruiter: " + recruiterName + " to booth: " + boothName);
+                
         } catch (Exception e) {
             Logger.log(LogLevel.ERROR, "[AdminScreenController] Failed to assign recruiter: " + recruiterName, e);
+            
+            // RECORD FAILURE
+            SystemStateManager.getInstance().recordStateChange("RECRUITER_ASSIGN_FAILED",
+                "Recruiter assignment failed: " + recruiterName + " - " + e.getMessage(), false);
+                
             throw e;
         }
     }
@@ -155,8 +199,22 @@ public class AdminScreenController {
                 + ", close=" + closeStr 
                 + ", start=" + startStr 
                 + ", end=" + endStr);
+            
+            // RECORD OPERATION: Track timeline configuration
+            SystemStateManager.getInstance().recordStateChange("TIMELINE_SET",
+                "Fair timeline configured - Open: " + openStr + ", Close: " + closeStr, true);
+            
+            // RECORD SESSION ACTIVITY
+            SessionManager.getInstance().recordActivity("Admin", "Administrator",
+                "TIMELINE_CONFIGURED", "Set fair schedule times");
+                
         } catch (Exception e) {
             Logger.log(LogLevel.ERROR, "[AdminScreenController] Failed to set fair timeline", e);
+            
+            // RECORD FAILURE
+            SystemStateManager.getInstance().recordStateChange("TIMELINE_SET_FAILED",
+                "Timeline configuration failed: " + e.getMessage(), false);
+                
             throw e;
         }
     }
@@ -165,7 +223,27 @@ public class AdminScreenController {
      * Admin: Reset the system data
      */
     public void resetFair() {
-        CareerFairSystem.getInstance().resetFairData();
+        try {
+            CareerFairSystem.getInstance().resetFairData();
+            
+            // RECORD OPERATION: Track fair reset
+            SystemStateManager.getInstance().recordStateChange("FAIR_RESET",
+                "System data reset by administrator", true);
+            
+            // RECORD SESSION ACTIVITY
+            SessionManager.getInstance().recordActivity("Admin", "Administrator",
+                "FAIR_RESET", "Reset all fair data");
+            
+            Logger.log(LogLevel.INFO, "[AdminScreenController] Fair data reset successfully");
+        } catch (Exception e) {
+            Logger.log(LogLevel.ERROR, "[AdminScreenController] Failed to reset fair data", e);
+            
+            // RECORD FAILURE
+            SystemStateManager.getInstance().recordStateChange("FAIR_RESET_FAILED",
+                "Fair reset failed: " + e.getMessage(), false);
+                
+            throw e;
+        }
     }
 }
 

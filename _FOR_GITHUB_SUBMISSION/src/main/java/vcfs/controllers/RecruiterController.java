@@ -34,6 +34,8 @@ import java.util.List;
 
 import vcfs.core.Logger;
 import vcfs.core.LogLevel;
+import vcfs.core.SystemStateManager;
+import vcfs.core.SessionManager;
 import vcfs.models.booking.Offer;
 import vcfs.models.booking.MeetingSession;
 import vcfs.models.users.Recruiter;
@@ -90,9 +92,23 @@ public class RecruiterController extends BaseController {
         try {
             currentRecruiter.publishOffer(offer);
             logOperation(LogLevel.INFO, "RecruiterController", "Offer published by " + recruiterName + ": " + offer.getTitle());
+            
+            // RECORD OPERATION: Track published offers in system state
+            SystemStateManager.getInstance().recordStateChange("OFFER_PUBLISHED",
+                recruiterName + " published offer: " + offer.getTitle(), true);
+            
+            // RECORD SESSION ACTIVITY: Track offering action
+            SessionManager.getInstance().recordActivity(recruiterName, "Recruiter",
+                "OFFER_PUBLISHED", "Published interview offer: " + offer.getTitle());
+            
             view.displayMessage("✓ Offer '" + offer.getTitle() + "' published successfully!");
         } catch (Exception e) {
             logError("RecruiterController", "Failed to publish offer by " + recruiterName, e);
+            
+            // RECORD FAILURE
+            SystemStateManager.getInstance().recordStateChange("OFFER_PUBLISH_FAILED",
+                recruiterName + " failed to publish offer: " + e.getMessage(), false);
+            
             view.displayError("Error publishing offer: " + e.getMessage());
         }
     }
@@ -114,9 +130,23 @@ public class RecruiterController extends BaseController {
         try {
             currentRecruiter.scheduleSession(session);
             logOperation(LogLevel.INFO, "RecruiterController", "Session scheduled by " + recruiterName + ": " + session.getTitle());
+            
+            // RECORD OPERATION: Track scheduled sessions
+            SystemStateManager.getInstance().recordStateChange("SESSION_SCHEDULED",
+                recruiterName + " scheduled session: " + session.getTitle(), true);
+            
+            // RECORD SESSION ACTIVITY: Track scheduling action
+            SessionManager.getInstance().recordActivity(recruiterName, "Recruiter",
+                "SESSION_SCHEDULED", "Scheduled meeting session: " + session.getTitle());
+            
             view.displayMessage("✓ Meeting session '" + session.getTitle() + "' scheduled successfully!");
         } catch (Exception e) {
             logError("RecruiterController", "Failed to schedule session by " + recruiterName, e);
+            
+            // RECORD FAILURE
+            SystemStateManager.getInstance().recordStateChange("SESSION_SCHEDULE_FAILED",
+                recruiterName + " failed to schedule session: " + e.getMessage(), false);
+            
             view.displayError("Error scheduling session: " + e.getMessage());
         }
     }
@@ -156,6 +186,10 @@ public class RecruiterController extends BaseController {
         try {
             List<MeetingSession> history = currentRecruiter.getMeetingHistory();
             logOperation(LogLevel.INFO, "RecruiterController", "Viewing meeting history for " + recruiterName + " (" + history.size() + " sessions)");
+            
+            // RECORD SESSION ACTIVITY: Track history access
+            SessionManager.getInstance().recordActivity(recruiterName, "Recruiter",
+                "HISTORY_VIEWED", "Accessed meeting history (" + history.size() + " sessions)");
             
             if (schedulePanel != null) {
                 schedulePanel.updateSchedule(history);

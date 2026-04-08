@@ -37,6 +37,8 @@ import java.util.Optional;
 import vcfs.core.Logger;
 import vcfs.core.LogLevel;
 import vcfs.core.CareerFairSystem;
+import vcfs.core.SystemStateManager;
+import vcfs.core.SessionManager;
 import vcfs.models.booking.Request;
 import vcfs.models.booking.MeetingSession;
 import vcfs.models.booking.Lobby;
@@ -85,9 +87,25 @@ public class CandidateController extends BaseController {
         try {
             currentCandidate.submitRequest(request);
             logOperation(LogLevel.INFO, "CandidateController", "Meeting request submitted by " + candidateName);
+            
+            // RECORD OPERATION: Track this booking in system state manager
+            SystemStateManager stateManager = SystemStateManager.getInstance();
+            stateManager.recordStateChange("CANDIDATE_REQUEST", 
+                candidateName + " submitted request for interview", true);
+            
+            // RECORD SESSION ACTIVITY: Track in session manager for live monitoring
+            SessionManager sessionManager = SessionManager.getInstance();
+            sessionManager.recordActivity(candidateName, "Candidate", "REQUEST_SUBMITTED", 
+                "Submitted interview request - active booking");
+            
             view.displayMessage("✓ Your meeting request has been submitted successfully!");
         } catch (Exception e) {
             logError("CandidateController", "Failed to submit meeting request by " + candidateName, e);
+            
+            // RECORD FAILURE: Track failed operation
+            SystemStateManager.getInstance().recordStateChange("CANDIDATE_REQUEST_FAILED", 
+                candidateName + " request submission failed: " + e.getMessage(), false);
+            
             view.displayError("Error submitting request: " + e.getMessage());
         }
     }
@@ -120,6 +138,11 @@ public class CandidateController extends BaseController {
             }
             
             logOperation(LogLevel.INFO, "CandidateController", "Viewing available lobbies. Total: " + lobbies.size());
+            
+            // RECORD SEARCH ACTIVITY: Track browsing/lobby searches
+            SystemStateManager.getInstance().recordStateChange("LOBBY_BROWSED", 
+                "Candidate browsed " + lobbies.size() + " available lobbies", true);
+            
             view.displayMessage("✓ Available lobbies loaded. Total: " + lobbies.size());
             view.displayLobbies(lobbies);
         } catch (Exception e) {
@@ -156,6 +179,11 @@ public class CandidateController extends BaseController {
         try {
             List<MeetingSession> schedule = currentCandidate.getMeetingSchedule();
             logOperation(LogLevel.INFO, "CandidateController", "Viewing meeting schedule for " + candidateName + " (" + schedule.size() + " sessions)");
+            
+            // RECORD SESSION ACTIVITY: Track schedule views in real-time
+            SessionManager.getInstance().recordActivity(candidateName, "Candidate", 
+                "SCHEDULE_VIEWED", "Accessed meeting schedule (" + schedule.size() + " sessions)");
+            
             view.displaySchedule(schedule);
         } catch (Exception e) {
             logError("CandidateController", "Failed to retrieve meeting schedule for " + candidateName, e);
@@ -181,9 +209,22 @@ public class CandidateController extends BaseController {
         try {
             currentCandidate.cancelRequest(finalRequestId);
             logOperation(LogLevel.INFO, "CandidateController", "Meeting request cancelled by " + candidateName + ": " + finalRequestId);
+            
+            // RECORD CANCELLATION: Track booking cancellations
+            SystemStateManager.getInstance().recordStateChange("BOOKING_CANCELLED", 
+                candidateName + " cancelled meeting request: " + finalRequestId, true);
+            
+            SessionManager.getInstance().recordActivity(candidateName, "Candidate", 
+                "BOOKING_CANCELLED", "Cancelled interview request ID: " + finalRequestId);
+            
             view.displayMessage("✓ Your meeting request has been cancelled.");
         } catch (Exception e) {
             logError("CandidateController", "Failed to cancel meeting request by " + candidateName, e);
+            
+            // RECORD CANCEL FAILURE
+            SystemStateManager.getInstance().recordStateChange("CANCEL_FAILED", 
+                candidateName + " failed to cancel request: " + e.getMessage(), false);
+            
             view.displayError("Error cancelling request: " + e.getMessage());
         }
     }
@@ -199,6 +240,11 @@ public class CandidateController extends BaseController {
         try {
             List<Request> history = currentCandidate.getRequestHistory();
             logOperation(LogLevel.INFO, "CandidateController", "Viewing request history for " + candidateName + " (" + history.size() + " requests)");
+            
+            // RECORD SESSION ACTIVITY: Track history access
+            SessionManager.getInstance().recordActivity(candidateName, "Candidate", 
+                "HISTORY_ACCESSED", "Reviewed request history (" + history.size() + " requests)");
+            
             view.displayRequestHistory(history);
         } catch (Exception e) {
             logError("CandidateController", "Failed to retrieve request history for " + candidateName, e);
