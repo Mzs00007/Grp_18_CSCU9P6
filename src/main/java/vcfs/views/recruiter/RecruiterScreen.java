@@ -37,7 +37,7 @@ public class RecruiterScreen extends JFrame implements RecruiterView, PropertyCh
         setSize(700, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        controller = new RecruiterController(this, CareerFairSystem.getInstance());
+        controller = new RecruiterController(this);
 
         JTabbedPane tabs = new JTabbedPane();
 

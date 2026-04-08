@@ -31,7 +31,7 @@ public class CandidateScreen extends JFrame implements CandidateView, PropertyCh
         setSize(700, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        controller = new CandidateController(this, CareerFairSystem.getInstance());
+        controller = new CandidateController(this);
 
         JTabbedPane tabs = new JTabbedPane();
 
