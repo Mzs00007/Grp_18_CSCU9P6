@@ -33,7 +33,7 @@ public class LoginFrame extends JFrame {
 
     public LoginFrame() {
         setTitle("VCFS - Recruiter Login");
-        setSize(500, 500);
+        setSize(550, 750);  // INCREASED HEIGHT FOR DEMO CREDENTIALS DISPLAY
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
@@ -63,6 +63,11 @@ public class LoginFrame extends JFrame {
         headerPanel.add(subtitleLabel);
         add(headerPanel, BorderLayout.NORTH);
 
+        // ===== MAIN SCROLLABLE PANEL FOR ALL CONTENT =====
+        JPanel mainContent = new JPanel();
+        mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.Y_AXIS));
+        mainContent.setBackground(new Color(245, 248, 250));
+        
         // ===== FORM PANEL =====
         JPanel formPanel = new JPanel();
         formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
@@ -122,7 +127,53 @@ public class LoginFrame extends JFrame {
         buttonPanel.add(backButton);
         formPanel.add(buttonPanel);
 
-        add(formPanel, BorderLayout.CENTER);
+        mainContent.add(formPanel);
+        mainContent.add(Box.createVerticalStrut(10));
+        
+        // ===== DEMO CREDENTIALS DISPLAY PANEL =====
+        JPanel demoPanel = new JPanel();
+        demoPanel.setLayout(new BoxLayout(demoPanel, BoxLayout.Y_AXIS));
+        demoPanel.setBackground(new Color(255, 250, 205));
+        demoPanel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(255, 193, 7), 2),
+            BorderFactory.createEmptyBorder(12, 12, 12, 12)
+        ));
+        
+        JLabel demoTitle = new JLabel("📋 DEMO LOGIN CREDENTIALS - For Testing & Demonstration");
+        demoTitle.setFont(new Font("Arial", Font.BOLD, 11));
+        demoTitle.setForeground(new Color(255, 111, 0));
+        demoPanel.add(demoTitle);
+        demoPanel.add(Box.createVerticalStrut(8));
+        
+        // Demo credentials text area
+        JTextArea demoCredentials = new JTextArea();
+        demoCredentials.setFont(new Font("Courier New", Font.PLAIN, 10));
+        demoCredentials.setEditable(false);
+        demoCredentials.setOpaque(false);
+        demoCredentials.setLineWrap(true);
+        demoCredentials.setWrapStyleWord(true);
+        
+        StringBuilder credentialText = new StringBuilder();
+        credentialText.append("👤 RECRUITER ACCOUNTS:\n");
+        credentialText.append("  • Ahmed Hassan  →  recruiter123\n");
+        credentialText.append("  • Mohamed Ali   →  recruiter456\n");
+        credentialText.append("  • Fatima Khan   →  recruiter789\n");
+        credentialText.append("  • David Smith   →  recruiter999\n");
+        credentialText.append("  • Sarah Johnson →  recruiter555\n\n");
+        credentialText.append("💡 Quick Tip: Use any username above with its corresponding password");
+        
+        demoCredentials.setText(credentialText.toString());
+        demoPanel.add(demoCredentials);
+        
+        mainContent.add(demoPanel);
+        mainContent.add(Box.createVerticalStrut(5));
+        mainContent.add(Box.createVerticalGlue());
+        
+        // Add scrollable content area
+        JScrollPane scrollPane = new JScrollPane(mainContent);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        add(scrollPane, BorderLayout.CENTER);
 
         // Allow press Enter to login
         enterButton.addActionListener(e -> performLogin(userNameInput, passwordInput, this));

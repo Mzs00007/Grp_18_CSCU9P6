@@ -163,6 +163,10 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         JPanel auditTab = createAuditLogTab();
         tabbedPane.addTab("📊 Audit Log & System Events", auditTab);
 
+        // ===== TAB 7: CREDENTIAL MANAGEMENT (NEW!) =====
+        CredentialManagementPanel credentialPanel = new CredentialManagementPanel();
+        tabbedPane.addTab("🔐 Credentials Management", credentialPanel);
+
         // P2 FIX: Wrap tabbed pane in page-level scroller for content overflow
         JScrollPane pageScroller = new JScrollPane(tabbedPane,
             JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
