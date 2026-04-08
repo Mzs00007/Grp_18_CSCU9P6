@@ -22,6 +22,8 @@ import vcfs.controllers.AdminScreenController;
 import vcfs.core.CareerFairSystem;
 import vcfs.core.Logger;
 import vcfs.core.LogLevel;
+import vcfs.core.UIEnhancementUtils;
+import vcfs.core.SessionManager;
 import vcfs.models.enums.FairPhase;
 
 /**
@@ -167,6 +169,10 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         // This ensures AdminScreen receives property change events from CareerFairSystem
         // whether it's created via login or directly via App.java
         CareerFairSystem.getInstance().addPropertyChangeListener(this);
+        
+        // TRACK PORTAL ACCESS: Record when admin enters portal
+        SessionManager.getInstance().recordActivity("Admin", "Administrator",
+            "PORTAL_ACCESSED", "Entered administrator portal");
 
         setVisible(true);
     }
@@ -801,36 +807,36 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
         // Button handlers
         createOrgBtn.addActionListener(e -> {
             String name = orgField.getText().trim();
-            if (name.isEmpty()) { JOptionPane.showMessageDialog(this, "Please enter organization name"); return; }
+            if (name.isEmpty()) { UIEnhancementUtils.showError(this, "Input Error", "Please enter organization name"); return; }
             try { 
                 controller.createOrganization(name); 
                 refreshOrganizationDropdown();
                 orgField.setText("");
-                JOptionPane.showMessageDialog(this, "✓ Organization created!");
-            } catch (Exception ex) { JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage()); }
+                UIEnhancementUtils.showSuccess(this, "Organization Created", "✓ Organization '" + name + "' created successfully!");
+            } catch (Exception ex) { UIEnhancementUtils.showError(this, "Error", "Organization creation failed: " + ex.getMessage()); }
         });
 
         createBoothBtn.addActionListener(e -> {
             String booth = boothField.getText().trim();
             Object org = orgDropdown.getSelectedItem();
-            if (booth.isEmpty() || org == null) { JOptionPane.showMessageDialog(this, "Please fill all fields"); return; }
+            if (booth.isEmpty() || org == null) { UIEnhancementUtils.showError(this, "Input Error", "Please select organization and enter booth name"); return; }
             try {
                 controller.createBooth(booth, org.toString());
                 refreshBoothDropdown();
                 boothField.setText("");
-                JOptionPane.showMessageDialog(this, "✓ Booth created!");
-            } catch (Exception ex) { JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage()); }
+                UIEnhancementUtils.showSuccess(this, "Booth Created", "✓ Booth '" + booth + "' created successfully!");
+            } catch (Exception ex) { UIEnhancementUtils.showError(this, "Error", "Booth creation failed: " + ex.getMessage()); }
         });
 
         assignRecruiterBtn.addActionListener(e -> {
             String recruiter = recruiterField.getText().trim();
             Object booth = boothDropdown.getSelectedItem();
-            if (recruiter.isEmpty() || booth == null) { JOptionPane.showMessageDialog(this, "Please fill all fields"); return; }
+            if (recruiter.isEmpty() || booth == null) { UIEnhancementUtils.showError(this, "Input Error", "Please fill all required fields"); return; }
             try {
                 controller.assignRecruiter(recruiter, booth.toString());
                 recruiterField.setText("");
-                JOptionPane.showMessageDialog(this, "✓ Recruiter assigned!");
-            } catch (Exception ex) { JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage()); }
+                UIEnhancementUtils.showSuccess(this, "Assignment Successful", "✓ Recruiter '" + recruiter + "' assigned to booth!");
+            } catch (Exception ex) { UIEnhancementUtils.showError(this, "Error", "Assignment failed: " + ex.getMessage()); }
         });
 
         setTimelineBtn.addActionListener(e -> {
@@ -840,8 +846,8 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
                 String startStr = String.format("2026-04-08T%02d:00", ((Number)startTimeSpinner.getValue()).intValue());
                 String endStr = String.format("2026-04-08T%02d:00", ((Number)endTimeSpinner.getValue()).intValue());
                 controller.setTimeline(openStr, closeStr, startStr, endStr);
-                JOptionPane.showMessageDialog(this, "✓ Timeline set!");
-            } catch (Exception ex) { JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage()); }
+                UIEnhancementUtils.showSuccess(this, "Timeline Configured", "✓ Fair timeline set successfully!");
+            } catch (Exception ex) { UIEnhancementUtils.showError(this, "Error", "Timeline configuration failed: " + ex.getMessage()); }
         });
 
         resetBtn.addActionListener(e -> {

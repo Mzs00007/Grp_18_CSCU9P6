@@ -20,6 +20,8 @@ import vcfs.core.CareerFairSystem;
 import vcfs.core.Logger;
 import vcfs.core.LogLevel;
 import vcfs.core.UserSession;
+import vcfs.core.UIEnhancementUtils;
+import vcfs.core.SessionManager;
 import vcfs.models.booking.MeetingSession;
 import vcfs.models.booking.Request;
 import vcfs.models.booking.Lobby;
@@ -127,17 +129,24 @@ public class CandidateScreen extends JFrame implements CandidateView, PropertyCh
         // This enables real-time updates when offers are published or system state changes
         CareerFairSystem.getInstance().addPropertyChangeListener(this);
         
+        // TRACK PORTAL ACCESS: Record when candidate enters portal
+        Candidate candidate = UserSession.getInstance().getCurrentCandidate();
+        if (candidate != null) {
+            SessionManager.getInstance().recordActivity(candidate.getDisplayName(), "Candidate",
+                "PORTAL_ACCESSED", "Entered candidate portal");
+        }
+        
         setVisible(true);
     }
 
     @Override
     public void displayError(String message) {
-        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+        UIEnhancementUtils.showError(this, "Error", message);
     }
 
     @Override
     public void displayMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Success", JOptionPane.INFORMATION_MESSAGE);
+        UIEnhancementUtils.showSuccess(this, "Success", message);
     }
 
     @Override

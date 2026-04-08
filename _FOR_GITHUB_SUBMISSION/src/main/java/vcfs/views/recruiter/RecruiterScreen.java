@@ -16,6 +16,8 @@ import java.util.List;
 import vcfs.controllers.RecruiterController;
 import vcfs.core.CareerFairSystem;
 import vcfs.core.UIHelpers;
+import vcfs.core.UIEnhancementUtils;
+import vcfs.core.SessionManager;
 import vcfs.core.UserSession;
 import vcfs.core.Logger;
 import vcfs.core.LogLevel;
@@ -133,6 +135,13 @@ public class RecruiterScreen extends JFrame implements RecruiterView, PropertyCh
         // This enables real-time updates when candidates book slots or system state changes
         CareerFairSystem.getInstance().addPropertyChangeListener(this);
         
+        // TRACK PORTAL ACCESS: Record when recruiter enters portal
+        Recruiter recruiter = UserSession.getInstance().getCurrentRecruiter();
+        if (recruiter != null) {
+            SessionManager.getInstance().recordActivity(recruiter.getDisplayName(), "Recruiter",
+                "PORTAL_ACCESSED", "Entered recruiter portal");
+        }
+        
         setVisible(true);
 
         Logger.log(LogLevel.INFO, "[RecruiterScreen] Launched for " + recruiterName);
@@ -241,12 +250,12 @@ public class RecruiterScreen extends JFrame implements RecruiterView, PropertyCh
 
     @Override
     public void displayError(String message) {
-        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+        UIEnhancementUtils.showError(this, "Error", message);
     }
 
     @Override
     public void displayMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Success", JOptionPane.INFORMATION_MESSAGE);
+        UIEnhancementUtils.showSuccess(this, "Success", message);
     }
 
     @Override

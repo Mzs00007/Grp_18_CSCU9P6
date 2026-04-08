@@ -9,6 +9,8 @@ import vcfs.core.LocalDateTime;
 import vcfs.core.LogLevel;
 import vcfs.core.Logger;
 import vcfs.core.SystemTimer;
+import vcfs.core.SessionManager;
+import vcfs.core.SystemStateManager;
 import vcfs.models.users.Recruiter;
 import vcfs.views.admin.AdminScreen;
 import vcfs.views.candidate.CandidateScreen;
@@ -55,6 +57,17 @@ public class App {
                 persistence.initialize(system);
                 Logger.info("  ✓ Auto-save engine running (checkpoints every 5 seconds)");
 
+                // Initialize operational state tracking
+                Logger.info("[3.5/7] Initializing operational monitoring...");
+                SystemStateManager stateManager = SystemStateManager.getInstance();
+                Logger.info("  ✓ State Manager active (tracking all operations)");
+                
+                // Initialize live session monitoring
+                Logger.info("[3.6/7] Initializing live session monitor...");
+                SessionManager sessionManager = SessionManager.getInstance();
+                sessionManager.enableLiveMode();
+                Logger.info("  ✓ Session Manager active (real-time activity tracking)");
+
                 // Initialize system timer (for VCFS-002 Observer pattern)
                 Logger.info("[4/7] Starting system time controller...");
                 SystemTimer.getInstance();
@@ -82,6 +95,8 @@ public class App {
                 Logger.info("   ✅ MVC architecture: CONFIRMED (Model-View-Controller separation)");
                 Logger.info("   ✅ Thread-safe backend: ENGAGED (ConcurrentHashMap, synchronized collections)");
                 Logger.info("   ✅ Data persistence: RUNNING (auto-save every 5 seconds, crash recovery enabled)");
+                Logger.info("   ✅ Operation tracking: ENABLED (all actions recorded in state manager)");
+                Logger.info("   ✅ Live session monitoring: ENABLED (real-time activity logs in all portals)");
                 Logger.info("   ✅ Portal system: READY (3 portals for Candidate/Recruiter/Admin)");
                 Logger.info("   ✅ Demo data: LOADED (3 orgs, 3 recruiters, 3 candidates, 6+ interview slots)");
                 Logger.info("═══════════════════════════════════════════════════════════════════════════════════");
