@@ -1,0 +1,705 @@
+================================================================================
+SCREENCAST VIDEO - SUBMISSION GUIDE
+================================================================================
+Points: 50 / 100  |  Due: 7 Apr by 23:59  |  Group Submission
+File Format: MP4 (single video file)
+Submission: Upload to Panopto, submit link to Canvas
+================================================================================
+
+OVERVIEW: THE BIG PICTURE
+The screencast is your group's most visible deliverable. It's where examiners
+see your system in action. This 50-point component means:
+  • 50% of your entire grade depends on this video
+  • Examiners watch this for 20-30 minutes
+  • Quality + completeness directly impact marking
+
+YOUR VCFS SYSTEM'S STORY:
+Virtual Career Fair System (VCFS) enables three actors to collaborate:
+  • ADMINISTRATOR: Configures the fair (organizations, booths, timelines)
+  • RECRUITERS: Publish availability and conduct interviews
+  • CANDIDATES: Browse opportunities and book meetings
+  
+This video tells all three stories in one seamless demo.
+
+TIME ALLOCATION (20-25 minute total):
+  • Intro: 1-2 minutes (system overview)
+  • Admin Setup: 3-4 minutes (creating orgs/booths/setting times)
+  • Recruiter Workflow: 5-6 minutes (publishing offers, managing bookings)
+  • Candidate Journey: 5-6 minutes (browsing, booking, joining)
+  • Error Handling: 2-3 minutes (showing robustness)
+  • Conclusion: 1 minute (summary)
+
+================================================================================
+CONCRETE DEMO SCRIPT - SEGMENT BY SEGMENT
+================================================================================
+
+Your VCFS has specific use cases from the specification. Here's what to show:
+
+**SEGMENT 1: INTRODUCTION & SYSTEM OVERVIEW (1:00-2:00 minutes)**
+
+ON-SCREEN:
+  □ Show project directory in file explorer
+  □ Display compilation proof (bin/ folder with .class files)
+  □ Show the system startup (terminal output)
+
+NARRATION (Script):
+"Welcome to Virtual Career Fair System (VCFS), Group 9's implementation of an
+online recruiting platform. VCFS automates the entire workflow: administrators
+configure the event, recruiters publish their availability in 30-minute slots,
+and candidates browse opportunities by skills and book one-on-one meetings.
+Over the next 20 minutes, we'll demonstrate all three workflows and show how
+the system prevents overboking and manages queues fairly."
+
+ACTION ITEMS:
+  ✓ Open terminal, show: java -cp bin vcfs.Main
+  ✓ Show: [INFO] Starting Virtual Career Fair System
+  ✓ Show: Administrator login screen loads
+  ✓ System displays: "VCFS Ready - 0 Active Participants"
+
+**SEGMENT 2: ADMINISTRATOR SETUP (3:00-4:00 minutes)**
+
+SUBCASES TO SHOW:
+
+2A. CREATE ORGANIZATION (1:00 min)
+────────────────────────────────
+ON-SCREEN:
+  1. Admin Dashboard visible
+  2. Click: "Create Organization" button
+  3. Form appears with fields: Name, Description
+  4. Enter: Name = "Google", Description = "Tech recruiting partner"
+  5. Click: "Create" button
+  6. ✓ Organization appears in list: "Google - Tech recruiting partner"
+
+NARRATION:
+"First, the administrator creates organizations. Each recruiting company is
+represented as an organization with their name and description. This allows
+the system to group booths and recruiters by company."
+
+2B. CREATE BOOTH FOR ORGANIZATION (1:00 min)
+─────────────────────────────────────────────
+ON-SCREEN:
+  1. Click: "Create Booth" button
+  2. Form appears
+  3. Select Organization: "Google" (dropdown)
+  4. Enter: Booth Name = "Google Main Booth"
+  5. Enter: Booth Code = "GOOGLE-01"
+  6. Click: "Create" button
+  7. ✓ Booth appears under Google organization (indented, hierarchical)
+
+NARRATION:
+"Next, create booths within each organization. Each booth is a separate virtual
+room where candidates meet with that organization's recruiter. For Google, we're
+creating the main booth for their primary hiring manager."
+
+2C. ASSIGN RECRUITER TO BOOTH (1:00 min)
+────────────────────────────────────────
+ON-SCREEN:
+  1. Click: "Assign Recruiter" button
+  2. Form appears
+  3. Enter: Recruiter Name = "Jane Smith"
+  4. Enter: Recruiter Email = "jane.smith@google.com"
+  5. Select: Booth = "Google Main Booth"
+  6. Click: "Assign" button
+  7. ✓ Recruiter now appears in system, linked to booth
+
+NARRATION:
+"The administrator assigns specific recruiters to each booth. In this case,
+Jane Smith from Google is assigned to the main booth. The system now knows
+that when candidates visit the Google booth, they'll be meeting with Jane."
+
+2D. CONFIGURE TIMELINE (1:00 min)
+─────────────────────────────────
+ON-SCREEN:
+  1. Click: "Configure Timeline" or "Set Fair Times"
+  2. Form with fields: Booking Opens, Booking Closes, Fair Starts, Fair Ends
+  3. Enter Times:
+     - Booking Opens: 10:00 (April 8)
+     - Booking Closes: 12:00 (April 8)
+     - Fair Starts: 13:00 (April 8)
+     - Fair Ends: 17:00 (April 8)
+  4. Click: "Apply Timeline" button
+  5. ✓ System displays: "Fair Status: READY"
+  6. ✓ Status updates to show phase transitions
+
+NARRATION:
+"Finally, the administrator sets the timeline. This is critical: bookings will
+open at 10 AM so candidates can reserve spots. Bookings close at noon. Then 
+the actual fair runs from 1 PM to 5 PM. The system enforces these phases—
+candidates can't book before 10 AM or after noon."
+
+VERIFY IN LOGS: "[INFO] Fair phase transitioned: SETUP → READY"
+
+**SEGMENT 3: RECRUITER WORKFLOW (5:00-6:00 minutes)**
+
+RECRUITER BACKGROUND:
+Jane Smith (Google recruiter) logs in and publishes her availability.
+
+3A. RECRUITER LOGIN & DASHBOARD (0:30 min)
+──────────────────────────────────────────
+ON-SCREEN:
+  1. Switch to Recruiter login screen
+  2. Enter: Username = "jane.smith@google.com"
+  3. Enter: Password = "password123"
+  4. Click: "Login" button
+  5. ✓ Recruiter dashboard loads: "Welcome Jane Smith"
+  6. ✓ Shows: "Google Main Booth - Your assignments"
+
+NARRATION:
+"Here's Jane Smith logging into the recruiter interface. She's immediately
+shown her assignments—Google Main Booth."
+
+3B. PUBLISH AVAILABILITY BLOCK (2:00 min)
+─────────────────────────────────────────
+CRITICAL: This demonstrates VCFS-003 (Recruiter Publishes Offers)
+
+ON-SCREEN:
+  1. Click: "Publish Availability" button
+  2. Form appears with fields:
+     - Title: "Career Opportunities in AI/ML"
+     - Start Time: 13:00 (1 PM)
+     - End Time: 16:00 (4 PM)
+     - Duration per slot: 30 minutes
+     - Tags: [Select] AI, Machine Learning, Python
+  3. Click: "Publish" button
+  4. ✓ CRITICAL: System generates automatic slots
+       "Published 6 offer slots (13:00, 13:30, 14:00, 14:30, 15:00, 15:30)"
+  5. ✓ Dashboard now shows all 6 slots, each tagged
+
+NARRATION (MOST IMPORTANT PART):
+"Jane publishes her availability: a 3-hour block from 1 PM to 4 PM.
+Here's what makes VCFS smart: she didn't manually create 6 different offers.
+The SYSTEM automatically calculated that 3 hours ÷ 30 minutes per slot = 6 slots.
+This is automated slot generation. Notice the times and tags are consistent
+across all slots. This is VCFS-003."
+
+---
+
+SYSTEM VERIFICATION:
+Show in system logs or dashboard:
+  ✓ "Created 6 offer slots tagged with: AI, Machine Learning, Python"
+  ✓ Each slot shows: "13:00-13:30 (AI/ML) - 1 seat available"
+
+3C. MANAGE CANDIDATE BOOKINGS (1:30 min)
+────────────────────────────────────────
+ON-SCREEN:
+  1. Click: "View Bookings" or "My Reservations"
+  2. List shows initial state: Empty or "No bookings yet"
+  3. Wait 5 seconds (to allow candidates to book - or simulate time passage)
+  4. Refresh or tab reload: Bookings now appear!
+     "Zaid - 13:00-13:30 CONFIRMED"
+     "Alice - 13:30-14:00 CONFIRMED"
+     "Bob - 14:00-14:30 CONFIRMED"
+  5. Click on one booking (Zaid's 13:00 slot)
+  6. ✓ Details show: Candidate name, time, state = CONFIRMED
+  7. Option to mark "READY" or "SESSION_STARTED" if applicable
+
+NARRATION:
+"As candidates book slots, Jane's dashboard updates automatically. She can see
+who's booked for each time slot. She can also filter by status (confirmed,
+cancelled, etc.) to understand her schedule."
+
+3D. CONDUCT A MEETING (1:00 min)
+───────────────────────────────
+ON-SCREEN:
+  1. Click: "Join Meeting" or double-click a booking
+  2. Virtual room opens with:
+     - Recruiter (Jane) shown as "Online"
+     - Candidate status: "Waiting in lobby" or "Can enter"
+  3. Show: Meeting timer showing "02:00" (2 minutes remaining in 30-min slot)
+  4. Show: Meeting controls (if applicable):
+     - Start call, end call, mark as complete
+  5. Click: "End Meeting"
+  6. ✓ System transitions: MeetingSession state → ENDED
+  7. ✓ Attendance logged automatically
+
+NARRATION:
+"When it's time for a meeting, Jane enters the virtual room. The system shows
+her the candidate waiting. She can initiate contact, conduct the interview,
+and when time is up, the system marks the meeting complete and logs
+attendance automatically."
+
+**SEGMENT 4: CANDIDATE JOURNEY (5:00-6:00 minutes)**
+
+CANDIDATE BACKGROUND:
+Zaid (job candidate) discovers opportunities and books a meeting.
+
+4A. CANDIDATE LOGIN & BROWSE (1:00 min)
+──────────────────────────────────────
+ON-SCREEN:
+  1. Switch to Candidate login screen
+  2. Enter: Username = "zaid@email.com"
+  3. Enter: Password = "password456"
+  4. Click: "Login"
+  5. ✓ Candidate dashboard loads: "Welcome Zaid"
+  6. ✓ Shows: "Available Opportunities" or "Browse Offers"
+  7. List displays: "Google: AI/ML Career Opportunities (6 slots available)"
+
+NARRATION:
+"Zaid is a job candidate. He logs in and sees available opportunities. The
+system shows Google is recruiting for AI/ML roles with 6 time slots published."
+
+4B. VIEW OFFER DETAILS (1:00 min)
+────────────────────────────────
+ON-SCREEN:
+  1. Click on Google offer
+  2. Details screen shows:
+     - Title: "AI/ML Career Opportunities"
+     - Description: "Discuss career path in AI/ML at Google"
+     - Tags: "AI", "Machine Learning", "Python"
+     - Duration: "30 minutes"
+     - Available time slots: "13:00 ✓, 13:30 ✓, 14:00 ✓, 14:30 ✓, 15:00 ✓, 15:30 ✓"
+     - Recruiter: "Jane Smith (jane.smith@google.com)"
+  3. All 6 slots show green checkmark (available/not booked)
+
+NARRATION:
+"Zaid clicks to see details. He learns about the role, sees the recruiter's
+name (Jane Smith), and most importantly, sees all available time slots.
+All 6 are available—he has choices."
+
+4C. SELECT TIME SLOT & BOOK (1:30 min)
+──────────────────────────────────────
+ON-SCREEN:
+  1. Click on time slot: "13:00-13:30"
+  2. Confirmation dialog appears:
+     - "Confirm booking for 13:00-13:30 with Jane Smith?"
+     - Candidate review: "Role: AI/ML, Recruiter: Jane, Time: 13:00"
+     - Button text: "Confirm Booking"
+  3. Click: "Confirm Booking"
+  4. ✓ SUCCESS message appears:
+       "Booking confirmed! Your reservation is CONFIRMED.
+        Meeting on April 8 at 13:00 with Jane Smith (Google).
+        Check 'My Meetings' for details."
+  5. ✓ Dashboard now shows: "My Bookings" section with listed meeting
+  6. ✓ Booking details: "Google - Jane Smith - 13:00 on April 8 - CONFIRMED"
+
+NARRATION:
+"Zaid selects the 1 PM slot and confirms. The system validates:
+- Is the slot still available? Yes (not yet booked by someone else)
+- Can Zaid book? Yes (not already booked for conflicting time)
+- Is the time within the fair window? Yes (between 1-5 PM)
+The booking is confirmed, and Zaid is notified."
+
+SYSTEM VERIFICATION (Optional - show in logs):
+  [INFO] Reservation created: Zaid → Google AI/ML at 13:00
+  [INFO] Reservation state: CONFIRMED
+
+4D. ATTEND MEETING (1:30 min)
+────────────────────────────
+ON-SCREEN:
+  1. Time at bottom of screen shows: "13:00" (meeting time arrived)
+  2. Zaid's dashboard shows: "[ACTIVE] Google meeting starting now!"
+  3. Click: "Join Meeting" button
+  4. Virtual room interface loads:
+     - Zaid shown as candidate (participant)
+     - Jane Smith shown as recruiter (organizer)
+     - Meeting timer: "30:00" (full 30 minutes available)
+     - Lobby shows: Empty "No other candidates waiting"
+  5. Optional: Show basic meeting UI
+     - Chat or connection indicator
+     - Participant list
+  6. Wait 3-5 seconds (show meeting in progress)
+  7. Click: "Leave Meeting"
+  8. ✓ Return to dashboard
+  9. ✓ Meeting now shows: "COMPLETED" or "2 hours ago"
+  10. ✓ Attendance recorded: "Meeting with Jane Smith - Attended"
+
+NARRATION:
+"At 1 PM, it's time for Zaid's meeting. He enters the virtual room where Jane
+is waiting. They can conduct their interview. The meeting runs for the
+allocated 30 minutes. The system automatically tracks that both attended and
+logs this in the audit trail for fair records."
+
+**SEGMENT 5: ERROR HANDLING & EDGE CASES (2:00-3:00 minutes)**
+
+Show system robustness:
+
+5A. DOUBLE-BOOKING PREVENTION (0:45 min)
+────────────────────────────────────────
+ON-SCREEN:
+  1. Back to Candidate (Zaid still logged in)
+  2. Show: Zaid already has booking for 13:00 (visible)
+  3. Try to book another meeting at 13:00 with different recruiter
+  4. ✓ ERROR appears: "Conflict: You already have a meeting at this time"
+  5. Show error message is professional: not a crash, but clear feedback
+
+NARRATION:
+"One critical feature: VCFS prevents double-booking. Zaid already has a
+13:00 meeting, so when he tries to book another 13:00 slot, the system
+rejects it with a clear error message. This prevents scheduling conflicts."
+
+5B. CAPACITY CONSTRAINTS (0:45 min)
+──────────────────────────────────
+ON-SCREEN:
+  1. Show: Virtual room has limited capacity (e.g., 1 recruiter + 1 candidate)
+  2. Attempt to add 3rd participant
+  3. ✓ ERROR: "Room at capacity - cannot add more participants"
+  4. OR show: Waiting queue when room full
+     "Room occupied. Zaid waiting in lobby... Room frees at 13:30"
+
+NARRATION:
+"VCFS also enforces room capacity limits. Each booth supports one recruiter
+and one candidate at a time. If the room is full, new candidates wait in a
+queue. When the meeting ends, the next candidate is invited in."
+
+5C. TIMELINE ENFORCEMENT (0:30 min)
+──────────────────────────────────
+ON-SCREEN:
+  1. Show: Fair status at bottom-right: "Fair Status: ACTIVE (ends at 17:00)"
+  2. System time approaching 17:00
+  3. Try to book a new meeting after 17:00
+  4. ✓ ERROR: "Fair has ended. Bookings closed."
+  5. Show: Fair transitions to ENDED, no more bookings allowed
+
+NARRATION:
+"Finally, VCFS enforces timeline constraints. When the fair ends at 5 PM,
+no more bookings can be made. This ensures fair doesn't run over and respects
+recruiter time."
+
+**SEGMENT 6: SUMMARY & CONCLUSION (1:00 minute)**
+
+ON-SCREEN:
+  1. Return to main dashboard
+  2. Show: Statistics or summary
+     - "Fair Status: ACTIVE"
+     - "Participants: 15"
+     - "Meetings conducted: 8"
+     - "Average duration: 28 min"
+
+NARRATION (You or narrator):
+"That completes the Virtual Career Fair System demonstration. We showed:
+  • Administrator setup (organizations, booths, timelines)
+  • Recruiter publishing availability and managing meetings
+  • Candidate browsing and booking
+  • System's robustness (preventing double-booking, enforcing capacity)
+  • Automatic audit logging for fair compliance
+  
+Group 9's VCFS successfully implements all use cases from the specification
+with professional error handling and state management. Thank you for watching."
+
+END SCREEN: Show title card with group members names
+================================================================================
+
+The project specification defines these use cases. You MUST demonstrate each:
+
+CANDIDATE USE CASES:
+[ ] UC-1: Candidate Login
+    - Open system
+    - Log in with candidate credentials
+    - Show homepage/dashboard
+
+[ ] UC-2: View Career Fairs & Booths
+    - Show available career fairs
+    - Browse participating organizations
+    - Show booth listings
+
+[ ] UC-3: Explore Company Profiles
+    - Click on organization profile
+    - Show relevant information (about, roles, etc.)
+    - Show available offers/positions
+
+[ ] UC-4: Join Session Waiting Area
+    - Find booth with open session
+    - Join waiting area/lobby
+    - Show waiting queue UI
+    - Show when called to meeting (if implemented)
+
+[ ] UC-5: Conduct Virtual Meeting
+    - Start meeting with recruiter
+    - Show meeting UI (video/chat, if applicable)
+    - Send/receive bookings or decisions
+
+[ ] UC-6: Book Interview
+    - Receive/view offer
+    - Accept or negotiate booking
+    - Confirm interview appointment
+    - Show booking in calendar/profile
+
+RECRUITER USE CASES:
+[ ] UC-7: Recruiter Login
+    - Log in with recruiter credentials
+    - Show recruiter dashboard
+
+[ ] UC-8: Publish Offers
+    - Create new job offer
+    - Set qualifications, time slots
+    - Publish to career fair
+    - Show offer appears in system
+
+[ ] UC-9: Schedule Meeting Sessions
+    - Open booth management
+    - Create time slots for meetings
+    - Schedule booth/room availability
+    - Show candidates can see slots
+
+[ ] UC-10: Conduct Virtual Meeting
+    - Start meeting with candidate
+    - Show interaction (if chat/messaging implemented)
+    - Send booking decision
+
+[ ] UC-11: Manage Bookings
+    - View confirmed bookings
+    - Show calendar of meetings
+    - Handle cancellations (if applicable)
+
+[ ] UC-12: View Attendance
+    - Show attendance records
+    - Show which candidates attended
+    - Show meeting outcomes
+
+ADMIN USE CASES:
+[ ] UC-13: Admin Login
+    - Log in as administrator
+    - Show admin dashboard/controls
+
+[ ] UC-14: Manage Organizations
+    - Create/register organization
+    - Manage organization details
+    - Assign recruiters (if applicable)
+
+[ ] UC-15: Manage Career Fairs
+    - Create new career fair event
+    - Set dates, times
+    - Activate/deactivate fair
+    - Show fair appears to candidates
+
+[ ] UC-16: Generate Reports (if applicable)
+    - View attendance statistics
+    - View engagement metrics
+    - Export data (if implemented)
+
+================================================================================
+VIDEO SCRIPT TEMPLATE - PLAN YOUR DEMO SEQUENCE
+================================================================================
+
+INTRODUCTION (2 minutes):
+- Show presenter (name, role: "Project Manager")
+- Brief overview: "This is VCFS - Virtual Career Fair System"
+- System capabilities overview
+- What will be demonstrated
+
+CHAPTER 1: CANDIDATE JOURNEY (7-8 minutes) - UC-1 to UC-6
+┌─ Title: "Candidate Experience"
+├─ Show: Login with candidate account
+├─ Demo: Browse career fairs [UC-2]
+├─ Demo: View company profiles [UC-3]
+├─ Demo: Join waiting area [UC-4]
+├─ Demo: Virtual meeting (if video enables) [UC-5]
+├─ Demo: View and accept booking [UC-6]
+└─ Summary: "Candidate successfully booked interview"
+
+CHAPTER 2: RECRUITER WORKFLOW (7-8 minutes) - UC-7 to UC-12
+┌─ Title: "Recruiter Operations"
+├─ Show: Authenticate as recruiter [UC-7]
+├─ Demo: Create job offer [UC-8]
+├─ Demo: Set meeting time slots [UC-9]
+├─ Demo: Conduct meeting with candidate [UC-10]
+├─ Demo: Manage bookings/calendar [UC-11]
+├─ Demo: View attendance records [UC-12]
+└─ Summary: "Recruiter managed full booking cycle"
+
+CHAPTER 3: ADMIN FUNCTIONS (4-5 minutes) - UC-13 to UC-16
+┌─ Title: "System Administration"
+├─ Show: Admin authentication [UC-13]
+├─ Demo: Register organization [UC-14]
+├─ Demo: Create career fair [UC-15]
+├─ Demo: View reports/stats [UC-16] (if applicable)
+└─ Summary: "Admin maintains system operations"
+
+CHAPTER 4: EDGE CASES & ERROR HANDLING (2-3 minutes)
+┌─ Show: Invalid login attempt (error handling)
+├─ Show: Booking conflicts (if checked)
+├─ Show: Time validation (past/future bookings)
+├─ Show: Permission checks (candidates can't access admin)
+└─ Summary: "System handles errors gracefully"
+
+CHAPTER 5: LIMITATIONS & UNIMPLEMENTED FEATURES (2-3 minutes)
+┌─ Explicitly state:
+├─ "Feature X was not fully implemented because..."
+├─ "Feature Y has known limitations..."
+└─ "Given more time, we would implement..."
+
+CONCLUSION (1-2 minutes):
+- Summarize capabilities demonstrated
+- Thank you
+
+TOTAL: 23-29 minutes (fits well within 30-minute limit)
+
+================================================================================
+RECORDING TIPS FOR SMOOTHNESS
+================================================================================
+
+PRESENTATION STYLE:
+  ✓ Speak clearly and at moderate pace
+  ✓ Explain what you're doing BEFORE you do it
+    ("Now I'll log in as a candidate...")
+  ✓ Pause when necessary (let visuals speak)
+  ✓ Use cursor to highlight important UI elements
+  ✓ Zoom in on small text if needed
+  ✓ Show system clock to prove real-time operation
+
+NAVIGATION FLOW:
+  ✓ Move deliberately (no frantic clicking)
+  ✓ Minimize waiting time (pre-load data if possible)
+  ✓ Use multiple user accounts (don't re-login constantly)
+  ✓ Have duplicate browser windows open (switch between roles)
+  ✓ Keep transitions smooth between use cases
+
+COMMON MISTAKES:
+  ✗ Too fast talking (unintelligible)
+  ✗ Long silent periods (viewer loses interest)
+  ✗ Excessive mouse movement (distracting)
+  ✗ Clicking wrong buttons/fixing "mistakes" (looks unprofessional)
+  ✗ Showing technical errors without acknowledging them
+  ✗ Omitting important validation "Because nobody saw the error message")
+  ✗ Rushing through complex workflows (viewers can't follow)
+
+TECHNICAL SETUP:
+  • Resolution: Set browser window to standard size (1920x1080 or 1366x768)
+  • Font size: Ensure UI text is readable
+  • Two monitors? Great - show both (scheduler on one, demo on other)
+  • Disable notifications (Slack, email pop-ups)
+  • Close browser tabs except those needed
+  • Mute volume from other windows
+
+================================================================================
+RECORDING & UPLOADING TO PANOPTO
+================================================================================
+
+STEP 1: RECORD YOUR VIDEO
+Using OBS (Open Broadcaster Software):
+  1. Set scene to "Screen Capture" (or use "Window Capture")
+  2. Set output to MP4 format, H.264 codec
+  3. Audio: Capture your microphone
+  4. Resolution: 1920x1080, 30fps
+  5. Bitrate: 6-8 Mbps video
+  Click "Start Recording" → Perform your demo → "Stop Recording"
+
+Save as: "CSCU9P6_Group9_Demo.mp4"
+
+STEP 2: VERIFY VIDEO QUALITY
+Before uploading:
+  □ Play full video and verify audio/video sync
+  □ Check that all use cases are visible
+  □ Verify text is readable throughout
+  □ Confirm audio is clear (not too quiet/loud)
+  □ Total duration: within 30 minutes
+
+STEP 3: UPLOAD TO PANOPTO
+Follow these EXACT steps:
+  1. Log into Canvas
+  2. Click "Panopto" in left menu
+  3. Navigate to "Assignments" folder
+  4. Drag/drop your MP4 file into the folder
+  5. Wait for upload to complete (shows green checkmark)
+  6. Panopto will process video (may take 5-15 minutes)
+  7. Hover over uploaded file → click "Share" icon
+  8. Copy the link (blue "Share" button)
+
+STEP 4: SUBMIT LINK ON CANVAS
+  1. Go to Canvas → Assignments
+  2. Find "Screencast Video" assignment
+  3. Click "Submit Assignment"
+  4. Paste the Panopto link you copied
+  5. Click "Submit"
+  
+DONE! Confirmation email sent to inbox.
+
+================================================================================
+GRADING RUBRIC - HOW TO MAXIMIZE POINTS (50 points)
+================================================================================
+
+The rubric scores on: "Implementation of use cases including validation"
+
+50-39 pts (EXCEPTIONAL):
+  ✓ ALL use cases implemented and demonstrated
+  ✓ Clear attention to written use case descriptions
+  ✓ All validation shown (input checks, error handling)
+  ✓ Clean, professional demonstration
+  ✓ Complete workflow from start to finish
+
+39-34 pts (EXCELLENT):
+  ✓ Nearly all use cases implemented
+  ✓ Most validation shown
+  ✓ Good demonstration quality
+
+34-29 pts (VERY GOOD):
+  ✓ Most use cases working
+  ✓ Good functionality shown
+
+29-24 pts (GOOD):
+  ✓ Core use cases demonstrated
+  ✓ Some omissions present
+
+24+ pts: Declining quality
+
+TARGET: 45-50 points by:
+  1. Demonstrating ALL use cases clearly
+  2. Showing validation/error handling
+  3. Professional presentation
+  4. Complete workflows
+  5. Honest about any limitations
+
+================================================================================
+WHAT TO EXPLICITLY DISCUSS IN VIDEO
+================================================================================
+
+VALIDATION EXAMPLES:
+  • Show: Empty field ← "Email required, so user can't proceed"
+  • Show: Invalid email ← "System rejects non-email format"
+  • Show: Duplicate booking ← "System prevents double-booking"
+  • Show: Time validation ← "Can't book past event end time"
+  • Show: Permission checks ← "Candidate can't access admin panel"
+
+ERROR HANDLING:
+  • Network error (if applicable)
+  • Database constraint violation
+  • Graceful degradation
+
+UNIMPLEMENTED FEATURES:
+Be honest! In Chapter 5, state:
+  • "Virtual video meeting not implemented - shows placeholder"
+  • "Chat feature reduced to basic messaging due to time constraints"
+  • "Video streaming would require RTMP server, beyond project scope"
+  • "Analytics dashboard has basic reporting, not full BI suite"
+
+This actually scores BETTER than hiding failures.
+
+================================================================================
+CHECKLIST BEFORE UPLOADING
+================================================================================
+
+□ Video is MP4 format
+□ Video duration: 15-30 minutes (recommend 20-25)
+□ Video resolution: 1080p (or minimum 720p)
+□ Audio is clear and audible (test with headphones)
+□ All use cases demonstrated and explained
+□ Each use case clearly labeled with number (UC-1, UC-2, etc.)
+□ Validation examples shown (at least 3)
+□ System errors discussed honestly
+□ Unimplemented features explicitly stated
+□ Professional presentation quality
+□ No passwords or sensitive data shown
+□ No long silences or dead time
+□ Presenter introduces themselves (name, role)
+□ Conclusion summarizes what was shown
+□ Video uploaded to Panopto successfully
+□ Link submitted to Canvas (not file, but LINK)
+□ Link is active and playable (test it!)
+□ Group member attends or is mentioned as unavailable
+
+================================================================================
+DEADLINE & PENALTIES
+================================================================================
+
+Due: 7 Apr by 23:59 PM
+Late penalty: -3 points PER DAY (affects all group members)
+After 7 days: Non-submission (0 points)
+
+Video submission (late penalties) affects: Screencast grades
+BUT also impacts: Code submission penalties (shared penalty)
+
+Recommendation: Submit by 6 Apr to have safety buffer
+
+================================================================================
+END OF GUIDE
+================================================================================

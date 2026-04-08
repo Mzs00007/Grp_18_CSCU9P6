@@ -1,0 +1,1055 @@
+[2026-04-01 08:00:00] [INFO] - Starting up Virtual Career Fair System...
+[2026-04-01 08:00:00] [INFO] - Initializing UI threads...
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Virtual Career Fair System (VCFS)
+[2026-04-01 08:00:00] [INFO] - Group 18 — CSCU9P6
+[2026-04-01 08:00:00] [INFO] - Project Manager: Zaid
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] - ✅ CareerFairSystem Singleton initialized
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimer initialized
+[2026-04-01 08:00:00] [INFO] - ✅ AdminScreenController created
+[2026-04-01 08:00:00] [INFO] - ✅ Admin Screen opened
+[2026-04-01 08:00:00] [INFO] - ✅ AdminScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [ERROR] - Failed to initialize demo data
+java.lang.IllegalArgumentException: Time must be in format yyyy-MM-ddTHH:mm, got: 2026-04-01 08:00
+	at vcfs.core.CareerFairSystem.parseTimeString(CareerFairSystem.java:730)
+	at vcfs.core.CareerFairSystem.setFairTimes(CareerFairSystem.java:712)
+	at vcfs.App.initializeDemoData(App.java:127)
+	at vcfs.App.lambda$main$0(App.java:62)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:723)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+[2026-04-01 08:00:00] [INFO] - Starting up Virtual Career Fair System...
+[2026-04-01 08:00:00] [INFO] - Initializing UI threads...
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Virtual Career Fair System (VCFS)
+[2026-04-01 08:00:00] [INFO] - Group 18 — CSCU9P6
+[2026-04-01 08:00:00] [INFO] - Project Manager: Zaid
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] - ✅ CareerFairSystem Singleton initialized
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimer initialized
+[2026-04-01 08:00:00] [INFO] - ✅ AdminScreenController created
+[2026-04-01 08:00:00] [INFO] - Starting up Virtual Career Fair System...
+[2026-04-01 08:00:00] [INFO] - Initializing UI threads...
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Virtual Career Fair System (VCFS)
+[2026-04-01 08:00:00] [INFO] - Group 18 — CSCU9P6
+[2026-04-01 08:00:00] [INFO] - Project Manager: Zaid
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] - ✅ CareerFairSystem Singleton initialized
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimer initialized
+[2026-04-01 08:00:00] [INFO] - ✅ AdminScreenController created
+[2026-04-01 08:00:00] [INFO] - ✅ Admin Screen opened
+[2026-04-01 08:00:00] [INFO] - ✅ AdminScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [ERROR] - Failed to initialize demo data
+java.lang.IllegalArgumentException: Time must be in format yyyy-MM-ddTHH:mm, got: 2026-04-01 08:00
+	at vcfs.core.CareerFairSystem.parseTimeString(CareerFairSystem.java:738)
+	at vcfs.core.CareerFairSystem.setFairTimes(CareerFairSystem.java:720)
+	at vcfs.App.initializeDemoData(App.java:127)
+	at vcfs.App.lambda$main$0(App.java:62)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:723)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+[2026-04-01 08:00:00] [INFO] - [UserSession] Initialized. No user logged in.
+[2026-04-01 08:00:00] [WARNING] - [RecruiterController] View meeting history attempted with no recruiter logged in
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Launched for Recruiter
+[2026-04-01 08:00:00] [INFO] - ✅ Recruiter Screen opened
+[2026-04-01 08:00:00] [INFO] - ✅ RecruiterScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - ✅ Candidate Screen opened
+[2026-04-01 08:00:00] [INFO] - ✅ CandidateScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimerScreen initialized for time control
+[2026-04-01 08:00:00] [INFO] - Starting up Virtual Career Fair System...
+[2026-04-01 08:00:00] [INFO] - Initializing UI threads...
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Virtual Career Fair System (VCFS)
+[2026-04-01 08:00:00] [INFO] - Group 18 — CSCU9P6
+[2026-04-01 08:00:00] [INFO] - Project Manager: Zaid
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] - ✅ CareerFairSystem Singleton initialized
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimer initialized
+[2026-04-01 08:00:00] [INFO] - ✅ AdminScreenController created
+[2026-04-01 08:00:00] [INFO] - ✅ Admin Screen opened
+[2026-04-01 08:00:00] [INFO] - ✅ AdminScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [ERROR] - Failed to initialize demo data
+java.lang.IllegalArgumentException: Time must be in format yyyy-MM-ddTHH:mm, got: 2026-04-01 08:00
+	at vcfs.core.CareerFairSystem.parseTimeString(CareerFairSystem.java:738)
+	at vcfs.core.CareerFairSystem.setFairTimes(CareerFairSystem.java:720)
+	at vcfs.App.initializeDemoData(App.java:127)
+	at vcfs.App.lambda$main$0(App.java:62)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:723)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+[2026-04-01 08:00:00] [INFO] - [UserSession] Initialized. No user logged in.
+[2026-04-01 08:00:00] [WARNING] - [RecruiterController] View meeting history attempted with no recruiter logged in
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Launched for Recruiter
+[2026-04-01 08:00:00] [INFO] - ✅ Recruiter Screen opened
+[2026-04-01 08:00:00] [INFO] - ✅ RecruiterScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - ✅ Candidate Screen opened
+[2026-04-01 08:00:00] [INFO] - ✅ CandidateScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimerScreen initialized for time control
+[2026-04-01 08:00:00] [INFO] - Starting up Virtual Career Fair System...
+[2026-04-01 08:00:00] [INFO] - Initializing UI threads...
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Virtual Career Fair System (VCFS)
+[2026-04-01 08:00:00] [INFO] - Group 18 — CSCU9P6
+[2026-04-01 08:00:00] [INFO] - Project Manager: Zaid
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] - ✅ CareerFairSystem Singleton initialized
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimer initialized
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] - ✅ Demo data initialized
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ Main Menu opened - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimerScreen initialized for time control
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Demo mode activated
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching demo mode - all 3 portals
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Demo mode window ready
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Admin portal
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Recruiter portal
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Candidate portal
+[2026-04-01 08:00:00] [INFO] - [UserSession] Initialized. No user logged in.
+[2026-04-01 08:00:00] [INFO] - [UserSession] Admin logged in: admin
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Administrator
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] Admin authenticated: admin
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] AdminScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): zaid
+[2026-04-01 08:00:00] [INFO] - [UserSession] Recruiter logged in: zaid
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Recruiter
+[2026-04-01 08:00:00] [INFO] - [LoginFrame] Recruiter authenticated: zaid
+[2026-04-01 08:00:00] [INFO] - [RecruiterController] Viewing meeting history for zaid (0 sessions)
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] No sessions to display
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Launched for zaid
+[2026-04-01 08:00:00] [INFO] - [LoginFrame] RecruiterScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: zaid
+[2026-04-01 08:00:00] [INFO] - [UserSession] Candidate logged in: zaid
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Candidate
+[2026-04-01 08:00:00] [INFO] - [CandidateLoginFrame] Candidate authenticated: mzs@gmail.com
+[2026-04-01 08:00:00] [INFO] - [CandidateLoginFrame] CandidateScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - Starting up Virtual Career Fair System...
+[2026-04-01 08:00:00] [INFO] - Initializing UI threads...
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Virtual Career Fair System (VCFS)
+[2026-04-01 08:00:00] [INFO] - Group 18 — CSCU9P6
+[2026-04-01 08:00:00] [INFO] - Project Manager: Zaid
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] - ✅ CareerFairSystem Singleton initialized
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimer initialized
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] - ✅ Demo data initialized
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ Main Menu opened - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimerScreen initialized for time control
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Admin role selected
+[2026-04-01 08:00:00] [INFO] - [UserSession] Initialized. No user logged in.
+[2026-04-01 08:00:00] [INFO] - [UserSession] Admin logged in: admin
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Administrator
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] Admin authenticated: admin
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] AdminScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - Organization added: a
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Organization created successfully: a
+[2026-04-01 08:00:00] [INFO] - Booth added to organization: a
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Booth created successfully: b in a
+[2026-04-01 08:00:00] [INFO] - Recruiter assigned to booth: b
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Recruiter assigned successfully: c to booth b
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2025-04-08 10:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2025-04-08 11:00
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2025-04-08 12:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2025-04-08 18:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2025-04-08T10:00, close=2025-04-08T11:00, start=2025-04-08T12:00, end=2025-04-08T18:00
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Fair timeline configured successfully: open=2025-04-08T10:00, close=2025-04-08T11:00, start=2025-04-08T12:00, end=2025-04-08T18:00
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] Navigating to Recruiter Portal
+[2026-04-01 08:00:00] [WARNING] - [RecruiterController] View meeting history attempted with no recruiter logged in
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Launched for Recruiter
+[2026-04-01 08:00:00] [WARNING] - [RecruiterController] Publish offer attempted with no recruiter logged in
+[2026-04-01 08:00:00] [INFO] - [UIHelpers] Success: Offer '1' published successfully!
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Offer published: 1
+[2026-04-01 08:00:00] [INFO] - Starting up Virtual Career Fair System...
+[2026-04-01 08:00:00] [INFO] - Initializing UI threads...
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Virtual Career Fair System (VCFS)
+[2026-04-01 08:00:00] [INFO] - Group 18 — CSCU9P6
+[2026-04-01 08:00:00] [INFO] - Project Manager: Zaid
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] - ✅ CareerFairSystem Singleton initialized
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimer initialized
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] - ✅ Demo data initialized
+[2026-04-01 08:00:00] [INFO] - Starting up Virtual Career Fair System...
+[2026-04-01 08:00:00] [INFO] - Initializing UI threads...
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Virtual Career Fair System (VCFS)
+[2026-04-01 08:00:00] [INFO] - Group 18 — CSCU9P6
+[2026-04-01 08:00:00] [INFO] - Project Manager: Zaid
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] - ✅ CareerFairSystem Singleton initialized
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimer initialized
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] - ✅ Demo data initialized
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ Main Menu opened - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimerScreen initialized for time control
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Admin role selected
+[2026-04-01 08:00:00] [INFO] - [UserSession] Initialized. No user logged in.
+[2026-04-01 08:00:00] [INFO] - [UserSession] Admin logged in: admin
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Administrator
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] Admin authenticated: admin
+[2026-04-01 08:00:00] [ERROR] - Error loading candidates
+java.lang.NoSuchMethodException: vcfs.core.CareerFairSystem.getAllCandidates()
+	at java.base/java.lang.Class.getMethod(Class.java:2168)
+	at vcfs.views.admin.AdminScreen.lambda$createCandidatesTab$0(AdminScreen.java:793)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.AbstractButton.doClick(AbstractButton.java:374)
+	at java.desktop/javax.swing.AbstractButton.doClick(AbstractButton.java:354)
+	at vcfs.views.admin.AdminScreen.createCandidatesTab(AdminScreen.java:817)
+	at vcfs.views.admin.AdminScreen.<init>(AdminScreen.java:146)
+	at vcfs.views.shared.AdminLoginFrame.performAdminLogin(AdminLoginFrame.java:170)
+	at vcfs.views.shared.AdminLoginFrame.lambda$new$1(AdminLoginFrame.java:128)
+	at java.desktop/javax.swing.JTextField.fireActionPerformed(JTextField.java:525)
+	at java.desktop/javax.swing.JTextField.postActionEvent(JTextField.java:740)
+	at java.desktop/javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:856)
+	at java.desktop/javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1804)
+	at java.desktop/javax.swing.JComponent.processKeyBinding(JComponent.java:2962)
+	at java.desktop/javax.swing.JComponent.processKeyBindings(JComponent.java:3010)
+	at java.desktop/javax.swing.JComponent.processKeyEvent(JComponent.java:2924)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6353)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2260)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4958)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2318)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1829)
+	at java.desktop/java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:874)
+	at java.desktop/java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1136)
+	at java.desktop/java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:1011)
+	at java.desktop/java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:839)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4839)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2318)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2671)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:725)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] AdminScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - Organization added: a
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Organization created successfully: a
+[2026-04-01 08:00:00] [INFO] - Booth added to organization: a
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Booth created successfully: b in a
+[2026-04-01 08:00:00] [INFO] - Recruiter assigned to booth: b
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Recruiter assigned successfully: c to booth b
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-08 10:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-08 12:00
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-08 13:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-08 17:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-08T10:00, close=2026-04-08T12:00, start=2026-04-08T13:00, end=2026-04-08T17:00
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Fair timeline configured successfully: open=2026-04-08T10:00, close=2026-04-08T12:00, start=2026-04-08T13:00, end=2026-04-08T17:00
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] Navigating to Recruiter Portal
+[2026-04-01 08:00:00] [WARNING] - [RecruiterController] View meeting history attempted with no recruiter logged in
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Launched for Recruiter
+[2026-04-01 08:00:00] [INFO] - Starting up Virtual Career Fair System...
+[2026-04-01 08:00:00] [INFO] - Initializing UI threads...
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Virtual Career Fair System (VCFS)
+[2026-04-01 08:00:00] [INFO] - Group 18 — CSCU9P6
+[2026-04-01 08:00:00] [INFO] - Project Manager: Zaid
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] - ✅ CareerFairSystem Singleton initialized
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimer initialized
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] - ✅ Demo data initialized
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ Main Menu opened - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimerScreen initialized for time control
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Demo mode activated
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching demo mode - all 3 portals
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Demo mode window ready
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Admin portal
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Recruiter portal
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Candidate portal
+[2026-04-01 08:00:00] [INFO] - [UserSession] Initialized. No user logged in.
+[2026-04-01 08:00:00] [INFO] - [UserSession] Admin logged in: admin
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Administrator
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] Admin authenticated: admin
+[2026-04-01 08:00:00] [ERROR] - Error loading candidates
+java.lang.NoSuchMethodException: vcfs.core.CareerFairSystem.getAllCandidates()
+	at java.base/java.lang.Class.getMethod(Class.java:2168)
+	at vcfs.views.admin.AdminScreen.refreshCandidatesTable(AdminScreen.java:886)
+	at vcfs.views.admin.AdminScreen.lambda$createCandidatesTab$0(AdminScreen.java:870)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.AbstractButton.doClick(AbstractButton.java:374)
+	at java.desktop/javax.swing.AbstractButton.doClick(AbstractButton.java:354)
+	at vcfs.views.admin.AdminScreen.createCandidatesTab(AdminScreen.java:878)
+	at vcfs.views.admin.AdminScreen.<init>(AdminScreen.java:153)
+	at vcfs.views.shared.AdminLoginFrame.performAdminLogin(AdminLoginFrame.java:170)
+	at vcfs.views.shared.AdminLoginFrame.lambda$new$1(AdminLoginFrame.java:128)
+	at java.desktop/javax.swing.JTextField.fireActionPerformed(JTextField.java:525)
+	at java.desktop/javax.swing.JTextField.postActionEvent(JTextField.java:740)
+	at java.desktop/javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:856)
+	at java.desktop/javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1804)
+	at java.desktop/javax.swing.JComponent.processKeyBinding(JComponent.java:2962)
+	at java.desktop/javax.swing.JComponent.processKeyBindings(JComponent.java:3010)
+	at java.desktop/javax.swing.JComponent.processKeyEvent(JComponent.java:2924)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6353)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2260)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4958)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2318)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1829)
+	at java.desktop/java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:874)
+	at java.desktop/java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:1136)
+	at java.desktop/java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:1011)
+	at java.desktop/java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:839)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4839)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2318)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2671)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:725)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+[2026-04-01 08:00:00] [INFO] - Starting up Virtual Career Fair System...
+[2026-04-01 08:00:00] [INFO] - Initializing UI threads...
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Virtual Career Fair System (VCFS)
+[2026-04-01 08:00:00] [INFO] - Group 18 — CSCU9P6
+[2026-04-01 08:00:00] [INFO] - Project Manager: Zaid
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] - ✅ CareerFairSystem Singleton initialized
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimer initialized
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] - ✅ Demo data initialized
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ Main Menu opened - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimerScreen initialized for time control
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Demo mode activated
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching demo mode - all 3 portals
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Demo mode window ready
+[2026-04-01 08:00:00] [INFO] - Starting up Virtual Career Fair System...
+[2026-04-01 08:00:00] [INFO] - Initializing UI threads...
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Virtual Career Fair System (VCFS)
+[2026-04-01 08:00:00] [INFO] - Group 18 — CSCU9P6
+[2026-04-01 08:00:00] [INFO] - Project Manager: Zaid
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] - ✅ CareerFairSystem Singleton initialized
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimer initialized
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] - ✅ Demo data initialized
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ Main Menu opened - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimerScreen initialized for time control
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Admin role selected
+[2026-04-01 08:00:00] [INFO] - [UserSession] Initialized. No user logged in.
+[2026-04-01 08:00:00] [INFO] - [UserSession] Admin logged in: admin
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Administrator
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] Admin authenticated: admin
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] AdminScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] Organizations updated - refreshing dropdowns
+[2026-04-01 08:00:00] [INFO] - Organization added: a
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Organization created successfully: a
+[2026-04-01 08:00:00] [INFO] - Booth added to organization: Google
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Booth created successfully: b in Google
+[2026-04-01 08:00:00] [INFO] - Recruiter assigned to booth: b
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Recruiter assigned successfully: c to booth b
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-08 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-08 11:00
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-08 13:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-08 17:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-08T08:00, close=2026-04-08T11:00, start=2026-04-08T13:00, end=2026-04-08T17:00
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Fair timeline configured successfully: open=2026-04-08T08:00, close=2026-04-08T11:00, start=2026-04-08T13:00, end=2026-04-08T17:00
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] Navigating to Recruiter Portal
+[2026-04-01 08:00:00] [WARNING] - [PublishOfferPanel] No current recruiter in session
+[2026-04-01 08:00:00] [WARNING] - [RecruiterController] View meeting history attempted with no recruiter logged in
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Launched for Recruiter
+[2026-04-01 08:00:00] [WARNING] - [PublishOfferPanel] No current recruiter in session
+[2026-04-01 08:00:00] [WARNING] - [RecruiterController] Publish offer attempted with no recruiter logged in
+[2026-04-01 08:00:00] [INFO] - [UIHelpers] Success: Offer '1' published successfully!
+[2026-04-01 08:00:00] [WARNING] - [PublishOfferPanel] No current recruiter in session
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Offer published: 1
+[2026-04-01 08:00:00] [INFO] - Starting up Virtual Career Fair System...
+[2026-04-01 08:00:00] [INFO] - Initializing UI threads...
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Virtual Career Fair System (VCFS)
+[2026-04-01 08:00:00] [INFO] - Group 18 — CSCU9P6
+[2026-04-01 08:00:00] [INFO] - Project Manager: Zaid
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] - ✅ CareerFairSystem Singleton initialized
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimer initialized
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] - ✅ Demo data initialized
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ Main Menu opened - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimerScreen initialized for time control
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Demo mode activated
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching demo mode - all 3 portals
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Demo mode window ready
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Admin portal
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Recruiter portal
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Candidate portal
+[2026-04-01 08:00:00] [WARNING] - [CandidateLoginFrame] Candidate not found: mzs@gmail.com
+[2026-04-01 08:00:00] [WARNING] - [CandidateLoginFrame] Candidate not found: mzs@gmail.com
+[2026-04-01 08:00:00] [INFO] - Starting up Virtual Career Fair System...
+[2026-04-01 08:00:00] [INFO] - Initializing UI threads...
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Virtual Career Fair System (VCFS)
+[2026-04-01 08:00:00] [INFO] - Group 18 — CSCU9P6
+[2026-04-01 08:00:00] [INFO] - Project Manager: Zaid
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] - ✅ CareerFairSystem Singleton initialized
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimer initialized
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] - ✅ Demo data initialized
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ Main Menu opened - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimerScreen initialized for time control
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Admin role selected
+[2026-04-01 08:00:00] [INFO] - [UserSession] Initialized. No user logged in.
+[2026-04-01 08:00:00] [INFO] - [UserSession] Admin logged in: admin
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Administrator
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] Admin authenticated: admin
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] AdminScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] Organizations updated - refreshing dropdowns
+[2026-04-01 08:00:00] [INFO] - Organization added: A
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Organization created successfully: A
+[2026-04-01 08:00:00] [INFO] - Booth added to organization: A
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Booth created successfully: B in A
+[2026-04-01 08:00:00] [INFO] - Recruiter assigned to booth: B
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Recruiter assigned successfully: C to booth B
+[2026-04-01 08:00:00] [ERROR] - [AdminScreenController] Failed to set fair timeline
+java.lang.IllegalArgumentException: [CareerFair] Bookings open time must be BEFORE close time.
+  Got: 2026-04-08 13:00 → 2026-04-08 10:00
+	at vcfs.core.CareerFair.setTimes(CareerFair.java:112)
+	at vcfs.core.CareerFairSystem.setFairTimes(CareerFairSystem.java:753)
+	at vcfs.controllers.AdminScreenController.setTimeline(AdminScreenController.java:151)
+	at vcfs.views.admin.AdminScreen.lambda$createManagementTab$4(AdminScreen.java:737)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6576)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3404)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6341)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2260)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4958)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2318)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4916)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4559)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4500)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2304)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2671)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:725)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+[2026-04-01 08:00:00] [ERROR] - [AdminScreenController] Failed to set fair timeline
+java.lang.IllegalArgumentException: [CareerFair] Bookings close time must be BEFORE fair start time.
+  Got: 2026-04-08 14:00 → 2026-04-08 13:00
+	at vcfs.core.CareerFair.setTimes(CareerFair.java:117)
+	at vcfs.core.CareerFairSystem.setFairTimes(CareerFairSystem.java:753)
+	at vcfs.controllers.AdminScreenController.setTimeline(AdminScreenController.java:151)
+	at vcfs.views.admin.AdminScreen.lambda$createManagementTab$4(AdminScreen.java:737)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6576)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3404)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6341)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2260)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4958)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2318)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4916)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4559)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4500)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2304)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2671)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:725)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+[2026-04-01 08:00:00] [ERROR] - [AdminScreenController] Failed to set fair timeline
+java.lang.IllegalArgumentException: [CareerFair] Bookings close time must be BEFORE fair start time.
+  Got: 2026-04-08 14:00 → 2026-04-08 13:00
+	at vcfs.core.CareerFair.setTimes(CareerFair.java:117)
+	at vcfs.core.CareerFairSystem.setFairTimes(CareerFairSystem.java:753)
+	at vcfs.controllers.AdminScreenController.setTimeline(AdminScreenController.java:151)
+	at vcfs.views.admin.AdminScreen.lambda$createManagementTab$4(AdminScreen.java:737)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6576)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3404)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6341)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2260)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4958)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2318)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4916)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4559)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4500)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2304)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2671)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:725)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-08 10:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-08 12:00
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-08 13:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-08 17:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-08T10:00, close=2026-04-08T12:00, start=2026-04-08T13:00, end=2026-04-08T17:00
+[2026-04-01 08:00:00] [INFO] - [AdminScreenController] Fair timeline configured successfully: open=2026-04-08T10:00, close=2026-04-08T12:00, start=2026-04-08T13:00, end=2026-04-08T17:00
+[2026-04-01 08:00:00] [INFO] - Starting up Virtual Career Fair System...
+[2026-04-01 08:00:00] [INFO] - Initializing UI threads...
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Virtual Career Fair System (VCFS)
+[2026-04-01 08:00:00] [INFO] - Group 18 — CSCU9P6
+[2026-04-01 08:00:00] [INFO] - Project Manager: Zaid
+[2026-04-01 08:00:00] [INFO] - ========================================
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] - ✅ CareerFairSystem Singleton initialized
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimer initialized
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] - ✅ Demo data initialized
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ Main Menu opened - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - ✅ SystemTimerScreen initialized for time control
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Recruiter role selected
+[2026-04-01 08:00:00] [WARNING] - [LoginFrame] Recruiter not found: ZAID
+[2026-04-01 08:00:00] [WARNING] - [LoginFrame] Recruiter not found: C

@@ -1,0 +1,44 @@
+
+=====================================================================
+ VCFS Application - Build and Execution Log
+=====================================================================
+
+Session Started: Wed 04/08/2026 14:01:24.67
+Project:        VCFS Virtual Career Fair System
+Version:        1.0
+
+System Information:
+  Hostname:     MZS00007
+  User:         ZAID SIDDIQUI
+  Script Dir:   C:\Users\ZAID SIDDIQUI\OneDrive - University of Stirling\stir uni\SEMESTERS\sem6 2026\CSCU9P6\ASSIGNMENTS\Grp_18_CSCU9P6_code\_FOR_GITHUB_SUBMISSION\
+  Main Class:   vcfs.App
+  Java Options: -Xmx1024m -Xms512m
+
+Directory Structure:
+  Source:  C:\Users\ZAID SIDDIQUI\OneDrive - University of Stirling\stir uni\SEMESTERS\sem6 2026\CSCU9P6\ASSIGNMENTS\Grp_18_CSCU9P6_code\_FOR_GITHUB_SUBMISSION\src\main\java
+  Output:  C:\Users\ZAID SIDDIQUI\OneDrive - University of Stirling\stir uni\SEMESTERS\sem6 2026\CSCU9P6\ASSIGNMENTS\Grp_18_CSCU9P6_code\_FOR_GITHUB_SUBMISSION\bin
+  Logs:    C:\Users\ZAID SIDDIQUI\OneDrive - University of Stirling\stir uni\SEMESTERS\sem6 2026\CSCU9P6\ASSIGNMENTS\Grp_18_CSCU9P6_code\_FOR_GITHUB_SUBMISSION\logs
+
+=====================================================================
+ Java Environment Check
+=====================================================================
+
+=====================================================================
+ Compilation Phase
+=====================================================================
+Searching for Java source files...
+Created clean bin directory.
+
+
+Generated .class files: 51
+Compilation exit code: 0
+
+=====================================================================
+ Application Execution
+=====================================================================
+
+Starting application at: Wed 04/08/2026 14:01:32.81
+Command: java -Xmx1024m -Xms512m -cp "C:\Users\ZAID SIDDIQUI\OneDrive - University of Stirling\stir uni\SEMESTERS\sem6 2026\CSCU9P6\ASSIGNMENTS\Grp_18_CSCU9P6_code\_FOR_GITHUB_SUBMISSION\bin" vcfs.App
+
+===== CONSOLE OUTPUT BEGINS =====
+

@@ -1,0 +1,488 @@
+================================================================================
+   VCFS - Virtual Career Fair System (CSCU9P6 Group 9)
+   Complete Project Structure & Architecture Guide
+   University of Stirling - 2026
+================================================================================
+
+PROJECT LOCATION:
+  C:\Users\ZAID SIDDIQUI\OneDrive - University of Stirling\stir uni\
+  SEMESTERS\sem6 2026\CSCU9P6\ASSIGNMENTS\Grp_18_CSCU9P6_code\
+
+================================================================================
+                        ROOT DIRECTORY STRUCTURE
+================================================================================
+
+Grp_18_CSCU9P6_code/
+│
+├── .github/                              [GitHub Configuration]
+│   └── workflow files, CI/CD config
+│
+├── .idea/                                [IntelliJ IDEA Configuration]
+│   └── project settings
+│
+├── .vscode/                              [VS Code Configuration]
+│   └── editor settings
+│
+├── .gitignore                            [Git ignore patterns]
+├── Grp_9_CSCU9P6.iml                     [IntelliJ Project File]
+│
+├── SUBMISSION_GUIDES/                    [Grading Documentation]
+│   ├── 01_JUnit_Test_Report/
+│   │   └── GUIDE_JUnit_Report.txt
+│   ├── 02_Individual_Reflective_Diary/
+│   │   └── GUIDE_Reflective_Diary.txt
+│   ├── 03_Screencast_Video/
+│   │   └── GUIDE_Screencast_Video.txt
+│   ├── 04_Code_Submission/
+│   │   └── GUIDE_Code_Submission.txt
+│   ├── 05_Demonstration_Prep/
+│   │   └── GUIDE_Demonstration_Prep.txt
+│   ├── 06_Individual_Contributions_Form/
+│   │   └── GUIDE_Contributions_Form.txt
+│   └── README_QUICKSTART.txt
+│
+├── _FOR_GITHUB_SUBMISSION/  ⭐ SUBMISSION COPY (for grading)
+│   ├── README.md
+│   ├── BUILD_AND_RUN_DEMO.bat ⭐ RUN THIS TO EXECUTE DEMO
+│   └── src/
+│       ├── main/java/vcfs/
+│       │   ├── sources_raw.txt
+│       │   ├── sources.txt
+│       │   │
+│       │   ├── Main.java                 [ENTRY POINT - contains main()]
+│       │   ├── App.java                  [Application initialization]
+│       │   │
+│       │   ├── controllers/              [BUSINESS LOGIC LAYER]
+│       │   │   ├── AdminScreenController.java
+│       │   │   ├── CandidateController.java
+│       │   │   └── RecruiterController.java
+│       │   │
+│       │   ├── core/                     [SYSTEM CORE COMPONENTS]
+│       │   │   ├── CareerFair.java
+│       │   │   ├── CareerFairSystem.java [Singleton system controller]
+│       │   │   ├── LocalDateTime.java
+│       │   │   ├── Logger.java           [Comprehensive logging]
+│       │   │   ├── LogLevel.java
+│       │   │   ├── SystemTimer.java      [Fair phase timing]
+│       │   │   ├── UIHelpers.java
+│       │   │   └── UserSession.java      [Current user tracking]
+│       │   │
+│       │   ├── models/                   [DATA MODELS - 25+ files]
+│       │   │   ├── audit/
+│       │   │   │   ├── AttendanceRecord.java
+│       │   │   │   └── AuditEntry.java
+│       │   │   ├── booking/              [Core booking models]
+│       │   │   │   ├── Lobby.java
+│       │   │   │   ├── MeetingSession.java
+│       │   │   │   ├── Offer.java
+│       │   │   │   ├── Request.java
+│       │   │   │   └── Reservation.java
+│       │   │   ├── enums/                [State and phase definitions]
+│       │   │   │   ├── AttendanceOutcome.java
+│       │   │   │   ├── FairPhase.java
+│       │   │   │   ├── MeetingState.java
+│       │   │   │   ├── ReservationState.java
+│       │   │   │   └── RoomState.java
+│       │   │   ├── structure/            [Fair organization]
+│       │   │   │   ├── Booth.java
+│       │   │   │   ├── Organization.java
+│       │   │   │   └── VirtualRoom.java
+│       │   │   └── users/                [User hierarchy]
+│       │   │       ├── User.java         [Base user class]
+│       │   │       ├── Candidate.java    [Candidate portal user]
+│       │   │       ├── CandidateProfile.java
+│       │   │       └── Recruiter.java    [Recruiter portal user]
+│       │   │
+│       │   └── views/                    [SWING UI LAYER - 13+ files]
+│       │       ├── admin/
+│       │       │   └── AdminScreen.java  [Admin portal - manage fair]
+│       │       ├── candidate/
+│       │       │   ├── CandidateScreen.java [Candidate portal - booking]
+│       │       │   └── CandidateView.java
+│       │       ├── recruiter/
+│       │       │   ├── PublishOfferPanel.java [Tab 1: Create offers]
+│       │       │   ├── SchedulePanel.java [Tab 2: View schedule]
+│       │       │   ├── VirtualRoomPanel.java [Tab 3: Virtual rooms]
+│       │       │   ├── RecruiterScreen.java [Main recruiter portal]
+│       │       │   └── RecruiterView.java
+│       │       └── shared/
+│       │           ├── AdminLoginFrame.java
+│       │           ├── CandidateLoginFrame.java
+│       │           ├── LoginFrame.java
+│       │           ├── MainMenuFrame.java
+│       │           └── SystemTimerScreen.java
+│       │
+│       └── test/java/vcfs/               [30+ JUnit Test Files]
+│           ├── AppTest.java
+│           ├── MainTest.java
+│           ├── controllers/
+│           │   ├── AdminScreenControllerTest.java
+│           │   ├── CandidateControllerTest.java
+│           │   ├── RecruiterControllerTest.java
+│           │   └── TestClassTest.java
+│           ├── core/
+│           │   ├── CareerFairSystemTest.java
+│           │   ├── CareerFairTest.java
+│           │   ├── LocalDateTimeTest.java
+│           │   ├── LoggerTest.java
+│           │   ├── LogLevelTest.java
+│           │   └── SystemTimerTest.java
+│           ├── integration/
+│           │   ├── BookingWorkflowIntegrationTest.java
+│           │   └── ConcurrentBookingTest.java
+│           ├── models/
+│           │   ├── audit/
+│           │   │   ├── AttendanceRecordTest.java
+│           │   │   └── AuditEntryTest.java
+│           │   ├── booking/
+│           │   │   ├── LobbyTest.java
+│           │   │   ├── MeetingSessionTest.java
+│           │   │   ├── OfferTest.java
+│           │   │   ├── RequestTest.java
+│           │   │   └── ReservationTest.java
+│           │   ├── enums/ (5 test files)
+│           │   ├── structure/ (3 test files)
+│           │   └── users/ (4 test files)
+│           └── views/
+│               ├── admin/
+│               │   └── AdminScreenTest.java
+│               ├── candidate/
+│               │   ├── CandidateScreenTest.java
+│               │   └── CandidateViewTest.java
+│               ├── recruiter/
+│               │   ├── PublishOfferPanelTest.java
+│               │   ├── RecruiterScreenTest.java
+│               │   ├── RecruiterViewTest.java
+│               │   ├── SchedulePanelTest.java
+│               │   └── VirtualRoomPanelTest.java
+│               └── shared/
+│                   ├── LoginFrameTest.java
+│                   └── SystemTimerScreenTest.java
+│
+├── _LOCAL_BUILD/  ⭐ DEVELOPMENT BUILD FOLDER
+│   ├── RunableApp/         [Standalone executable version]
+│   │   ├── Observable.java
+│   │   └── Observer.java
+│   ├── bin/                [⭐ Compiled .class files (51+ classes)]
+│   │   └── vcfs/
+│   │       ├── Main.class
+│   │       ├── controllers/
+│   │       ├── core/
+│   │       ├── models/
+│   │       └── views/
+│   ├── bin-test/           [Compiled test classes]
+│   ├── lib/                [External JAR dependencies]
+│   ├── logs/               [System execution logs]
+│   ├── build/              [Temporary build artifacts]
+│   ├── compile_errors.txt  [Last compilation error log]
+│   ├── compile_result.txt  [Last compilation result]
+│   ├── compile.txt         [Compilation output]
+│   ├── run_vcfs.bat        [Full build and run script]
+│   └── run_main.bat        [Main launcher script]
+│
+├── _LOCAL_REFERENCE/       [Project Documentation & Analysis]
+│   ├── ARCHITECTURE_AND_ALGORITHM_REFERENCE.md
+│   ├── CODE_REVIEW_AND_VERIFICATION.md
+│   ├── CODE_REVIEW_COMPLETION_SUMMARY.md
+│   ├── COMMENTS_ENHANCEMENT_SUMMARY.md
+│   ├── COMPLETE_PROJECT_STRUCTURE.md
+│   ├── DIRECTORY_TREE_VISUAL.txt
+│   ├── DOCUMENTATION_INDEX_AND_NAVIGATION.md
+│   ├── FINAL_SUBMISSION_ACTION_PLAN.md
+│   ├── FINAL_VERIFICATION_REPORT.md
+│   ├── MVC_ARCHITECTURE_DEEP_DIVE.md
+│   ├── PROJECT_STATUS_DASHBOARD.md
+│   ├── QUICK_REFERENCE_CARD.md
+│   ├── QUICK_REFERENCE_CODE_REVIEW.md
+│   ├── QUICK_REFERENCE_TRACKER.md
+│   ├── ROOT_DIRECTORY_CLEANUP_GUIDE.md
+│   ├── SUBMISSION_QUICK_REFERENCE.txt
+│   ├── SYSTEM_DEMO_READINESS_GUIDE.md
+│   ├── docs/               [Detailed documentation]
+│   │   ├── excel_content.txt
+│   │   ├── sources_raw.txt
+│   │   ├── sources.txt
+│   │   ├── archive/
+│   │   ├── contributions/
+│   │   ├── diary/
+│   │   ├── phases/         [Project phases documentation]
+│   │   ├── plan/           [Detailed implementation plan]
+│   │   └── submissions/    [Submission documentation]
+│   └── GitHubVersion/      [GitHub submission mirror]
+│
+└── README.md               [Project README]
+
+================================================================================
+                           CODEBASE STATISTICS
+================================================================================
+
+MAIN SOURCE CODE:
+  ├─ Total Java Files: 45
+  ├─ Packages: 8 (core, controllers, models.*, views.*)
+  ├─ Classes: 45 main classes
+  └─ Lines of Code: ~5000+ LOC
+
+COMPILED OUTPUT:
+  ├─ Total Classes: 51+ (production)
+  ├─ Compiled Size: ~2MB+
+  ├─ Location: _LOCAL_BUILD/bin/vcfs/
+  └─ Status: Ready for execution
+
+TEST SUITE:
+  ├─ Test Files: 30+
+  ├─ Test Classes: Comprehensive coverage
+  ├─ Location: _FOR_GITHUB_SUBMISSION/src/test/java/vcfs/
+  └─ Compiled: _LOCAL_BUILD/bin-test/
+
+ARCHITECTURE LAYERS:
+  ├─ Presentation (Views): 13 Swing UI classes
+  ├─ Business Logic (Controllers): 3 controller classes
+  ├─ Data Models: 25+ model classes
+  ├─ Core System: 8 core utility classes
+  └─ Pattern: MVC (Model-View-Controller)
+
+================================================================================
+                        KEY SYSTEM COMPONENTS
+================================================================================
+
+ENTRY POINT:
+  File: Main.java
+  Method: public static void main(String[] args)
+  Location: src/main/java/vcfs/Main.java
+  Purpose: Initializes application, shows main menu
+
+CORE SYSTEM (System Singleton):
+  CareerFairSystem.java
+    - Manages all system state (singleton pattern)
+    - Controls users, organizations, booths, lobbies
+    - Handles booking workflow
+    - Coordinates all portals and views
+
+SYSTEM COMPONENTS:
+  Logger.java
+    - Comprehensive logging with LogLevel enum
+    - INFO, WARNING, ERROR levels
+    - Used throughout codebase for debugging
+
+  SystemTimer.java
+    - Manages fair phases and timing
+    - Controls SETUP, IN_PROGRESS, CONCLUDED phases
+    - Coordinates time-based events
+
+  UserSession.java
+    - Tracks currently logged-in user
+    - Manages session state
+    - Used by all portals for user context
+
+================================================================================
+                           3 MAIN PORTALS
+================================================================================
+
+1. ADMIN PORTAL (AdminScreen.java)
+   ├─ Purpose: Manage fair organization
+   ├─ Functions:
+   │   ├─ Create organizations
+   │   ├─ Create booths
+   │   ├─ Assign recruiters to booths
+   │   ├─ Set fair timeline (phases)
+   │   └─ View all system data
+   ├─ Controller: AdminScreenController.java
+   └─ Authentication: Admin login required
+
+2. RECRUITER PORTAL (RecruiterScreen.java)
+   ├─ Purpose: Post offers and manage meetings
+   ├─ Tabbed Interface:
+   │   ├─ Tab 1: PublishOfferPanel
+   │   │  └─ Create job/internship offers
+   │   ├─ Tab 2: SchedulePanel
+   │   │  └─ View scheduled meetings
+   │   └─ Tab 3: VirtualRoomPanel
+   │      └─ Access virtual meeting rooms
+   ├─ Controller: RecruiterController.java
+   └─ Authentication: Recruiter login required
+
+3. CANDIDATE PORTAL (CandidateScreen.java)
+   ├─ Purpose: Browse offers and book meetings
+   ├─ Features:
+   │   ├─ Auto-booking algorithm
+   │   ├─ Manual lobby browsing
+   │   ├─ Meeting schedule view
+   │   ├─ Request history tracking
+   │   └─ Virtual room access
+   ├─ Controller: CandidateController.java
+   └─ Authentication: Candidate login required
+
+================================================================================
+                     WORKFLOW: HOW TO RUN THE DEMO
+================================================================================
+
+OPTION 1: Run from Submission Folder (Recommended)
+  ─────────────────────────────────────────────────
+  
+  1. Open Command Prompt
+  2. Navigate to: _FOR_GITHUB_SUBMISSION\
+  3. Run: BUILD_AND_RUN_DEMO.bat
+  
+  This script will:
+    ✓ Compile all 45 Java source files
+    ✓ Generate 51+ class files in build/bin/
+    ✓ Verify all dependencies
+    ✓ Launch the main application
+    ✓ Display color-coded status messages
+
+OPTION 2: Run from Local Build Folder
+  ────────────────────────────────────
+  
+  1. Open Command Prompt
+  2. Navigate to: _LOCAL_BUILD\
+  3. Run: run_main.bat
+  
+  This assumes files are already compiled in bin/
+  (use run_vcfs.bat first if compilation needed)
+
+OPTION 3: Manual Command Line
+  ────────────────────────────
+  
+  1. Compile:
+     javac -d bin -encoding UTF-8 ^
+       src\main\java\vcfs\*.java ^
+       src\main\java\vcfs\controllers\*.java ^
+       src\main\java\vcfs\core\*.java ^
+       src\main\java\vcfs\models\*.java ^
+       src\main\java\vcfs\models\*\*.java ^
+       src\main\java\vcfs\views\*.java ^
+       src\main\java\vcfs\views\*\*.java
+  
+  2. Run:
+     java -cp bin vcfs.Main
+
+================================================================================
+                     SYSTEM REQUIREMENTS & SETUP
+================================================================================
+
+JAVA REQUIREMENTS:
+  ├─ Java Version: JDK 11 or higher
+  ├─ Download: https://www.oracle.com/java/
+  ├─ Environment: Add Java\bin to system PATH
+  └─ Verify: Run "java -version" in command prompt
+
+COMPILE REQUIREMENTS:
+  ├─ Source Encoding: UTF-8
+  ├─ Target: Java bytecode (1.8+ compatible)
+  ├─ Compilation: javac (included with JDK)
+  └─ Output: .class files in bin/ directory
+
+RUNTIME REQUIREMENTS:
+  ├─ Framework: Java Swing (javax.swing.*)
+  ├─ Display: GUI capable terminal
+  ├─ Memory: Default JVM settings (~512MB min)
+  ├─ Platform: Windows/Mac/Linux (cross-platform)
+  └─ Dependencies: None (pure Java/Swing)
+
+================================================================================
+                        QUICK REFERENCE: IMPORTANT FILES
+================================================================================
+
+RUN APPLICATION:
+  _FOR_GITHUB_SUBMISSION\BUILD_AND_RUN_DEMO.bat
+  _LOCAL_BUILD\run_main.bat
+
+COMPILE ONLY:
+  _LOCAL_BUILD\run_vcfs.bat
+
+SOURCE CODE STRUCTURE:
+  Main Entry: _FOR_GITHUB_SUBMISSION\src\main\java\vcfs\Main.java
+  Controllers: _FOR_GITHUB_SUBMISSION\src\main\java\vcfs\controllers\
+  Models: _FOR_GITHUB_SUBMISSION\src\main\java\vcfs\models\
+  Views: _FOR_GITHUB_SUBMISSION\src\main\java\vcfs\views\
+
+COMPILED CLASSES:
+  Output: _LOCAL_BUILD\bin\vcfs\
+  Count: 51+ classes
+  Size: ~2MB
+
+TEST SUITE:
+  Location: _FOR_GITHUB_SUBMISSION\src\test\java\vcfs\
+  Compiled: _LOCAL_BUILD\bin-test\vcfs\
+
+DOCUMENTATION:
+  Reference Docs: _LOCAL_REFERENCE\
+  Submission Guide: SUBMISSION_GUIDES\
+  API Docs: _LOCAL_REFERENCE\docs\
+
+================================================================================
+                          TROUBLESHOOTING
+================================================================================
+
+Q: Command not found or file not found errors
+A: Make sure you're running script from correct directory
+   ├─ BUILD_AND_RUN_DEMO.bat → run from _FOR_GITHUB_SUBMISSION\
+   ├─ run_main.bat → run from _LOCAL_BUILD\
+   └─ Check PATH environment variable includes script directory
+
+Q: "Java is not installed or not in PATH"
+A: Install Java JDK 11+ and add to PATH:
+   ├─ Download: https://www.oracle.com/java/
+   ├─ Install: Use official installer
+   ├─ Add to PATH: Environment Variables → System → PATH
+   └─ Verify: Open new command prompt, run "java -version"
+
+Q: Compilation errors with UTF-8
+A: Ensure source files use UTF-8 encoding:
+   ├─ Add flag: javac -encoding UTF-8 ...
+   ├─ Editor: Set encoding to UTF-8 in VS Code
+   └─ Rebuild: Delete bin\ folder and recompile
+
+Q: "Main class not found"
+A: Verify Main.java compiled successfully:
+   ├─ Check: _LOCAL_BUILD\bin\vcfs\Main.class exists
+   ├─ Recompile: Delete bin\ and re-run BUILD_AND_RUN_DEMO.bat
+   └─ Manual: javac -d bin src\main\java\vcfs\Main.java
+
+Q: Application crashes on startup
+A: Check console output for detailed error:
+   ├─ Look for: Exception stack trace
+   ├─ Check: File paths in error messages
+   ├─ Verify: All source files are present
+   └─ Try: Recompile from scratch
+
+Q: "OutOfMemoryError: Java heap space"
+A: Increase Java heap memory:
+   ├─ Modify launch command to:
+   │   java -Xmx1024m -cp bin vcfs.Main
+   ├─ Adjust 1024m to 2048m or 4096m if needed
+   └─ Note: Requires sufficient system RAM available
+
+================================================================================
+                          PROJECT CONTACT INFO
+================================================================================
+
+Project Manager & Lead Developer:
+  Name: Zaid Siddiqui (mzs00007)
+  Role: CSCU9P6 Group 9 Lead
+  
+Group Members (Collaborators):
+  - Taha
+  - YAMI
+  - MJAMishkat
+  - Mohamed
+
+Institution:
+  University of Stirling
+  CSCU9P6 - Software Engineering Project
+  2024-2026
+
+================================================================================
+                              END OF GUIDE
+================================================================================
+
+For detailed architecture information, refer to:
+  _LOCAL_REFERENCE\MVC_ARCHITECTURE_DEEP_DIVE.md
+  _LOCAL_REFERENCE\SYSTEM_DEMO_READINESS_GUIDE.md
+  _FOR_GITHUB_SUBMISSION\README.md
+
+For submission requirements, refer to:
+  SUBMISSION_GUIDES\04_Code_Submission\GUIDE_Code_Submission.txt
+  SUBMISSION_GUIDES\05_Demonstration_Prep\GUIDE_Demonstration_Prep.txt
+
+================================================================================

@@ -1,0 +1,38 @@
+
+=====================================================================
+ VCFS Application - Build and Execution Log
+=====================================================================
+
+Session Started: Wed 04/08/2026 13:58:32.23
+Project:        VCFS Virtual Career Fair System
+Version:        1.0
+
+System Information:
+  Hostname:     MZS00007
+  User:         ZAID SIDDIQUI
+  Script Dir:   C:\Users\ZAID SIDDIQUI\OneDrive - University of Stirling\stir uni\SEMESTERS\sem6 2026\CSCU9P6\ASSIGNMENTS\Grp_18_CSCU9P6_code\_FOR_GITHUB_SUBMISSION\
+  Main Class:   vcfs.App
+  Java Options: -Xmx1024m -Xms512m
+
+Directory Structure:
+  Source:  C:\Users\ZAID SIDDIQUI\OneDrive - University of Stirling\stir uni\SEMESTERS\sem6 2026\CSCU9P6\ASSIGNMENTS\Grp_18_CSCU9P6_code\_FOR_GITHUB_SUBMISSION\src\main\java
+  Output:  C:\Users\ZAID SIDDIQUI\OneDrive - University of Stirling\stir uni\SEMESTERS\sem6 2026\CSCU9P6\ASSIGNMENTS\Grp_18_CSCU9P6_code\_FOR_GITHUB_SUBMISSION\bin
+  Logs:    C:\Users\ZAID SIDDIQUI\OneDrive - University of Stirling\stir uni\SEMESTERS\sem6 2026\CSCU9P6\ASSIGNMENTS\Grp_18_CSCU9P6_code\_FOR_GITHUB_SUBMISSION\logs
+
+=====================================================================
+ Java Environment Check
+=====================================================================
+
+=====================================================================
+ Compilation Phase
+=====================================================================
+Searching for Java source files...
+Removing old compiled .class files...
+Created clean bin directory.
+
+
+Generated .class files: 0
+Compilation exit code: 0
+
+!! ERROR: Compilation failed - no class files generated !!
+
