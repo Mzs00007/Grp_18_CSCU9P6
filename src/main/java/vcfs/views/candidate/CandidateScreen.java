@@ -18,8 +18,10 @@ import vcfs.core.CareerFairSystem;
 import vcfs.models.booking.MeetingSession;
 import vcfs.models.booking.Request;
 import vcfs.models.booking.Lobby;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class CandidateScreen extends JFrame implements CandidateView {
+public class CandidateScreen extends JFrame implements CandidateView, PropertyChangeListener {
 
     private CandidateController controller;
     private DefaultTableModel scheduleTableModel;
@@ -106,6 +108,12 @@ public class CandidateScreen extends JFrame implements CandidateView {
         tabs.add("Lobby", lobbyPanel);
 
         add(tabs);
+        
+        // ===== REGISTER AS OBSERVER =====
+        // CandidateScreen receives property change events from CareerFairSystem
+        // This enables real-time updates when offers are published or system state changes
+        CareerFairSystem.getInstance().addPropertyChangeListener(this);
+        
         setVisible(true);
     }
 
@@ -156,6 +164,20 @@ public class CandidateScreen extends JFrame implements CandidateView {
     @Override
     public void displayRequestHistory(List<Request> requests) {
         // Not specifically required by TODOs, but needed for interface
+    }
+
+    /**
+     * Observer callback - receives property change events from CareerFairSystem
+     * Triggered when offers, organizations, or other system state changes
+     */
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        // Candidates primarily care about "offers" changes
+        if ("offers".equals(evt.getPropertyName())) {
+            // In a full implementation, would refresh available offers table
+            // For now, just log the event
+            System.out.println("[CandidateScreen] Offers updated: " + evt.getNewValue());
+        }
     }
 }
 

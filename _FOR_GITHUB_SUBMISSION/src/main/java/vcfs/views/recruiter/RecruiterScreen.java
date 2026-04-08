@@ -128,6 +128,11 @@ public class RecruiterScreen extends JFrame implements RecruiterView, PropertyCh
         JPanel dashboardPanel = createStatusDashboard();
         add(dashboardPanel, BorderLayout.CENTER);
         
+        // ===== REGISTER AS OBSERVER =====
+        // RecruiterScreen receives property change events from CareerFairSystem
+        // This enables real-time updates when candidates book slots or system state changes
+        CareerFairSystem.getInstance().addPropertyChangeListener(this);
+        
         setVisible(true);
 
         Logger.log(LogLevel.INFO, "[RecruiterScreen] Launched for " + recruiterName);

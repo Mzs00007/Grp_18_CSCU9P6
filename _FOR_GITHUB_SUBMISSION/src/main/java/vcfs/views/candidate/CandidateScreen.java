@@ -122,6 +122,11 @@ public class CandidateScreen extends JFrame implements CandidateView, PropertyCh
         JPanel dashboardPanel = createStatusDashboard();
         add(dashboardPanel, BorderLayout.CENTER);
         
+        // ===== REGISTER AS OBSERVER =====
+        // CandidateScreen receives property change events from CareerFairSystem
+        // This enables real-time updates when offers are published or system state changes
+        CareerFairSystem.getInstance().addPropertyChangeListener(this);
+        
         setVisible(true);
     }
 

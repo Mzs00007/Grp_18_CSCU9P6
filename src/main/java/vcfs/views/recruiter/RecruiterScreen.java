@@ -14,6 +14,8 @@ import java.util.List;
 import vcfs.controllers.RecruiterController;
 import vcfs.core.CareerFairSystem;
 import vcfs.models.booking.MeetingSession;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * Recruiter Dashboard - Main UI for recruiter operations.
@@ -24,8 +26,9 @@ import vcfs.models.booking.MeetingSession;
  * Responsibilities:
  * - Display tabs for recruiter functions: Publish Offer, Schedule, Virtual Room
  * - Coordinate with RecruiterController for business logic
+ * - Receive PropertyChangeListener notifications for real-time updates
  */
-public class RecruiterScreen extends JFrame implements RecruiterView {
+public class RecruiterScreen extends JFrame implements RecruiterView, PropertyChangeListener {
 
     private RecruiterController controller;
 
@@ -48,6 +51,12 @@ public class RecruiterScreen extends JFrame implements RecruiterView {
         tabs.add("Virtual Room", virtualRoomPanel);
 
         add(tabs);
+        
+        // ===== REGISTER AS OBSERVER =====
+        // RecruiterScreen receives property change events from CareerFairSystem
+        // This enables real-time updates when candidates book slots or system state changes
+        CareerFairSystem.getInstance().addPropertyChangeListener(this);
+        
         setVisible(true);
     }
 
@@ -64,6 +73,19 @@ public class RecruiterScreen extends JFrame implements RecruiterView {
     @Override
     public void displaySessions(List<MeetingSession> sessions) {
         // To be handled by panels
+    }
+
+    /**
+     * Observer callback - receives property change events from CareerFairSystem
+     * Triggered when candidates book slots, organizations change, or system state updates
+     */
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        // Recruiters care about events related to their availability and bookings
+        if ("time".equals(evt.getPropertyName()) || "phase".equals(evt.getPropertyName())) {
+            // System time or phase changed - may affect availability display
+            System.out.println("[RecruiterScreen] System event: " + evt.getPropertyName() + " = " + evt.getNewValue());
+        }
     }
 }
 
