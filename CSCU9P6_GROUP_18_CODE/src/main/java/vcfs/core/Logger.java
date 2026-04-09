@@ -74,6 +74,7 @@ public class Logger {
                 
         // Colored log entry for the console with emoji indicators
         String colorLevel = switch (level) {
+            case DEBUG -> ANSI_CYAN + "🐛 DEBUG" + ANSI_RESET;
             case INFO -> ANSI_CYAN + "ℹ INFO" + ANSI_RESET;
             case WARNING -> ANSI_YELLOW + "⚠ WARNING" + ANSI_RESET;
             case ERROR -> ANSI_RED + "✗ ERROR" + ANSI_RESET;
