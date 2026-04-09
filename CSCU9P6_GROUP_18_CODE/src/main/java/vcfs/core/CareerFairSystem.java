@@ -702,9 +702,9 @@ public class CareerFairSystem implements PropertyChangeListener {
             (offer.getTitle() != null ? offer.getTitle() : "unknown") + 
             " by recruiter: " + publisherEmail);
         
-        // CRITICAL FIX: Find the SYSTEM recruiter (not session recruiter) and add offer
-        // This ensures getAllOffers() will find it when iterating org->booth->recruiters
         boolean foundInSystem = false;
+        
+        // STEP 1: Search in organization booth structure (primary)
         if (fair.organizations != null) {
             for (Organization org : fair.organizations) {
                 if (org.getBooths() != null) {
@@ -713,11 +713,9 @@ public class CareerFairSystem implements PropertyChangeListener {
                             for (Recruiter systemRecruiter : booth.getRecruiters()) {
                                 if (systemRecruiter.getEmail() != null && 
                                     systemRecruiter.getEmail().equalsIgnoreCase(publisherEmail)) {
-                                    // Found the recruiter in system structure
-                                    // Ensure offer is in their collection
                                     if (!systemRecruiter.getOffers().contains(offer)) {
                                         systemRecruiter.addOffer(offer);
-                                        Logger.log(LogLevel.INFO, "[CareerFairSystem] Offer added to system recruiter: " + 
+                                        Logger.log(LogLevel.INFO, "[CareerFairSystem] Offer added to booth recruiter: " + 
                                             systemRecruiter.getDisplayName());
                                         foundInSystem = true;
                                     }
@@ -729,9 +727,25 @@ public class CareerFairSystem implements PropertyChangeListener {
             }
         }
         
+        // STEP 2: CRITICAL FIX - Check recruitersList for standalone recruiters (not in any booth)
+        // This fixes the issue where demo recruiters aren't assigned to booths but need to publish offers
+        if (!foundInSystem && recruitersList != null) {
+            for (Recruiter recruiter : recruitersList) {
+                if (recruiter.getEmail() != null && 
+                    recruiter.getEmail().equalsIgnoreCase(publisherEmail)) {
+                    if (!recruiter.getOffers().contains(offer)) {
+                        recruiter.addOffer(offer);
+                        Logger.log(LogLevel.INFO, "[CareerFairSystem] Offer added to standalone recruiter: " + 
+                            recruiter.getDisplayName());
+                        foundInSystem = true;
+                    }
+                }
+            }
+        }
+        
         if (!foundInSystem) {
-            Logger.log(LogLevel.WARNING, "[CareerFairSystem] Could not find recruiter in system structure: " + 
-                publisherEmail + " - offer may not appear in tables!");
+            Logger.log(LogLevel.WARNING, "[CareerFairSystem] Could not find recruiter in system: " + 
+                publisherEmail + " - offer may not appear!");
         }
         
         // CRITICAL: Invalidate offer cache since new offer has been added
@@ -774,16 +788,36 @@ public class CareerFairSystem implements PropertyChangeListener {
             return offerCache;
         }
         
-        // Cache miss — rebuild offer list
+        // Cache miss — rebuild offer list from all sources
         List<Offer> allOffers = new ArrayList<>();
-        if (fair.organizations == null) return allOffers;
-        for (Organization org : fair.organizations) {
-            if (org.getBooths() == null) continue;
-            for (Booth booth : org.getBooths()) {
-                if (booth.getRecruiters() == null) continue;
-                for (Recruiter recruiter : booth.getRecruiters()) {
-                    if (recruiter.getOffers() != null && !recruiter.getOffers().isEmpty()) {
-                        allOffers.addAll(recruiter.getOffers());
+        
+        // STEP 1: Collect offers from recruiters in organization booths
+        if (fair.organizations != null) {
+            for (Organization org : fair.organizations) {
+                if (org.getBooths() != null) {
+                    for (Booth booth : org.getBooths()) {
+                        if (booth.getRecruiters() != null) {
+                            for (Recruiter recruiter : booth.getRecruiters()) {
+                                if (recruiter.getOffers() != null && !recruiter.getOffers().isEmpty()) {
+                                    allOffers.addAll(recruiter.getOffers());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        // STEP 2: CRITICAL FIX - Also collect offers from standalone recruiters (not in any booth)
+        // This ensures offers published by recruiters without booth assignments still appear
+        if (recruitersList != null) {
+            for (Recruiter recruiter : recruitersList) {
+                if (recruiter.getOffers() != null && !recruiter.getOffers().isEmpty()) {
+                    // Avoid duplicates - only add if not already in list
+                    for (Offer offer : recruiter.getOffers()) {
+                        if (!allOffers.contains(offer)) {
+                            allOffers.add(offer);
+                        }
                     }
                 }
             }

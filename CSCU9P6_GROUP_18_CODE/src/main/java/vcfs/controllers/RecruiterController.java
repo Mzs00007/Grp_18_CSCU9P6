@@ -69,6 +69,14 @@ public class RecruiterController extends BaseController {
     }
     
     /**
+     * Get the currently active recruiter for this session.
+     * @return the current recruiter, or null if not logged in
+     */
+    public Recruiter getCurrentRecruiter() {
+        return this.currentRecruiter;
+    }
+    
+    /**
      * Set the SchedulePanel reference so it can be updated with session data.
      */
     public void setSchedulePanel(SchedulePanel panel) {
