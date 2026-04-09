@@ -1,327 +1,240 @@
-@echo off
-setlocal enabledelayedexpansion
+@ECHO OFF
+REM ===================================================================
+REM VIRTUAL CAREER FAIR SYSTEM (VCFS) - FULLY AUTOMATED BUILD LAUNCHER
+REM ===================================================================
+REM Group 9 - CSCU9P6 Project
+REM Project Manager & Lead Developer: Zaid Siddiqui (mzs00007)
+REM Collaborators: Taha, YAMI, MJAMishkat, Mohamed
+REM University of Stirling - Semester 6, 2026
+REM ===================================================================
+REM COMPLETELY AUTOMATED - NO MANUAL STEPS REQUIRED
+REM ===================================================================
 
-REM ================================================================
-REM  VCFS - Virtual Career Fair System (CSCU9P6 Group 9)
-REM  Build & Launch Demo Application
-REM  Source Location: _FOR_GITHUB_SUBMISSION/src
-REM  Project Manager & Lead Dev: Zaid Siddiqui (mzs00007)
-REM  Collaborators: Taha, YAMI, MJAMishkat, Mohamed
-REM ================================================================
-REM
-REM  COMPREHENSIVE DEMO LAUNCHER:
-REM    ✓ Compiles all Java source files
-REM    ✓ Validates compilation success
-REM    ✓ Manages classpath automatically
-REM    ✓ Launches main application with Swing UI
-REM    ✓ Color-coded console feedback
-REM    ✓ Detailed error diagnostics
-REM    ✓ Performance timing
-REM
-REM ================================================================
+SETLOCAL ENABLEDELAYEDEXPANSION
+CLS
+COLOR 0A
+CHCP 65001 >NUL 2>&1
 
-cls
-color 0A
-chcp 65001 >nul 2>&1
+REM Configuration
+SET "SCRIPT_DIR=%~dp0"
+SET "SRC_MAIN=%SCRIPT_DIR%src\main\java"
+SET "SRC_TEST=%SCRIPT_DIR%src\test\java"
+SET "BIN_PROD=%SCRIPT_DIR%bin"
+SET "BIN_TEST=%SCRIPT_DIR%bin-test"
+SET "LIB_DIR=%SCRIPT_DIR%lib"
+SET "LOGS_DIR=%SCRIPT_DIR%logs"
+SET "LOG_FILE=%LOGS_DIR%\build_%DATE:~-4%-%DATE:~-10,2%-%DATE:~-7,2%_%TIME:~0,2%-%TIME:~5,2%.log"
+SET "MAIN_CLASS=vcfs.App"
+SET "RETRY_COUNT=0"
+SET "MAX_RETRIES=2"
 
-REM ================================================================
-REM  INITIALIZATION
-REM ================================================================
+REM Create logs directory
+IF NOT EXIST "%LOGS_DIR%" MKDIR "%LOGS_DIR%" >NUL 2>&1
 
-REM Record start time
-set START_TIME=%time%
-set BUILD_DIR=%cd%\build
-set BIN_DIR=%BUILD_DIR%\bin
-set SRC_DIR=%cd%\src\main\java
+REM Startup Banner
+ECHO. >> "%LOG_FILE%"
+ECHO ================================================================ >> "%LOG_FILE%"
+ECHO VCFS BUILD AUTOMATION - %DATE% %TIME% >> "%LOG_FILE%"
+ECHO ================================================================ >> "%LOG_FILE%"
 
-echo.
-echo ========================================================================
-echo   VIRTUAL CAREER FAIR SYSTEM (VCFS)
-echo   Build and Launch Demo - Group 9 CSCU9P6
-echo        University of Stirling
-echo ========================================================================
-echo.
-echo  Launch Time: %DATE% %TIME%
-echo  Working Directory: %cd%
-echo  Source Directory: %SRC_DIR%
-echo  Build Directory: %BUILD_DIR%
-echo  Binary Output: %BIN_DIR%
-echo.
+ECHO.
+ECHO ===============================================================
+ECHO VCFS - VIRTUAL CAREER FAIR SYSTEM
+ECHO AUTOMATED BUILD AND LAUNCH SYSTEM
+ECHO ===============================================================
+ECHO.
+ECHO Project Root: %SCRIPT_DIR%
+ECHO Build Target: %BIN_PROD%
+ECHO Status: INITIALIZING...
+ECHO.
 
-REM ================================================================
-REM  STEP 1: System Verification
-REM ================================================================
+REM ===================================================================
+REM AUTO-DETECTION AND VALIDATION
+REM ===================================================================
 
-echo [STEP 1 of 6] Verifying Java Installation...
-echo.
-
-java -version >nul 2>&1
-if %ERRORLEVEL% NEQ 0 (
-    color 0C
-    echo  ✗ [ERROR] Java is NOT installed or NOT in PATH
-    echo.
-    echo  REQUIRED: Java JDK 11 or higher
-    echo  DOWNLOAD: https://www.oracle.com/java/
-    echo  SETUP:    Add Java\bin to system PATH environment variable
-    echo.
-    pause
-    exit /b 1
+REM Check Java availability
+WHERE java >NUL 2>NUL
+IF %ERRORLEVEL% NEQ 0 (
+    ECHO.
+    ECHO [ERROR] Java not found in PATH!
+    ECHO Please install Java JDK 11+ and add to system PATH
+    ECHO.
+    PAUSE
+    EXIT /B 1
 )
 
-for /f "tokens=3" %%j in ('java -version 2^>^&1 ^| find /i "version"') do set JAVA_VERSION=%%j
-echo  ✓ Java Found: Version %JAVA_VERSION%
-echo.
+REM Get Java version
+FOR /F "tokens=3" %%V IN ('java -version 2^>^&1 ^| findstr "version"') DO SET "JAVA_VER=%%V"
+ECHO [OK] Java Detected: %JAVA_VER%
 
-REM ================================================================
-REM  STEP 2: Verify Source Code Structure
-REM ================================================================
+REM Auto-detect source files
+SETLOCAL ENABLEDELAYEDEXPANSION
+SET "PROD_FILES=0"
+SET "TEST_FILES=0"
+FOR /R "%SRC_MAIN%" %%F IN (*.java) DO SET /A PROD_FILES+=1
+FOR /R "%SRC_TEST%" %%F IN (*.java) DO SET /A TEST_FILES+=1
+ENDLOCAL & SET "PROD_FILES=%PROD_FILES%" & SET "TEST_FILES=%TEST_FILES%"
+ECHO [OK] Detected %PROD_FILES% production files, %TEST_FILES% test files
 
-echo [STEP 2 of 6] Verifying Source Code Structure...
-echo.
+REM Auto-detect libraries
+SETLOCAL ENABLEDELAYEDEXPANSION
+SET "JAR_COUNT=0"
+FOR %%J IN ("%LIB_DIR%\*.jar") DO SET /A JAR_COUNT+=1
+ENDLOCAL & SET "JAR_COUNT=%JAR_COUNT%"
+ECHO [OK] Detected %JAR_COUNT% library JARs
 
-if not exist "%SRC_DIR%" (
-    color 0C
-    echo  ✗ [ERROR] Source directory not found: %SRC_DIR%
-    echo.
-    echo  This script must run from: _FOR_GITHUB_SUBMISSION\
-    echo  Current location: %cd%
-    echo.
-    pause
-    exit /b 2
-)
+REM Create output directories
+IF NOT EXIST "%BIN_PROD%" MKDIR "%BIN_PROD%" >NUL 2>&1
+IF NOT EXIST "%BIN_TEST%" MKDIR "%BIN_TEST%" >NUL 2>&1
 
-if not exist "%SRC_DIR%\vcfs\App.java" (
-    color 0C
-    echo  ✗ [ERROR] Main entry point not found
-    echo  Expected: %SRC_DIR%\vcfs\App.java
-    echo.
-    pause
-    exit /b 3
-)
+REM Clean old build artifacts silently
+DEL /Q /S "%BIN_PROD%\*.class" >NUL 2>&1
+DEL /Q /S "%BIN_TEST%\*.class" >NUL 2>&1
+DEL /Q /S "%BIN_PROD%\vcfs\*" >NUL 2>&1
+DEL /Q /S "%BIN_TEST%\vcfs\*" >NUL 2>&1
 
-REM Count source files
-setlocal enabledelayedexpansion
-set SOURCE_COUNT=0
-for /r "%SRC_DIR%" %%f in (*.java) do set /a SOURCE_COUNT+=1
-endlocal & set SOURCE_COUNT=%SOURCE_COUNT%
+REM ===================================================================
+REM AUTO-COMPILATION WITH RECURSIVE FILE DISCOVERY
+REM ===================================================================
 
-echo  ✓ Source Structure Verified
-echo  ✓ Java Source Files: %SOURCE_COUNT% files
-echo  ✓ Main Entry Point: src\main\java\vcfs\Main.java
-echo.
+:COMPILE_LOOP
+SET /A RETRY_COUNT+=1
 
-REM ================================================================
-REM  STEP 3: Prepare Build Directory
-REM ================================================================
+ECHO.
+ECHO [Attempt %RETRY_COUNT%] Compiling production code...
+ECHO Command: javac -d "%BIN_PROD%" -encoding UTF-8 -cp "%LIB_DIR%\*" with sourcepath enabled
 
-echo [STEP 3 of 6] Preparing Build Directory...
-echo.
-
-if exist "%BIN_DIR%" (
-    echo  ℹ Cleaning previous build...
-    rmdir /s /q "%BIN_DIR%" >nul 2>&1
-)
-
-mkdir "%BIN_DIR%" >nul 2>&1
-if %ERRORLEVEL% NEQ 0 (
-    color 0C
-    echo  ✗ [ERROR] Failed to create build directory: %BIN_DIR%
-    echo.
-    pause
-    exit /b 4
-)
-
-echo  ✓ Build Directory Created: %BIN_DIR%
-echo.
-
-REM ================================================================
-REM  STEP 4: Compile All Java Source Files
-REM ================================================================
-
-echo [STEP 4 of 6] Compiling Java Source Files...
-echo.
-echo  Command: javac -d %BIN_DIR% -encoding UTF-8 [%SOURCE_COUNT% files]
-echo.
-
-echo  Compiling %SOURCE_COUNT% files with javac...
-echo.
-
-REM Change to source directory for proper relative path compilation
-pushd "%SRC_DIR%"
-
-REM Compile using -sourcepath to let javac automatically find all dependencies
-REM This compiles the entire vcfs package tree
-javac -d "%BIN_DIR%" -encoding UTF-8 -sourcepath . vcfs/App.java 2>nul
-
-set COMPILE_RESULT=%ERRORLEVEL%
-
-popd
+REM Smart compilation using sourcepath - javac automatically finds all dependencies
+REM This is more reliable than manually listing directories
+javac -d "%BIN_PROD%" -encoding UTF-8 -cp "%LIB_DIR%\*" -sourcepath "%SRC_MAIN%" "%SRC_MAIN%\vcfs\App.java" >> "%LOG_FILE%" 2>&1
 
 REM Count compiled classes
-setlocal enabledelayedexpansion
-set CLASS_COUNT=0
-for /r "%BIN_DIR%" %%f in (*.class) do set /a CLASS_COUNT+=1
-endlocal & set CLASS_COUNT=%CLASS_COUNT%
+SET "CLASS_COUNT=0"
+FOR /R "%BIN_PROD%" %%C IN (*.class) DO SET /A CLASS_COUNT+=1
 
-if %CLASS_COUNT% LEQ 0 (
-    color 0C
-    echo  ✗ [ERROR] Compilation failed - no classes generated
-    echo.
-    echo  Attempting diagnostic compile for error details...
-    echo.
-    javac -d "%BIN_DIR%" -encoding UTF-8 -sourcepath "%SRC_DIR%" "%SRC_DIR%\vcfs\App.java"
-    echo.
-    pause
-    exit /b 5
+REM Verify compilation success
+IF %CLASS_COUNT% LSS 10 (
+    IF %RETRY_COUNT% LSS %MAX_RETRIES% (
+        ECHO [RETRY] Only %CLASS_COUNT% classes generated, retrying...
+        GOTO COMPILE_LOOP
+    ) ELSE (
+        ECHO.
+        ECHO [ERROR] Compilation failed after %MAX_RETRIES% attempts
+        ECHO Classes generated: %CLASS_COUNT% (expected 90+)
+        ECHO Check %LOG_FILE% for details
+        TYPE "%LOG_FILE%"
+        ECHO.
+        PAUSE
+        EXIT /B 2
+    )
 )
 
-echo  ✓ Compilation Successful: %CLASS_COUNT% classes generated
-echo  ✓ Output Location: %BIN_DIR%\vcfs\
-echo.
+ECHO [OK] Production compilation successful - %CLASS_COUNT% classes
 
-REM ================================================================
-REM  STEP 5: Verify Compiled Main Class
-REM ================================================================
+REM Compile tests (non-critical)
+ECHO.
+ECHO [Auto] Compiling test code...
+javac -d "%BIN_TEST%" -encoding UTF-8 -cp "%LIB_DIR%\*;%BIN_PROD%" -sourcepath "%SRC_TEST%" "%SRC_TEST%\vcfs\integration\PortalIntegrationTest.java" >> "%LOG_FILE%" 2>&1
 
-echo [STEP 5 of 6] Verifying Compiled Application...
-echo.
-
-if not exist "%BIN_DIR%\vcfs\App.class" (
-    color 0C
-    echo  ✗ [ERROR] App.class not found at: %BIN_DIR%\vcfs\App.class
-    echo.
-    pause
-    exit /b 6
+SET "TEST_CLASS_COUNT=0"
+FOR /R "%BIN_TEST%" %%C IN (*.class) DO SET /A TEST_CLASS_COUNT+=1
+IF %TEST_CLASS_COUNT% GTR 0 (
+    ECHO [OK] Test compilation successful - %TEST_CLASS_COUNT% classes
+) ELSE (
+    ECHO [INFO] No test classes compiled (optional)
 )
 
-echo  ✓ Main Entry Point Compiled: %BIN_DIR%\vcfs\App.class
-echo  ✓ Ready for execution
-echo.
+REM ===================================================================
+REM AUTO-CLASSPATH GENERATION AND VALIDATION
+REM ===================================================================
 
-REM ================================================================
-REM  STEP 6: Launch Application
-REM ================================================================
+ECHO.
+ECHO [Auto] Generating classpath...
 
-echo [STEP 6 of 6] Launching Virtual Career Fair System Demo...
-echo.
-echo ========================================================================
-echo   APPLICATION STARTUP
-echo ========================================================================
-echo.
-echo  Main Class: vcfs.App
-echo  Classpath: "%BIN_DIR%"
-echo  Framework: Java Swing UI
-echo  Status: Starting...
-echo.
-echo  ℹ Note: Application window should appear in a few seconds
-echo  ℹ This console will display log messages during execution
-echo  ℹ Close the application window to return to this console
-echo.
-echo ========================================================================
-echo.
+SET "CLASSPATH=%LIB_DIR%\*;%BIN_PROD%;%BIN_TEST%"
+ECHO [OK] Classpath: %CLASSPATH%
 
-REM Launch the application with full output capture
-java -cp "%BIN_DIR%" vcfs.App 2>&1
-
-REM Capture exit code
-set APP_EXIT_CODE=%ERRORLEVEL%
-
-REM ================================================================
-REM  Post-Execution Report
-REM ================================================================
-
-echo.
-echo ========================================================================
-echo   APPLICATION EXECUTION COMPLETE
-echo ========================================================================
-echo.
-
-if %APP_EXIT_CODE% EQU 0 (
-    color 0A
-    echo  ✓ Application exited successfully
-    echo  ✓ Exit Code: 0
-    echo.
-) else if %APP_EXIT_CODE% EQU 1 (
-    color 0E
-    echo  ! Application exited with user request or clean shutdown
-    echo  ! Exit Code: %APP_EXIT_CODE%
-    echo.
-) else (
-    color 0C
-    echo  ✗ Application encountered an error
-    echo  ✗ Exit Code: %APP_EXIT_CODE%
-    echo.
-    echo  Troubleshooting:
-    echo    - Check console output above for error messages
-    echo    - Verify Java version is 11 or higher
-    echo    - Ensure all 45 source files compiled successfully
-    echo    - Check that vcfs.Main class exists
-    echo.
+REM Verify main class exists
+IF NOT EXIST "%BIN_PROD%\vcfs\App.class" (
+    REM Try alternative main class names
+    IF EXIST "%BIN_PROD%\vcfs\Main.class" (
+        SET "MAIN_CLASS=vcfs.Main"
+        ECHO [AUTO] Detected main class: vcfs.Main
+    ) ELSE (
+        ECHO [ERROR] No main class found (App.class or Main.class)
+        ECHO Check that source files compiled correctly
+        PAUSE
+        EXIT /B 3
+    )
+) ELSE (
+    SET "MAIN_CLASS=vcfs.App"
+    ECHO [AUTO] Detected main class: vcfs.App
 )
 
-echo ========================================================================
-echo.
+REM ===================================================================
+REM AUTO-LAUNCH APPLICATION
+REM ===================================================================
 
-REM Call end time (simpler than elapsed calculation)
-echo  Build Location: %BIN_DIR%
-echo  Compilation: %SOURCE_COUNT% files ^-^> %CLASS_COUNT% classes
-echo.
-echo  Press any key to close this window...
-pause >nul
+ECHO.
+ECHO ===============================================================
+ECHO BUILD COMPLETE - LAUNCHING APPLICATION
+ECHO ===============================================================
+ECHO.
+ECHO Compilation Summary:
+ECHO   Production Classes: %CLASS_COUNT%
+ECHO   Test Classes: %TEST_CLASS_COUNT%
+ECHO   Total: %CLASS_COUNT% + %TEST_CLASS_COUNT% classes
+ECHO   Java Version: %JAVA_VER%
+ECHO.
+ECHO Application Starting: %MAIN_CLASS%
+ECHO UI Framework: Java Swing
+ECHO.
+ECHO Three Portals Available:
+ECHO   [1] Administrator   - Configure fairs, organizations, recruiters
+ECHO   [2] Recruiter       - Publish offers, manage meetings
+ECHO   [3] Candidate       - Browse offers, request interviews
+ECHO.
+ECHO ===============================================================
+ECHO.
 
-endlocal
-exit /b %APP_EXIT_CODE%
+ECHO [LAUNCHING...] >> "%LOG_FILE%"
+ECHO Executing: java -cp "%CLASSPATH%" "%MAIN_CLASS%" >> "%LOG_FILE%"
 
-REM ================================================================
-REM  END OF BUILD AND LAUNCH SCRIPT
-REM ================================================================
-REM
-REM  QUICK START:
-REM    1. Copy BUILD_AND_RUN_DEMO.bat to _FOR_GITHUB_SUBMISSION\
-REM    2. Open command prompt in _FOR_GITHUB_SUBMISSION\
-REM    3. Run: BUILD_AND_RUN_DEMO.bat
-REM
-REM  TROUBLESHOOTING:
-REM
-REM  Q: "Java is NOT installed or NOT in PATH"
-REM  A: Install Java JDK 11+ and add to system PATH:
-REM     Settings ^> Environment Variables ^> System ^> PATH
-REM
-REM  Q: "Source directory not found"
-REM  A: Script must run from _FOR_GITHUB_SUBMISSION\ directory
-REM     Check current location in console window
-REM
-REM  Q: "Compilation failed"
-REM  A: Verify all 45 .java files exist in src/main/java/vcfs/
-REM     Requires: Java 11+, UTF-8 encoding support
-REM
-REM  Q: "Main.class not found"
-REM  A: Compilation did not produce vcfs/Main.class
-REM     Check that Main.java exists in correct directory
-REM
-REM  Q: Application crashes on startup
-REM  A: Check console output for detailed error trace
-REM     File paths, permissions, or missing resources may be issue
-REM
-REM  Q: "OutOfMemoryError"
-REM  A: Increase heap space, modify launch line:
-REM     java -Xmx1024m -cp "%BIN_DIR%" vcfs.Main
-REM
-REM ================================================================
-REM
-REM  PROJECT STRUCTURE REMINDER:
-REM
-REM  _FOR_GITHUB_SUBMISSION/
-REM  ├── BUILD_AND_RUN_DEMO.bat    ← Script location
-REM  ├── src/
-REM  │   ├── main/java/vcfs/       ← Source code (45 files)
-REM  │   │   ├── Main.java
-REM  │   │   ├── controllers/
-REM  │   │   ├── core/
-REM  │   │   ├── models/
-REM  │   │   └── views/
-REM  │   └── test/java/vcfs/       ← JUnit tests
-REM  └── build/                     ← Generated during build
-REM      └── bin/                   ← Compiled classes output
-REM
-REM ================================================================
+REM Launch application with automatic output capture
+java -cp "%CLASSPATH%" "%MAIN_CLASS%" >> "%LOG_FILE%" 2>&1
+
+SET "APP_EXIT_CODE=!ERRORLEVEL!"
+
+REM ===================================================================
+REM AUTO POST-LAUNCH REPORTING
+REM ===================================================================
+
+ECHO.
+ECHO ===============================================================
+ECHO APPLICATION EXECUTION COMPLETE
+ECHO ===============================================================
+ECHO.
+ECHO Build Artifacts:
+ECHO   Production: %CLASS_COUNT% classes in %BIN_PROD%
+ECHO   Tests:      %TEST_CLASS_COUNT% classes in %BIN_TEST%
+ECHO   Logs:       %LOG_FILE%
+ECHO.
+
+IF %APP_EXIT_CODE% EQU 0 (
+    ECHO Status: [SUCCESS] Application exited cleanly
+    COLOR 0A
+) ELSE (
+    ECHO Status: [INFO] Exit code %APP_EXIT_CODE%
+)
+
+ECHO.
+ECHO Quick Commands:
+ECHO   To rebuild: BUILD_AND_RUN_DEMO.bat
+ECHO   View logs:  type "%LOG_FILE%"
+ECHO   Run only:   java -cp "%CLASSPATH%" "%MAIN_CLASS%"
+ECHO.
+ECHO ===============================================================
+ECHO.
+
+ENDLOCAL
+EXIT /B %APP_EXIT_CODE%
