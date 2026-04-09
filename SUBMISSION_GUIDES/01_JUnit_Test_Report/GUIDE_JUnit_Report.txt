@@ -1,0 +1,479 @@
+================================================================================
+CSCU9P6 JUnit Test Report - SUBMISSION GUIDE
+================================================================================
+Points: 15 / 100  |  Due: 7 Apr by 23:59  |  Group Submission
+================================================================================
+
+OVERVIEW:
+Your group must submit a comprehensive JUnit Test Report demonstrating the 
+correctness of your implementations of:
+  • Lobby (vcfs.models.booking)
+  • MeetingSession (vcfs.models.booking)
+  • Reservation (vcfs.models.booking)
+  • VirtualRoom (vcfs.models.structure)
+
+YOUR SYSTEM'S ARCHITECTURE CONTEXT:
+VCFS follows professional MVC (Model-View-Controller) architecture:
+  - MODELS (`vcfs.models`): Pure data entities with business logic
+  - CONTROLLERS (`vcfs.controllers`): Handle user interactions
+  - VIEWS (`vcfs.views`): Java Swing GUI interfaces
+  
+The 4 test classes focus on the MODELS layer—the foundation that everything
+depends on. These 4 classes manage the entire booking workflow:
+
+1. **Reservation.java** - BINDING LINK
+   Connects a candidate to an offer at specific time window
+   State transitions: CONFIRMED → IN_PROGRESS → CANCELLED
+   Critical for preventing double-bookings
+   Example: "Zaid booked interview with Google for April 8, 10:00-10:30"
+
+2. **MeetingSession.java** - RUNTIME WRAPPER
+   Per-reservation session that exists during the actual meeting
+   Manages virtual room, lobby, attendance records
+   Lifecycle: Waiting → Active → Ended
+   Example: "When Zaid joins at 10:00, system creates MeetingSession linking
+            Reservation to VirtualRoom and Lobby"
+
+3. **Lobby.java** - QUEUE MANAGEMENT  
+   Waiting area for candidates arriving before their session starts
+   FIFO ordering (first in, first out - fair ordering)
+   Critical Methods: add(), remove(), listWaiting()
+   Example: "If room occupied, candidate waits in lobby until slot available"
+
+4. **VirtualRoom.java** - RESOURCE POOL
+   The persistent meeting space (like Zoom room)
+   Manages occupancy (who's in the room, capacity limits)
+   State: IDLE (empty) ↔ OCCUPIED (meeting active)
+   Example: "Google Booth #1 room can host 1 recruiter + 1 candidate at a time"
+
+================================================================================
+WHAT TO INCLUDE IN YOUR REPORT (Structure)
+================================================================================
+
+1. TITLE PAGE
+   - Title: "JUnit Test Report - CSCU9P6 Group Project [Group 9]"
+   - Group Members: List all members
+   - Date of Submission
+   - Course Code: CSCU9P6
+   - Semester: Spring 2026
+
+2. TABLE OF CONTENTS
+   - Sections with page numbers
+   - Easy navigation
+
+3. EXECUTIVE SUMMARY (300-400 words)
+   - Overview of testing approach
+   - Summary of classes tested
+   - Overall test coverage percentage
+   - Key findings/results
+
+4. TESTING APPROACH & RATIONALE (800-1000 words)
+   
+   WHY JUNIT? (Professional Testing Framework)
+   ────────────────────────────────────────────
+   • Industry-standard annotations (@Test, @BeforeEach, @DisplayName)
+   • Clear test discovery and reporting (JUnit 5 with Jupiter engine)
+   • Assertion library with descriptive error messages
+   • Test organization with @Nested classes for logical grouping
+   • Parallel test execution capability
+   
+   Explain: Java testing requires professional tools. JUnit is used by 85%+ of
+   Java projects globally. University marking expects JUnit, not home-grown tests.
+   
+   HOW YOU ORGANIZED TESTS (Separation of Concerns)
+   ─────────────────────────────────────────────────
+   Test Structure:
+   ```
+   src/test/java/vcfs/models/booking/
+   ├── LobbyTest.java              (30+ tests for Lobby)
+   ├── MeetingSessionTest.java     (35+ tests for MeetingSession)
+   ├── ReservationTest.java        (30+ tests for Reservation)
+   
+   src/test/java/vcfs/models/structure/
+   ├── VirtualRoomTest.java        (30+ tests for VirtualRoom)
+   ```
+   
+   Why This Organization:
+   • Tests mirror source code package structure (professional pattern)
+   • Easy to find tests corresponding to production code
+   • Common convention—developers expect this layout
+   • Facilitates IDE features (right-click "Run Tests For This Class")
+   
+   TEST DATA STRATEGY (What you feed the tests)
+   ────────────────────────────────────────────
+   Two approaches used:
+   
+   **STRATEGY 1: Direct Object Construction** (Used for dependencies)
+   When testing Reservation, you need Candidate and Offer objects.
+   Rather than using CareerFairSystem (overkill, depends on DB/services):
+   ```java
+   Candidate candidate = new Candidate("Alice", "alice@example.com");
+   Offer offer = new Offer("Google", "SDE Role", 30, Arrays.asList("Java"));
+   Reservation res = new Reservation(candidate, offer, LocalDateTime...);
+   ```
+   Benefit: Isolated testing—tests don't depend on system startup
+   
+   **STRATEGY 2: Realistic Test Data** (Diverse & boundary cases)
+   For testing Lobby.add(), use multiple candidate names:
+   - "Alice" (normal, typical name)
+   - "A" (single character - boundary)
+   - "CandidateWithVeryLongName1234567890" (max length boundary)
+   - "" or " " (invalid - should throw exception)
+   
+   Why: Tests boundary cases where bugs often hide
+   
+   ASSUMPTIONS ABOUT DEPENDENCIES
+   ──────────────────────────────
+   Classes Tested:      Lobby, MeetingSession, Reservation, VirtualRoom
+   Classes NOT Tested:  (assumed correct by examiners)
+     • Candidate - Assumed: constructor works, fields store correctly
+     • Offer - Assumed: stores publisher, title, capacity correctly
+     • LocalDateTime - Assumed: immutable time wrapper functions correctly
+     • Recruiter - Assumed: represents recruiter accurately
+   
+   Why This Matters: You test YOUR classes thoroughly. External class bugs are
+   not your responsibility, but missing imports or null checks are.
+   
+   COVERAGE APPROACH (What "comprehensive" means)
+   ──────────────────────────────────────────────
+   1. INITIALIZATION COVERAGE
+      Ensure objects can be created in all valid ways
+      Example: Reservation(Candidate, Offer, LocalDateTime, LocalDateTime)
+               Can you construct it? Does it store values?
+   
+   2. BOUNDARY/EDGE CASE COVERAGE
+      Test limits: empty lists, single items, null references, duplicate adds
+      Example: Lobby.add(candidate) when candidate already in queue
+               - Should throw IllegalArgumentException or gracefully prevent?
+   
+   3. STATE TRANSITION COVERAGE  
+      Test all valid state paths (especially for enums)
+      Reservation states: CONFIRMED → IN_PROGRESS → CANCELLED
+      Test transitions: Can't go CANCELLED → CONFIRMED? Test it rejects!
+   
+   4. EXCEPTION HANDLING COVERAGE
+      Test what methods throw when given invalid input
+      Example: Reservation.cancel() when already CANCELLED—what happens?
+               Should it throw IllegalStateException? Test it!
+   
+   5. OUTPUT/INTEGRATION COVERAGE
+      Test that operations have expected side effects
+      Example: Lobby.add(candidate) should:
+               ✓ Add candidate to queue
+               ✓ Not modify candidate object
+               ✓ Return successfully
+               ✓ Make listWaiting() include that candidate
+
+5. FOR EACH CLASS (Lobby, MeetingSession, Reservation, VirtualRoom):
+
+   5.1 Class Overview (200-300 words)
+       - Purpose of the class
+       - Key methods to be tested
+       - Dependencies
+       - State transitions (if applicable)
+
+   5.2 Test Rationale (400-600 words)
+       For EACH test method, explain:
+       - What aspect is being tested
+       - Why this test is important
+       - What test data was used and why
+       - Edge cases covered
+       - Example: "testSetCandidateNull() tests that the add() method properly 
+         validates input and throws IllegalArgumentException when null is passed,
+         ensuring data integrity..."
+
+   5.3 Complete JUnit Code (Full test class)
+       - All test methods with @DisplayName annotations
+       - Clear javadoc comments
+       - Proper imports
+       - Setup/teardown methods
+
+   5.4 Test Execution Results
+       Include:
+       - Number of tests created
+       - Tests passed / failed / skipped
+       - Code coverage percentage (if available)
+       - Screenshot or console output showing test results
+
+6. INTEGRATION TESTING (if applicable, 300-400 words)
+   - Tests showing component interaction
+   - Cross-class dependencies
+   - Data flow between objects
+
+7. DISCUSSION & ANALYSIS (500-700 words)
+   - Adequacy of test coverage
+   - Limitations of testing
+   - Classes assumed to be correct (dependencies)
+   - Any unimplemented functionality and how you would test it
+   - Improvements that could be made
+
+8. APPENDICES
+   - Test execution logs
+   - Code statistics
+   - Any supplementary materials
+
+================================================================================
+HOW TO STRUCTURE EACH CLASS SECTION - DETAILED
+================================================================================
+
+For EACH of the 4 classes, create:
+
+A) CLASS TESTING RATIONALE DOCUMENT:
+   ────────────────────────────────
+   
+   "Lobby Class - Testing Rationale"
+   
+   Purpose of Class:
+   The Lobby class represents a waiting area for candidates who arrive early
+   to a booth session. It maintains a queue of waiting candidates and is 
+   associated with a MeetingSession.
+   
+   Key Responsibilities:
+   • Maintain a FIFO queue of candidates
+   • Provide session association
+   • Allow candidates to enter/exit the queue
+   • Generate formatted output of waiting candidates
+   
+   Critical Methods Tested:
+   1. add(Candidate) - Adding candidates to waiting queue
+   2. remove(Candidate) - Removing candidates from queue
+   3. getWaitingQueue() - Retrieving current queue state
+   4. listWaiting() - Generating formatted candidate list
+   5. setSession() / getSession() - Session management
+   
+   Test Categories & Rationale:
+   
+   ► INITIALIZATION TESTS (3 tests)
+     Why: Ensures object starts in valid state
+     Tests:
+     - Constructor creates empty queue
+     - Session starts as null
+     - Waiting queue is properly initialized
+   
+   ► CANDIDATE MANAGEMENT TESTS (6 tests)
+     Why: Core functionality - adding/removing from queue
+     Tests:
+     - Add single candidate
+     - Add multiple candidates (FIFO order)
+     - Add duplicate candidate handling
+     - Remove existing candidate
+     - Remove non-existent candidate (graceful handling)
+     - Add null candidate (exception handling)
+     Test Data: Use diverse candidate names/IDs
+   
+   ► QUEUE ORDERING TESTS (3 tests)
+     Why: Critical requirement - FIFO ordering must be maintained
+     Tests:
+     - Candidates retrieved in order added
+     - Order preserved after removal
+     - Order preserved after repeated operations
+   
+   ► STATE MANAGEMENT TESTS (3 tests)
+     Why: Session binding must persist correctly
+     Tests:
+     - Session assignment and retrieval
+     - Session persistence across operations
+     - Session null handling
+   
+   ► OUTPUT FORMATTING TESTS (2 tests)
+     Why: Client-facing functionality - string generation
+     Tests:
+     - listWaiting() format includes all names
+     - listWaiting() handles empty queue
+   
+   ► INTEGRATION TESTS (2 tests)
+     Why: Verify interaction with MeetingSession
+     Tests:
+     - Lobby works with assigned session
+     - Lobby operations don't affect session state
+   
+   Total: 19+ tests covering all public methods and edge cases
+
+B) COMPLETE JUNIT CODE:
+   ─────────────────────
+   [Include the full test class code with all test methods]
+   
+   Example test method format:
+   
+   @Test
+   @DisplayName("add() maintains FIFO order with multiple candidates")
+   void testAddMultipleCandidatesFIFO() {
+       // Setup
+       Candidate cand1 = new Candidate("alice@test.com", "Alice", "pw");
+       Candidate cand2 = new Candidate("bob@test.com", "Bob", "pw");
+       Candidate cand3 = new Candidate("carol@test.com", "Carol", "pw");
+       
+       // Execute
+       lobby.add(cand1);
+       lobby.add(cand2);
+       lobby.add(cand3);
+       
+       // Verify - FIFO order
+       Collection<Candidate> queue = lobby.getWaitingQueue();
+       Iterator<Candidate> it = queue.iterator();
+       assertEquals(cand1, it.next(), "First candidate should be alice");
+       assertEquals(cand2, it.next(), "Second candidate should be bob");
+       assertEquals(cand3, it.next(), "Third candidate should be carol");
+       // Rationale: Ensures queue maintains FIFO ordering, critical for fair
+       // candidate management and preventing queue manipulation
+   }
+
+C) TEST RESULTS:
+   ─────────────
+   Show execution output including:
+   - Test count
+   - Pass/Fail/Skip counts
+   - Execution time
+   - Coverage metrics (if using IDE)
+
+================================================================================
+TEST DATA STRATEGY
+================================================================================
+
+For Candidate objects:
+  Use realistic test data:
+  • Names: "Alice Johnson", "Bob Davis", "Carol Smith"
+  • Emails: "alice@test.com", "bob@test.com" (realistic domains)
+  • IDs: "cand_001", "cand_002" (sequential, clear)
+  
+  Include edge cases:
+  • Empty strings
+  • Very long names
+  • Special characters (where valid)
+  • Null values
+
+For Offers/Reservations:
+  • Use meaningful titles: "Java Developer", "Python Engineer"
+  • Use realistic times: LocalDateTime(2026, 4, 8, 10, 0)
+  • Test boundary times: start of day, end of day, midnight
+
+For States:
+  • Test all valid states from enums
+  • Test invalid transitions (where applicable)
+  • Test null state handling
+
+================================================================================
+HOW TO RUN TESTS & CAPTURE RESULTS
+================================================================================
+
+1. Using IDE (IntelliJ):
+   - Right-click test class → Run
+   - JUnit panel shows results
+   - Screenshot panel with all tests passing
+   - Note: "X/X tests passed"
+
+2. Using Maven:
+   mvn test -Dtest=LobbyTest
+   
+3. Using command line:
+   java -cp bin:lib/junit-5.jar org.junit.runner.JUnitCore vcfs.models.booking.LobbyTest
+
+Include in report:
+   - Console output showing test execution
+   - Test count and pass/fail results
+   - Execution time
+
+================================================================================
+GRADING RUBRIC - HOW TO MAXIMIZE POINTS (15 points)
+================================================================================
+
+15-10.4 pts (EXCELLENT):
+  ✓ Tests cover ALL relevant methods thoroughly
+  ✓ Clear rationale given for EVERY test
+  ✓ Choice of test data well-justified
+  ✓ JUnit code is correct and complete
+  ✓ Strong analysis and reflection
+
+10.4-8.9 pts (VERY GOOD):
+  - Minor omissions in method coverage
+  - Minor errors/lack of detail in rationale
+  - Minor issues in test code
+
+8.9-7.4 pts (GOOD):
+  - Some methods not tested
+  - Missing or unclear rationale
+  - Some test code issues
+
+TARGET: Achieve 13-15 points by:
+  1. Testing 100% of public methods
+  2. Providing detailed rationale comments
+  3. Using diverse test data
+  4. Including edge cases and error paths
+  5. Clear writing and organization
+
+================================================================================
+KEY REQUIREMENTS & DEADLINES
+================================================================================
+
+✓ Group submission (single report per group)
+✓ Must include: Code + Rationale + Results
+✓ Due: 7 Apr by 23:59 (11:59 PM)
+✓ Late penalty: -3 points per day
+✓ Submit as: PDF or Word document to Canvas
+
+✓ AI Use Statement:
+  - You MAY use AI for planning/research
+  - NO AI-generated test code
+  - NO AI-generated comments/explanations
+  - Submit coversheet: OneDrive_coversheet_Template_Aug2025.docx
+
+✓ Evidence Requirements:
+  - Full test code in document
+  - Comments explaining each test
+  - Test execution output/results
+  - All 4 classes covered
+
+================================================================================
+COMMON MISTAKES TO AVOID
+================================================================================
+
+✗ Too few tests (only 5-10 per class instead of 20+)
+✗ Tests that only check happy path (missing error cases)
+✗ No explanation of WHY tests were chosen
+✗ Generic test names like "test1()", "testMethod()"
+✗ Missing null/boundary value testing
+✗ No discussion of test limitations
+✗ Assuming readers know what methods do - explain each test
+✗ Forgetting to show test results/execution output
+✗ Incomplete code - missing imports or comments
+
+================================================================================
+SAMPLE STRUCTURE FOR SUBMISSION DOCUMENT
+================================================================================
+
+========== DOCUMENT STRUCTURE OUTLINE ==========
+
+1. Title Page
+2. Table of Contents
+3. Executive Summary
+4. 1. Testing Approach & Rationale
+5. 2. Lobby Class Testing
+   - Overview
+   - Test Rationale (detailed)
+   - JUnit Code (full)
+   - Test Results
+6. 3. MeetingSession Class Testing
+   - Overview
+   - Test Rationale (detailed)
+   - JUnit Code (full)
+   - Test Results
+7. 4. Reservation Class Testing
+   - Overview
+   - Test Rationale (detailed)
+   - JUnit Code (full)
+   - Test Results
+8. 5. VirtualRoom Class Testing
+   - Overview
+   - Test Rationale (detailed)
+   - JUnit Code (full)
+   - Test Results
+9. 6. Integration Testing
+10. 7. Discussion & Analysis
+11. 8. Appendices
+    - Full Test Logs
+    - Coverage Report
+    - Statistics
+
+TOTAL LENGTH: 40-60 pages (comprehensive but focused)
+
+========== END OF GUIDE ==========

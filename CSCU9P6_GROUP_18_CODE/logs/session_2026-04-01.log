@@ -5842,4 +5842,1070 @@ java.lang.IllegalArgumentException: [CareerFair] Bookings open time must be BEFO
 [2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
 [2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
 [2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
-[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...[2026-04-01 08:00:00] [INFO] - 🚀 Initializing Virtual Career Fair System (Demo Edition)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 📱 [1/7] Launching user interface framework...
+[2026-04-01 08:00:00] [INFO] - [2/7] Initializing core backend system...
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] -   ✓ CareerFairSystem Singleton active
+[2026-04-01 08:00:00] [INFO] - [3/7] Initializing data persistence engine...
+[2026-04-01 08:00:00] [INFO] - 📦 [Persistence] Auto-save engine started (every 5 seconds)
+[2026-04-01 08:00:00] [INFO] -   ✓ Auto-save engine running (checkpoints every 5 seconds)
+[2026-04-01 08:00:00] [INFO] - [3.5/7] Initializing operational monitoring...
+[2026-04-01 08:00:00] [INFO] - [StateManager] Initialized - tracking all system state changes
+[2026-04-01 08:00:00] [INFO] -   ✓ State Manager active (tracking all operations)
+[2026-04-01 08:00:00] [INFO] - [3.6/7] Initializing live session monitor...
+[2026-04-01 08:00:00] [INFO] - [SessionManager] Initialized - tracking live portal usage
+[2026-04-01 08:00:00] [INFO] - [SessionManager] LIVE MODE ENABLED - Multi-portal synchronization active
+[2026-04-01 08:00:00] [INFO] -   ✓ Session Manager active (real-time activity tracking)
+[2026-04-01 08:00:00] [INFO] - [3.7/7] Preparing demonstration assistant...
+[2026-04-01 08:00:00] [INFO] - [DemoAssistant] Initialized with 8 demonstration steps (20 minutes total)
+[2026-04-01 08:00:00] [INFO] -   ✓ Demo Assistant ready (20-minute workflow available)
+[2026-04-01 08:00:00] [INFO] - [4/7] Starting system time controller...
+[2026-04-01 08:00:00] [INFO] -   ✓ SystemTimer running (compressed demo time)
+[2026-04-01 08:00:00] [INFO] - [5/7] Loading demo data (3 orgs, 3 recruiters, 3 candidates, 6+ slots)...
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] -   ✓ Demo data fully initialized and ready
+[2026-04-01 08:00:00] [INFO] - [6/7] Launching main portal selector...
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] -   ✓ Main Menu displayed - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - [7/7] Starting demo time control panel...
+[2026-04-01 08:00:00] [INFO] -   ✓ Time control ready (simulates 2-hour fair in 2 minutes)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 🎬 SYSTEM READY FOR DEMONSTRATION TO 100-PERSON AUDIENCE (1628ms startup)
+[2026-04-01 08:00:00] [INFO] -    ✅ Observer pattern: ACTIVE (PropertyChangeListener monitoring)
+[2026-04-01 08:00:00] [INFO] -    ✅ MVC architecture: CONFIRMED (Model-View-Controller separation)
+[2026-04-01 08:00:00] [INFO] -    ✅ Thread-safe backend: ENGAGED (ConcurrentHashMap, synchronized collections)
+[2026-04-01 08:00:00] [INFO] -    ✅ Data persistence: RUNNING (auto-save every 5 seconds, crash recovery enabled)
+[2026-04-01 08:00:00] [INFO] -    ✅ Operation tracking: ENABLED (all actions recorded in state manager)
+[2026-04-01 08:00:00] [INFO] -    ✅ Live session monitoring: ENABLED (real-time activity logs in all portals)
+[2026-04-01 08:00:00] [INFO] -    ✅ Demo assistant: READY (20-minute guided demonstration workflow)
+[2026-04-01 08:00:00] [INFO] -    ✅ Portal system: READY (3 portals for Candidate/Recruiter/Admin)
+[2026-04-01 08:00:00] [INFO] -    ✅ Demo data: LOADED (3 orgs, 3 recruiters, 3 candidates, 6+ interview slots)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 🎬 DEMO WORKFLOW STEP-BY-STEP (20 MINUTES FOR 100-PERSON AUDIENCE):
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 1: ADMIN SETUP (2-3 minutes) ---- Select 'Admin' Portal
+[2026-04-01 08:00:00] [INFO] -   STEP 1: Create Organizations
+[2026-04-01 08:00:00] [INFO] -     → Go to Management tab
+[2026-04-01 08:00:00] [INFO] -     → Create 3 organizations (Apple, Google, Microsoft)
+[2026-04-01 08:00:00] [INFO] -     → See them appear in Organizations table
+[2026-04-01 08:00:00] [INFO] -   STEP 2: Add Booths to Each Organization
+[2026-04-01 08:00:00] [INFO] -     → For each org, create 2 booths (e.g., 'Senior Dev', 'Data Scientist')
+[2026-04-01 08:00:00] [INFO] -     → Watch tables update in real-time
+[2026-04-01 08:00:00] [INFO] -   STEP 3: Assign Recruiters to Booths
+[2026-04-01 08:00:00] [INFO] -     → Assign 3 recruiters (Alice@google, Bob@microsoft, Carol@apple)
+[2026-04-01 08:00:00] [INFO] -     → See Recruiters table populate
+[2026-04-01 08:00:00] [INFO] -   STEP 4: Configure Timeline to START THE FAIR
+[2026-04-01 08:00:00] [INFO] -     → Set Fair Open Date (today)
+[2026-04-01 08:00:00] [INFO] -     → Set times (9:00 AM - 5:00 PM)
+[2026-04-01 08:00:00] [INFO] -     → Click 'Set Timeline' ← THIS STARTS THE RECRUITING FAIR
+[2026-04-01 08:00:00] [INFO] -   STEP 5: Monitor the Audit Log
+[2026-04-01 08:00:00] [INFO] -     → Watch console at bottom: every action logs as 'Organization Created', etc.
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 2: RECRUITER ACTIONS (2-3 minutes) ---- Select 'Recruiter' Portal
+[2026-04-01 08:00:00] [INFO] -   ACTION 1: Publish Interview Offers
+[2026-04-01 08:00:00] [INFO] -     → Go to 'Publish Offer' tab
+[2026-04-01 08:00:00] [INFO] -     → Create 2-3 offers (Engineer, Data Scientist, DevOps)
+[2026-04-01 08:00:00] [INFO] -     → Check Admin Console 'Offers' table - see offers appear INSTANTLY
+[2026-04-01 08:00:00] [INFO] -   ACTION 2: Set Your Available Interview Times
+[2026-04-01 08:00:00] [INFO] -     → Go to 'Manage Schedule' tab
+[2026-04-01 08:00:00] [INFO] -     → Add 3-4 available time slots (9:00, 10:00, 11:00, 2:00 PM)
+[2026-04-01 08:00:00] [INFO] -     → Candidates will book these slots
+[2026-04-01 08:00:00] [INFO] -   IMPORTANT: After EACH action, show Admin Console updating in real-time
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 3: CANDIDATE INTERACTIONS (3-4 minutes) ---- Select 'Candidate' Portal
+[2026-04-01 08:00:00] [INFO] -   ACTION 1: Browse Available Offers
+[2026-04-01 08:00:00] [INFO] -     → Go to 'Browse Offers' tab
+[2026-04-01 08:00:00] [INFO] -     → See all offers published by recruiters
+[2026-04-01 08:00:00] [INFO] -     → Enter interest tags (e.g., 'Software')'
+[2026-04-01 08:00:00] [INFO] -   ACTION 2: Auto-Book Best Matches
+[2026-04-01 08:00:00] [INFO] -     → Click 'Auto-Book Best Matches'
+[2026-04-01 08:00:00] [INFO] -     → System books you into recruiter's available slot
+[2026-04-01 08:00:00] [INFO] -     → See confirmation dialog
+[2026-04-01 08:00:00] [INFO] -   ACTION 3: Go to Admin Console - Show the Booking
+[2026-04-01 08:00:00] [INFO] -     → Check 'Bookings' table - see your new booking!
+[2026-04-01 08:00:00] [INFO] -     → Check Audit Log - see 'Booking Created' event with timestamp
+[2026-04-01 08:00:00] [INFO] -     → THIS PROVES REAL-TIME SYNC across all 3 portals
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 4: DEMONSTRATE CROSS-PORTAL SYNCHRONIZATION (2 minutes)
+[2026-04-01 08:00:00] [INFO] -   YOUR GOAL: Show that ALL 3 portals see changes INSTANTLY
+[2026-04-01 08:00:00] [INFO] -   REPEAT this cycle 2-3 times (each ~30 seconds):
+[2026-04-01 08:00:00] [INFO] -     1. Switch to ADMIN → Create new booth
+[2026-04-01 08:00:00] [INFO] -     2. Check RECRUITER portal → New booth appears in dropdown
+[2026-04-01 08:00:00] [INFO] -     3. Switch back to ADMIN → See change in Audit Log
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 5: SHOW SYSTEM ARCHITECTURE (3-4 minutes)
+[2026-04-01 08:00:00] [INFO] -   EXPLAIN (while demo is running):
+[2026-04-01 08:00:00] [INFO] -     • Observer pattern: PropertyChangeListener shows updates
+[2026-04-01 08:00:00] [INFO] -     • MVC separation: Controllers handle business logic
+[2026-04-01 08:00:00] [INFO] -     • Thread-safe collections: ConcurrentHashMap for concurrent access
+[2026-04-01 08:00:00] [INFO] -     • Auto-save: Data persisted every 5 seconds (DataPersistenceManager)
+[2026-04-01 08:00:00] [INFO] -     • Session tracking: Every action logged by SessionManager
+[2026-04-01 08:00:00] [INFO] -     • System state: Operations tracked by SystemStateManager
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 6: CONCLUDE (1 minute)
+[2026-04-01 08:00:00] [INFO] -   SUMMARY POINTS:
+[2026-04-01 08:00:00] [INFO] -     ✓ 3 independent portals working seamlessly together
+[2026-04-01 08:00:00] [INFO] -     ✓ Real-time data sync via PropertyChangeListener (Observer)
+[2026-04-01 08:00:00] [INFO] -     ✓ All data auto-saved (crash recovery enabled)
+[2026-04-01 08:00:00] [INFO] -     ✓ Full audit trail of all operations
+[2026-04-01 08:00:00] [INFO] -     ✓ Professional UI with workflow guides embedded
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 💡 QUICK TIPS FOR PRESENTER:
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] -   • Each portal has DETAILED WORKFLOW INSTRUCTIONS on its dashboard
+[2026-04-01 08:00:00] [INFO] -   • No notes needed - ALL instructions visible on-screen during demo
+[2026-04-01 08:00:00] [INFO] -   • Use SystemTimer (bottom right) to advance time through the fair
+[2026-04-01 08:00:00] [INFO] -   • Admin Console Audit Log shows EVERYTHING happening in system
+[2026-04-01 08:00:00] [INFO] -   • Data is auto-saved - safe to close and reopen without data loss
+[2026-04-01 08:00:00] [INFO] -   • Each portal's 'Portal Flow Guide' (? button) explains that portal
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📱 UI ENHANCEMENTS FOR DEMO-READINESS:
+[2026-04-01 08:00:00] [INFO] -   ✓ All portals use professional dialogs (UIEnhancementUtils)
+[2026-04-01 08:00:00] [INFO] -   ✓ Workflow guidance panels with emoji indicators on every screen
+[2026-04-01 08:00:00] [INFO] -   ✓ Status bars showing Fair Status, Bookings, System health
+[2026-04-01 08:00:00] [INFO] -   ✓ Real-time activity tracking in SessionManager
+[2026-04-01 08:00:00] [INFO] -   ✓ Operation recording in SystemStateManager
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Demo mode activated
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching demo mode - all 3 portals
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Demo mode window ready
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Admin portal
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [UserSession] Initialized. No user logged in.
+[2026-04-01 08:00:00] [INFO] - [UserSession] Admin logged in: admin
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Administrator
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] Admin authenticated: admin
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] AdminScreen created and initialized
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] Navigating to Recruiter Portal
+[2026-04-01 08:00:00] [INFO] - [DataModeManager] Singleton created. System starting in LIVE mode.
+[2026-04-01 08:00:00] [WARNING] - [PublishOfferPanel] No current recruiter in session
+[2026-04-01 08:00:00] [WARNING] - [RecruiterController] View meeting history attempted with no recruiter logged in
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Launched for Recruiter
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Publishing offer: a (30min, cap=1)
+[2026-04-01 08:00:00] [WARNING] - [RecruiterController] Publish offer attempted with no recruiter logged in
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [UIHelpers] Success: Offer 'a' published successfully!
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Offer 'a' successfully added to table
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Back to Main Menu
+[2026-04-01 08:00:00] [INFO] - [UserSession] User logged out: admin
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Recruiter role selected
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] Recruiters updated - refreshing recruiter table
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] System data updated: recruiters
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [LoginFrame] Demo recruiter created: Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [UserSession] Recruiter logged in: Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Recruiter
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Refreshing display
+[2026-04-01 08:00:00] [WARNING] - [RecruiterController] View meeting history attempted with no recruiter logged in
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Current recruiter: Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [LoginFrame] Recruiter authenticated: Ahmed Hassan
+[2026-04-01 08:00:00] [ERROR] - [PublishOfferPanel] Critical error refreshing offers table
+java.lang.IllegalArgumentException: Unexpected value: DEBUG
+	at vcfs.core.Logger.log(Logger.java:81)
+	at vcfs.core.Logger.log(Logger.java:61)
+	at vcfs.views.recruiter.PublishOfferPanel.refreshOffersTable(PublishOfferPanel.java:196)
+	at vcfs.views.recruiter.PublishOfferPanel.createViewOffersTab(PublishOfferPanel.java:166)
+	at vcfs.views.recruiter.PublishOfferPanel.<init>(PublishOfferPanel.java:79)
+	at vcfs.views.recruiter.RecruiterScreen.createStatusDashboard(RecruiterScreen.java:316)
+	at vcfs.views.recruiter.RecruiterScreen.<init>(RecruiterScreen.java:132)
+	at vcfs.views.shared.LoginFrame.performLogin(LoginFrame.java:302)
+	at vcfs.views.shared.LoginFrame.lambda$new$0(LoginFrame.java:180)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6576)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3404)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6341)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2260)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4958)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2318)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4916)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4559)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4500)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2304)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2671)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:725)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+[2026-04-01 08:00:00] [INFO] - 🚀 Initializing Virtual Career Fair System (Demo Edition)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 📱 [1/7] Launching user interface framework...
+[2026-04-01 08:00:00] [INFO] - [2/7] Initializing core backend system...
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] -   ✓ CareerFairSystem Singleton active
+[2026-04-01 08:00:00] [INFO] - [3/7] Initializing data persistence engine...
+[2026-04-01 08:00:00] [INFO] - 📦 [Persistence] Auto-save engine started (every 5 seconds)
+[2026-04-01 08:00:00] [INFO] -   ✓ Auto-save engine running (checkpoints every 5 seconds)
+[2026-04-01 08:00:00] [INFO] - [3.5/7] Initializing operational monitoring...
+[2026-04-01 08:00:00] [INFO] - [StateManager] Initialized - tracking all system state changes
+[2026-04-01 08:00:00] [INFO] -   ✓ State Manager active (tracking all operations)
+[2026-04-01 08:00:00] [INFO] - [3.6/7] Initializing live session monitor...
+[2026-04-01 08:00:00] [INFO] - [SessionManager] Initialized - tracking live portal usage
+[2026-04-01 08:00:00] [INFO] - [SessionManager] LIVE MODE ENABLED - Multi-portal synchronization active
+[2026-04-01 08:00:00] [INFO] -   ✓ Session Manager active (real-time activity tracking)
+[2026-04-01 08:00:00] [INFO] - [3.7/7] Preparing demonstration assistant...
+[2026-04-01 08:00:00] [INFO] - [DemoAssistant] Initialized with 8 demonstration steps (20 minutes total)
+[2026-04-01 08:00:00] [INFO] -   ✓ Demo Assistant ready (20-minute workflow available)
+[2026-04-01 08:00:00] [INFO] - [4/7] Starting system time controller...
+[2026-04-01 08:00:00] [INFO] -   ✓ SystemTimer running (compressed demo time)
+[2026-04-01 08:00:00] [INFO] - [5/7] Loading demo data (3 orgs, 3 recruiters, 3 candidates, 6+ slots)...
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] -   ✓ Demo data fully initialized and ready
+[2026-04-01 08:00:00] [INFO] - [6/7] Launching main portal selector...
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] -   ✓ Main Menu displayed - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - [7/7] Starting demo time control panel...
+[2026-04-01 08:00:00] [INFO] -   ✓ Time control ready (simulates 2-hour fair in 2 minutes)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 🎬 SYSTEM READY FOR DEMONSTRATION TO 100-PERSON AUDIENCE (1435ms startup)
+[2026-04-01 08:00:00] [INFO] -    ✅ Observer pattern: ACTIVE (PropertyChangeListener monitoring)
+[2026-04-01 08:00:00] [INFO] -    ✅ MVC architecture: CONFIRMED (Model-View-Controller separation)
+[2026-04-01 08:00:00] [INFO] -    ✅ Thread-safe backend: ENGAGED (ConcurrentHashMap, synchronized collections)
+[2026-04-01 08:00:00] [INFO] -    ✅ Data persistence: RUNNING (auto-save every 5 seconds, crash recovery enabled)
+[2026-04-01 08:00:00] [INFO] -    ✅ Operation tracking: ENABLED (all actions recorded in state manager)
+[2026-04-01 08:00:00] [INFO] -    ✅ Live session monitoring: ENABLED (real-time activity logs in all portals)
+[2026-04-01 08:00:00] [INFO] -    ✅ Demo assistant: READY (20-minute guided demonstration workflow)
+[2026-04-01 08:00:00] [INFO] -    ✅ Portal system: READY (3 portals for Candidate/Recruiter/Admin)
+[2026-04-01 08:00:00] [INFO] -    ✅ Demo data: LOADED (3 orgs, 3 recruiters, 3 candidates, 6+ interview slots)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 🎬 DEMO WORKFLOW STEP-BY-STEP (20 MINUTES FOR 100-PERSON AUDIENCE):
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 1: ADMIN SETUP (2-3 minutes) ---- Select 'Admin' Portal
+[2026-04-01 08:00:00] [INFO] -   STEP 1: Create Organizations
+[2026-04-01 08:00:00] [INFO] -     → Go to Management tab
+[2026-04-01 08:00:00] [INFO] -     → Create 3 organizations (Apple, Google, Microsoft)
+[2026-04-01 08:00:00] [INFO] -     → See them appear in Organizations table
+[2026-04-01 08:00:00] [INFO] -   STEP 2: Add Booths to Each Organization
+[2026-04-01 08:00:00] [INFO] -     → For each org, create 2 booths (e.g., 'Senior Dev', 'Data Scientist')
+[2026-04-01 08:00:00] [INFO] -     → Watch tables update in real-time
+[2026-04-01 08:00:00] [INFO] -   STEP 3: Assign Recruiters to Booths
+[2026-04-01 08:00:00] [INFO] -     → Assign 3 recruiters (Alice@google, Bob@microsoft, Carol@apple)
+[2026-04-01 08:00:00] [INFO] -     → See Recruiters table populate
+[2026-04-01 08:00:00] [INFO] -   STEP 4: Configure Timeline to START THE FAIR
+[2026-04-01 08:00:00] [INFO] -     → Set Fair Open Date (today)
+[2026-04-01 08:00:00] [INFO] -     → Set times (9:00 AM - 5:00 PM)
+[2026-04-01 08:00:00] [INFO] -     → Click 'Set Timeline' ← THIS STARTS THE RECRUITING FAIR
+[2026-04-01 08:00:00] [INFO] -   STEP 5: Monitor the Audit Log
+[2026-04-01 08:00:00] [INFO] -     → Watch console at bottom: every action logs as 'Organization Created', etc.
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 2: RECRUITER ACTIONS (2-3 minutes) ---- Select 'Recruiter' Portal
+[2026-04-01 08:00:00] [INFO] -   ACTION 1: Publish Interview Offers
+[2026-04-01 08:00:00] [INFO] -     → Go to 'Publish Offer' tab
+[2026-04-01 08:00:00] [INFO] -     → Create 2-3 offers (Engineer, Data Scientist, DevOps)
+[2026-04-01 08:00:00] [INFO] -     → Check Admin Console 'Offers' table - see offers appear INSTANTLY
+[2026-04-01 08:00:00] [INFO] -   ACTION 2: Set Your Available Interview Times
+[2026-04-01 08:00:00] [INFO] -     → Go to 'Manage Schedule' tab
+[2026-04-01 08:00:00] [INFO] -     → Add 3-4 available time slots (9:00, 10:00, 11:00, 2:00 PM)
+[2026-04-01 08:00:00] [INFO] -     → Candidates will book these slots
+[2026-04-01 08:00:00] [INFO] -   IMPORTANT: After EACH action, show Admin Console updating in real-time
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 3: CANDIDATE INTERACTIONS (3-4 minutes) ---- Select 'Candidate' Portal
+[2026-04-01 08:00:00] [INFO] -   ACTION 1: Browse Available Offers
+[2026-04-01 08:00:00] [INFO] -     → Go to 'Browse Offers' tab
+[2026-04-01 08:00:00] [INFO] -     → See all offers published by recruiters
+[2026-04-01 08:00:00] [INFO] -     → Enter interest tags (e.g., 'Software')'
+[2026-04-01 08:00:00] [INFO] -   ACTION 2: Auto-Book Best Matches
+[2026-04-01 08:00:00] [INFO] -     → Click 'Auto-Book Best Matches'
+[2026-04-01 08:00:00] [INFO] -     → System books you into recruiter's available slot
+[2026-04-01 08:00:00] [INFO] -     → See confirmation dialog
+[2026-04-01 08:00:00] [INFO] -   ACTION 3: Go to Admin Console - Show the Booking
+[2026-04-01 08:00:00] [INFO] -     → Check 'Bookings' table - see your new booking!
+[2026-04-01 08:00:00] [INFO] -     → Check Audit Log - see 'Booking Created' event with timestamp
+[2026-04-01 08:00:00] [INFO] -     → THIS PROVES REAL-TIME SYNC across all 3 portals
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 4: DEMONSTRATE CROSS-PORTAL SYNCHRONIZATION (2 minutes)
+[2026-04-01 08:00:00] [INFO] -   YOUR GOAL: Show that ALL 3 portals see changes INSTANTLY
+[2026-04-01 08:00:00] [INFO] -   REPEAT this cycle 2-3 times (each ~30 seconds):
+[2026-04-01 08:00:00] [INFO] -     1. Switch to ADMIN → Create new booth
+[2026-04-01 08:00:00] [INFO] -     2. Check RECRUITER portal → New booth appears in dropdown
+[2026-04-01 08:00:00] [INFO] -     3. Switch back to ADMIN → See change in Audit Log
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 5: SHOW SYSTEM ARCHITECTURE (3-4 minutes)
+[2026-04-01 08:00:00] [INFO] -   EXPLAIN (while demo is running):
+[2026-04-01 08:00:00] [INFO] -     • Observer pattern: PropertyChangeListener shows updates
+[2026-04-01 08:00:00] [INFO] -     • MVC separation: Controllers handle business logic
+[2026-04-01 08:00:00] [INFO] -     • Thread-safe collections: ConcurrentHashMap for concurrent access
+[2026-04-01 08:00:00] [INFO] -     • Auto-save: Data persisted every 5 seconds (DataPersistenceManager)
+[2026-04-01 08:00:00] [INFO] -     • Session tracking: Every action logged by SessionManager
+[2026-04-01 08:00:00] [INFO] -     • System state: Operations tracked by SystemStateManager
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 6: CONCLUDE (1 minute)
+[2026-04-01 08:00:00] [INFO] -   SUMMARY POINTS:
+[2026-04-01 08:00:00] [INFO] -     ✓ 3 independent portals working seamlessly together
+[2026-04-01 08:00:00] [INFO] -     ✓ Real-time data sync via PropertyChangeListener (Observer)
+[2026-04-01 08:00:00] [INFO] -     ✓ All data auto-saved (crash recovery enabled)
+[2026-04-01 08:00:00] [INFO] -     ✓ Full audit trail of all operations
+[2026-04-01 08:00:00] [INFO] -     ✓ Professional UI with workflow guides embedded
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 💡 QUICK TIPS FOR PRESENTER:
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] -   • Each portal has DETAILED WORKFLOW INSTRUCTIONS on its dashboard
+[2026-04-01 08:00:00] [INFO] -   • No notes needed - ALL instructions visible on-screen during demo
+[2026-04-01 08:00:00] [INFO] -   • Use SystemTimer (bottom right) to advance time through the fair
+[2026-04-01 08:00:00] [INFO] -   • Admin Console Audit Log shows EVERYTHING happening in system
+[2026-04-01 08:00:00] [INFO] -   • Data is auto-saved - safe to close and reopen without data loss
+[2026-04-01 08:00:00] [INFO] -   • Each portal's 'Portal Flow Guide' (? button) explains that portal
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📱 UI ENHANCEMENTS FOR DEMO-READINESS:
+[2026-04-01 08:00:00] [INFO] -   ✓ All portals use professional dialogs (UIEnhancementUtils)
+[2026-04-01 08:00:00] [INFO] -   ✓ Workflow guidance panels with emoji indicators on every screen
+[2026-04-01 08:00:00] [INFO] -   ✓ Status bars showing Fair Status, Bookings, System health
+[2026-04-01 08:00:00] [INFO] -   ✓ Real-time activity tracking in SessionManager
+[2026-04-01 08:00:00] [INFO] -   ✓ Operation recording in SystemStateManager
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Recruiter role selected
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [LoginFrame] Demo recruiter created: Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [UserSession] Initialized. No user logged in.
+[2026-04-01 08:00:00] [INFO] - [UserSession] Recruiter logged in: Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Recruiter
+[2026-04-01 08:00:00] [INFO] - [LoginFrame] Recruiter authenticated: Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [DataModeManager] Singleton created. System starting in LIVE mode.
+[2026-04-01 08:00:00] [ERROR] - [PublishOfferPanel] Critical error refreshing offers table
+java.lang.IllegalArgumentException: Unexpected value: DEBUG
+	at vcfs.core.Logger.log(Logger.java:81)
+	at vcfs.core.Logger.log(Logger.java:61)
+	at vcfs.views.recruiter.PublishOfferPanel.refreshOffersTable(PublishOfferPanel.java:196)
+	at vcfs.views.recruiter.PublishOfferPanel.createViewOffersTab(PublishOfferPanel.java:166)
+	at vcfs.views.recruiter.PublishOfferPanel.<init>(PublishOfferPanel.java:79)
+	at vcfs.views.recruiter.RecruiterScreen.createStatusDashboard(RecruiterScreen.java:316)
+	at vcfs.views.recruiter.RecruiterScreen.<init>(RecruiterScreen.java:132)
+	at vcfs.views.shared.LoginFrame.performLogin(LoginFrame.java:302)
+	at vcfs.views.shared.LoginFrame.lambda$new$0(LoginFrame.java:180)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6576)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3404)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6341)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2260)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4958)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2318)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4916)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4559)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4500)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2304)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2671)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:725)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [RecruiterController] Viewing meeting history for Ahmed Hassan (0 sessions)
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] No sessions to display
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Launched for Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [LoginFrame] RecruiterScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Publishing offer: a (30min, cap=1)
+[2026-04-01 08:00:00] [INFO] - Offer published: a
+[2026-04-01 08:00:00] [INFO] - [RecruiterController] Offer published by Ahmed Hassan: a
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Registering published offer: a by recruiter: ahmed.hassan@demo.com
+[2026-04-01 08:00:00] [WARNING] - [CareerFairSystem] Could not find recruiter in system structure: ahmed.hassan@demo.com - offer may not appear in tables!
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Offers updated - refreshing table
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Offers updated - refreshing table
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] System data updated: offers
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] System data updated: offers
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Offer publication complete - all portals notified
+[2026-04-01 08:00:00] [ERROR] - [PublishOfferPanel] Critical error refreshing offers table
+java.lang.IllegalArgumentException: Unexpected value: DEBUG
+	at vcfs.core.Logger.log(Logger.java:81)
+	at vcfs.core.Logger.log(Logger.java:61)
+	at vcfs.views.recruiter.PublishOfferPanel.refreshOffersTable(PublishOfferPanel.java:196)
+	at vcfs.views.recruiter.PublishOfferPanel.lambda$propertyChange$0(PublishOfferPanel.java:459)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:723)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:117)
+	at java.desktop/java.awt.WaitDispatchSupport$2.run(WaitDispatchSupport.java:187)
+	at java.desktop/java.awt.WaitDispatchSupport.enter(WaitDispatchSupport.java:229)
+	at java.desktop/java.awt.Dialog.show(Dialog.java:1051)
+	at java.desktop/javax.swing.JOptionPane.showOptionDialog(JOptionPane.java:881)
+	at java.desktop/javax.swing.JOptionPane.showMessageDialog(JOptionPane.java:677)
+	at java.desktop/javax.swing.JOptionPane.showMessageDialog(JOptionPane.java:648)
+	at vcfs.core.UIEnhancementUtils.showNotification(UIEnhancementUtils.java:143)
+	at vcfs.core.UIEnhancementUtils.showSuccess(UIEnhancementUtils.java:104)
+	at vcfs.views.recruiter.RecruiterScreen.displayMessage(RecruiterScreen.java:339)
+	at vcfs.controllers.RecruiterController.publishOffer(RecruiterController.java:113)
+	at vcfs.views.recruiter.PublishOfferPanel.publishOffer(PublishOfferPanel.java:414)
+	at vcfs.views.recruiter.PublishOfferPanel.lambda$createCreateOfferTab$0(PublishOfferPanel.java:340)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6576)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3404)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6341)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2260)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4958)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2318)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4916)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4559)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4500)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2304)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2671)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:725)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+[2026-04-01 08:00:00] [ERROR] - [PublishOfferPanel] Critical error refreshing offers table
+java.lang.IllegalArgumentException: Unexpected value: DEBUG
+	at vcfs.core.Logger.log(Logger.java:81)
+	at vcfs.core.Logger.log(Logger.java:61)
+	at vcfs.views.recruiter.PublishOfferPanel.refreshOffersTable(PublishOfferPanel.java:196)
+	at vcfs.views.recruiter.PublishOfferPanel.lambda$propertyChange$0(PublishOfferPanel.java:459)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:723)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:117)
+	at java.desktop/java.awt.WaitDispatchSupport$2.run(WaitDispatchSupport.java:187)
+	at java.desktop/java.awt.WaitDispatchSupport.enter(WaitDispatchSupport.java:229)
+	at java.desktop/java.awt.Dialog.show(Dialog.java:1051)
+	at java.desktop/javax.swing.JOptionPane.showOptionDialog(JOptionPane.java:881)
+	at java.desktop/javax.swing.JOptionPane.showMessageDialog(JOptionPane.java:677)
+	at java.desktop/javax.swing.JOptionPane.showMessageDialog(JOptionPane.java:648)
+	at vcfs.core.UIEnhancementUtils.showNotification(UIEnhancementUtils.java:143)
+	at vcfs.core.UIEnhancementUtils.showSuccess(UIEnhancementUtils.java:104)
+	at vcfs.views.recruiter.RecruiterScreen.displayMessage(RecruiterScreen.java:339)
+	at vcfs.controllers.RecruiterController.publishOffer(RecruiterController.java:113)
+	at vcfs.views.recruiter.PublishOfferPanel.publishOffer(PublishOfferPanel.java:414)
+	at vcfs.views.recruiter.PublishOfferPanel.lambda$createCreateOfferTab$0(PublishOfferPanel.java:340)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6576)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3404)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6341)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2260)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4958)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2318)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4916)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4559)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4500)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2304)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2671)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:725)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Refreshing display
+[2026-04-01 08:00:00] [INFO] - [RecruiterController] Viewing meeting history for Ahmed Hassan (0 sessions)
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] No sessions to display
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Current recruiter: Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Refreshing display
+[2026-04-01 08:00:00] [INFO] - [RecruiterController] Viewing meeting history for Ahmed Hassan (0 sessions)
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] No sessions to display
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Current recruiter: Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [UIHelpers] Success: Offer 'a' published successfully!
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Offer 'a' successfully added to table
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [ERROR] - [PublishOfferPanel] Critical error refreshing offers table
+java.lang.IllegalArgumentException: Unexpected value: DEBUG
+	at vcfs.core.Logger.log(Logger.java:81)
+	at vcfs.core.Logger.log(Logger.java:61)
+	at vcfs.views.recruiter.PublishOfferPanel.refreshOffersTable(PublishOfferPanel.java:196)
+	at vcfs.views.recruiter.PublishOfferPanel.lambda$createViewOffersTab$0(PublishOfferPanel.java:156)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6576)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3404)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6341)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2260)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4958)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2318)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4916)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4559)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4500)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2304)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2671)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4790)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:725)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+[2026-04-01 08:00:00] [INFO] - 🚀 Initializing Virtual Career Fair System (Demo Edition)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 📱 [1/7] Launching user interface framework...
+[2026-04-01 08:00:00] [INFO] - [2/7] Initializing core backend system...
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] -   ✓ CareerFairSystem Singleton active
+[2026-04-01 08:00:00] [INFO] - [3/7] Initializing data persistence engine...
+[2026-04-01 08:00:00] [INFO] - 📦 [Persistence] Auto-save engine started (every 5 seconds)
+[2026-04-01 08:00:00] [INFO] -   ✓ Auto-save engine running (checkpoints every 5 seconds)
+[2026-04-01 08:00:00] [INFO] - [3.5/7] Initializing operational monitoring...
+[2026-04-01 08:00:00] [INFO] - [StateManager] Initialized - tracking all system state changes
+[2026-04-01 08:00:00] [INFO] -   ✓ State Manager active (tracking all operations)
+[2026-04-01 08:00:00] [INFO] - [3.6/7] Initializing live session monitor...
+[2026-04-01 08:00:00] [INFO] - [SessionManager] Initialized - tracking live portal usage
+[2026-04-01 08:00:00] [INFO] - [SessionManager] LIVE MODE ENABLED - Multi-portal synchronization active
+[2026-04-01 08:00:00] [INFO] -   ✓ Session Manager active (real-time activity tracking)
+[2026-04-01 08:00:00] [INFO] - [3.7/7] Preparing demonstration assistant...
+[2026-04-01 08:00:00] [INFO] - [DemoAssistant] Initialized with 8 demonstration steps (20 minutes total)
+[2026-04-01 08:00:00] [INFO] -   ✓ Demo Assistant ready (20-minute workflow available)
+[2026-04-01 08:00:00] [INFO] - [4/7] Starting system time controller...
+[2026-04-01 08:00:00] [INFO] -   ✓ SystemTimer running (compressed demo time)
+[2026-04-01 08:00:00] [INFO] - [5/7] Loading demo data (3 orgs, 3 recruiters, 3 candidates, 6+ slots)...
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] -   ✓ Demo data fully initialized and ready
+[2026-04-01 08:00:00] [INFO] - [6/7] Launching main portal selector...
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] -   ✓ Main Menu displayed - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - [7/7] Starting demo time control panel...
+[2026-04-01 08:00:00] [INFO] -   ✓ Time control ready (simulates 2-hour fair in 2 minutes)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 🎬 SYSTEM READY FOR DEMONSTRATION TO 100-PERSON AUDIENCE (1265ms startup)
+[2026-04-01 08:00:00] [INFO] -    ✅ Observer pattern: ACTIVE (PropertyChangeListener monitoring)
+[2026-04-01 08:00:00] [INFO] -    ✅ MVC architecture: CONFIRMED (Model-View-Controller separation)
+[2026-04-01 08:00:00] [INFO] -    ✅ Thread-safe backend: ENGAGED (ConcurrentHashMap, synchronized collections)
+[2026-04-01 08:00:00] [INFO] -    ✅ Data persistence: RUNNING (auto-save every 5 seconds, crash recovery enabled)
+[2026-04-01 08:00:00] [INFO] -    ✅ Operation tracking: ENABLED (all actions recorded in state manager)
+[2026-04-01 08:00:00] [INFO] -    ✅ Live session monitoring: ENABLED (real-time activity logs in all portals)
+[2026-04-01 08:00:00] [INFO] -    ✅ Demo assistant: READY (20-minute guided demonstration workflow)
+[2026-04-01 08:00:00] [INFO] -    ✅ Portal system: READY (3 portals for Candidate/Recruiter/Admin)
+[2026-04-01 08:00:00] [INFO] -    ✅ Demo data: LOADED (3 orgs, 3 recruiters, 3 candidates, 6+ interview slots)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 🎬 DEMO WORKFLOW STEP-BY-STEP (20 MINUTES FOR 100-PERSON AUDIENCE):
+[2026-04-01 08:00:00] [INFO] - ════════════════════════════════════════════════════════════[2026-04-01 08:00:00] [INFO] - 🚀 Initializing Virtual Career Fair System (Demo Edition)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 📱 [1/7] Launching user interface framework...
+[2026-04-01 08:00:00] [INFO] - [2/7] Initializing core backend system...
+[2026-04-01 08:00:00] [INFO] - Listener registered: CareerFairSystem
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Singleton created. Observer registered.
+[2026-04-01 08:00:00] [INFO] -   ✓ CareerFairSystem Singleton active
+[2026-04-01 08:00:00] [INFO] - [3/7] Initializing data persistence engine...
+[2026-04-01 08:00:00] [INFO] - 📦 [Persistence] Auto-save engine started (every 5 seconds)
+[2026-04-01 08:00:00] [INFO] -   ✓ Auto-save engine running (checkpoints every 5 seconds)
+[2026-04-01 08:00:00] [INFO] - [3.5/7] Initializing operational monitoring...
+[2026-04-01 08:00:00] [INFO] - [StateManager] Initialized - tracking all system state changes
+[2026-04-01 08:00:00] [INFO] -   ✓ State Manager active (tracking all operations)
+[2026-04-01 08:00:00] [INFO] - [3.6/7] Initializing live session monitor...
+[2026-04-01 08:00:00] [INFO] - [SessionManager] Initialized - tracking live portal usage
+[2026-04-01 08:00:00] [INFO] - [SessionManager] LIVE MODE ENABLED - Multi-portal synchronization active
+[2026-04-01 08:00:00] [INFO] -   ✓ Session Manager active (real-time activity tracking)
+[2026-04-01 08:00:00] [INFO] - [3.7/7] Preparing demonstration assistant...
+[2026-04-01 08:00:00] [INFO] - [DemoAssistant] Initialized with 8 demonstration steps (20 minutes total)
+[2026-04-01 08:00:00] [INFO] -   ✓ Demo Assistant ready (20-minute workflow available)
+[2026-04-01 08:00:00] [INFO] - [4/7] Starting system time controller...
+[2026-04-01 08:00:00] [INFO] -   ✓ SystemTimer running (compressed demo time)
+[2026-04-01 08:00:00] [INFO] - [5/7] Loading demo data (3 orgs, 3 recruiters, 3 candidates, 6+ slots)...
+[2026-04-01 08:00:00] [INFO] - [Demo] Initializing demo data...
+[2026-04-01 08:00:00] [INFO] - Organization added: Google
+[2026-04-01 08:00:00] [INFO] - Organization added: Microsoft
+[2026-04-01 08:00:00] [INFO] - Organization added: Apple
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 demo organizations
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Alice Thompson
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Bob Chen
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo recruiters
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: David Lee
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Elena Rodriguez
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Candidate registered: Frank Williams
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Registered 3 demo candidates
+[2026-04-01 08:00:00] [INFO] - [CareerFair] 'CSCU9P6 Virtual Career Fair 2026' timeline configured:
+[2026-04-01 08:00:00] [INFO] -   Bookings Open  : 2026-04-01 08:00
+[2026-04-01 08:00:00] [INFO] -   Bookings Close : 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] -   Fair Start     : 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] -   Fair End       : 2026-04-01 10:00
+[2026-04-01 08:00:00] [INFO] -   Phase set to   : PREPARING
+[2026-04-01 08:00:00] [INFO] - Fair times set via controller: open=2026-04-01T08:00, close=2026-04-01T08:30, start=2026-04-01T09:00, end=2026-04-01T10:00
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Set fair timeline for demo
+[2026-04-01 08:00:00] [INFO] - [CareerFair] ⚡ Phase: PREPARING ──► BOOKINGS_OPEN  (at 2026-04-01 08:00)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Alice Thompson: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Alice Thompson
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Alice (Backend)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Bob Chen: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Bob Chen
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Bob (Cloud)
+[2026-04-01 08:00:00] [INFO] - [PARSER] Parsing block for Carol Singh: 2026-04-01 08:00 → 2026-04-01 09:30 | 30 min slots
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 1: 2026-04-01 08:00 → 2026-04-01 08:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 2: 2026-04-01 08:30 → 2026-04-01 09:00
+[2026-04-01 08:00:00] [INFO] - [PARSER] Slot 3: 2026-04-01 09:00 → 2026-04-01 09:30
+[2026-04-01 08:00:00] [INFO] - [PARSER] Complete: 3 slots for Carol Singh
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created 3 slots for Carol (AI/ML)
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Created demo offers from recruiters
+[2026-04-01 08:00:00] [INFO] - [Demo] ✓ Demo data initialization complete - system ready for live demonstration
+[2026-04-01 08:00:00] [INFO] -   ✓ Demo data fully initialized and ready
+[2026-04-01 08:00:00] [INFO] - [6/7] Launching main portal selector...
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] -   ✓ Main Menu displayed - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - [7/7] Starting demo time control panel...
+[2026-04-01 08:00:00] [INFO] -   ✓ Time control ready (simulates 2-hour fair in 2 minutes)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 🎬 SYSTEM READY FOR DEMONSTRATION TO 100-PERSON AUDIENCE (3464ms startup)
+[2026-04-01 08:00:00] [INFO] -    ✅ Observer pattern: ACTIVE (PropertyChangeListener monitoring)
+[2026-04-01 08:00:00] [INFO] -    ✅ MVC architecture: CONFIRMED (Model-View-Controller separation)
+[2026-04-01 08:00:00] [INFO] -    ✅ Thread-safe backend: ENGAGED (ConcurrentHashMap, synchronized collections)
+[2026-04-01 08:00:00] [INFO] -    ✅ Data persistence: RUNNING (auto-save every 5 seconds, crash recovery enabled)
+[2026-04-01 08:00:00] [INFO] -    ✅ Operation tracking: ENABLED (all actions recorded in state manager)
+[2026-04-01 08:00:00] [INFO] -    ✅ Live session monitoring: ENABLED (real-time activity logs in all portals)
+[2026-04-01 08:00:00] [INFO] -    ✅ Demo assistant: READY (20-minute guided demonstration workflow)
+[2026-04-01 08:00:00] [INFO] -    ✅ Portal system: READY (3 portals for Candidate/Recruiter/Admin)
+[2026-04-01 08:00:00] [INFO] -    ✅ Demo data: LOADED (3 orgs, 3 recruiters, 3 candidates, 6+ interview slots)
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 🎬 DEMO WORKFLOW STEP-BY-STEP (20 MINUTES FOR 100-PERSON AUDIENCE):
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 1: ADMIN SETUP (2-3 minutes) ---- Select 'Admin' Portal
+[2026-04-01 08:00:00] [INFO] -   STEP 1: Create Organizations
+[2026-04-01 08:00:00] [INFO] -     → Go to Management tab
+[2026-04-01 08:00:00] [INFO] -     → Create 3 organizations (Apple, Google, Microsoft)
+[2026-04-01 08:00:00] [INFO] -     → See them appear in Organizations table
+[2026-04-01 08:00:00] [INFO] -   STEP 2: Add Booths to Each Organization
+[2026-04-01 08:00:00] [INFO] -     → For each org, create 2 booths (e.g., 'Senior Dev', 'Data Scientist')
+[2026-04-01 08:00:00] [INFO] -     → Watch tables update in real-time
+[2026-04-01 08:00:00] [INFO] -   STEP 3: Assign Recruiters to Booths
+[2026-04-01 08:00:00] [INFO] -     → Assign 3 recruiters (Alice@google, Bob@microsoft, Carol@apple)
+[2026-04-01 08:00:00] [INFO] -     → See Recruiters table populate
+[2026-04-01 08:00:00] [INFO] -   STEP 4: Configure Timeline to START THE FAIR
+[2026-04-01 08:00:00] [INFO] -     → Set Fair Open Date (today)
+[2026-04-01 08:00:00] [INFO] -     → Set times (9:00 AM - 5:00 PM)
+[2026-04-01 08:00:00] [INFO] -     → Click 'Set Timeline' ← THIS STARTS THE RECRUITING FAIR
+[2026-04-01 08:00:00] [INFO] -   STEP 5: Monitor the Audit Log
+[2026-04-01 08:00:00] [INFO] -     → Watch console at bottom: every action logs as 'Organization Created', etc.
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 2: RECRUITER ACTIONS (2-3 minutes) ---- Select 'Recruiter' Portal
+[2026-04-01 08:00:00] [INFO] -   ACTION 1: Publish Interview Offers
+[2026-04-01 08:00:00] [INFO] -     → Go to 'Publish Offer' tab
+[2026-04-01 08:00:00] [INFO] -     → Create 2-3 offers (Engineer, Data Scientist, DevOps)
+[2026-04-01 08:00:00] [INFO] -     → Check Admin Console 'Offers' table - see offers appear INSTANTLY
+[2026-04-01 08:00:00] [INFO] -   ACTION 2: Set Your Available Interview Times
+[2026-04-01 08:00:00] [INFO] -     → Go to 'Manage Schedule' tab
+[2026-04-01 08:00:00] [INFO] -     → Add 3-4 available time slots (9:00, 10:00, 11:00, 2:00 PM)
+[2026-04-01 08:00:00] [INFO] -     → Candidates will book these slots
+[2026-04-01 08:00:00] [INFO] -   IMPORTANT: After EACH action, show Admin Console updating in real-time
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 3: CANDIDATE INTERACTIONS (3-4 minutes) ---- Select 'Candidate' Portal
+[2026-04-01 08:00:00] [INFO] -   ACTION 1: Browse Available Offers
+[2026-04-01 08:00:00] [INFO] -     → Go to 'Browse Offers' tab
+[2026-04-01 08:00:00] [INFO] -     → See all offers published by recruiters
+[2026-04-01 08:00:00] [INFO] -     → Enter interest tags (e.g., 'Software')'
+[2026-04-01 08:00:00] [INFO] -   ACTION 2: Auto-Book Best Matches
+[2026-04-01 08:00:00] [INFO] -     → Click 'Auto-Book Best Matches'
+[2026-04-01 08:00:00] [INFO] -     → System books you into recruiter's available slot
+[2026-04-01 08:00:00] [INFO] -     → See confirmation dialog
+[2026-04-01 08:00:00] [INFO] -   ACTION 3: Go to Admin Console - Show the Booking
+[2026-04-01 08:00:00] [INFO] -     → Check 'Bookings' table - see your new booking!
+[2026-04-01 08:00:00] [INFO] -     → Check Audit Log - see 'Booking Created' event with timestamp
+[2026-04-01 08:00:00] [INFO] -     → THIS PROVES REAL-TIME SYNC across all 3 portals
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 4: DEMONSTRATE CROSS-PORTAL SYNCHRONIZATION (2 minutes)
+[2026-04-01 08:00:00] [INFO] -   YOUR GOAL: Show that ALL 3 portals see changes INSTANTLY
+[2026-04-01 08:00:00] [INFO] -   REPEAT this cycle 2-3 times (each ~30 seconds):
+[2026-04-01 08:00:00] [INFO] -     1. Switch to ADMIN → Create new booth
+[2026-04-01 08:00:00] [INFO] -     2. Check RECRUITER portal → New booth appears in dropdown
+[2026-04-01 08:00:00] [INFO] -     3. Switch back to ADMIN → See change in Audit Log
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 5: SHOW SYSTEM ARCHITECTURE (3-4 minutes)
+[2026-04-01 08:00:00] [INFO] -   EXPLAIN (while demo is running):
+[2026-04-01 08:00:00] [INFO] -     • Observer pattern: PropertyChangeListener shows updates
+[2026-04-01 08:00:00] [INFO] -     • MVC separation: Controllers handle business logic
+[2026-04-01 08:00:00] [INFO] -     • Thread-safe collections: ConcurrentHashMap for concurrent access
+[2026-04-01 08:00:00] [INFO] -     • Auto-save: Data persisted every 5 seconds (DataPersistenceManager)
+[2026-04-01 08:00:00] [INFO] -     • Session tracking: Every action logged by SessionManager
+[2026-04-01 08:00:00] [INFO] -     • System state: Operations tracked by SystemStateManager
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📋 PHASE 6: CONCLUDE (1 minute)
+[2026-04-01 08:00:00] [INFO] -   SUMMARY POINTS:
+[2026-04-01 08:00:00] [INFO] -     ✓ 3 independent portals working seamlessly together
+[2026-04-01 08:00:00] [INFO] -     ✓ Real-time data sync via PropertyChangeListener (Observer)
+[2026-04-01 08:00:00] [INFO] -     ✓ All data auto-saved (crash recovery enabled)
+[2026-04-01 08:00:00] [INFO] -     ✓ Full audit trail of all operations
+[2026-04-01 08:00:00] [INFO] -     ✓ Professional UI with workflow guides embedded
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] - 💡 QUICK TIPS FOR PRESENTER:
+[2026-04-01 08:00:00] [INFO] - ═══════════════════════════════════════════════════════════════════════════════════
+[2026-04-01 08:00:00] [INFO] -   • Each portal has DETAILED WORKFLOW INSTRUCTIONS on its dashboard
+[2026-04-01 08:00:00] [INFO] -   • No notes needed - ALL instructions visible on-screen during demo
+[2026-04-01 08:00:00] [INFO] -   • Use SystemTimer (bottom right) to advance time through the fair
+[2026-04-01 08:00:00] [INFO] -   • Admin Console Audit Log shows EVERYTHING happening in system
+[2026-04-01 08:00:00] [INFO] -   • Data is auto-saved - safe to close and reopen without data loss
+[2026-04-01 08:00:00] [INFO] -   • Each portal's 'Portal Flow Guide' (? button) explains that portal
+[2026-04-01 08:00:00] [INFO] - 
+[2026-04-01 08:00:00] [INFO] - 📱 UI ENHANCEMENTS FOR DEMO-READINESS:
+[2026-04-01 08:00:00] [INFO] -   ✓ All portals use professional dialogs (UIEnhancementUtils)
+[2026-04-01 08:00:00] [INFO] -   ✓ Workflow guidance panels with emoji indicators on every screen
+[2026-04-01 08:00:00] [INFO] -   ✓ Status bars showing Fair Status, Bookings, System health
+[2026-04-01 08:00:00] [INFO] -   ✓ Real-time activity tracking in SessionManager
+[2026-04-01 08:00:00] [INFO] -   ✓ Operation recording in SystemStateManager
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Recruiter role selected
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - Recruiter registered (no booth assigned yet): Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [LoginFrame] Demo recruiter created: Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [UserSession] Initialized. No user logged in.
+[2026-04-01 08:00:00] [INFO] - [UserSession] Recruiter logged in: Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Recruiter
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [LoginFrame] Recruiter authenticated: Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [DataModeManager] Singleton created. System starting in LIVE mode.
+[2026-04-01 08:00:00] [DEBUG] - [PublishOfferPanel] No offers in system yet
+[2026-04-01 08:00:00] [INFO] - [RecruiterController] Viewing meeting history for Ahmed Hassan (0 sessions)
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] No sessions to display
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Launched for Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [LoginFrame] RecruiterScreen registered as listener
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Publishing offer: A (30min, cap=1)
+[2026-04-01 08:00:00] [INFO] - Offer published: A
+[2026-04-01 08:00:00] [INFO] - [RecruiterController] Offer published by Ahmed Hassan: A
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Registering published offer: A by recruiter: ahmed.hassan@demo.com
+[2026-04-01 08:00:00] [WARNING] - [CareerFairSystem] Could not find recruiter in system structure: ahmed.hassan@demo.com - offer may not appear in tables!
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Offers updated - refreshing table
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Offers updated - refreshing table
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] System data updated: offers
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] System data updated: offers
+[2026-04-01 08:00:00] [INFO] - [CareerFairSystem] Offer publication complete - all portals notified
+[2026-04-01 08:00:00] [DEBUG] - [PublishOfferPanel] No offers in system yet
+[2026-04-01 08:00:00] [DEBUG] - [PublishOfferPanel] No offers in system yet
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Refreshing display
+[2026-04-01 08:00:00] [INFO] - [RecruiterController] Viewing meeting history for Ahmed Hassan (0 sessions)
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] No sessions to display
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Current recruiter: Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Refreshing display
+[2026-04-01 08:00:00] [INFO] - [RecruiterController] Viewing meeting history for Ahmed Hassan (0 sessions)
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] No sessions to display
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Current recruiter: Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [UIHelpers] Success: Offer 'A' published successfully!
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Offer 'A' successfully added to table
+[2026-04-01 08:00:00] [DEBUG] - [PublishOfferPanel] Executing deferred table refresh
+[2026-04-01 08:00:00] [DEBUG] - [PublishOfferPanel] No offers in system yet
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [DEBUG] - [PublishOfferPanel] No offers in system yet
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [DEBUG] - [PublishOfferPanel] No offers in system yet
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Back to Main Menu
+[2026-04-01 08:00:00] [INFO] - [UserSession] User logged out: Ahmed Hassan
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Demo mode activated
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching demo mode - all 3 portals
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Demo mode window ready
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Admin portal
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [WARNING] - [AdminLoginFrame] Invalid credentials for user: admin
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [UserSession] Admin logged in: admin
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Administrator
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] Admin authenticated: admin
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] AdminScreen created and initialized
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [AdminScreen] Navigating to Recruiter Portal
+[2026-04-01 08:00:00] [WARNING] - [PublishOfferPanel] No current recruiter in session or controller
+[2026-04-01 08:00:00] [WARNING] - [RecruiterController] View meeting history attempted with no recruiter logged in
+[2026-04-01 08:00:00] [INFO] - [RecruiterScreen] Launched for Recruiter
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Publishing offer: a (30min, cap=1)
+[2026-04-01 08:00:00] [WARNING] - [RecruiterController] Publish offer attempted with no recruiter logged in
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [UIHelpers] Success: Offer 'a' published successfully!
+[2026-04-01 08:00:00] [INFO] - [PublishOfferPanel] Offer 'a' successfully added to table
+[2026-04-01 08:00:00] [DEBUG] - [PublishOfferPanel] Executing deferred table refresh
+[2026-04-01 08:00:00] [WARNING] - [PublishOfferPanel] No current recruiter in session or controller
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Admin portal
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [WARNING] - [AdminLoginFrame] Invalid credentials for user: admin
+[2026-04-01 08:00:00] [INFO] - [UserSession] Admin logged in: admin
+[2026-04-01 08:00:00] [INFO] - [UserSession] Role set to: Administrator
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] Admin authenticated: admin
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [AdminLoginFrame] AdminScreen created and initialized
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Recruiter portal
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [MultiPortalDemoWindow] Launching Candidate portal
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - [MainMenuFrame] Launched - awaiting role selection
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...
+[2026-04-01 08:00:00] [INFO] - 💾 [Persistence] Saving system state...

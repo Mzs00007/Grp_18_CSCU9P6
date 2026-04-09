@@ -5,6 +5,12 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import vcfs.core.UIEnhancementUtils;
 import vcfs.core.PortalFlowGuide;
+import vcfs.core.CareerFairSystem;
+import vcfs.core.UserSession;
+import vcfs.core.Logger;
+import vcfs.core.LogLevel;
+import vcfs.models.users.Recruiter;
+import vcfs.models.users.Candidate;
 
 /**
  * ENHANCED MAIN MENU - Clear role selection with portal explanations
@@ -151,26 +157,84 @@ public class EnhancedMainMenu extends JFrame {
     private void enterPortal(String portal) {
         dispose();
         
-        // Use the existing system portals (they require user selection first)
-        switch(portal.toLowerCase()) {
-            case "candidate":
-                UIEnhancementUtils.showInfo(null, "Next Step", 
-                    "You'll now select a candidate to login as.\n" +
-                    "Choose from: David Lee, Elena Rodriguez, or Frank Williams");
-                new vcfs.views.candidate.CandidateScreen();
-                break;
-            case "recruiter":
-                UIEnhancementUtils.showInfo(null, "Next Step", 
-                    "You'll now select a recruiter to login as.\n" +
-                    "Choose from: Alice Thompson, Bob Chen, or Carol Singh");
-                new vcfs.views.recruiter.RecruiterScreen();
-                break;
-            case "admin":
-                UIEnhancementUtils.showInfo(null, "Next Step", 
-                    "Entering Administrator Portal.\n" +
-                    "You have full system access.");
-                new vcfs.views.admin.AdminScreen(new vcfs.controllers.AdminScreenController());
-                break;
+        // In DEMO mode, auto-login with first available user
+        if (Logger.DEMO_MODE) {
+            switch(portal.toLowerCase()) {
+                case "candidate":
+                    autoLoginCandidate();
+                    new vcfs.views.candidate.CandidateScreen();
+                    break;
+                case "recruiter":
+                    autoLoginRecruiter();
+                    new vcfs.views.recruiter.RecruiterScreen();
+                    break;
+                case "admin":
+                    // AdminScreen doesn't require pre-login
+                    new vcfs.views.admin.AdminScreen(new vcfs.controllers.AdminScreenController());
+                    break;
+            }
+        } else {
+            // Non-demo mode: show login forms
+            switch(portal.toLowerCase()) {
+                case "candidate":
+                    UIEnhancementUtils.showInfo(null, "Next Step", 
+                        "You'll now select a candidate to login as.\n" +
+                        "Choose from: David Lee, Elena Rodriguez, or Frank Williams");
+                    new vcfs.views.candidate.CandidateScreen();
+                    break;
+                case "recruiter":
+                    UIEnhancementUtils.showInfo(null, "Next Step", 
+                        "You'll now select a recruiter to login as.\n" +
+                        "Choose from: Alice Thompson, Bob Chen, or Carol Singh");
+                    new vcfs.views.recruiter.RecruiterScreen();
+                    break;
+                case "admin":
+                    UIEnhancementUtils.showInfo(null, "Next Step", 
+                        "Entering Administrator Portal.\n" +
+                        "You have full system access.");
+                    new vcfs.views.admin.AdminScreen(new vcfs.controllers.AdminScreenController());
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Auto-login first recruiter in DEMO mode
+     * Ensures RecruiterController has a valid recruiter session
+     */
+    private void autoLoginRecruiter() {
+        try {
+            var recruiters = CareerFairSystem.getInstance().getAllRecruiters();
+            if (!recruiters.isEmpty()) {
+                Recruiter recruiter = recruiters.get(0);
+                UserSession.getInstance().setCurrentRecruiter(recruiter);
+                UserSession.getInstance().setCurrentRole(UserSession.UserRole.RECRUITER);
+                Logger.log(LogLevel.INFO, "[EnhancedMainMenu] DEMO auto-login: Recruiter = " + recruiter.getDisplayName());
+            } else {
+                Logger.log(LogLevel.WARNING, "[EnhancedMainMenu] No recruiters available for auto-login");
+            }
+        } catch (Exception e) {
+            Logger.log(LogLevel.ERROR, "[EnhancedMainMenu] Error auto-logging recruiter", e);
+        }
+    }
+
+    /**
+     * Auto-login first candidate in DEMO mode
+     * Ensures CandidateController has a valid candidate session
+     */
+    private void autoLoginCandidate() {
+        try {
+            var candidates = CareerFairSystem.getInstance().getAllCandidates();
+            if (!candidates.isEmpty()) {
+                Candidate candidate = candidates.get(0);
+                UserSession.getInstance().setCurrentCandidate(candidate);
+                UserSession.getInstance().setCurrentRole(UserSession.UserRole.CANDIDATE);
+                Logger.log(LogLevel.INFO, "[EnhancedMainMenu] DEMO auto-login: Candidate = " + candidate.getDisplayName());
+            } else {
+                Logger.log(LogLevel.WARNING, "[EnhancedMainMenu] No candidates available for auto-login");
+            }
+        } catch (Exception e) {
+            Logger.log(LogLevel.ERROR, "[EnhancedMainMenu] Error auto-logging candidate", e);
         }
     }
 }

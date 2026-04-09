@@ -1,0 +1,680 @@
+================================================================================
+INDIVIDUAL REFLECTIVE DIARY - SUBMISSION GUIDE
+================================================================================
+Points: 20 / 100  |  Due: 9 Apr by 23:59  |  Individual Submission
+Format: 1 entry/week × 5-8 weeks = 20 detailed pages
+Submission: Microsoft Word on University OneDrive with Track Changes enabled
+================================================================================
+
+OVERVIEW:
+You must submit YOUR OWN reflective journal documenting your learning journey
+through this project. This is individual work—each person writes their own diary
+showing their personal development and understanding.
+
+Key Requirements:
+  • Personal perspective (you, your learning, your challenges)
+  • STAR-L framework for each weekly entry (standardized structure)
+  • 300-500 words per week (substantial, not rushed)
+  • GitHub links to your actual commits (evidence)
+  • Track changes enabled so timestamps show when written
+  • Honest reflection about difficulties and solutions
+  • Learning outcomes clearly documented
+
+================================================================================
+STAR-L FRAMEWORK - DETAILED EXPLANATION WITH REAL EXAMPLES
+================================================================================
+
+Each entry MUST follow: Situation → Task → Action → Results → Learning
+
+┌─ SITUATION (50-75 words) - SET THE SCENE
+│  
+│  Purpose: Help reader understand WHAT your work was for and WHY it mattered
+│  
+│  Include:
+│  • Main objective of this week's work
+│  • How it fits into the project's user stories/use cases
+│  • Who else was involved (if collaborative)
+│  • What was the constraint/deadline this week?
+│  
+│  YOUR VCFS CONTEXT TO MENTION:
+│  • Use Cases: UC-001 (Admin Config), UC-003 (Recruiter Offers), 
+│    UC-004 (Candidate Books), UC-005 (Meeting Conducted), etc.
+│  • Architecture: MVC pattern, model vs controller vs view layer
+│  • Your assigned class: "I was assigned Lobby class testing"
+│  • Project risk at this point: "This was critical path - if Lobby breaks, 
+│    candidates can't queue properly"
+│  
+│ ✓ GOOD EXAMPLE:
+│ "This week I focused on creating comprehensive JUnit tests for the Lobby 
+│  class, a waiting queue for candidates arriving early to booth sessions. 
+│  This class is critical for use case UC-004 (Candidate Joins Session), 
+│  specifically the part where a candidate enters the waiting room if the
+│  recruiter is busy with another candidate. The VCFS architecture requires
+│  Lobby to maintain FIFO (first-in-first-out) ordering—if this breaks,
+│  candidates perceive unfair treatment. My collaboration with Mohamed
+│  (testing lead) involved defining test cases and validating edge conditions."
+│
+│ ✗ POOR EXAMPLE:
+│ "I worked on testing. The test file was 400 lines. I created a lot of tests."
+│  (Too vague, no context, no metrics, unclear why it matters)
+
+├─ TASK (75-100 words) - YOUR ASSIGNMENT
+│  
+│  Purpose: Show WHAT YOU WERE RESPONSIBLE FOR (not group's overall task)
+│  
+│  Include:
+│  • Your specific assignment for the week
+│  • What resource/class were YOU owning?
+│  • What tests did YOU write?
+│  • What was the minimum bar for "success"?
+│  
+│ ✓ GOOD EXAMPLE:
+│ "My specific assignment was to create a comprehensive JUnit test suite for 
+│  the Lobby class in src/main/java/vcfs/models/booking/Lobby.java. The class
+│  has 5 public methods: add(Candidate), remove(Candidate), 
+│  getWaitingQueue(), listWaiting(), and setSession(). I was responsible for:
+│  1. Identifying edge cases and error conditions for each method
+│  2. Writing tests to validate both normal behavior and exceptions
+│  3. Achieving 100% method coverage (all 5 methods tested)
+│  4. Ensuring tests pass and provide reliable regression protection"
+│  
+│ ✗ POOR EXAMPLE:
+│ "I tested Lobby. It has methods. I wrote tests for them."
+│  (Too generic, no specifics about what "tests" means, no coverage goal)
+
+├─ ACTION (100-150 words + GITHUB EVIDENCE) - WHAT YOU DID
+│  
+│  Purpose: DEMONSTRATE YOUR INDIVIDUAL CONTRIBUTION with proof
+│  
+│  Include:
+│  • Your work process (3-4 steps of what you did)
+│  • Tools/techniques used
+│  • METRICS: Hours spent, lines of code, test count
+│  • GITHUB PROOF: 2-3 commit links showing incremental work
+│  
+│ ✓ GOOD EXAMPLE (430 words - shows real work):
+│ "My action plan was systematic:
+│
+│  STEP 1 - ANALYZE (1 hour, Monday evening):
+│  I published Lobby.java source code and identified 5 methods. I studied the
+│  class: it manages a LinkedList<Candidate> for queue, a MeetingSession link,
+│  and provides queue operations. I mapped each method to test categories:
+│    • Constructor: must initialize empty queue
+│    • add()/remove(): FIFO operations, null handling, duplicates
+│    • getWaitingQueue(): return current state, immutability check
+│    • listWaiting(): formatted string output
+│    • setSession()/getSession(): persistence across operations
+│
+│  STEP 2 - DESIGN TEST CASES (1.5 hours, Tuesday):
+│  I designed 22 test cases covering:
+│    - Happy path: add 3 candidates, verify FIFO order, remove middle candidate
+│    - Edge cases: add null, add duplicate, remove non-existent, empty queue ops
+│    - State validation: session persistence, queue immutability
+│    - Integration: Lobby + MeetingSession interaction (if applicable)
+│  I wrote pseudocode for each test following Arrange-Act-Assert pattern:
+│    Arrange: Create test data (candidates, sessions)
+│    Act: Call method under test
+│    Assert: Verify expected behavior
+│
+│  STEP 3 - IMPLEMENT (2 hours, Tuesday-Wednesday):
+│  I converted pseudocode to JUnit 5 test methods. Code structure:
+│  ```java
+│  @Test
+│  @DisplayName(\"add() with valid candidate should append to queue\")
+│  void testAddValidCandidate() {
+│      Candidate alice = new Candidate(\"Alice\", \"alice@email.com\");
+│      lobby.add(alice);
+│      assertTrue(lobby.getWaitingQueue().contains(alice));
+│  }
+│  ```
+│  All tests use @DisplayName (descriptive),@BeforeEach (setup), proper 
+│  imports, and inline comments explaining tricky assertions.
+│
+│  STEP 4 - VERIFY & DEBUG (0.5 hours, Wednesday):
+│  I ran `mvn test` on LobbyTest.java. All 22 tests passed. I manually ran
+│  problematic cases locally to ensure no flakes.
+│
+│ **METRICS:**
+│  • Tests created: 22 comprehensive test methods
+│  • Lines of test code: 380 lines (including javadoc and setup)
+│  • Time spent: 5 hours total (1 analysis + 1.5 design + 2 implement + 0.5 verify)
+│  • Test coverage: 100% (all 5 methods, all code paths)
+│  • Test pass rate: 22/22 (100%)
+│  
+│ **GITHUB EVIDENCE:**
+│  Commit 1 (Tuesday, 2:30 PM): \"Create LobbyTest skeleton with test categories\"
+│  https://github.com/Mzs00007/Grp_9_CSCU9P6/commit/abc123xyz789
+│  (Created empty test methods with @DisplayName and comments)
+│  
+│  Commit 2 (Tuesday, 5:45 PM): \"Implement LobbyTest_InitializationTests (3 tests)\"
+│  https://github.com/Mzs00007/Grp_9_CSCU9P6/commit/def456uvw789
+│  (Added constructor/initialization tests with @BeforeEach setup)
+│  
+│  Commit 3 (Wednesday, 10:30 AM): \"Complete LobbyTest - all 22 tests passing\"
+│  https://github.com/Mzs00007/Grp_9_CSCU9P6/commit/ghi789rst012
+│  (Final test implementation, all edge cases, assertions verified)"
+
+├─ RESULTS (100-150 words) - WHAT YOU ACHIEVED
+│  
+│  Purpose: QUANTIFY what was delivered and VERIFY it works
+│  
+│  Include:
+│  • What code/tests exist now that didn't before
+│  • Test results (pass/fail count)
+│  • Coverage metrics
+│  • Functionality verified
+│  
+│ ✓ GOOD EXAMPLE:
+│ "Successfully delivered LobbyTest.java with 22 comprehensive test cases:
+│
+│  DELIVERABLES:
+│  ✓ 22 JUnit test methods covering all 5 public methods
+│  ✓ 100% method coverage (every method has 3-5 dedicated tests)
+│  ✓ 380 lines of well-documented test code
+│  ✓ All tests passing (22/22, 100% pass rate)
+│  ✓ Edge case coverage: null inputs, empty queue, duplicate handling
+│  ✓ FIFO ordering validated with multi-scenario tests
+│  ✓ Integration with MeetingSession verified
+│
+│  VERIFICATION:
+│  - Ran tests on Windows 10 with Java 11: PASSED
+│  - Ran tests on Linux VM: PASSED
+│  - Code review performed by Mohamed: APPROVED
+│  - Integrated into main branch: MERGED WITHOUT CONFLICTS
+│
+│  IMPACT:
+│  The Lobby class is now verified production-ready. Any future changes to Lobby
+│  will immediately show regressions via these tests. New team members can
+│  understand class behavior by reading test names and code."
+
+└─ LEARNING (100-150 words) - YOUR INSIGHT
+   
+   Purpose: REFLECT on growth and share WISDOM for next time
+   
+   Include:
+   • What you learned (skill, tool, pattern)
+   • Unexpected challenges and how you solved them
+   • What you'd do differently
+   • How this applies to future work
+   
+   ✓ GOOD EXAMPLE (380 words):
+   "I gained several insights this week:
+   
+   **INSIGHT 1: Test-Driven Thinking**
+   Before this week, I thought testing was an afterthought—write code, then
+   test it afterwards. This week showed me the opposite: tests should guide
+   design. By writing test cases first (even pseudocode), I discovered that:
+   - Lobby's add() doesn't specify what happens with duplicates
+   - The API could be clearer (should add() return a boolean for success?)
+   - The null handling contract isn't documented
+   
+   Going forward, I'll write test cases BEFORE finalizing APIs—it forces you
+   to think about edge cases and contracts upfront.
+   
+   **INSIGHT 2: Test Readability Matters**
+   My first version had test names like testAddMethod1(), testAddMethod2().
+   When Mohamed reviewed, he asked: 'What's the difference between test 1 and 2?'
+   I realized: test names should document BEHAVIOR, not be sequential numbers.
+   I renamed to testAddValidCandidate(), testAddNullCandidate(), etc.
+   Now anyone (including me in 6 months) can understand each test's purpose
+   from the name alone. This is professional practice.
+   
+   **INSIGHT 3: Thread Safety Hidden Complexity**
+   The Lobby class uses LinkedList<Candidate>. I initially assumed it was
+   thread-safe because Java Collections.synchronizedList(). But learned:
+   synchronization on the list doesn't sync access patterns like:
+     1. Get queue
+     2. Check if candidate in queue
+     3. Add candidate
+   If two threads do this simultaneously, duplicates possible. This required
+   rethinking test assumptions—tests should verify thread-safety constraints,
+   even if implementation delegates to external libraries.
+   
+   **INSIGHT 4: Test Coverage Numbers Are Misleading**
+   '100% method coverage' sounds great, but I discovered it can be false security.
+   I had 100% coverage yet initially missed:
+   - Empty queue edge case (for listWaiting())
+   - Removing last element edge case
+   - Session persistence across operations
+   These required BEHAVIOR-focused testing ("What should happen in this
+   scenario?") not just CODE-focused testing ("Did I run this line?").
+   
+   **HOW I'LL APPLY THIS:**
+   For next week's ReservationTest, I'll:
+   1. Write test names that describe the BEHAVIOR, not test number
+   2. Consider thread-safety implications before writing assertions
+   3. Focus on scenarios (what users do) before code paths (what compiles)
+   4. Review tests with a teammate before finalizing—fresh eyes catch confusion
+   
+   **CONFIDENCE GAINED:**
+   I now feel confident that thorough testing catches bugs before production.
+   The Lobby class is solid, and I understand WHY through writing these tests."
+
+┌─ SITUATION (50-75 words)
+│  What was the context of your work this week?
+│  • Briefly explain the main task
+│  • How does it fit into the project?
+│  • Were you working with other group members?
+│  • What use cases/features were in scope?
+│
+│ EXAMPLE:
+│ "This week I worked on testing the Lobby class, a waiting room for 
+│  candidates arriving early to booth sessions. This is critical for use case
+│  UC-4 (Candidate Joins Session). I collaborated with [name] who was 
+│  implementing the Lobby class, and [name] who tested state management."
+
+├─ TASK (75-100 words)
+│  What was your specific responsibility?
+│  • What exactly were you asked to do?
+│  • How complex was it?
+│  • What made it challenging?
+│  • Any technical or planning challenges?
+│
+│ EXAMPLE:
+│ "My task was to create a comprehensive JUnit test suite for the Lobby class.
+│  The challenge was testing thread-safety while maintaining FIFO queue ordering.
+│  The class manages candidate queues with no thread-safety guarantees, requiring
+│  careful consideration of concurrent access patterns and state consistency."
+
+├─ ACTION (100-150 words + METRICS)
+│  What did YOU do? (Individual perspective)
+│  • High-level summary of your work
+│  • METRICS: Time spent, lines of code/tests written
+│  • EVIDENCE: Links to GitHub issues and commits
+│
+│ EXAMPLE:
+│ "I analyzed the Lobby class API, identifying 5 core methods: add(), 
+│  remove(), getWaitingQueue(), listWaiting(), setSession(). I designed
+│  20 test cases covering initialization, FIFO ordering, null validation,
+│  and state persistence. Implementation took 4 hours spread over 2 days.
+│
+│  METRICS:
+│  - Tests created: 20 methods (350 lines of test code)
+│  - Time spent: Analysis (1h), Design (1h), Implementation (1.5h), 
+│    Debugging (0.5h)
+│  - Test file size: 450 lines including javadoc
+│  
+│  EVIDENCE:
+│  Issue: https://github.com/Mzs00007/Grp_9_CSCU9P6/issues/8
+│  Commit 1: https://github.com/.../commit/abc123def456 (Test design)
+│  Commit 2: https://github.com/.../commit/xyz789uvw012 (Implementation)
+│  Commit 3: https://github.com/.../commit/mnp345rst678 (Bug fixes)"
+
+├─ RESULTS (100-150 words)
+│  What was the ACTUAL outcome?
+│  • Which functionality was implemented/fixed?
+│  • What tests were created?
+│  • What did they verify?
+│  • Success metrics achieved?
+│
+│ EXAMPLE:
+│ "Successfully created 20 comprehensive JUnit tests for Lobby class:
+│  ✓ All 5 public methods have dedicated test cases
+│  ✓ Tests cover normal operation, edge cases, and error paths
+│  ✓ FIFO ordering validated with multi-candidate scenarios
+│  ✓ Null handling verified (throws IllegalArgumentException)
+│  ✓ 100% method coverage achieved
+│  ✓ All 20 tests passing (verified on 2 different machines)
+│  
+│  As a result, the Lobby class is now verified to:
+│  - Maintain proper candidate queue ordering
+│  - Handle edge cases gracefully
+│  - Integrate correctly with MeetingSession
+│  - Reject invalid input appropriately"
+
+└─ LEARNING (100-150 words)
+   What did you learn?
+   • Key insights gained
+   • Unexpected challenges
+   • What would you do differently?
+   • How does this apply elsewhere?
+   • Next week's follow-ups?
+   
+   EXAMPLE:
+   "Key learning: FIFO queue testing is trickier than expected - order can be
+    lost with concurrent modifications. I learned the importance of using 
+    Iterator properly and unmodifiable collections to prevent external mutation.
+    
+    If doing this again, I would: (1) Create more boundary tests earlier,
+    (2) Use property-based testing for order verification, (3) Document test
+    rationale as I write tests, not after.
+    
+    This applies to: All collection-based classes need similar ordering tests.
+    The pattern of testing FIFO preservation is valuable for Reservation queue.
+    
+    Next week: Collaborate with [name] on MeetingSession testing to reuse FIFO
+    test patterns. Explore using JUnit 5 parameterized tests for data-driven
+    boundary testing."
+
+================================================================================
+WHAT YOU MUST INCLUDE IN EACH ENTRY
+================================================================================
+
+✓ Specific technical details
+✓ Metrics (time spent, lines of code, test count, etc.)
+✓ Direct GitHub links to issues and commits
+✓ Names of other group members (if collaborative)
+✓ Your individual contributions (not group achievements)
+✓ Real challenges faced (not everything went perfectly)
+✓ Genuine reflection and lessons learned
+✓ How work connects to project goals/use cases
+
+✗ Generic statements ("We created tests" - specify YOUR role)
+✗ Vague learning outcomes
+✗ No evidence (links, commits)
+✗ Group work described as if you did it alone
+✗ Perfect week narrative (be honest about challenges)
+✗ Minimal reflection
+
+================================================================================
+WEEK-BY-WEEK BREAKDOWN TEMPLATE
+================================================================================
+
+WEEK 1: [Topic/Feature]
+Situation: [Context - 50-75 words]
+Task: [Your role - 75-100 words]
+Action: [What you did + metrics + links - 100-150 words]
+Results: [Outcomes - 100-150 words]
+Learning: [Lessons - 100-150 words]
+--- END WEEK 1 ---
+
+WEEK 2: [Topic/Feature]
+Situation: [Context]
+Task: [Your role]
+Action: [What you did + metrics]
+Results: [Outcomes]
+Learning: [Lessons]
+--- END WEEK 2 ---
+
+... (continue for each week)
+
+================================================================================
+EXAMPLE: COMPLETE WEEK ENTRY
+================================================================================
+
+--- WEEK 3: JUnit Testing for Lobby Class (Mar 24 - Mar 30) ---
+
+SITUATION:
+With core Lobby implementation complete, our group needed comprehensive test
+coverage to verify correctness before integration testing. The Lobby class is
+critical for UC-4 (Candidate Joins Session Waiting Area). I took responsibility
+for the Lobby test suite while [Name] tackled MeetingSession and [Name] worked
+on Reservation. This work enables the integration phase and supports our 
+screencast demonstration.
+
+TASK:
+Design and implement a complete JUnit test suite for the Lobby class covering
+all 5 public methods, edge cases, and state management. The challenge was
+ensuring FIFO queue ordering under various add/remove scenarios while verifying
+that null inputs are properly rejected with exceptions. I also needed to test
+the session binding mechanism and collection access patterns.
+
+ACTION:
+I performed the following steps over 5 hours total:
+
+1. Code Analysis (1 hour)
+   - Reviewed Lobby.java API and documentation
+   - Identified dependent classes (Candidate, MeetingSession)
+   - Mapped out all public methods and their responsibilities
+
+2. Test Design (1 hour)
+   - Created test plan: 20 test methods in 4 categories
+   - Designed diverse test data (100+ candidate permutations)
+   - Planned for edge cases: empty queue, null candidates, rapid operations
+
+3. Implementation (2.5 hours)
+   - Wrote LobbyTest.java: 450 lines of test code
+   - Created 20 test methods with @DisplayName annotations
+   - Added comprehensive javadoc explaining each test rationale
+
+4. Debugging & Refinement (0.5 hours)
+   - Fixed null pointer issues in test fixtures
+   - Verified all 20 tests pass consistently
+   - Ensured test isolation (no cross-test state pollution)
+
+METRICS:
+• Tests created: 20 JUnit test methods
+• Code written: 450 lines (excluding comments)
+• Time breakdown: Analysis 1h, Design 1h, Implementation 2.5h, Debug 0.5h
+• Test coverage: 100% of public methods (5/5)
+• Pass rate: 20/20 tests passing
+
+EVIDENCE:
+🔗 GitHub Issue (Test Requirements):
+   https://github.com/Mzs00007/Grp_9_CSCU9P6/issues/8
+
+🔗 Commits (Implementation):
+   1) Test design & setup: https://github.com/.../commit/abc123
+   2) Core tests (1-10): https://github.com/.../commit/def456
+   3) Integration tests: https://github.com/.../commit/ghi789
+   4) Documentation: https://github.com/.../commit/jkl012
+
+RESULTS:
+Successfully created a comprehensive test suite verifying Lobby correctness:
+
+✓ Initialization Tests (2)
+  - Confirmed empty queue on construction
+  - Verified null session initialization
+  
+✓ Candidate Management (6)
+  - Tested add() with single and multiple candidates
+  - Verified remove() graceful handling
+  - Confirmed null rejection with exceptions
+  
+✓ FIFO Ordering (4)
+  - Validated order preservation with 3+ candidates
+  - Confirmed order after remove operations
+  - Tested rapid add/remove sequences
+  
+✓ State Persistence (3)
+  - Verified session binding persists
+  - Confirmed state survives operations
+  - Tested null session edge case
+  
+✓ Output & Integration (5)
+  - Tested listWaiting() formatting
+  - Verified empty queue handling
+  - Confirmed MeetingSession integration
+  - Tested collection mutability constraints
+
+All 20 tests pass on first run. Code review by [Name] found no issues.
+Test suite integrates cleanly with existing codebase.
+
+LEARNING:
+Key insights gained this week:
+
+→ FIFO testing complexity: Queue order is fragile - easily lost with improper
+  iteration or external mutation. Learned to use unmodifiable collections and
+  Iterator.next() for reliable verification.
+
+→ Test isolation importance: First run had cross-test pollution (state leaking
+  between tests). Fixing required strict @BeforeEach setup, proving why test
+  independence matters.
+
+→ Javadoc power: Writing test rationale as code comments was invaluable -
+  forced me to articulate WHY each test matters, not just WHAT it does.
+
+→ GitHub workflow: Committing test stages separately (parse → design → 
+  implement → fix) made debugging easier and created clear evidence trail.
+
+What I'd do differently:
+• Write MORE boundary tests upfront (5-6 more for robustness)
+• Use parameterized tests (@ParameterizedTest) for data-driven scenarios
+• Create custom assertions for queue order verification
+
+Application to other tasks:
+The FIFO priority queue testing pattern is reusable for:
+→ Testing Reservation queue in booking system
+→ Testing offer sorting in recommendation engine
+→ Any future queue-based functionality
+
+Next week's focus:
+Collaborate with [Name] on MeetingSession testing to:
+• Reuse FIFO queue test patterns for reservations
+• Test state machine transitions (WAITING → ACTIVE → ENDED)
+• Verify integration between Lobby and MeetingSession
+
+Blockers: None. All dependencies working as expected.
+
+Confidence level: 9/10 (High confidence in test suite quality)
+
+--- END WEEK 3 ---
+
+================================================================================
+FORMAT REQUIREMENTS
+================================================================================
+
+Document Format:
+  ✓ Microsoft Word (.docx)
+  ✓ Stored on University OneDrive
+  ✓ Track Changes ENABLED (to show your writing process)
+  ✓ File naming: "MZAS00007_Reflective_Diary.docx"
+
+Formatting:
+  • Font: Calibri, 11pt (standard)
+  • Spacing: 1.5 line spacing
+  • Margins: 1 inch all sides
+  • Headers/Footers: Your name, week#, date
+  • Page numbers: Bottom right
+
+Length:
+  • Per entry: 300-500 words
+  • Total: 5-8 weeks × 400 words = 2000-4000 words typical
+
+Evidence Links:
+  • Include full GitHub URLs
+  • Format as blue hyperlinks: [View Commit](url)
+  • Test on submission: all links active and valid
+
+================================================================================
+HOW TO MAXIMIZE MARKING (20 POINTS)
+================================================================================
+
+CRITERION 1: Evidence of Individual Contribution (10 points)
+
+10-6.9 pts (EXCELLENT):
+  ✓ Situation, Task, Action, Result VERY clearly described
+  ✓ Comprehensive supporting material (issues/commits)
+  ✓ Specific metrics (time, lines of code, test count)
+  ✓ Multiple linked commits per week
+  ✓ Clear individual vs. group contributions
+
+6.9-5.0 pts (VERY GOOD):
+  ✓ Clear description of all STAR elements
+  ✓ Good evidence (meaningful commits/issues)
+  ✓ Links to GitHub activity
+
+5.0-4.9 pts (GOOD):
+  ✓ STAR elements described
+  ✓ Some evidence provided
+
+TARGET: Score 9-10 by providing:
+  • Specific technical details (not generic)
+  • 3-5 GitHub commits per week
+  • Metrics (time, lines of code, test count)
+  • Personal pronouns ("I designed", "I implemented")
+  • Clear evidence of work done
+
+CRITERION 2: Reflection on Work (10 points)
+
+10-6.9 pts (EXCELLENT):
+  ✓ Excellent reflection on weekly performance
+  ✓ VERY clearly draws out lessons for future
+  ✓ Genuine critical thinking
+  ✓ Honest about challenges faced
+  ✓ Connects to future work and broader context
+
+6.9-5.0 pts (VERY GOOD):
+  ✓ Very good reflection
+  ✓ Clear future focus
+
+TARGET: Score 9-10 by:
+  • Explaining WHAT you learned, not just THAT you learned
+  • Connecting lessons to specific technical challenges
+  • Proposing how to do things differently next time
+  • Linking to future project phases
+  • Showing genuine critical thought (not clichés)
+
+TOTAL TARGET: 18-20 points (90-100%) by:
+  1. Providing extensive evidence (links, metrics, time logs)
+  2. Writing detailed technical descriptions
+  3. Showing genuine learning and reflection
+  4. Being honest about challenges
+  5. Making connections across project phases
+
+================================================================================
+COMMON MISTAKES TO AVOID
+================================================================================
+
+✗ "We did X" instead of "I did X" (reads like group description, not personal)
+✗ No GitHub evidence (commits/issues/PRs)
+✗ Vague learning: "I learned testing is important" (too generic)
+✗ Perfect week narrative (real projects have issues)
+✗ No metrics: "I wrote some tests" (specific: "20 tests, 450 lines, 3 hours")
+✗ Group achievements as personal: "Our team implemented Lobby" (your role?)
+✗ Surface-level reflection (describe what you learned, not just what happened)
+✗ No connection to project goals/use cases
+✗ Typos and poor grammar (reflects on professionalism)
+✗ Insufficient length (<250 words per entry)
+
+================================================================================
+AI COMPLIANCE
+================================================================================
+
+✓ YOU MAY use AI for:
+  • Planning your work
+  • Researching reflection frameworks
+  • Brainstorming learning points
+  • Grammar checking (but YOU write the content)
+
+✗ YOU MUST NOT use AI for:
+  • Writing diary entries
+  • Generating explanations
+  • Creating test code descriptions
+  • Writing reflections or Learning sections
+  • Paraphrasing your technical work
+
+→ IMPORTANT: Submit completed AI Use Statement coversheet with your diary
+  File: OneDrive_coversheet_Template_Aug2025.docx
+  Available on Canvas
+
+================================================================================
+SUBMISSION CHECKLIST
+================================================================================
+
+Before submitting, verify:
+
+□ Entries for 5-8 weeks completed (300-500 words each)
+□ Each entry follows STAR-L framework
+□ Specific metrics included (time, code lines, test count)
+□ GitHub links to issues and commits (3-5 per week)
+□ Personal perspective ("I did", not "we did")
+□ Technical details specific (not generic)
+□ Genuine reflection on learning (not obvious statements)
+□ Honest challenges described (not perfect narrative)
+□ All GitHub links are working/valid
+□ Microsoft Word format (.docx)
+□ Stored on University OneDrive
+□ Track Changes ENABLED
+□ File name: MZAS00007_Reflective_Diary.docx
+□ Grammar and spelling checked
+□ AI Use Statement coversheet completed
+□ Document formatted properly (fonts, spacing, headers)
+□ No sensitive personal information included
+
+================================================================================
+DEADLINES & PENALTIES
+================================================================================
+
+Due: 7 Apr by 23:59 (11:59 PM)
+Late penalty: -3 points PER DAY
+• 1 day late: -3 points (max 17/20)
+• 2 days late: -6 points (max 14/20)
+• 7 days late: -21 points (non-submission)
+
+Extensions: Standard university process applies
+(Submit via Student Services, not direct to lecturer)
+
+================================================================================
+END OF GUIDE
+================================================================================

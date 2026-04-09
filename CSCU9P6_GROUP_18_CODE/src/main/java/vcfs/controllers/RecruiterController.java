@@ -105,10 +105,14 @@ public class RecruiterController extends BaseController {
             currentRecruiter.publishOffer(offer);
             logOperation(LogLevel.INFO, "RecruiterController", "Offer published by " + recruiterName + ": " + offer.getTitle());
             
+            Logger.log(LogLevel.DEBUG, "[🔍 CONTROLLER-DEBUG] After publishOffer(), recruiter has " + currentRecruiter.getOffers().size() + " offers");
+            
             // CRITICAL FIX P4: Pass recruiter email so system finds the SAME recruiter instance
             // This solves object reference mismatch where session recruiter ≠ system recruiter
             // System will search org->booth->recruiters and add offer to the RIGHT instance
             vcfs.core.CareerFairSystem.getInstance().registerPublishedOffer(offer, currentRecruiter.getEmail());
+            
+            Logger.log(LogLevel.DEBUG, "[🔍 CONTROLLER-DEBUG] After registerPublishedOffer(), system notified");
             
             // RECORD OPERATION: Track published offers in system state
             SystemStateManager.getInstance().recordStateChange("OFFER_PUBLISHED",

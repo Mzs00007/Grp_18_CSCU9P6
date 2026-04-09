@@ -785,6 +785,7 @@ public class CareerFairSystem implements PropertyChangeListener {
     public List<Offer> getAllOffers() {
         // Return cached result if available
         if (offerCache != null) {
+            Logger.log(LogLevel.DEBUG, "[🔍 CACHE] Returning cached offers: " + offerCache.size() + " items");
             return offerCache;
         }
         
@@ -792,6 +793,7 @@ public class CareerFairSystem implements PropertyChangeListener {
         List<Offer> allOffers = new ArrayList<>();
         
         // STEP 1: Collect offers from recruiters in organization booths
+        int boothOffers = 0;
         if (fair.organizations != null) {
             for (Organization org : fair.organizations) {
                 if (org.getBooths() != null) {
@@ -799,7 +801,10 @@ public class CareerFairSystem implements PropertyChangeListener {
                         if (booth.getRecruiters() != null) {
                             for (Recruiter recruiter : booth.getRecruiters()) {
                                 if (recruiter.getOffers() != null && !recruiter.getOffers().isEmpty()) {
+                                    int recOffers = recruiter.getOffers().size();
                                     allOffers.addAll(recruiter.getOffers());
+                                    boothOffers += recOffers;
+                                    Logger.log(LogLevel.DEBUG, "[🔍 BOOTH-OFFERS] " + recruiter.getDisplayName() + ": " + recOffers + " offers");
                                 }
                             }
                         }
@@ -810,6 +815,7 @@ public class CareerFairSystem implements PropertyChangeListener {
         
         // STEP 2: CRITICAL FIX - Also collect offers from standalone recruiters (not in any booth)
         // This ensures offers published by recruiters without booth assignments still appear
+        int standaloneOffers = 0;
         if (recruitersList != null) {
             for (Recruiter recruiter : recruitersList) {
                 if (recruiter.getOffers() != null && !recruiter.getOffers().isEmpty()) {
@@ -817,11 +823,15 @@ public class CareerFairSystem implements PropertyChangeListener {
                     for (Offer offer : recruiter.getOffers()) {
                         if (!allOffers.contains(offer)) {
                             allOffers.add(offer);
+                            standaloneOffers++;
                         }
                     }
+                    Logger.log(LogLevel.DEBUG, "[🔍 STANDALONE-OFFERS] " + recruiter.getDisplayName() + ": " + recruiter.getOffers().size() + " (added " + standaloneOffers + " new)");
                 }
             }
         }
+        
+        Logger.log(LogLevel.DEBUG, "[🔍 GETALLOFERS] Total: " + allOffers.size() + " (booth=" + boothOffers + ", standalone=" + standaloneOffers + ")");
         
         // Cache for next time
         this.offerCache = allOffers;

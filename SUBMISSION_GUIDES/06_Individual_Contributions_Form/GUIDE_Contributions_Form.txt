@@ -1,0 +1,616 @@
+================================================================================
+INDIVIDUAL CONTRIBUTIONS FORM - SUBMISSION GUIDE
+================================================================================
+Points: Support Document (Not Graded)  |  Due: WITH DEMONSTRATION (8-9 Apr)
+Submission: 1 printed copy per group member (bring to demo)
+================================================================================
+
+OVERVIEW:
+The Individual Contributions Form documents YOUR personal work on this group
+project. Each team member completes their own form independently.
+
+PURPOSE:
+  • Fair Assessment: If contributions unequal, can adjust individual marks
+  • Prevent Free-Loading: Examiners verify claims against GitHub commits
+  • Document Progress: Shows who did what, when, and how much
+  • Quality Control: Form + GitHub together tell the story
+  
+GROUP 9 CONTEXT (Your VCFS Project):
+  Team Structure: 5 members (Zaid, YAMI, Taha, MJAMishkat, Mohamed)
+  Repository: https://github.com/Mzs00007/Grp_9_CSCU9P6
+  Total Group Hours: Estimated ~250-300 hours across 8 weeks
+  Each person statistically: ~50-60 hours (18-20% of total)
+  
+REALISTIC CONTRIBUTION PERCENTAGES:
+  Project Lead (Zaid): 20-25% (architecture + integration responsibility)
+  UI Developers (YAMI, Taha): 18-22% each (complex UI layers)
+  Feature Developer (MJAMishkat): 16-20% (candidate UI + logic)
+  Test Lead (Mohamed): 18-22% (120+ comprehensive tests)
+  
+WARNING: Extreme percentages get scrutinized
+  • Claiming 50% when team has 5 people = one person did almost nothing!
+  • Claiming 5% = "What were you doing all semester?"
+  • Claiming 20% when others claim 20-22% = probably accurate & consistent
+
+================================================================================
+WHAT YOU NEED
+================================================================================
+
+DOCUMENT: Individual_Contributions_Form.docx
+  Location: Provided by your instructor (typically on OneDrive)
+  Format: Microsoft Word template (.docx)
+  Copies: ONE form per group member (if 5 people, 5 forms total)
+
+TIMELINE:
+  Complete form: Days before demonstration (1-2 April)
+  Print/prepare: Day of demonstration (8 April morning)
+  Submit: Hand to examination staff during demo (bring printed or on USB)
+
+INFORMATION NEEDED:
+  • Your name and student ID
+  • Percentage of work you did (~18-22%)
+  • Specific classes/components you owned
+  • Hours per component
+  • GitHub commit evidence (link to your commits)
+  • Challenges faced and how you solved them
+  • Self-rating of your work quality
+
+================================================================================
+HOW TO FILL OUT THE FORM
+================================================================================
+
+SECTION 1: PERSONAL INFORMATION
+─────────────────────────────────
+
+Name: [Your Full Name]
+  Example: "Zaid Siddiqui"
+
+Student ID: [Your University ID Number]
+  Example: "40123456"
+
+Email: [Your University Email]
+  Example: "mzs00007@stir.ac.uk"
+
+Group Number: [Your Group Number]
+  Example: "Group 18" or "18"
+
+Date Completed: [Today's Date]
+  Example: "7 April 2024"
+
+SECTION 2: OVERALL CONTRIBUTION PERCENTAGE
+───────────────────────────────────────────
+
+Instructions:
+  • Estimate what % of total group work YOU did
+  • Must be honest (examiners check against commits)
+  • ALL percentages across group should sum to ~100%
+  • Example for 6-person group: if work equal, each person = ~16-17%
+
+Calculation Guide:
+  ┌─ Equal contribution (6 people):  ~16-17% per person
+  ├─ Equal contribution (5 people):  ~20% per person
+  ├─ Equal contribution (4 people):  ~25% per person
+  ├─ Equal contribution (3 people):  ~33% per person
+  └─ (Adjust if some people did more/less)
+
+Examples:
+  ✓ "I contributed approximately 15-20% to the project"
+  ✓ "My contributions represent about 1/6 of the work"
+  ✓ "I was responsible for ~18% of design and implementation"
+
+BAD EXAMPLES (Don't claim):
+  ✗ "50%" (unless you basically did half the project)
+  ✗ "100%" (obviously false in group work)
+  ✗ "5%" (needs justification - what were you doing?)
+
+REALISTIC PERCENTAGES:
+  • If you did equal share: 16-20%
+  • If you did a bit more: 20-25%
+  • If you did significantly more: 25-35%
+  • If you did less (valid reasons): 8-15%
+
+SECTION 3: DETAILED BREAKDOWN
+──────────────────────────────
+
+What each person's main role/component:
+
+Instructions:
+  1. List what you were primarily responsible for
+  2. Be specific with class names, features, or tasks
+  3. Estimate hours spent on each
+  4. Note the timeline (weeks 1-8 roughly)
+
+EXAMPLE FORMAT:
+
+Component 1: Reservation System Implementation
+  • Classes: Reservation.java, ReservationTest.java
+  • Hours: ~40 hours (weeks 2-5)
+  • Details: "Designed and implemented the core Reservation class,
+             including state management (CONFIRMED, IN_PROGRESS, CANCELLED),
+             time validation logic, and comprehensive test coverage (30+ tests)"
+  • GitHub: 25 commits in feature/reservation-system branch
+
+Component 2: ReservationTest - Comprehensive Unit Testing
+  • Class: src/test/java/vcfs/models/booking/ReservationTest.java
+  • Hours: ~15 hours (weeks 5-6)
+  • Test Methods: 30+ tests covering:
+    - Constructor and initialization
+    - Candidate/offer management
+    - State transitions and validation
+    - Time window checking
+    - Integration with other classes
+  • Quality: All tests pass, 100% method coverage
+
+Component 3: Code Reviews & Debugging
+  • Hours: ~8 hours (weeks 3-8)
+  • Details: "Reviewed pull requests from teammates, identified bugs,
+             provided feedback on design decisions, helped debug
+             concurrency issues in booking system"
+
+Component 4: Documentation & Javadoc
+  • Hours: ~6 hours (weeks 7-8)
+  • Details: "Added comprehensive Javadoc comments to all public methods,
+             created example code snippets in class-level comments,
+             helped organize README"
+
+TOTAL HOURS: 69 hours (spread over 8 weeks)
+PERCENTAGE: ~20% of group effort
+
+─────────────────────────
+
+YOUR FORM (Fill this out):
+
+Component 1: [Name/Brief Description]
+  • Classes: [List Java files]
+  • Hours: [Estimate]
+  • Details: [What you achieved]
+  • GitHub: [Number of commits or branch name]
+
+Component 2: [Name/Brief Description]
+  • Classes: [List Java files]
+  • Hours: [Estimate]
+  • Details: [What you achieved]
+  • GitHub: [Evidence]
+
+Component 3: [Name/Brief Description]
+  • Hours: [Estimate]
+  • Details: [What you achieved]
+  • GitHub: [Evidence]
+
+TOTAL HOURS: [Sum of all hours]
+PERCENTAGE: [Total hours / (8 weeks × group members' total hours)]
+
+SECTION 4: GITHUB EVIDENCE
+───────────────────────────
+
+Instructions:
+  • List your GitHub commits as proof
+  • Shows you actually did the work
+  • Examiners can verify
+
+FORMAT:
+
+Commit History Summary:
+  Branches created: feature/[component-name]
+  Total commits: [Number]
+  
+  Sample commits:
+    1. "Implement Reservation constructor and state management"
+       Date: [Date] | Files: Reservation.java
+    
+    2. "Add ReservationTest unit tests (30+ tests)"
+       Date: [Date] | Files: ReservationTest.java
+    
+    3. "Fix state transition validation bug"
+       Date: [Date] | Files: Reservation.java
+    
+    4. "Add Javadoc to Reservation class"
+       Date: [Date] | Files: Reservation.java
+
+GitHub Link: https://github.com/[group]/Grp_9_CSCU9P6/commits?author=[username]
+(Shows your personal commit history)
+
+SECTION 5: CHALLENGES & LEARNING
+─────────────────────────────────
+
+Instructions:
+  • Be honest about challenges faced
+  • Show resilience and problem-solving
+  • Demonstrate learning
+
+DO: 
+  ✓ "I struggled with understanding how state transitions should work,
+     so I researched state pattern design and implemented proper guards"
+  ✓ "Initially, my tests were brittle. I learned to use mocks and fixtures"
+  ✓ "Managing concurrent reservations was tricky - I studied Java threading"
+
+DON'T:
+  ✗ "Everything was easy, no challenges"
+  ✗ "X person didn't do their part" (too negative)
+  ✗ "I couldn't figure it out" (no resolution shown)
+
+TEMPLATE:
+
+Challenge 1: [What was difficult?]
+  Solution: [How you solved it]
+  Learning: [What you learned]
+
+Challenge 2: [What was difficult?]
+  Solution: [How you solved it]
+  Learning: [What you learned]
+
+SECTION 6: SELF-ASSESSMENT
+──────────────────────────
+
+Rate your own performance (1=Poor to 5=Excellent):
+
+Understanding of code: [1-5]
+  "I can explain the Reservation class state management thoroughly"
+  Rating: 4
+
+Code quality of my work: [1-5]
+  "My test code follows best practices with clear method names"
+  Rating: 4
+
+Teamwork and communication: [1-5]
+  "I attended all meetings and reviewed teammates' code thoughtfully"
+  Rating: 5
+
+Time management: [1-5]
+  "I worked steadily each week rather than cramming at the end"
+  Rating: 4
+
+Contribution to group: [1-5]
+  "I implemented a core feature and helped debug the system"
+  Rating: 4
+
+SECTION 7: COMMENTS
+───────────────────
+
+Optional: Add any notes about your contribution, challenges, or context.
+
+EXAMPLES:
+
+"While my percentage may seem high, I took the lead on implementing the
+core booking system (Reservation, MeetingSession, Lobby) which are
+central to the entire application. I also led the testing strategy."
+
+"Due to family circumstances in weeks 4-5, I contributed less during
+that period, then increased my work weeks 6-8."
+
+"I was responsible for the model-layer implementation (4 model classes),
+while others focused on views/controllers. This allowed clear separation."
+
+================================================================================
+FAIRNESS GUIDELINES
+================================================================================
+
+HONEST ASSESSMENT:
+  • Be truthful about your contributions
+  • Examiners verify against GitHub commits
+  • 100% accuracy expected
+  • Lies significantly undermine assessment
+
+EQUAL WORK EXPECTATIONS:
+  If you have 6 members:
+    ✓ Each person should contribute 15-20% (roughly equal)
+    ✓ Minor variations normal (±5% acceptable)
+    ✗ One person with 50% suggests free-loading others
+    ✗ Someone with 5% needs serious explanation
+
+HANDLING UNEQUAL CONTRIBUTIONS:
+  If someone did significantly more/less:
+    • Explain why (illness, different roles, etc.)
+    • Still maintain fairness in final grades
+    • Examiners can adjust if evidence is clear
+  
+  NOT acceptable to claim dramatically unequal unless genuinely justified
+
+COMMON SCENARIOS:
+
+Scenario A: Person worked more (20-25%)
+  Reason: Took technical lead, did core features
+  Impact: Worth documenting but doesn't change their mark
+  Note: All group members typically get same grade for group work
+
+Scenario B: Person worked less (10-15%)
+  Reason: Illness, personal circumstances
+  Impact: Examiners may adjust if documented
+  Note: Need explicit reason and timeline
+
+Scenario C: Person did almost nothing (<5%)
+  Red flag: Likely indicates free-loading
+  Impact: Examiners will investigate, may result in failed assessment
+  Note: This is taken very seriously - academic integrity issue
+
+BEST PRACTICE:
+  • All group members contribute reasonably equally (within 5-10%)
+  • If someone falls behind, team helps them catch up
+  • Document genuine difficulties with dates/evidence
+
+================================================================================
+COMPLETING THE FORM - CHECKLIST
+================================================================================
+
+□ Section 1 - Personal Info
+  □ Name correct
+  □ Student ID correct
+  □ Email current
+  □ Group number matches Canvas
+
+□ Section 2 - Contribution Percentage
+  □ Honest estimate of your work
+  □ Reasonable percentage (for 6 people: 12-25%)
+  □ Brief justification included
+
+□ Section 3 - Detailed Breakdown
+  □ At least 2-3 major components listed
+  □ Each has class names (Java files)
+  □ Each has hour estimate
+  □ Each has detail on what you achieved
+  □ GitHub commits/branches mentioned
+
+□ Section 4 - GitHub Evidence
+  □ Links to your commits
+  □ Sample commits listed with dates
+  □ Shows your actual work in the codebase
+
+□ Section 5 - Challenges & Learning
+  □ 2-3 challenges mentioned
+  □ Each has a solution shown
+  □ Learning outcomes clear
+  □ Shows resilience and growth
+
+□ Section 6 - Self-Assessment
+  □ Ratings on 1-5 scale
+  □ Brief justification for each rating
+  □ Realistic (not all 5s, not all 1s)
+
+□ Section 7 - Comments
+  □ Optional but recommended
+  □ Adds context if needed
+  □ Honest and professional
+
+□ Final Check
+  □ Proofread for spelling/grammar
+  □ Numbering and formatting consistent
+  □ Professional language throughout
+  □ Ready to submit
+
+================================================================================
+SUBMISSION PROCESS
+================================================================================
+
+WHEN: During your demonstration (8-9 April)
+
+WHERE: Print physical copy OR bring on USB drive to demo
+  Option 1: Printed copy (stapled, one per person)
+  Option 2: PDF emailed to examiners before demo
+  Option 3: Handed to examiner during demo
+
+TO WHOM: Submit to examination staff member
+
+CONFIRMATION:
+  □ Signature or stamp received
+  □ Receipt confirmation given
+  □ Form collected by examiner
+
+BACKUP:
+  □ Keep digital copy for your records
+  □ Save original file in group folder
+  □ Confirm at least one physical copy exists
+
+================================================================================
+COMMON MISTAKES
+================================================================================
+
+❌ Claiming too high a percentage (>30% for 6-person group)
+   ✓ Be realistic unless genuinely justified
+   ✓ Examiners check GitHub commits
+
+❌ Claiming too low a percentage (<10%)
+   ✓ Raises questions about fairness assessment
+   ✓ Needs serious explanation
+
+❌ Vague descriptions ("did testing", "helped with code")
+   ✓ Be specific: which classes? which tests? how many?
+   ✓ Provide actual evidence (commit links, file names)
+
+❌ No GitHub evidence provided
+   ✓ Impossible to verify your claims
+   ✓ Always provide commit links or branch names
+
+❌ All group members claim equal %
+   ✓ While possible, statistically unlikely unless coordinated
+   ✓ Independent assessment requires some variation
+
+❌ Blaming teammates for low contribution
+   ✓ Not the form's purpose
+   ✓ Keep professional and focused on your work
+
+❌ Including negative comments about group members
+   ✓ Inappropriate for academic submission
+   ✓ Handle interpersonal issues separately if needed
+
+❌ Forgetting to sign/date the form
+   ✓ Check if signature field exists (depends on template)
+   ✓ Print and sign if required
+
+================================================================================
+EXAMPLE COMPLETED FORM
+================================================================================
+
+[EXAMPLE - For reference only, adapt to your situation]
+
+NAME: Mohammad Zaid Siddiqui
+STUDENT ID: 3359098
+EMAIL: mzs00007@stir.ac.uk
+GROUP: Group 18
+DATE COMPLETED: 7 April 2024
+
+─────────────────────────────────────────────────────────────────
+
+OVERALL CONTRIBUTION: Approximately 18% of the project
+
+Rationale: Implemented core booking system components (Reservation, 
+MeetingSession, Lobby model classes) and led comprehensive testing 
+strategy with 120+ unit tests. Equal share expected for 6-member group.
+
+─────────────────────────────────────────────────────────────────
+
+DETAILED COMPONENTS:
+
+Component 1: Reservation System (Core Model Implementation)
+  • Classes: Reservation.java
+  • Hours: 35 hours (weeks 2-5)
+  • Details: Designed and implemented Reservation class with state 
+    management (CONFIRMED → IN_PROGRESS → CANCELLED), comprehensive 
+    validation, time window checking, and active/cancelled transitions
+  • GitHub: feature/reservation-system branch, 12 commits
+
+Component 2: ReservationTest (Comprehensive Unit Testing)
+  • Class: src/test/java/vcfs/models/booking/ReservationTest.java
+  • Hours: 18 hours (weeks 5-7)
+  • Details: Created 30+ comprehensive unit tests covering:
+    - Initialization and default states
+    - Candidate/offer association tests
+    - State transition validation (all valid paths + invalid attempts)
+    - Time window validation (overlap detection, boundary cases)
+    - Cancel method and its side effects
+    - isActive() time-based logic
+    - Integration with MeetingSession
+    
+    All tests follow JUnit 5 best practices with @DisplayName annotations
+    and clear javadoc explaining test rationale.
+  • GitHub: 5 commits in feature/reservation-testing
+
+Component 3: Code Review and Debugging
+  • Hours: 8 hours (weeks 3-8)
+  • Details: Reviewed teammates' pull requests on booking system, 
+    identified and helped fix concurrency issues, suggested design 
+    improvements on model classes, participated in code refinement
+  • GitHub: 8 PR review comments documented
+
+Component 4: Documentation and Javadoc
+  • Hours: 6 hours (week 8)
+  • Details: Added comprehensive Javadoc to Reservation, MeetingSession,
+    and Lobby classes. Created example code in class-level comments to 
+    help teammates understand usage patterns. Added inline comments for 
+    complex state transition logic.
+  • GitHub: 3 commits for documentation updates
+
+─────────────────────────────────────────────────────────────────
+
+TOTAL HOURS: 67 hours (distributed over 8 weeks)
+PERCENTAGE CALCULATION: 67 hours / ~360 total group hours ≈ 18.6%
+
+─────────────────────────────────────────────────────────────────
+
+GITHUB EVIDENCE:
+
+Personal Repository: https://github.com/group9/Grp_9_CSCU9P6/commits?author=zaidsiddiqui
+
+Sample commits:
+  ✓ "Implement Reservation class with state transitions" (20 lines added)
+    Date: 18 Feb | Files: src/main/java/.../Reservation.java
+  
+  ✓ "Add ReservationTest with 30 comprehensive test cases"
+    Date: 25 Feb | Files: src/test/java/.../ReservationTest.java
+  
+  ✓ "Fix state transition guard conditions"
+    Date: 3 Mar | Files: src/main/java/.../Reservation.java
+  
+  ✓ "Add Javadoc to Reservation and MeetingSession"
+    Date: 6 Apr | Files: src/main/java/.../Reservation.java, MeetingSession.java
+
+Total Commits: 28 commits across project (weeks 2-8)
+
+─────────────────────────────────────────────────────────────────
+
+CHALLENGES & LEARNING:
+
+Challenge 1: Understanding State Machine Patterns
+  Solution: Researched state pattern design, studied existing enum-based 
+  state machines, implemented with guards for valid transitions
+  Learning: Gained deep understanding of preventing invalid state 
+  transitions, improved code robustness
+
+Challenge 2: Writing Meaningful Unit Tests (Not Just Passing Tests)
+  Solution: Studied TDD practices, learned to write tests that catch regressions,
+  implemented exception testing and edge case coverage
+  Learning: Moved from "just covering code" to "testing behavior"
+
+Challenge 3: Concurrent Booking Conflicts
+  Solution: Diagnosed race condition in booking system, added 
+  synchronized blocks and atomic state checks
+  Learning: Learned importance of thread safety in multi-user systems
+
+─────────────────────────────────────────────────────────────────
+
+SELF-ASSESSMENT (1=Poor, 5=Excellent):
+
+Understanding of Code: 5
+  "I designed and implemented core booking logic. Can fully explain 
+  state transitions, validation rules, and design decisions."
+
+Code Quality of My Work: 4
+  "Code is clean with good naming and javadoc. Test code follows 
+  JUnit 5 best practices. Could improve some edge case handling."
+
+Teamwork & Communication: 5
+  "Attended all meetings, provided thorough code reviews, helped 
+  teammates debug issues promptly."
+
+Time Management: 4
+  "Worked steadily throughout project. One slight delay in week 5 
+  due to other coursework, caught up next week."
+
+Contribution to Group: 4
+  "Implemented core model classes that are foundation for entire system.
+  Established testing standards team followed for other classes."
+
+─────────────────────────────────────────────────────────────────
+
+COMMENTS:
+
+While my contribution percentage seems high at 18.6%, it reflects my role
+as the lead implementer of the booking system. The Reservation, MeetingSession,
+and Lobby classes form the core of the entire system - all business logic
+flows through these classes. My teammates handled the views, controllers, and
+admin interface, which are equally important.
+
+The team worked well together. No significant issues with contributions or
+free-loading. All members maintained steady progress. GitHub history reflects
+distributed, incremental development across all group members.
+
+I'm satisfied with how the project turned out and proud of the testing
+strategy we established, which other teams could learn from.
+
+═════════════════════════════════════════════════════════════════════════
+
+[End of Example Form]
+
+================================================================================
+AFTER YOU SUBMIT
+================================================================================
+
+DURING DEMONSTRATION:
+  ☐ Bring printed form to demo
+  ☐ Hand to examination staff
+  ☐ Confirm receipt (signature/timestamp)
+
+AFTER DEMONSTRATION:
+  ☐ Keep digital copy for your records
+  ☐ Confirmation that all groups submitted forms
+  ☐ No further action needed on your part
+  ☐ Examiners use for grading moderation
+
+NO GRADES POSTED YET:
+  • Examiners reconcile contributions with commits
+  • Verify fairness across group
+  • May adjust individual marks if disparity found
+  • Final grades published 2-3 weeks post-exam
+
+================================================================================
+END OF GUIDE
+================================================================================
