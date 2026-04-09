@@ -182,9 +182,16 @@ public class PublishOfferPanel extends JPanel implements PropertyChangeListener 
     private void refreshOffersTable() {
         offersTableModel.setRowCount(0); // Clear existing rows
         try {
-            Recruiter currentRecruiter = UserSession.getInstance().getCurrentRecruiter();
+            // CRITICAL: Get recruiter from controller first (ensures correct reference)
+            Recruiter currentRecruiter = controller.getCurrentRecruiter();
+            
+            // Fallback to UserSession if needed (for compatibility)
             if (currentRecruiter == null) {
-                Logger.log(LogLevel.WARNING, "[PublishOfferPanel] No current recruiter in session");
+                currentRecruiter = UserSession.getInstance().getCurrentRecruiter();
+            }
+            
+            if (currentRecruiter == null) {
+                Logger.log(LogLevel.WARNING, "[PublishOfferPanel] No current recruiter in controller or session");
                 offersTableModel.addRow(new Object[]{"ERROR: No recruiter logged in", "-", "-", "-", "-", "-"});
                 return;
             }
