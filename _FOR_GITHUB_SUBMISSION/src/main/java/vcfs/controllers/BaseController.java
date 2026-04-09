@@ -26,7 +26,6 @@ import vcfs.core.Logger;
 import vcfs.core.LogLevel;
 
 public abstract class BaseController {
-
     /**
      * Validate that a user object is not null (i.e., someone is logged in).
      * 

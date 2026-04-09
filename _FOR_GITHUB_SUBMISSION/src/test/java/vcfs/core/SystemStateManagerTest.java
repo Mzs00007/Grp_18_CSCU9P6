@@ -97,8 +97,9 @@ public class SystemStateManagerTest {
         @DisplayName("Should record multiple state changes")
         void testRecordMultipleStateChanges() {
             for (int i = 0; i < 10; i++) {
+                final int index = i;
                 assertDoesNotThrow(() -> {
-                    manager.recordStateChange("OP" + i, "Description " + i, i % 2 == 0);
+                    manager.recordStateChange("OP" + index, "Description " + index, index % 2 == 0);
                 }, "Should record multiple changes");
             }
         }
@@ -158,8 +159,9 @@ public class SystemStateManagerTest {
         @DisplayName("Should record multiple bookings")
         void testRecordMultipleBookings() {
             for (int i = 0; i < 5; i++) {
+                final int index = i;
                 assertDoesNotThrow(() -> {
-                    manager.recordBooking("Candidate" + i, "Recruiter" + i, "Company" + i, "Time" + i, true);
+                    manager.recordBooking("Candidate" + index, "Recruiter" + index, "Company" + index, "Time" + index, true);
                 }, "Should record multiple bookings");
             }
         }
@@ -209,8 +211,9 @@ public class SystemStateManagerTest {
         @DisplayName("Should record multiple offers")
         void testRecordMultipleOffers() {
             for (int i = 0; i < 5; i++) {
+                final int index = i;
                 assertDoesNotThrow(() -> {
-                    manager.recordOfferPublished("Recruiter" + i, "Position" + i, i + 1, true);
+                    manager.recordOfferPublished("Recruiter" + index, "Position" + index, index + 1, true);
                 }, "Should record multiple offers");
             }
         }
@@ -260,8 +263,9 @@ public class SystemStateManagerTest {
         @DisplayName("Should record multiple searches")
         void testRecordMultipleSearches() {
             for (int i = 0; i < 5; i++) {
+                final int index = i;
                 assertDoesNotThrow(() -> {
-                    manager.recordSearch("Candidate" + i, "Search" + i, i * 2, true);
+                    manager.recordSearch("Candidate" + index, "Search" + index, index * 2, true);
                 }, "Should record multiple searches");
             }
         }
@@ -429,3 +433,4 @@ public class SystemStateManagerTest {
         }
     }
 }
+

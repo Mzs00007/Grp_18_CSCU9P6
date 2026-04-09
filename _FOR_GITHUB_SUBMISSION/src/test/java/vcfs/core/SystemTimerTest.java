@@ -72,7 +72,7 @@ public class SystemTimerTest {
         void testSetSimulatedTime() {
             LocalDateTime newTime = new LocalDateTime(2026, 5, 15, 14, 30);
             SystemTimer.setSimulatedTime(newTime);
-            LocalDateTime retrieved = SystemTimer.now();
+            LocalDateTime retrieved = (LocalDateTime) SystemTimer.now();
             assertNotNull(retrieved);
         }
 
@@ -150,7 +150,7 @@ public class SystemTimerTest {
         @Test
         @DisplayName("Register time change listener")
         void testRegisterListener() {
-            MockPropertyChangeListener listener = new MockPropertyChangeListener();
+            PropertyChangeListener listener = new MockPropertyChangeListener();
             SystemTimer.getInstance().addPropertyChangeListener(listener);
             // Should not throw
             assertTrue(true);
@@ -159,8 +159,8 @@ public class SystemTimerTest {
         @Test
         @DisplayName("Register multiple listeners")
         void testRegisterMultipleListeners() {
-            MockPropertyChangeListener listener1 = new MockPropertyChangeListener();
-            MockPropertyChangeListener listener2 = new MockPropertyChangeListener();
+            PropertyChangeListener listener1 = new MockPropertyChangeListener();
+            PropertyChangeListener listener2 = new MockPropertyChangeListener();
             
             SystemTimer.getInstance().addPropertyChangeListener(listener1);
             SystemTimer.getInstance().addPropertyChangeListener(listener2);
@@ -171,7 +171,7 @@ public class SystemTimerTest {
         @Test
         @DisplayName("Remove listener")
         void testRemoveListener() {
-            MockPropertyChangeListener listener = new MockPropertyChangeListener();
+            PropertyChangeListener listener = new MockPropertyChangeListener();
             SystemTimer.getInstance().addPropertyChangeListener(listener);
             SystemTimer.getInstance().removePropertyChangeListener(listener);
             // Should not throw
@@ -219,7 +219,7 @@ public class SystemTimerTest {
         @Test
         @DisplayName("Time change triggers listener")
         void testTimeChangeTriggeringListener() {
-            MockPropertyChangeListener listener = new MockPropertyChangeListener();
+            PropertyChangeListener listener = new MockPropertyChangeListener();
             SystemTimer.getInstance().addPropertyChangeListener(listener);
             
             LocalDateTime newTime = new LocalDateTime(2026, 6, 15, 10, 0);
@@ -232,8 +232,8 @@ public class SystemTimerTest {
         @Test
         @DisplayName("Multiple listeners receive time change events")
         void testMultipleListenersReceiveEvents() {
-            MockPropertyChangeListener listener1 = new MockPropertyChangeListener();
-            MockPropertyChangeListener listener2 = new MockPropertyChangeListener();
+            PropertyChangeListener listener1 = new MockPropertyChangeListener();
+            PropertyChangeListener listener2 = new MockPropertyChangeListener();
             
             SystemTimer.getInstance().addPropertyChangeListener(listener1);
             SystemTimer.getInstance().addPropertyChangeListener(listener2);
@@ -412,7 +412,7 @@ public class SystemTimerTest {
     /**
      * Mock PropertyChangeListener for testing timer event notifications.
      */
-    private static class MockPropertyChangeListener implements PropertyChangeListener {
+    public static class MockPropertyChangeListener implements PropertyChangeListener {
         private boolean notified = false;
 
         @Override
@@ -429,3 +429,4 @@ public class SystemTimerTest {
         }
     }
 }
+

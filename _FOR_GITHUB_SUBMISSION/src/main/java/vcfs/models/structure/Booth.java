@@ -1,13 +1,5 @@
 package vcfs.models.structure;
 
-/**
- * Virtual Career Fair System (VCFS)
- * Group 9 - CSCU9P6
- * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
- * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
- */
-
-
 import java.util.*;
 import vcfs.models.users.Recruiter;
 import vcfs.core.Logger;
@@ -18,10 +10,14 @@ import vcfs.core.LogLevel;
  */
 public class Booth {
 
+
 	private Collection<Recruiter> recruiters;
 	private VirtualRoom room;
 	private Organization organization;
 	private String title;
+	private Recruiter recruiter;
+	private String name;
+	private int boothNumber;
 
 	/**
 	 * Create a Booth with a title.
@@ -29,10 +25,37 @@ public class Booth {
 	 * @throws IllegalArgumentException if title is invalid
 	 */
 	public Booth(String title) {
-		setTitle(title);
+		if (title == null || title.trim().isEmpty()) {
+			throw new IllegalArgumentException("Booth title cannot be empty");
+		}
+		this.title = title;
 		this.recruiters = new ArrayList<>();
 		this.room = null;
 		this.organization = null;
+	}
+
+	/**
+	 * Create a Booth with a title and booth number.
+	 * @param title The booth title (cannot be empty)
+	 * @param boothNumber The booth number identifier
+	 * @throws IllegalArgumentException if title is invalid
+	 */
+	public Booth(String title, int boothNumber) {
+		this(title);
+	}
+
+	/**
+	 * Get booth number (stub - returns 0 for compatibility)
+	 */
+	public int getBoothNumber() {
+		return 0;
+	}
+
+	/**
+	 * Get booth name (returns title)
+	 */
+	public String getName() {
+		return this.title;
 	}
 
 	/**
@@ -124,6 +147,37 @@ public class Booth {
 				'}';
 	}
 
+	/**
+	 * Set the primary recruiter for this booth.
+	 * @param recruiter The recruiter to set
+	 */
+	public void setRecruiter(Recruiter recruiter) {
+		this.recruiter = recruiter;
+	}
+
+	/**
+	 * Get the primary recruiter for this booth.
+	 * @return The recruiter, or null if not set
+	 */
+	public Recruiter getRecruiter() {
+		return recruiter;
+	}
+
+	/**
+	 * Set the booth name/label.
+	 * @param name The name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * Set the booth number identifier.
+	 * @param number The booth number
+	 */
+	public void setBoothNumber(int number) {
+		this.boothNumber = number;
+	}
 }
 
 

@@ -9,6 +9,7 @@ package vcfs.core;
 
 
 public enum LogLevel {
+    DEBUG,
     INFO,
     WARNING,
     ERROR,

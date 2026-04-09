@@ -1,12 +1,5 @@
 package vcfs.models.audit;
 
-/**
- * Virtual Career Fair System (VCFS)
- * Group 9 - CSCU9P6
- * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
- * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
- */
-
 
 import vcfs.core.LocalDateTime;
 import vcfs.core.Logger;
@@ -18,6 +11,7 @@ import vcfs.models.enums.AttendanceOutcome;
  * Attendance log for a single participant in a MeetingSession.
  */
 public class AttendanceRecord {
+
 
 	private MeetingSession session;
 	private vcfs.models.users.Candidate candidate;

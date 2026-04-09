@@ -15,6 +15,7 @@ import java.awt.*;
  * - Responsive layouts
  */
 public class UIEnhancementUtils {
+
     
     // Color scheme
     public static final Color PRIMARY_GREEN = new Color(76, 175, 80);

@@ -1,12 +1,5 @@
 package vcfs.models.booking;
 
-/**
- * Virtual Career Fair System (VCFS)
- * Group 9 - CSCU9P6
- * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
- * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
- */
-
 
 import vcfs.models.users.Candidate;
 import vcfs.core.Logger;
@@ -16,6 +9,7 @@ import vcfs.core.LogLevel;
  * Candidate booking preferences used for manual browsing and auto-booking.
  */
 public class Request {
+
 
 	private String id;
 	private Candidate requester;

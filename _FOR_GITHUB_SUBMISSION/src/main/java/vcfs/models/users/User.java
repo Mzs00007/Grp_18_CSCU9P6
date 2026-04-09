@@ -1,17 +1,10 @@
 package vcfs.models.users;
 
 /**
- * Virtual Career Fair System (VCFS)
- * Group 9 - CSCU9P6
- * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
- * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
- */
-
-
-/**
  * Abstract base for all users (Candidate and Recruiter).
  */
 public abstract class User {
+
 
 	private String id;
 	private String displayName;
@@ -25,14 +18,26 @@ public abstract class User {
 	 * @throws IllegalArgumentException if any parameter is null or empty
 	 */
 	protected User(String id, String displayName, String email) {
-		setId(id);
-		setDisplayName(displayName);
-		setEmail(email);
+		this.id = id;
+		this.displayName = displayName;
+		this.email = email;
+		validate();
 	}
 
 	/**
-	 * Return the internal user id.
+	 * Validate user fields on construction
 	 */
+	private void validate() {
+		if (id == null || id.trim().isEmpty()) {
+			throw new IllegalArgumentException("User ID cannot be empty");
+		}
+		if (displayName == null || displayName.trim().isEmpty()) {
+			throw new IllegalArgumentException("Display name cannot be empty");
+		}
+		if (email == null || email.trim().isEmpty()) {
+			throw new IllegalArgumentException("Email cannot be empty");
+		}
+	}
 	public String getId() {
 		return this.id;
 	}

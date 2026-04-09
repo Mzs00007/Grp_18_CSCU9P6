@@ -160,7 +160,7 @@ public class UserSessionTest {
         @Test
         @DisplayName("Should set current admin")
         void testSetCurrentAdmin() {
-            Object admin = new Object();
+            String admin = "admin001";
 
             assertDoesNotThrow(() -> {
                 session.setCurrentAdmin(admin);
@@ -170,7 +170,7 @@ public class UserSessionTest {
         @Test
         @DisplayName("Should allow setting null admin")
         void testSetCurrentAdminNull() {
-            Object admin = new Object();
+            String admin = "admin001";
             session.setCurrentAdmin(admin);
 
             assertDoesNotThrow(() -> {
@@ -181,8 +181,8 @@ public class UserSessionTest {
         @Test
         @DisplayName("Should update admin when called multiple times")
         void testSetCurrentAdminMultipleTimes() {
-            Object admin1 = new Object();
-            Object admin2 = new Object();
+            String admin1 = "admin001";
+            String admin2 = "admin002";
 
             session.setCurrentAdmin(admin1);
             session.setCurrentAdmin(admin2);
@@ -300,7 +300,7 @@ public class UserSessionTest {
         @Test
         @DisplayName("Should return admin after being set")
         void testGetCurrentAdminAfterSet() {
-            Object admin = new Object();
+            String admin = "admin001";
             session.setCurrentAdmin(admin);
 
             Object result = session.getCurrentAdmin();
@@ -485,3 +485,4 @@ public class UserSessionTest {
         }
     }
 }
+

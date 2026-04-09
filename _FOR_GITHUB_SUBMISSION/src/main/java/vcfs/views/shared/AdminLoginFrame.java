@@ -22,6 +22,7 @@ import vcfs.controllers.AdminScreenController;
  */
 public class AdminLoginFrame extends JFrame {
 
+
     public AdminLoginFrame() {
         setTitle("VCFS - Admin Login");
         setSize(500, 480);

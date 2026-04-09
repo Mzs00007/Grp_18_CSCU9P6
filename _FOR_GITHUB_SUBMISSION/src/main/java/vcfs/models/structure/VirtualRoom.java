@@ -1,13 +1,5 @@
 package vcfs.models.structure;
 
-/**
- * Virtual Career Fair System (VCFS)
- * Group 9 - CSCU9P6
- * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
- * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
- */
-
-
 import java.util.*;
 import vcfs.models.booking.MeetingSession;
 import vcfs.models.enums.RoomState;
@@ -20,10 +12,14 @@ import vcfs.core.LogLevel;
  */
 public class VirtualRoom {
 
+
 	private Booth booth;
 	private Collection<MeetingSession> sessions;
 	private Collection<Candidate> occupants;
 	private RoomState state;
+	private String roomName;
+	private String roomUrl;
+	private MeetingSession currentMeetingSession;
 
 	/**
 	 * Create an empty VirtualRoom with no booth (for testing).
@@ -36,12 +32,30 @@ public class VirtualRoom {
 	}
 
 	/**
+	 * Create a VirtualRoom with name and URL.
+	 * @param roomName The name of the virtual room
+	 * @param roomUrl The URL for accessing the room
+	 */
+	public VirtualRoom(String roomName, String roomUrl) {
+		this.booth = null;
+		this.sessions = new ArrayList<>();
+		this.occupants = new ArrayList<>();
+		this.state = RoomState.IDLE;
+		this.roomName = roomName;
+		this.roomUrl = roomUrl;
+		this.currentMeetingSession = null;
+	}
+
+	/**
 	 * Create a VirtualRoom for a booth.
 	 * @param booth The booth that owns this room (cannot be null)
 	 * @throws IllegalArgumentException if booth is null
 	 */
 	public VirtualRoom(Booth booth) {
-		setBooth(booth);
+		if (booth == null) {
+			throw new IllegalArgumentException("Booth cannot be null");
+		}
+		this.booth = booth;
 		this.sessions = new ArrayList<>();
 		this.occupants = new ArrayList<>();
 		this.state = RoomState.IDLE;
@@ -199,6 +213,33 @@ public class VirtualRoom {
 				", occupants=" + occupants.size() +
 				'}';
 	}
+
+    public void setMeetingSession(MeetingSession meetingSession) {
+        this.currentMeetingSession = meetingSession;
+        if (meetingSession != null) {
+            sessions.add(meetingSession);
+        }
+    }
+
+    public Object getMeetingSession() {
+        return currentMeetingSession;
+    }
+
+    public String getName() {
+        return roomName;
+    }
+
+    public String getRoomUrl() {
+        return roomUrl;
+    }
+
+    public void setName(String string) {
+        this.roomName = string;
+    }
+
+    public void setRoomUrl(String string) {
+        this.roomUrl = string;
+    }
 
 }
 

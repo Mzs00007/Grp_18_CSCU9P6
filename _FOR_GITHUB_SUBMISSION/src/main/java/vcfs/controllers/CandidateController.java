@@ -88,6 +88,11 @@ public class CandidateController extends BaseController {
             currentCandidate.submitRequest(request);
             logOperation(LogLevel.INFO, "CandidateController", "Meeting request submitted by " + candidateName);
             
+            // CONSISTENCY FIX P4: Notify system so it registers in system structure
+            // This ensures booking appears in all candidate portals immediately
+            CareerFairSystem.getInstance().registerBooking(null, currentCandidate.getEmail(), 
+                (request != null ? request.getDesiredTags() : "unknown request"));
+            
             // RECORD OPERATION: Track this booking in system state manager
             SystemStateManager stateManager = SystemStateManager.getInstance();
             stateManager.recordStateChange("CANDIDATE_REQUEST", 
@@ -209,6 +214,11 @@ public class CandidateController extends BaseController {
         try {
             currentCandidate.cancelRequest(finalRequestId);
             logOperation(LogLevel.INFO, "CandidateController", "Meeting request cancelled by " + candidateName + ": " + finalRequestId);
+            
+            // CONSISTENCY FIX P3: Notify system of cancellation so all portals refresh
+            // This makes the offer "available" again for other candidates
+            CareerFairSystem.getInstance().registerCancellation("BOOKING_CANCELLED",
+                candidateName + " cancelled booking: " + finalRequestId);
             
             // RECORD CANCELLATION: Track booking cancellations
             SystemStateManager.getInstance().recordStateChange("BOOKING_CANCELLED", 

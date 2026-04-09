@@ -20,6 +20,7 @@ import vcfs.core.LogLevel;
  */
 public class MainMenuFrame extends JFrame {
 
+
     public MainMenuFrame() {
         // Basic window setup
         setTitle("VCFS - Virtual Career Fair System");

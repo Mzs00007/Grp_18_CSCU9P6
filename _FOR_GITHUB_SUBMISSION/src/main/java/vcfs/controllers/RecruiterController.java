@@ -90,8 +90,17 @@ public class RecruiterController extends BaseController {
         }
         
         try {
+            // Set publisher relationship for proper tracking
+            offer.setPublisher(currentRecruiter);
+            
+            // Add to recruiter's local collection
             currentRecruiter.publishOffer(offer);
             logOperation(LogLevel.INFO, "RecruiterController", "Offer published by " + recruiterName + ": " + offer.getTitle());
+            
+            // CRITICAL FIX P4: Pass recruiter email so system finds the SAME recruiter instance
+            // This solves object reference mismatch where session recruiter ≠ system recruiter
+            // System will search org->booth->recruiters and add offer to the RIGHT instance
+            vcfs.core.CareerFairSystem.getInstance().registerPublishedOffer(offer, currentRecruiter.getEmail());
             
             // RECORD OPERATION: Track published offers in system state
             SystemStateManager.getInstance().recordStateChange("OFFER_PUBLISHED",
@@ -269,5 +278,179 @@ public class RecruiterController extends BaseController {
 
     public Recruiter getCurrentRecruiter() {
         return currentRecruiter;
+    }
+
+    /**
+     * Create a new offer for candidates.
+     * This method publishes an offer from the current recruiter.
+     * @param position Job position title (cannot be empty)
+     * @param description Job description (cannot be empty)
+     */
+    public void createOffer(String position, String description) {
+        if (!validateLoggedIn(currentRecruiter, "Recruiter", "Create offer")) {
+            view.displayError("Error: No recruiter logged in. Please log in to create offers.");
+            return;
+        }
+        
+        String recruiterName = getUserName(currentRecruiter);
+        
+        if (!validateNotEmpty(position, "Position title")) {
+            logOperation(LogLevel.WARNING, "RecruiterController", "Create offer attempted with empty position by " + recruiterName);
+            view.displayError("Error: Position title is required.");
+            return;
+        }
+        
+        if (!validateNotEmpty(description, "Description")) {
+            logOperation(LogLevel.WARNING, "RecruiterController", "Create offer attempted with empty description by " + recruiterName);
+            view.displayError("Error: Job description is required.");
+            return;
+        }
+        
+        try {
+            String trimmedPosition = safeTrim(position);
+            String trimmedDescription = safeTrim(description);
+            
+            Offer offer = new Offer(trimmedPosition, 0, trimmedDescription, 0, currentRecruiter);
+            currentRecruiter.publishOffer(offer);
+            
+            logOperation(LogLevel.INFO, "RecruiterController", "Offer created by " + recruiterName + ": " + trimmedPosition);
+            
+            // RECORD OPERATION
+            SystemStateManager.getInstance().recordStateChange("OFFER_CREATED",
+                recruiterName + " created offer: " + trimmedPosition, true);
+            
+            // RECORD SESSION ACTIVITY
+            SessionManager.getInstance().recordActivity(recruiterName, "Recruiter",
+                "OFFER_CREATED", "Created job offer for position: " + trimmedPosition);
+            
+            view.displayMessage("✓ Offer created successfully for position: " + trimmedPosition);
+        } catch (Exception e) {
+            logError("RecruiterController", "Failed to create offer by " + recruiterName, e);
+            
+            // RECORD FAILURE
+            SystemStateManager.getInstance().recordStateChange("OFFER_CREATE_FAILED",
+                recruiterName + " failed to create offer: " + e.getMessage(), false);
+            
+            view.displayError("Error creating offer: " + e.getMessage());
+        }
+    }
+
+    /**
+     * View all available meeting requests for this recruiter.
+     */
+    public void viewAvailableRequests() {
+        if (!validateLoggedIn(currentRecruiter, "Recruiter", "View available requests")) {
+            view.displayError("Error: No recruiter logged in. Please log in to view requests.");
+            return;
+        }
+        
+        String recruiterName = getUserName(currentRecruiter);
+        
+        try {
+            List<MeetingSession> sessions = currentRecruiter.getMeetingHistory();
+            logOperation(LogLevel.INFO, "RecruiterController", "Viewing available requests for " + recruiterName + " (" + sessions.size() + " requests)");
+            
+            // RECORD SESSION ACTIVITY
+            SessionManager.getInstance().recordActivity(recruiterName, "Recruiter",
+                "REQUESTS_VIEWED", "Viewed available meeting requests (" + sessions.size() + " items)");
+            
+            view.displayMessage("✓ Showing " + sessions.size() + " available requests");
+            if (schedulePanel != null) {
+                schedulePanel.updateSchedule(sessions);
+            }
+        } catch (Exception e) {
+            logError("RecruiterController", "Failed to view available requests for " + recruiterName, e);
+            view.displayError("Error retrieving available requests: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Manage a meeting session (join/leave virtual room).
+     * @param roomId Virtual room identifier (cannot be empty)
+     * @param action Action to perform: "join" or "leave"
+     */
+    public void manageMeetingSession(String roomId, String action) {
+        if (!validateLoggedIn(currentRecruiter, "Recruiter", "Manage meeting session")) {
+            view.displayError("Error: No recruiter logged in. Please log in to manage sessions.");
+            return;
+        }
+        
+        String recruiterName = getUserName(currentRecruiter);
+        
+        String finalRoomId = safeTrim(roomId);
+        if (finalRoomId == null) {
+            logOperation(LogLevel.WARNING, "RecruiterController", "Manage session attempted with empty room ID by " + recruiterName);
+            view.displayError("Error: Meeting room ID is required.");
+            return;
+        }
+        
+        String finalAction = safeTrim(action);
+        if (finalAction == null || (!finalAction.equalsIgnoreCase("join") && !finalAction.equalsIgnoreCase("leave"))) {
+            logOperation(LogLevel.WARNING, "RecruiterController", "Manage session attempted with invalid action by " + recruiterName);
+            view.displayError("Error: Action must be 'join' or 'leave'.");
+            return;
+        }
+        
+        try {
+            logOperation(LogLevel.INFO, "RecruiterController", "Managing session by " + recruiterName + ": " + finalAction + " room " + finalRoomId);
+            
+            // RECORD OPERATION
+            SystemStateManager.getInstance().recordStateChange("SESSION_MANAGED",
+                recruiterName + " " + finalAction + "ed meeting room: " + finalRoomId, true);
+            
+            // RECORD SESSION ACTIVITY
+            SessionManager.getInstance().recordActivity(recruiterName, "Recruiter",
+                "SESSION_MANAGED", "Performed action '" + finalAction + "' on meeting room");
+            
+            view.displayMessage("✓ Successfully " + finalAction + "ed meeting session in room: " + finalRoomId);
+        } catch (Exception e) {
+            logError("RecruiterController", "Failed to manage meeting session by " + recruiterName, e);
+            view.displayError("Error managing meeting session: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Respond to a candidate meeting request.
+     * @param requestId Meeting request identifier (cannot be empty)
+     * @param response Response status (e.g., "APPROVED", "REJECTED", "PENDING")
+     */
+    public void respondToRequest(String requestId, String response) {
+        if (!validateLoggedIn(currentRecruiter, "Recruiter", "Respond to request")) {
+            view.displayError("Error: No recruiter logged in. Please log in to respond to requests.");
+            return;
+        }
+        
+        String recruiterName = getUserName(currentRecruiter);
+        
+        String finalRequestId = safeTrim(requestId);
+        if (finalRequestId == null) {
+            logOperation(LogLevel.WARNING, "RecruiterController", "Respond to request attempted with empty request ID by " + recruiterName);
+            view.displayError("Error: Request ID is required.");
+            return;
+        }
+        
+        String finalResponse = safeTrim(response);
+        if (finalResponse == null) {
+            logOperation(LogLevel.WARNING, "RecruiterController", "Respond to request attempted with empty response by " + recruiterName);
+            view.displayError("Error: Response status is required.");
+            return;
+        }
+        
+        try {
+            logOperation(LogLevel.INFO, "RecruiterController", "Request response by " + recruiterName + ": " + finalRequestId + " → " + finalResponse);
+            
+            // RECORD OPERATION
+            SystemStateManager.getInstance().recordStateChange("REQUEST_RESPONDED",
+                recruiterName + " responded to request: " + finalRequestId + " with status: " + finalResponse, true);
+            
+            // RECORD SESSION ACTIVITY
+            SessionManager.getInstance().recordActivity(recruiterName, "Recruiter",
+                "REQUEST_RESPONDED", "Responded to meeting request with status: " + finalResponse);
+            
+            view.displayMessage("✓ Request response recorded: " + finalResponse);
+        } catch (Exception e) {
+            logError("RecruiterController", "Failed to respond to request by " + recruiterName, e);
+            view.displayError("Error processing request response: " + e.getMessage());
+        }
     }
 }

@@ -16,6 +16,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * - Zero data loss guarantees
  */
 public class SystemStateManager {
+
     
     private static SystemStateManager instance;
     
@@ -245,6 +246,81 @@ public class SystemStateManager {
         }
     }
     
+    /**
+     * Get total number of operations recorded
+     */
+    public int getTotalOperations() {
+        return totalOperations;
+    }
+    
+    /**
+     * Get number of successful operations
+     */
+    public int getSuccessfulOperations() {
+        return successfulOperations;
+    }
+    
+    /**
+     * Get number of failed operations
+     */
+    public int getFailedOperations() {
+        return failedOperations;
+    }
+    
+    /**
+     * Get success rate as percentage (0-100)
+     */
+    public double getSuccessRate() {
+        if (totalOperations == 0) {
+            return 0.0;
+        }
+        return (double) successfulOperations / totalOperations * 100.0;
+    }
+    
+    /**
+     * Get system uptime in milliseconds
+     */
+    public long getUptime() {
+        return System.currentTimeMillis() - startTime;
+    }
+    
+    /**
+     * Get complete state history
+     */
+    public List<StateChange> getStateHistory() {
+        return new ArrayList<>(stateHistory);
+    }
+    
+    /**
+     * Get recent state changes (limited)
+     */
+    public List<StateChange> getRecentStateChanges(int limit) {
+        List<StateChange> recent = new ArrayList<>();
+        int start = Math.max(0, stateHistory.size() - limit);
+        
+        for (int i = start; i < stateHistory.size(); i++) {
+            recent.add(stateHistory.get(i));
+        }
+        
+        return recent;
+    }
+    
+    /**
+     * Reset all state tracking (for testing)
+     */
+    public void reset() {
+        synchronized (this) {
+            totalOperations = 0;
+            successfulOperations = 0;
+            failedOperations = 0;
+            startTime = System.currentTimeMillis();
+            stateHistory.clear();
+            systemState.clear();
+            operationMetrics.clear();
+            pendingOperations.clear();
+        }
+    }
+
     /**
      * Inner class: represents a queued operation
      */

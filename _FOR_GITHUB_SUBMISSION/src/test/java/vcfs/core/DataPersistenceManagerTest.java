@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Comprehensive test suite for DataPersistenceManager singleton.
  * Tests automatic data persistence, crash recovery, and background saving.
+
  * 
  * Uses ONLY PUBLIC API:
  * - getInstance()

@@ -23,7 +23,9 @@ public class CareerFairTest {
 
     @BeforeEach
     void setUp() {
-        careerFair = new CareerFair(VALID_FAIR_NAME, VALID_DESCRIPTION);
+        careerFair = new CareerFair();
+        careerFair.setName(VALID_FAIR_NAME);
+        careerFair.setDescription(VALID_DESCRIPTION);
     }
 
     // ========== CONSTRUCTOR & INITIALIZATION ==========
@@ -342,3 +344,4 @@ public class CareerFairTest {
         }
     }
 }
+

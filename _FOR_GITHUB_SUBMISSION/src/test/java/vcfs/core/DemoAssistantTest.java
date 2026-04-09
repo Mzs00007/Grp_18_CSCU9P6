@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Comprehensive test suite for DemoAssistant singleton.
+
  * Tests 20-minute presentation timing, step progression, and guidance delivery.
  * 
  * Uses ONLY PUBLIC API:

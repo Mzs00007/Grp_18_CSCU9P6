@@ -1,13 +1,5 @@
 package vcfs.models.booking;
 
-/**
- * Virtual Career Fair System (VCFS)
- * Group 9 - CSCU9P6
- * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
- * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
- */
-
-
 import java.util.*;
 import vcfs.core.LocalDateTime;
 import vcfs.core.Logger;
@@ -22,6 +14,7 @@ import vcfs.models.users.Candidate;
  * Per-reservation runtime session; uses Booth's VirtualRoom and owns lobby/attendance records.
  */
 public class MeetingSession {
+
 
 	private VirtualRoom room;
 	private Lobby lobby;

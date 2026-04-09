@@ -18,6 +18,8 @@ import vcfs.models.audit.*;
  * Tests interactions between multiple system components including:
  * - User management and sessions
  * - Bookings and reservations
+ *
+ * TODO: [VCFS-085] Test full VCFS system integration: verify component interactions, end-to-end workflows, observer pattern across system, and PropertyChangeListener propagation - tests must ensure full system works correctly
  * - Career fair events
  * - Audit trail tracking
  * 

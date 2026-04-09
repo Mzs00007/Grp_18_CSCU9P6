@@ -28,7 +28,6 @@ import vcfs.views.shared.SystemTimerScreen;
  * All UI screens are launched from here.
  */
 public class App {
-
     public static void main(String[] args) {
         System.out.println("\n╔════════════════════════════════════════════════════════════════════════════╗");
         System.out.println("║              Virtual Career Fair System (VCFS)                        ║");

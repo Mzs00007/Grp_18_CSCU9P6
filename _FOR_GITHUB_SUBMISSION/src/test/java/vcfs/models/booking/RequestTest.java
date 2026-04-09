@@ -166,3 +166,4 @@ public class RequestTest {
         assertEquals(tagsWithSpecial, request.getDesiredTags());
     }
 }
+

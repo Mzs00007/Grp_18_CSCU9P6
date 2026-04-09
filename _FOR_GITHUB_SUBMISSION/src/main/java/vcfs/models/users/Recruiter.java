@@ -1,13 +1,5 @@
 package vcfs.models.users;
 
-/**
- * Virtual Career Fair System (VCFS)
- * Group 9 - CSCU9P6
- * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
- * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
- */
-
-
 import java.util.*;
 import vcfs.models.booking.Offer;
 import vcfs.models.structure.Booth;
@@ -18,6 +10,7 @@ import vcfs.core.LogLevel;
  * Recruiter assigned to a Booth; publishes Offers and hosts sessions.
  */
 public class Recruiter extends User {
+
 
 	private Collection<Offer> offers;
 	private Booth booth;
@@ -32,6 +25,17 @@ public class Recruiter extends User {
 		super(id, displayName, email);
 		this.offers = new ArrayList<>();
 		this.booth = null;
+	}
+
+	/**
+	 * Constructor with auto-generated ID.
+	 * Generates an ID based on displayName and email.
+	 * 
+	 * @param displayName Recruiter's display name
+	 * @param email Recruiter's email address
+	 */
+	public Recruiter(String displayName, String email) {
+		this("rec_" + System.nanoTime(), displayName, email);
 	}
 
 	/**

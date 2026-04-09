@@ -26,7 +26,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * - Thread-safe operations
  */
 public class DataPersistenceManager {
-    
     private static DataPersistenceManager instance;
     private static final String DATA_DIR = "vcfs_data";
     private static final String ORGANIZATIONS_FILE = "organizations.dat";

@@ -160,7 +160,7 @@ public class SessionManagerTest {
         @DisplayName("Get candidate session when active")
         void testGetCandidateSessionWhenActive() {
             SessionManager.setCurrentCandidate(candidate);
-            Candidate retrieved = SessionManager.getCurrentCandidate();
+            Candidate retrieved = (Candidate) SessionManager.getCurrentCandidate();
             assertNotNull(retrieved);
             assertEquals(candidate.getId(), retrieved.getId());
         }
@@ -175,7 +175,7 @@ public class SessionManagerTest {
         @DisplayName("Get recruiter session when active")
         void testGetRecruiterSessionWhenActive() {
             SessionManager.setCurrentRecruiter(recruiter);
-            Recruiter retrieved = SessionManager.getCurrentRecruiter();
+            Recruiter retrieved = (Recruiter) SessionManager.getCurrentRecruiter();
             assertNotNull(retrieved);
             assertEquals(recruiter.getId(), retrieved.getId());
         }
@@ -338,7 +338,7 @@ public class SessionManagerTest {
             assertEquals(candidate, SessionManager.getCurrentCandidate());
             
             // Candidate performs actions
-            Candidate retrieved = SessionManager.getCurrentCandidate();
+            Candidate retrieved = (Candidate) SessionManager.getCurrentCandidate();
             assertNotNull(retrieved);
             
             // Candidate logs out
@@ -358,7 +358,7 @@ public class SessionManagerTest {
             assertEquals(recruiter, SessionManager.getCurrentRecruiter());
             
             // Recruiter performs actions
-            Recruiter retrieved = SessionManager.getCurrentRecruiter();
+            Recruiter retrieved = (Recruiter) SessionManager.getCurrentRecruiter();
             assertNotNull(retrieved);
             
             // Recruiter logs out
@@ -422,3 +422,4 @@ public class SessionManagerTest {
         }
     }
 }
+

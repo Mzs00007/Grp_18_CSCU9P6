@@ -22,6 +22,7 @@ import vcfs.views.candidate.CandidateScreen;
  */
 public class CandidateLoginFrame extends JFrame {
 
+
     public CandidateLoginFrame() {
         setTitle("VCFS - Candidate Login");
         setSize(600, 850);  // INCREASED HEIGHT FOR DEMO CREDENTIALS DISPLAY

@@ -1,12 +1,5 @@
 package vcfs.models.booking;
 
-/**
- * Virtual Career Fair System (VCFS)
- * Group 9 - CSCU9P6
- * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
- * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
- */
-
 
 import vcfs.core.LocalDateTime;
 import vcfs.core.Logger;
@@ -25,6 +18,7 @@ public class Reservation {
 	private ReservationState state;
 	private LocalDateTime scheduledStart;
 	private LocalDateTime scheduledEnd;
+	private String status;
 
 	/**
 	 * Create an empty Reservation.
@@ -36,6 +30,7 @@ public class Reservation {
 		this.state = ReservationState.CONFIRMED;  // Initialize with valid state instead of null (THREAD-SAFE)
 		this.scheduledStart = null;
 		this.scheduledEnd = null;
+		this.status = "PENDING";
 	}
 
 	/**
@@ -115,6 +110,14 @@ public class Reservation {
 				", scheduledStart=" + scheduledStart +
 				", scheduledEnd=" + scheduledEnd +
 				'}';
+	}
+
+public String getStatus() {
+		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

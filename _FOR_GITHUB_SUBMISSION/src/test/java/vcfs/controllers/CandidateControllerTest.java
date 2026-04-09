@@ -4,14 +4,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import vcfs.models.booking.Lobby;
+import vcfs.models.booking.MeetingSession;
 import vcfs.models.booking.Request;
 import vcfs.models.users.Candidate;
 import vcfs.views.candidate.CandidateView;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 /**
  * Comprehensive test suite for CandidateController.
+
  * Tests meeting request submission, profile management, and view interactions.
  */
 @DisplayName("CandidateController Test Suite")
@@ -49,6 +55,24 @@ public class CandidateControllerTest {
         @Override
         public void displaySessions(java.util.List sessions) {
             // Mock implementation
+        }
+
+        @Override
+        public void displayLobbyDetails(Lobby lobby) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'displayLobbyDetails'");
+        }
+
+        @Override
+        public void displaySchedule(List<MeetingSession> schedule) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'displaySchedule'");
+        }
+
+        @Override
+        public void displayRequestHistory(List<Request> requests) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'displayRequestHistory'");
         }
     }
 

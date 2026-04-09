@@ -9,8 +9,6 @@ package vcfs.controllers;
 
 
 import vcfs.core.*;
-import vcfs.core.SystemStateManager;
-import vcfs.core.SessionManager;
 import vcfs.models.users.Recruiter;
 import vcfs.models.structure.Organization;
 import vcfs.models.structure.Booth;
@@ -26,7 +24,6 @@ import vcfs.models.structure.Booth;
  * - Comprehensive logging at WARNING/ERROR levels
  */
 public class AdminScreenController {
-
     /**
      * Create a new organization and add it to the system.
      * @param name Organization name (cannot be empty)
@@ -240,6 +237,82 @@ public class AdminScreenController {
             // RECORD FAILURE
             SystemStateManager.getInstance().recordStateChange("FAIR_RESET_FAILED",
                 "Fair reset failed: " + e.getMessage(), false);
+                
+            throw e;
+        }
+    }
+
+    /**
+     * Alternative method to set fair times (delegates to setTimeline).
+     * @param open Bookings open time
+     * @param close Bookings close time
+     * @param start Fair start time
+     * @param end Fair end time
+     */
+    public void setFairTimes(LocalDateTime open, LocalDateTime close, LocalDateTime start, LocalDateTime end) {
+        if (open == null || close == null || start == null || end == null) {
+            Logger.log(LogLevel.WARNING, "[AdminScreenController] Set fair times attempted with null values");
+            throw new IllegalArgumentException("All time parameters are required");
+        }
+        
+        try {
+            // Get the system and set times
+            CareerFairSystem system = CareerFairSystem.getInstance();
+            
+            // Convert LocalDateTime to String format for setFairTimes
+            String openStr = open.toString();
+            String closeStr = close.toString();
+            String startStr = start.toString();
+            String endStr = end.toString();
+            
+            system.setFairTimes(openStr, closeStr, startStr, endStr);
+            
+            Logger.log(LogLevel.INFO, "[AdminScreenController] Fair times configured: open=" + openStr 
+                + ", close=" + closeStr + ", start=" + startStr + ", end=" + endStr);
+            
+            // RECORD OPERATION
+            SystemStateManager.getInstance().recordStateChange("FAIR_TIMES_SET",
+                "Fair times configured via setFairTimes", true);
+            
+            // RECORD SESSION ACTIVITY
+            SessionManager.getInstance().recordActivity("Admin", "Administrator",
+                "FAIR_TIMES_SET", "Configured fair times");
+                
+        } catch (Exception e) {
+            Logger.log(LogLevel.ERROR, "[AdminScreenController] Failed to set fair times", e);
+            
+            // RECORD FAILURE
+            SystemStateManager.getInstance().recordStateChange("FAIR_TIMES_SET_FAILED",
+                "Fair times configuration failed: " + e.getMessage(), false);
+                
+            throw e;
+        }
+    }
+
+    /**
+     * Alternative method to reset fair data (delegates to resetFair).
+     */
+    public void resetFairData() {
+        try {
+            CareerFairSystem system = CareerFairSystem.getInstance();
+            system.resetFairData();
+            
+            Logger.log(LogLevel.INFO, "[AdminScreenController] Fair data reset successfully");
+            
+            // RECORD OPERATION
+            SystemStateManager.getInstance().recordStateChange("FAIR_DATA_RESET",
+                "Fair data reset via resetFairData", true);
+            
+            // RECORD SESSION ACTIVITY
+            SessionManager.getInstance().recordActivity("Admin", "Administrator",
+                "FAIR_DATA_RESET", "Reset fair data");
+                
+        } catch (Exception e) {
+            Logger.log(LogLevel.ERROR, "[AdminScreenController] Failed to reset fair data", e);
+            
+            // RECORD FAILURE
+            SystemStateManager.getInstance().recordStateChange("FAIR_DATA_RESET_FAILED",
+                "Fair data reset failed: " + e.getMessage(), false);
                 
             throw e;
         }

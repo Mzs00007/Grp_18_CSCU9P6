@@ -30,7 +30,6 @@ import java.util.*;
  * Implemented by: Zaid — VCFS-002
  */
 public class CareerFair {
-
     // =========================================================
     // FIELDS (preserving the original skeleton's declarations)
     // =========================================================
@@ -46,12 +45,87 @@ public class CareerFair {
 
     /** Display name of this fair instance */
     public String name;
+    
+    /** Description of this fair instance */
+    private String description;
 
     /**
      * Current operational phase.
      * Starts DORMANT — transitions only after Admin calls setTimes().
      */
     FairPhase currentPhase = FairPhase.DORMANT;
+
+    // =========================================================
+    // CONSTRUCTORS
+    // =========================================================
+
+    /**
+     * Default constructor - empty fair
+     */
+    public CareerFair() {
+        this.name = "Career Fair";
+        this.description = "";
+    }
+
+    /**
+     * Constructor with name and description
+     */
+    public CareerFair(String name, String description) {
+        this.name = name != null ? name : "Career Fair";
+        this.description = description != null ? description : "";
+    }
+
+    // =========================================================
+    // GETTERS AND SETTERS
+    // =========================================================
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name != null ? name : "Career Fair";
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description != null ? description : "";
+    }
+
+    public LocalDateTime getBookingsOpenTime() {
+        return this.bookingsOpenTime;
+    }
+
+    public void setBookingsOpenTime(LocalDateTime time) {
+        this.bookingsOpenTime = time;
+    }
+
+    public LocalDateTime getBookingsCloseTime() {
+        return this.bookingsCloseTime;
+    }
+
+    public void setBookingsCloseTime(LocalDateTime time) {
+        this.bookingsCloseTime = time;
+    }
+
+    public LocalDateTime getStartTime() {
+        return this.startTime;
+    }
+
+    public void setStartTime(LocalDateTime time) {
+        this.startTime = time;
+    }
+
+    public LocalDateTime getEndTime() {
+        return this.endTime;
+    }
+
+    public void setEndTime(LocalDateTime time) {
+        this.endTime = time;
+    }
 
     // =========================================================
     // THE 4 TIME BOUNDARY PILLARS
@@ -273,6 +347,10 @@ public class CareerFair {
      */
     public Collection<Organization> getOrganizations() {
         return organizations;
+    }
+
+    public Object getOpenTime() {
+        return this.bookingsOpenTime;
     }
 }
 

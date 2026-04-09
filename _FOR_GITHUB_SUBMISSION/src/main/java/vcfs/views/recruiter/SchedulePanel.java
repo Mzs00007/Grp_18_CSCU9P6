@@ -49,6 +49,7 @@ import java.util.List;
  */
 public class SchedulePanel extends JPanel {
 
+
     private RecruiterController controller;
     private DefaultListModel<String> listModel;
     private JList<String> scheduleList;

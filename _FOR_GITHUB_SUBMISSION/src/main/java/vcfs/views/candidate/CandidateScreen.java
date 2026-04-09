@@ -29,6 +29,7 @@ import vcfs.models.users.Candidate;
 
 public class CandidateScreen extends JFrame implements CandidateView, PropertyChangeListener {
 
+
     private CandidateController controller;
     private DefaultTableModel scheduleTableModel;
     private DefaultTableModel availableOffersTableModel;  // For refreshing from PropertyChangeListener
@@ -138,7 +139,62 @@ public class CandidateScreen extends JFrame implements CandidateView, PropertyCh
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        add(scrollPane, BorderLayout.CENTER);
+        
+        // ===== ADD CENTER CONTENT WITH COLLAPSIBLE DEMO NOTES =====
+        JPanel centerPanel = new JPanel(new BorderLayout());
+        centerPanel.add(scrollPane, BorderLayout.CENTER);
+        
+        // ===== ADD COLLAPSIBLE DEMO NOTES (BOTTOM) =====
+        String[] candidateNotesTitles = {
+            "STEP 1: BROWSE JOB OFFERS",
+            "STEP 2: REQUEST INTERVIEW",
+            "STEP 3: VIEW SLOT AVAILABILITY",
+            "STEP 4: AUTO-BOOKING",
+            "DEMO WORKFLOW"
+        };
+        
+        String[] candidateNotesContent = {
+            "• Click 'Browse Offers' tab\n" +
+            "• See all live job offers from recruiters\n" +
+            "• Each offer shows: Company, Job title, Requirements\n" +
+            "• Filter by company/skills using search fields\n" +
+            "• Offers update in REAL-TIME as recruiters publish them",
+            
+            "• Click 'Request Interview' tab\n" +
+            "• Select a job offer from the list\n" +
+            "• Pick your preferred interview time slots\n" +
+            "• Submit request - notification goes to recruiter\n" +
+            "• Track request status: PENDING → CONFIRMED",
+            
+            "• Click 'My Schedule' tab\n" +
+            "• See all available interview slots\n" +
+            "• Shows recruiter's name, company, time windows\n" +
+            "• Green = available | Red = booked\n" +
+            "• Book directly if preferred slot is open",
+            
+            "• If recruiter set AUTO-BOOKING: Candidate auto-enrolled\n" +
+            "• System assigns best matching slot automatically\n" +
+            "• Confirmation email sent instantly\n" +
+            "• Meeting link and time appear in 'My Schedule'\n" +
+            "• Reduces manual back-and-forth",
+            
+            "□ Start from Admin: Setup organizations, recruiters, booths\n" +
+            "□ Switch to Recruiter: Publish 2-3 job offers\n" +
+            "□ Switch to Candidate: Refresh - see new offers appear\n" +
+            "□ Candidate: Browse offers, filter, view companies\n" +
+            "□ Candidate: Request interview for preferred slot\n" +
+            "□ Recruiter: Check port for incoming request\n" +
+            "□ Recruiter: Approve and schedule meeting\n" +
+            "□ Candidate: Confirm and see virtual room link\n" +
+            "□ Admin: Verify all activities in Audit Log"
+        };
+        
+        vcfs.views.shared.CollapsibleDemoNotesPanel candidateNotesPanel = new vcfs.views.shared.CollapsibleDemoNotesPanel(
+            "Candidate Portal", candidateNotesTitles, candidateNotesContent
+        );
+        centerPanel.add(candidateNotesPanel, BorderLayout.SOUTH);
+        
+        add(centerPanel, BorderLayout.CENTER);
         
         // ===== REGISTER AS OBSERVER =====
         // CandidateScreen receives property change events from CareerFairSystem
@@ -885,6 +941,43 @@ public class CandidateScreen extends JFrame implements CandidateView, PropertyCh
             Logger.log(LogLevel.INFO, "[CandidateScreen] Timeline updated - refreshing display");
             javax.swing.SwingUtilities.invokeLater(() -> refreshDisplay());
         }
+    }
+
+    @Override
+    public void displaySessions(List<MeetingSession> sessions) {
+        if (scheduleTableModel == null) {
+            Logger.log(LogLevel.WARNING, "[CandidateScreen] Schedule table model not initialized");
+            return;
+        }
+        
+        scheduleTableModel.setRowCount(0);
+        
+        if (sessions == null || sessions.isEmpty()) {
+            Logger.log(LogLevel.INFO, "[CandidateScreen] No sessions to display");
+            return;
+        }
+        
+        for (MeetingSession session : sessions) {
+            String title = (session != null) ? session.getTitle() : "Unknown Session";
+            String startTime = (session != null && session.getReservation() != null && session.getReservation().getScheduledStart() != null) 
+                                ? session.getReservation().getScheduledStart().toString() 
+                                : "TBD";
+            int duration = (session != null && session.getReservation() != null && session.getReservation().getOffer() != null)
+                            ? session.getReservation().getOffer().getDurationMins()
+                            : 0;
+            String status = (session != null && session.getReservation() != null) 
+                            ? session.getReservation().getStatus().toString() 
+                            : "PENDING";
+            
+            scheduleTableModel.addRow(new Object[]{
+                title,
+                startTime,
+                duration,
+                status
+            });
+        }
+        
+        Logger.log(LogLevel.INFO, "[CandidateScreen] Displayed " + sessions.size() + " sessions");
     }
 }
 

@@ -55,6 +55,7 @@ import java.awt.event.ActionEvent;
  */
 public class VirtualRoomPanel extends JPanel {
 
+
     private RecruiterController controller;
     private JPanel cards;
     private CardLayout cardLayout;

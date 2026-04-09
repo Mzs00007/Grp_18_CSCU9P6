@@ -1,4 +1,4 @@
-package vcfs.models.enums;
+package vcfs.core;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -265,3 +265,4 @@ public class LogLevelTest {
         }
     }
 }
+

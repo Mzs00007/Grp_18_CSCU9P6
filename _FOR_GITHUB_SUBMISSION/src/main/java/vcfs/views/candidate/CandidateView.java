@@ -14,12 +14,13 @@ import vcfs.models.booking.Request;
 import vcfs.models.booking.Lobby;
 
 public interface CandidateView {
-    void displayError(String message);
+    void displayError(String message);;
     void displayMessage(String message);
     void displayLobbies(List<Lobby> lobbies);
     void displayLobbyDetails(Lobby lobby);
     void displaySchedule(List<MeetingSession> schedule);
     void displayRequestHistory(List<Request> requests);
+    void displaySessions(List<MeetingSession> sessions);
 }
 
 

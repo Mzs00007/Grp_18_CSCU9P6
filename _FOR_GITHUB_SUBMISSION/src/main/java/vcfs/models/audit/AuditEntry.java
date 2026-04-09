@@ -1,13 +1,5 @@
 package vcfs.models.audit;
 
-/**
- * Virtual Career Fair System (VCFS)
- * Group 9 - CSCU9P6
- * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
- * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
- */
-
-
 import vcfs.core.CareerFair;
 import vcfs.core.LocalDateTime;
 
@@ -15,6 +7,7 @@ import vcfs.core.LocalDateTime;
  * Audit trail item recording significant events (phase changes, bookings, cancellations, outcomes).
  */
 public class AuditEntry {
+
 
 	private CareerFair fair;
 	private LocalDateTime timestamp;
@@ -27,9 +20,9 @@ public class AuditEntry {
 	 * @param eventType The type of event
 	 */
 	public AuditEntry(CareerFair fair, LocalDateTime timestamp, String eventType) {
-		setFair(fair);
-		setTimestamp(timestamp);
-		setEventType(eventType);
+		this.fair = fair;
+		this.timestamp = timestamp;
+		this.eventType = eventType;
 	}
 
 	/**

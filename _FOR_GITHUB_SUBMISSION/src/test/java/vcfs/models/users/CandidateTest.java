@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Candidate - Candidate User Model with Profile Management")
 public class CandidateTest {
 
+
     private Candidate candidate;
     private CandidateProfile profile;
     private static final String VALID_ID = "cand001";

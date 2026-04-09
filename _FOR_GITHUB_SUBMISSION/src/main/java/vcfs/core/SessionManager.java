@@ -3,6 +3,10 @@ package vcfs.core;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.BooleanSupplier;
+
+import vcfs.models.users.Candidate;
+import vcfs.models.users.Recruiter;
 
 /**
  * SESSION MANAGER - Tracks active user sessions and live portal synchronization
@@ -15,7 +19,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * - User action audit trail
  */
 public class SessionManager {
-    
+
     private static SessionManager instance;
     private final Map<String, UserSession> activeSessions = new ConcurrentHashMap<>();
     private final List<PortalActivity> activityLog = new CopyOnWriteArrayList<>();
@@ -197,5 +201,39 @@ public class SessionManager {
             this.actionType = actionType;
             this.details = details;
         }
+    }
+
+    private static Candidate currentCandidate;
+    private static Recruiter currentRecruiter;
+
+    public static void clear() {
+        currentCandidate = null;
+        currentRecruiter = null;
+        getInstance().activeSessions.clear();
+        getInstance().activityLog.clear();
+    }
+
+    public static void setCurrentCandidate(Candidate candidate) {
+        currentCandidate = candidate;
+    }
+
+    public static void setCurrentRecruiter(Recruiter recruiter) {
+        currentRecruiter = recruiter;
+    }
+
+    public static Object getCurrentRecruiter() {
+        return currentRecruiter;
+    }
+
+    public static Candidate getCurrentCandidate() {
+        return currentCandidate;
+    }
+
+    public static BooleanSupplier isRecruiterLoggedIn() {
+        return () -> currentRecruiter != null;
+    }
+
+    public static BooleanSupplier isCandidateLoggedIn() {
+        return () -> currentCandidate != null;
     }
 }

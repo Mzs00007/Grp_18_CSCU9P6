@@ -1,12 +1,5 @@
 package vcfs.core;
 
-/**
- * Virtual Career Fair System (VCFS)
- * Group 9 - CSCU9P6
- * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
- * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
- */
-
 
 import java.time.Duration;
 import java.time.format.DateTimeFormatter;
@@ -29,6 +22,7 @@ import java.time.format.DateTimeFormatter;
  * Implemented by: Zaid — VCFS-001
  */
 public class LocalDateTime {
+
 
     // Internal Java time object — private so nothing couples to java.time directly
     private final java.time.LocalDateTime inner;
@@ -110,6 +104,39 @@ public class LocalDateTime {
      */
     public LocalDateTime plusMinutes(long mins) {
         return new LocalDateTime(this.inner.plusMinutes(mins));
+    }
+
+    /**
+     * Return a NEW LocalDateTime advanced by the given number of hours.
+     * Does NOT modify this object (immutable).
+     *
+     * @param hours Hours to advance
+     * @return New LocalDateTime representing (this + hours)
+     */
+    public LocalDateTime addHours(long hours) {
+        return new LocalDateTime(this.inner.plusHours(hours));
+    }
+
+    /**
+     * Return a NEW LocalDateTime advanced by the given number of days.
+     * Does NOT modify this object (immutable).
+     *
+     * @param days Days to advance
+     * @return New LocalDateTime representing (this + days)
+     */
+    public LocalDateTime addDays(long days) {
+        return new LocalDateTime(this.inner.plusDays(days));
+    }
+
+    /**
+     * Return a NEW LocalDateTime advanced by the given number of minutes.
+     * Alias for plusMinutes for test compatibility.
+     *
+     * @param minutes Minutes to advance
+     * @return New LocalDateTime representing (this + minutes)
+     */
+    public LocalDateTime addMinutes(long minutes) {
+        return new LocalDateTime(this.inner.plusMinutes(minutes));
     }
 
     /**
@@ -226,6 +253,11 @@ public class LocalDateTime {
     @Override
     public int hashCode() {
         return this.inner.hashCode();
+    }
+
+    public static LocalDateTime of(int year, int month, int dayOfMonth, int hour, int minute, int second) {
+        java.time.LocalDateTime javaDateTime = java.time.LocalDateTime.of(year, month, dayOfMonth, hour, minute, second);
+        return new LocalDateTime(javaDateTime);
     }
 }
 

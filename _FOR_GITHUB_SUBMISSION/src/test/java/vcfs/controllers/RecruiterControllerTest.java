@@ -564,12 +564,14 @@ public class RecruiterControllerTest {
             controller.setCurrentRecruiter(recruiter);
 
             for (int i = 0; i < 5; i++) {
+                final int index = i;
                 assertDoesNotThrow(() -> {
-                    controller.createOffer("Position" + i, "9:00-10:00");
+                    controller.createOffer("Position" + index, "9:00-10:00");
                     controller.viewAvailableRequests();
-                    controller.manageMeetingSession("session" + i, "start");
+                    controller.manageMeetingSession("session" + index, "start");
                 }, "Should handle rapid operations");
             }
         }
     }
 }
+

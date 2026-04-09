@@ -12,6 +12,7 @@ import java.awt.*;
  */
 public class CredentialManagementPanel extends JPanel {
 
+
     private JTabbedPane tabbedPane;
     private DefaultTableModel recruiterTableModel;
     private DefaultTableModel candidateTableModel;

@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Comprehensive test suite for CareerFairSystem application facade.
  * Tests singleton pattern, observer pattern, and core system operations.
+ * TODO: [VCFS-062] Test CareerFairSystem public API contract: getInstance() returns single instance, addPropertyChangeListener/removePropertyChangeListener manage listeners correctly, propertyChange() handles all event types, phase transitions enforce correct state machine - critical for facade reliability
  * 
  * Uses ONLY PUBLIC API - Key Methods:
  * - getInstance() - singleton access

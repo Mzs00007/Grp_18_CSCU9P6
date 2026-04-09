@@ -1,16 +1,10 @@
 package vcfs.models.structure;
 
-/**
- * Virtual Career Fair System (VCFS)
- * Group 9 - CSCU9P6
- * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
- * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
- */
-
-
 import java.util.*;
 import vcfs.core.CareerFair;
 import vcfs.core.Logger;
+import vcfs.models.users.Recruiter;
+import vcfs.models.users.User;
 import vcfs.core.LogLevel;
 
 /**
@@ -18,9 +12,12 @@ import vcfs.core.LogLevel;
  */
 public class Organization {
 
+
 	private Collection<Booth> booths;
 	private CareerFair fair;
 	private String name;
+	private Recruiter recruiterHead;
+	private String description;
 
 	/**
 	 * Create an Organization with a name.
@@ -28,9 +25,22 @@ public class Organization {
 	 * @throws IllegalArgumentException if name is invalid
 	 */
 	public Organization(String name) {
-		setName(name);
+		if (name == null || name.trim().isEmpty()) {
+			throw new IllegalArgumentException("Organization name cannot be empty");
+		}
+		this.name = name;
 		this.booths = new ArrayList<>();
 		this.fair = null;
+	}
+
+	/**
+	 * Create an Organization with a name and description.
+	 * @param name The organization name (cannot be empty)
+	 * @param description The organization description (optional)
+	 * @throws IllegalArgumentException if name is invalid
+	 */
+	public Organization(String name, String description) {
+		this(name);
 	}
 
 	/**
@@ -106,6 +116,37 @@ public class Organization {
 				'}';
 	}
 
+	/**
+	 * Set the organization's recruiter head.
+	 * @param recruiter The head recruiter
+	 */
+	public void setRecruiter(Recruiter recruiter) {
+		this.recruiterHead = recruiter;
+	}
+
+	/**
+	 * Get the organization's recruiter head.
+	 * @return The head recruiter, or null if not set
+	 */
+	public Recruiter getRecruiter() {
+		return recruiterHead;
+	}
+
+	/**
+	 * Get the organization's description.
+	 * @return The description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * Set the organization's description.
+	 * @param desc The description to set
+	 */
+	public void setDescription(String desc) {
+		this.description = desc;
+	}
 }
 
 

@@ -1,13 +1,5 @@
 package vcfs.models.booking;
 
-/**
- * Virtual Career Fair System (VCFS)
- * Group 9 - CSCU9P6
- * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
- * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
- */
-
-
 import vcfs.core.LocalDateTime;
 import vcfs.core.Logger;
 import vcfs.core.LogLevel;
@@ -18,6 +10,7 @@ import java.util.*;
  * A bookable appointment offering published by a recruiter. Availability is intentionally not modelled here; groups design availability representation.
  */
 public class Offer {
+
 
 	private Recruiter publisher;
 	private Collection<Reservation> reservations;
@@ -50,11 +43,17 @@ public class Offer {
 	 * @throws IllegalArgumentException if any parameter is invalid
 	 */
 	public Offer(String title, int durationMins, String topicTags, int capacity, Recruiter publisher) {
-		setTitle(title);
-		setDurationMins(durationMins);
-		setTopicTags(topicTags);
-		setCapacity(capacity);
-		setPublisher(publisher);
+		if (durationMins <= 0) {
+			throw new IllegalArgumentException("Duration must be positive");
+		}
+		if (capacity <= 0) {
+			throw new IllegalArgumentException("Capacity must be positive");
+		}
+		this.title = title;
+		this.durationMins = durationMins;
+		this.topicTags = topicTags;
+		this.capacity = capacity;
+		this.publisher = publisher;
 		this.reservations = new ArrayList<>();
 	}
 

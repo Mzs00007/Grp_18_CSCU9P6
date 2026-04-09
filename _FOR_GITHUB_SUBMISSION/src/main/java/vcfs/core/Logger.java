@@ -78,6 +78,7 @@ public class Logger {
             case WARNING -> ANSI_YELLOW + "⚠ WARNING" + ANSI_RESET;
             case ERROR -> ANSI_RED + "✗ ERROR" + ANSI_RESET;
             case CRITICAL -> ANSI_BOLD_RED + "⛔ CRITICAL" + ANSI_RESET;
+            default -> throw new IllegalArgumentException("Unexpected value: " + level);
         };
         
         String consoleLogEntry = String.format("[%s] [%s] - %s",

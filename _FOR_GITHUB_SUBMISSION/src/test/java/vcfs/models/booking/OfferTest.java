@@ -11,6 +11,7 @@ import java.util.Collection;
 @DisplayName("Offer - Booking Offer Model (VCFS-003 Output)")
 public class OfferTest {
 
+
     private Offer offer;
     private Recruiter recruiter;
     private LocalDateTime startTime;

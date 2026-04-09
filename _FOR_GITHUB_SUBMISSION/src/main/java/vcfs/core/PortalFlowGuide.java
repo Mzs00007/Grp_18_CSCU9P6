@@ -10,6 +10,7 @@ import java.util.*;
  * No confusion about how portals work.
  */
 public class PortalFlowGuide {
+
     
     public static final class CandidateFlow {
         public static String getFlowDescription() {

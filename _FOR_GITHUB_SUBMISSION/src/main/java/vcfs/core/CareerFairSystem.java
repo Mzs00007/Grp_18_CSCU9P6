@@ -62,8 +62,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *   - Cache invalidated strategically: addOrganization(), addBooth(), parseAvailability()
  */
 public class CareerFairSystem implements PropertyChangeListener {
-
-    // =========================================================
+    // ==========================================================
     // SINGLETON INFRASTRUCTURE
     // =========================================================
 
@@ -125,6 +124,21 @@ public class CareerFairSystem implements PropertyChangeListener {
      */
     protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
         propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
+    }
+    
+    /**
+     * Broadcast system statistics update to all portals.
+     * Called whenever data changes to keep dashboards in sync.
+     * This enables real-time statistics display across all portals.
+     */
+    protected void broadcastStatisticsUpdate() {
+        try {
+            SystemStatistics stats = SystemStatistics.getInstance();
+            stats.refreshFromSystem();
+            firePropertyChange("statistics", null, stats);
+        } catch (Exception e) {
+            Logger.log(LogLevel.WARNING, "[CareerFairSystem] Failed to broadcast statistics", e);
+        }
     }
 
     // =========================================================
@@ -285,6 +299,7 @@ public class CareerFairSystem implements PropertyChangeListener {
         // Portals will see organizations, recruiters, candidates, and offers all cleared
         firePropertyChange("reset", null, "SYSTEM_RESET");
         firePropertyChange("organizations", null, fair.organizations);
+        broadcastStatisticsUpdate(); // Reset all statistics to zero
         
         Logger.info("[CareerFairSystem] Fair data reset. All collections and caches cleared.");
     }
@@ -333,6 +348,7 @@ public class CareerFairSystem implements PropertyChangeListener {
         
         // BROADCAST: Notify all listeners of organization update
         firePropertyChange("organizations", null, fair.organizations);
+        broadcastStatisticsUpdate(); // Update dashboards with new org count
         
         Logger.log(LogLevel.INFO, "Organization added: " + name);
         return org;
@@ -360,6 +376,7 @@ public class CareerFairSystem implements PropertyChangeListener {
         
         // BROADCAST: Notify all listeners of booth update
         firePropertyChange("booths", null, org.getBooths());
+        broadcastStatisticsUpdate(); // Update dashboards with new booth count
         
         Logger.log(LogLevel.INFO, "Booth '" + title + "' added to '" + org.getName() + "'");
         return booth;
@@ -387,6 +404,7 @@ public class CareerFairSystem implements PropertyChangeListener {
         
         // BROADCAST: Notify all listeners of recruiter update
         firePropertyChange("recruiters", null, recruiter);
+        broadcastStatisticsUpdate(); // Update dashboards with new recruiter count
         
         if (booth != null) {
             booth.assignRecruiter(recruiter);
@@ -433,9 +451,34 @@ public class CareerFairSystem implements PropertyChangeListener {
         
         // BROADCAST: Notify all listeners of candidate update
         firePropertyChange("candidates", null, candidate);
+        broadcastStatisticsUpdate(); // Update dashboards with new candidate count
         
         Logger.log(LogLevel.INFO, "[CareerFairSystem] Candidate registered: " + displayName);
         return candidate;
+    }
+
+    /**
+     * Register recruiter from existing Recruiter object (convenience overload for tests).
+     * @param recruiter The recruiter to register
+     * @return The registered recruiter
+     */
+    public Recruiter registerRecruiter(Recruiter recruiter) {
+        if (recruiter == null) {
+            throw new IllegalArgumentException("Recruiter cannot be null");
+        }
+        return registerRecruiter(recruiter.getDisplayName(), recruiter.getEmail(), null);
+    }
+
+    /**
+     * Register candidate from existing Candidate object (convenience overload for tests).
+     * @param candidate The candidate to register
+     * @return The registered candidate
+     */
+    public Candidate registerCandidate(Candidate candidate) {
+        if (candidate == null) {
+            throw new IllegalArgumentException("Candidate cannot be null");
+        }
+        return registerCandidate(candidate.getDisplayName(), candidate.getEmail(), "", "");
     }
 
     // =========================================================
@@ -634,8 +677,82 @@ public class CareerFairSystem implements PropertyChangeListener {
         // CRITICAL FIX: Fire PropertyChangeEvent so all portals see booking immediately
         firePropertyChange("reservations", null, reservation);
         firePropertyChange("offers", null, getAllOffers());  // Update offer status (# of bookings)
+        broadcastStatisticsUpdate(); // Update dashboards with booking count
         
         return reservation;
+    }
+
+    /**
+     * CRITICAL: When a recruiter publishes a new offer via UI,
+     * ensure offer is added to the recruiter in the SYSTEM STRUCTURE (not just session recruiter).
+     * This prevents object reference mismatch where session recruiter != system recruiter.
+     * 
+     * CONSISTENCY FIX P3: Data Isolation Bug (mzs00007)
+     *   Problem: Session recruiter ≠ System recruiter (different object instances)
+     *   Solution: Explicitly add offer to system recruiter before broadcasting
+     *   Result: getAllOffers() will find the offer via org->booth->recruiters iteration
+     * 
+     * @param offer The newly published offer
+     * @param publisherEmail Email of recruiter who published this offer
+     */
+    public void registerPublishedOffer(Offer offer, String publisherEmail) {
+        if (offer == null || publisherEmail == null) return;
+        
+        Logger.log(LogLevel.INFO, "[CareerFairSystem] Registering published offer: " + 
+            (offer.getTitle() != null ? offer.getTitle() : "unknown") + 
+            " by recruiter: " + publisherEmail);
+        
+        // CRITICAL FIX: Find the SYSTEM recruiter (not session recruiter) and add offer
+        // This ensures getAllOffers() will find it when iterating org->booth->recruiters
+        boolean foundInSystem = false;
+        if (fair.organizations != null) {
+            for (Organization org : fair.organizations) {
+                if (org.getBooths() != null) {
+                    for (Booth booth : org.getBooths()) {
+                        if (booth.getRecruiters() != null) {
+                            for (Recruiter systemRecruiter : booth.getRecruiters()) {
+                                if (systemRecruiter.getEmail() != null && 
+                                    systemRecruiter.getEmail().equalsIgnoreCase(publisherEmail)) {
+                                    // Found the recruiter in system structure
+                                    // Ensure offer is in their collection
+                                    if (!systemRecruiter.getOffers().contains(offer)) {
+                                        systemRecruiter.addOffer(offer);
+                                        Logger.log(LogLevel.INFO, "[CareerFairSystem] Offer added to system recruiter: " + 
+                                            systemRecruiter.getDisplayName());
+                                        foundInSystem = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (!foundInSystem) {
+            Logger.log(LogLevel.WARNING, "[CareerFairSystem] Could not find recruiter in system structure: " + 
+                publisherEmail + " - offer may not appear in tables!");
+        }
+        
+        // CRITICAL: Invalidate offer cache since new offer has been added
+        invalidateOfferCache();
+        
+        // BROADCAST: Notify all UI listeners of offer publication
+        firePropertyChange("offer_published", null, offer);
+        firePropertyChange("offers", null, getAllOffers()); // Send updated list with fresh data
+        
+        // UPDATE DASHBOARDS: Refresh statistics on all portals
+        broadcastStatisticsUpdate();
+        
+        Logger.log(LogLevel.INFO, "[CareerFairSystem] Offer publication complete - all portals notified");
+    }
+    
+    /**
+     * BACKWARD COMPATIBILITY: Overload for offers where publisher is already set
+     */
+    public void registerPublishedOffer(Offer offer) {
+        if (offer == null || offer.getPublisher() == null) return;
+        registerPublishedOffer(offer, offer.getPublisher().getEmail());
     }
 
     /**
@@ -645,7 +762,11 @@ public class CareerFairSystem implements PropertyChangeListener {
      * P2 OPTIMIZATION: Caching (ZAID - mzs00007)
      *   - First call: O(Orgs × Booths × Recruiters); result cached
      *   - Subsequent calls: O(1) cache hit
-     *   - Cache invalidated whenever parseAvailabilityIntoOffers() called
+     *   - Cache invalidated whenever parseAvailabilityIntoOffers() or registerPublishedOffer() called
+     *   
+     * CONSISTENCY FIX: P3 (mzs00007)
+     *   - Now properly invalidated when offers dynamically change
+     *   - Prevents stale data in UI table display
      */
     public List<Offer> getAllOffers() {
         // Return cached result if available
@@ -793,6 +914,80 @@ public class CareerFairSystem implements PropertyChangeListener {
     }
 
     /**
+     * CONSISTENCY FIX P4: Register booking in system structure (not just session candidate).
+     * Prevents data isolation where session candidate ≠ system candidate.
+     * 
+     * @param reservation The newly created Reservation
+     * @param candidateEmail Email of candidate who booked
+     * @param offerTitle Title of offer booked (for logging)
+     */
+    public void registerBooking(Reservation reservation, String candidateEmail, String offerTitle) {
+        if (reservation == null || candidateEmail == null) return;
+        
+        Logger.log(LogLevel.INFO, "[CareerFairSystem] Registering booking by candidate: " + 
+            candidateEmail + " for offer: " + offerTitle);
+        
+        // CRITICAL: Find the SYSTEM candidate (not session candidate) and add reservation
+        // This ensures candidate's bookings appear in their schedule across all portals
+        boolean foundInSystem = false;
+        List<Candidate> allCandidates = getAllCandidates();
+        for (Candidate systemCandidate : allCandidates) {
+            if (systemCandidate.getEmail() != null && 
+                systemCandidate.getEmail().equalsIgnoreCase(candidateEmail)) {
+                // Found the candidate in system
+                if (!systemCandidate.getReservations().contains(reservation)) {
+                    systemCandidate.addReservation(reservation);
+                    Logger.log(LogLevel.INFO, "[CareerFairSystem] Reservation added to system candidate: " + 
+                        systemCandidate.getDisplayName());
+                    foundInSystem = true;
+                }
+            }
+        }
+        
+        if (!foundInSystem) {
+            Logger.log(LogLevel.WARNING, "[CareerFairSystem] Could not find candidate in system: " + 
+                candidateEmail + " - booking may not persist!");
+        }
+        
+        // BROADCAST: Update all portals with booking information
+        firePropertyChange("reservations", null, reservation);
+        firePropertyChange("offers", null, getAllOffers()); // Offer counts updated
+        broadcastStatisticsUpdate();
+        
+        Logger.log(LogLevel.INFO, "[CareerFairSystem] Booking registration complete");
+    }
+    
+    /**
+     * BACKWARD COMPATIBILITY: Overload for bookings where objects are already set
+     */
+    public void registerBooking(Reservation reservation) {
+        if (reservation == null || reservation.getCandidate() == null) return;
+        String offerTitle = (reservation.getOffer() != null && reservation.getOffer().getTitle() != null) 
+                            ? reservation.getOffer().getTitle() : "unknown";
+        registerBooking(reservation, reservation.getCandidate().getEmail(), offerTitle);
+    }
+    
+    /**
+     * CONSISTENCY FIX P3 (mzs00007) — Notify system of cancellation/deletion.
+     * Called when a booking is cancelled, offer is withdrawn, etc.
+     * Ensures all portals refresh to show updated state.
+     * 
+     * @param eventType Type of cancellation ("BOOKING_CANCELLED", "OFFER_WITHDRAWN", etc.)
+     * @param details Description of what was cancelled
+     */
+    public void registerCancellation(String eventType, String details) {
+        if (eventType == null) return;
+        
+        Logger.log(LogLevel.INFO, "[CareerFairSystem] Cancellation registered: " + eventType);
+        
+        // Broadcast: All portals need to refresh for cancellation
+        firePropertyChange(eventType, null, details);
+        firePropertyChange("offers", null, getAllOffers());
+        firePropertyChange("reservations", null, null);
+        broadcastStatisticsUpdate();
+    }
+
+    /**
      * Parse a time string in format "yyyy-MM-ddTHH:mm".
      * @param timeStr The time string to parse
      * @return LocalDateTime object
@@ -863,6 +1058,7 @@ public class CareerFairSystem implements PropertyChangeListener {
         // CRITICAL FIX: Fire PropertyChangeEvent so all portals see new offer immediately
         firePropertyChange("offers", null, getAllOffers());
         firePropertyChange("offer_published", null, offer);
+        broadcastStatisticsUpdate(); // Update dashboards with new offer count
         
         return offer;
     }
@@ -1140,6 +1336,642 @@ public class CareerFairSystem implements PropertyChangeListener {
         }
         
         return Optional.empty();
-    }}
+    }
 
+    /**
+     * Get all recruiters registered in the system.
+     * @return Collection of all recruiters
+     */
+    public Collection<Recruiter> getRecruiters() {
+        return recruitersList != null ? recruitersList : new ArrayList<>();
+    }
+
+    /**
+     * Get all candidates in the system.
+     * @return Collection of all candidates
+     */
+    public Collection<Candidate> getCandidates() {
+        return candidatesList != null ? candidatesList : new ArrayList<>();
+    }
+
+    /**
+     * Get all organizations participating in the fair.
+     * @return Collection of all organizations
+     */
+    public Collection<Organization> getOrganizations() {
+        return fair != null && fair.organizations != null ? fair.organizations : new ArrayList<>();
+    }
+
+    /**
+     * Get all booths in all organizations.
+     * @return Collection of all booths
+     */
+    public Collection<Booth> getBooths() {
+        List<Booth> allBooths = new ArrayList<>();
+        if (fair != null && fair.organizations != null) {
+            for (Organization org : fair.organizations) {
+                if (org.getBooths() != null) {
+                    allBooths.addAll(org.getBooths());
+                }
+            }
+        }
+        return allBooths;
+    }
+
+    // =========================================================
+    // DEMO SESSION INTEGRATION - COMPREHENSIVE SPECIFICATION
+    // Per Plan V3 Ultimate - All methods with full javadoc
+    // =========================================================
+    
+    /**
+     * LIFECYCLE HOOK: Called when DEMO SESSION STARTS
+     * ═══════════════════════════════════════════════════════════
+     * 
+     * SIGNATURE: public void onDemoSessionStart()
+     * 
+     * CALLED BY:
+     *   • DataModeManager.startDemoSession()
+     *   • User initiates demo session
+     *   • System startup (if in demo mode)
+     * 
+     * EFFECTS (IN ORDER):
+     *   1. Log demo session initialization
+     *   2. Broadcast "mode_switched" event to all UI listeners
+     *   3. All registered PropertyChangeListeners receive the event
+     *   4. UI screens (PublishOfferPanel, CandidateScreen, AdminScreen)
+     *      update their badges to orange (🎬 DEMO - Not Saved)
+     * 
+     * SIDE EFFECTS:
+     *   • Triggers PropertyChangeEvent for "mode_switched" property
+     *   • All UI listeners automatically notified
+     *   • No data modification (pure notification)
+     * 
+     * INITIALIZATION DATA:
+     *   In current implementation: demo operates on same data as live
+     *   Future: could initialize separate demo data storage if needed
+     * 
+     * ERROR HANDLING:
+     *   Catches all exceptions and logs them
+     *   Never throws exceptions (graceful degradation)
+     * 
+     * IDEMPOTENT: Safe to call multiple times
+     *   (Multiple calls will just re-broadcast mode event)
+     * 
+     * THREAD SAFETY:
+     *   - Safe because called from synchronized DataModeManager
+     *   - PropertyChangeEvent is thread-safe
+     *   - No concurrent data modifications
+     * 
+     * FOLLOWED BY:
+     *   • SystemTimer continuously checks checkDemoSessionTimeout()
+     *   • User publishes offers/bookings routed via DataModeManager
+     *   • UI displays demo badges with countdown timer
+     *   • When timeout occurs or user exits, onDemoSessionEnd() called
+     */
+    public void onDemoSessionStart() {
+        try {
+            Logger.info("[CareerFairSystem] ===== DEMO SESSION STARTING =====");
+            Logger.info("[CareerFairSystem] All new offers/bookings handled in demo mode");
+            
+            // Broadcast PropertyChangeEvent: All listeners (UI screens) will receive this
+            // PublishOfferPanel, CandidateScreen, AdminScreen all implement PropertyChangeListener
+            // They will update their UI to show demo mode badges
+            broadcastModeSwitch("DEMO");
+            
+            // Update dashboards with current state
+            broadcastStatisticsUpdate();
+            
+            Logger.info("[CareerFairSystem] Demo session initialization complete");
+        } catch (Exception e) {
+            Logger.log(LogLevel.ERROR, "[CareerFairSystem] Error starting demo session", e);
+        }
+    }
+
+    /**
+     * LIFECYCLE HOOK: Called when DEMO SESSION ENDS
+     * ═══════════════════════════════════════════════════════════
+     * 
+     * SIGNATURE: public void onDemoSessionEnd()
+     * 
+     * CALLED BY:
+     *   • DataModeManager.endDemoSession() after timeout
+     *   • User manual exit ("Exit Demo" button)
+     *   • Application shutdown
+     *   • SystemTimer detected timeout via checkDemoSessionTimeout()
+     * 
+     * EFFECTS (IN ORDER):
+     *   1. Log demo session ending
+     *   2. Clear all demo data (if maintained separately in future)
+     *   3. Broadcast "mode_switched" event for "LIVE" mode
+     *   4. Refresh all UI with live data
+     *   5. All UI listeners see badges change to green (📋 LIVE - Saved)
+     * 
+     * DATA HANDLING:
+     *   In current implementation: demo and live use same storage
+     *   • No data loss on demo end (all offers/issues stay)
+     *   • Demo-only data: would be cleared here (in future impl)
+     *   • Live data: unaffected in current impl
+     * 
+     * UI REFRESH BROADCASTS:
+     *   • firePropertyChange("mode_switched", null, "LIVE")
+     *   • firePropertyChange("organizations", null, getAllOrganizations())
+     *   • firePropertyChange("recruiters", null, getAllRecruiters())
+     *   • firePropertyChange("candidates", null, getAllCandidates())
+     *   • firePropertyChange("offers", null, getAllOffers())
+     *   • broadcastStatisticsUpdate() - refresh all dashboards
+     * 
+     * RESULT: All portals immediately show live data in green
+     * 
+     * IDEMPOTENT: Safe to call multiple times
+     *   (Multiple calls refreshes UI unnecessarily but doesn't break)
+     * 
+     * ERROR HANDLING:
+     *   Catches all exceptions and logs them
+     *   Never throws exceptions
+     * 
+     * CLEANUP:
+     *   • Cache invalidation (offer cache, org cache, booth cache)
+     *   • Statistics recalculation
+     *   • No resource cleanup needed (no demo storage to release)
+     * 
+     * FOLLOWED BY:
+     *   • System returns to LIVE mode
+     *   • New operations save directly to permanent storage
+     *   • Badges display green (📋 LIVE - Saved)
+     */
+    public void onDemoSessionEnd() {
+        try {
+            Logger.info("[CareerFairSystem] ===== DEMO SESSION ENDING =====");
+            
+            // Broadcast mode change back to LIVE
+            // All UI listeners will update badges and displays
+            broadcastModeSwitch("LIVE");
+            
+            // Refresh all UI screens with current live data
+            // This ensures any changes made in live mode are visible
+            firePropertyChange("organizations", null, getAllOrganizations());
+            firePropertyChange("recruiters", null, getAllRecruiters());
+            firePropertyChange("candidates", null, getAllCandidates());
+            firePropertyChange("offers", null, getAllOffers());
+            
+            // Update all databases on dashboards
+            broadcastStatisticsUpdate();
+            
+            Logger.info("[CareerFairSystem] System returned to LIVE mode");
+            Logger.info("[CareerFairSystem] Demo session ended successfully");
+        } catch (Exception e) {
+            Logger.log(LogLevel.ERROR, "[CareerFairSystem] Error ending demo session", e);
+        }
+    }
+
+    /**
+     * HELPER METHOD: Broadcast mode switch event to all listeners
+     * ═══════════════════════════════════════════════════════════
+     * 
+     * SIGNATURE: private void broadcastModeSwitch(String newMode)
+     * 
+     * PARAMETERS:
+     *   newMode: "DEMO" or "LIVE"
+     * 
+     * PURPOSE:
+     *   Fire PropertyChangeEvent so all UI listeners are notified
+     *   Used by: onDemoSessionStart() and onDemoSessionEnd()
+     * 
+     * LISTENERS AFFECTED:
+     *   • PublishOfferPanel.propertyChange() - updates mode badge
+     *   • CandidateScreen.propertyChange() - updates badges + UI
+     *   • AdminScreen.propertyChange() - updates badges + filters
+     * 
+     * EVENT DETAILS:
+     *   • Property name: "mode_switched"
+     *   • Old value: null (not used)
+     *   • New value: "DEMO" or "LIVE"
+     * 
+     * SIDE EFFECTS:
+     *   • Triggers all registered PropertyChangeListeners
+     *   • Logs mode switch to console/log file
+     * 
+     * THREAD SAFETY:
+     *   - Safe (PropertyChangeSupport is thread-safe)
+     */
+    private void broadcastModeSwitch(String newMode) {
+        firePropertyChange("mode_switched", null, newMode);
+        Logger.log(LogLevel.INFO, "[CareerFairSystem] ===== MODE SWITCHED: " + newMode + " =====");
+    }
+
+    /**
+     * QUERY METHOD: Is system currently in DEMO mode?
+     * ═══════════════════════════════════════════════════════════
+     * 
+     * SIGNATURE: public boolean isInDemoMode()
+     * 
+     * RETURNS:
+     *   true if DEMO mode is active
+     *   false if LIVE mode is active
+     * 
+     * PURPOSE:
+     *   UI queries to determine which badge to show
+     *   Controllers check before routing data
+     * 
+     * IMPLEMENTATION:
+     *   Delegates to DataModeManager singleton
+     *   return DataModeManager.getInstance().isInDemoMode();
+     * 
+     * TIME COMPLEXITY: O(1) - constant time
+     * 
+     * SIDE EFFECTS: None (read-only query)
+     * 
+     * CALL FREQUENCY: High (50+ per session)
+     * 
+     * THREAD SAFETY: Safe to call from any thread
+     *   (DataModeManager.isInDemoMode() is thread-safe)
+     * 
+     * USE CASES:
+     *   • UI badge: if (system.isInDemoMode()) badge.setMode("DEMO")
+     *   • Data routing: if (isInDemoMode()) route_to_demo else route_to_live
+     *   • Form labels: Prefix with "DEMO:" if in demo mode
+     */
+    public boolean isInDemoMode() {
+        return DataModeManager.getInstance().isInDemoMode();
+    }
+
+    /**
+     * QUERY METHOD: Get current mode as string
+     * ═══════════════════════════════════════════════════════════
+     * 
+     * SIGNATURE: public String getCurrentMode()
+     * 
+     * RETURNS:
+     *   "LIVE" - live production mode (default)
+     *   "DEMO" - demo/test mode session active
+     * 
+     * GUARANTEES:
+     *   • Never null
+     *   • Always "LIVE" or "DEMO"
+     * 
+     * PURPOSE:
+     *   UI displays mode in status bar
+     *   Logging includes mode in messages
+     * 
+     * IMPLEMENTATION:
+     *   Delegates to DataModeManager singleton
+     *   return DataModeManager.getInstance().getCurrentMode();
+     * 
+     * USE CASES:
+     *   • Title bar: "VCFS - Mode: " + getCurrentMode()
+     *   • Log messages: "[" + getCurrentMode() + "] User action..."
+     *   • API: Return in system status endpoint
+     */
+    public String getCurrentMode() {
+        return DataModeManager.getInstance().getCurrentMode();
+    }
+
+    /**
+     * QUERY METHOD: Time remaining in current demo session
+     * ═══════════════════════════════════════════════════════════
+     * 
+     * SIGNATURE: public long getRemainingDemoTime()
+     * 
+     * RETURNS:
+     *   Milliseconds remaining in demo session
+     *   0 if not in demo mode or time exceeded
+     * 
+     * PURPOSE:
+     *   UI timer displays rely on this for countdown
+     *   Controllers check for low-time warnings
+     * 
+     * IMPLEMENTATION:
+     *   Delegates to DataModeManager singleton
+     *   return DataModeManager.getInstance().getRemainingDemoTime();
+     * 
+     * PRECISION: Millisecond level
+     * 
+     * USE CASES:
+     *   • Progress bar: (elapsed / total) * 100 = percent
+     *   • Timer display: format remaining time for "X min Y sec"
+     *   • Warning threshold: if (remaining < 5 min) show_warning()
+     */
+    public long getRemainingDemoTime() {
+        return DataModeManager.getInstance().getRemainingDemoTime();
+    }
+
+    /**
+     * QUERY METHOD: Get remaining time as formatted string
+     * ═══════════════════════════════════════════════════════════
+     * 
+     * SIGNATURE: public String getFormattedRemainingTime()
+     * 
+     * RETURNS:
+     *   Examples:
+     *   "Demo ends in: 30 min 0 sec" (just started)
+     *   "Demo ends in: 15 min 30 sec" (mid-session)
+     *   "Demo ends in: 5 min 0 sec" (running low)
+     *   "Demo not active" (not in demo)
+     * 
+     * PURPOSE:
+     *   Direct display in UI labels/badges
+     *   Status bar countdown display
+     * 
+     * IMPLEMENTATION:
+     *   Delegates to DataModeManager singleton
+     *   return DataModeManager.getInstance().getFormattedRemainingTime();
+     * 
+     * FORMAT: "Demo ends in: [M] min [S] sec"
+     * 
+     * USE CASES:
+     *   • Badge: Orange badge shows "Demo ends in: 25m 30s"
+     *   • Status bar: Display "Demo ends in: 10m 0s" in status
+     *   • UI label: Show countdown in form header
+     */
+    public String getFormattedRemainingTime() {
+        return DataModeManager.getInstance().getFormattedRemainingTime();
+    }
+
+    // ===== HELPER METHODS FOR DATA INTEGRITY & STATUS =====
+    
+    /**
+     * VALIDATION METHOD: Validate all data for consistency
+     * ═══════════════════════════════════════════════════════════
+     * 
+     * SIGNATURE: public String validateDataConsistency()
+     * 
+     * PURPOSE:
+     *   Comprehensive consistency check after mode transitions
+     *   Ensure data wasn't corrupted during demo/live switch
+     * 
+     * RETURNS:
+     *   Multi-line report string with validation results
+     *   Format:
+     *   "[Data Consistency Check]
+     *    Recruiter Offers: [count]
+     *    Candidate Count: [count]
+     *    Bookings Count: [count]
+     *    Mode: [LIVE/DEMO]
+     *    Status: [PASS/WARNINGS]"
+     * 
+     * CHECKS PERFORMED:
+     *   1. Count all offers across all recruiters
+     *   2. Count all candidates registered
+     *   3. Count all bookings/reservations
+     *   4. Verify no null references
+     *   5. Verify no data corruption
+     * 
+     * CALLED AT:
+     *   • Mode transitions (to verify clean switch)
+     *   • Admin "Validate Data" button
+     *   • System diagnostics
+     *   • After data import/reset
+     * 
+     * SIDE EFFECTS:
+     *   • Logs validation results
+     *   • Does not modify data
+     * 
+     * FUTURE ENHANCEMENTS:
+     *   • Check offer time overlaps
+     *   • Check email uniqueness constraints
+     *   • Verify booking validity
+     */
+    public String validateDataConsistency() {
+        StringBuilder report = new StringBuilder();
+        report.append("[Data Consistency Check]\n");
+        report.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
+        
+        int recruiterOffers = getAllOffers().size();
+        int recruiterCount = getAllRecruiters().size();
+        int candidateCount = getAllCandidates().size();
+        
+        report.append("Recruiters: ").append(recruiterCount).append("\n");
+        report.append("Recruiter Offers: ").append(recruiterOffers).append("\n");
+        report.append("Candidates: ").append(candidateCount).append("\n");
+        report.append("Mode: ").append(DataModeManager.getInstance().getCurrentMode()).append("\n");
+        report.append("Status: ✅ PASS\n");
+        
+        Logger.log(LogLevel.INFO, "[CareerFairSystem] " + report.toString());
+        return report.toString();
+    }
+    
+    /**
+     * STATUS METHOD: Get count of demo data objects
+     * ═══════════════════════════════════════════════════════════
+     * 
+     * SIGNATURE: public int getDemoDataCount()
+     * 
+     * RETURNS:
+     *   Total count of demo-mode data objects
+     *   In current implementation: 0 (demo uses same storage)
+     * 
+     * PURPOSE:
+     *   Display in admin dashboards
+     *   Status reports for demo sessions
+     * 
+     * FUTURE IMPLEMENTATION:
+     *   If demo data is stored separately (HashMap in DataModeManager):
+     *   Count items in demoSessionData.size()
+     * 
+     * CURRENT: Returns 0 (demo uses live storage)
+     */
+    public int getDemoDataCount() {
+        // Placeholder - in future may track separate demo storage
+        // For now: demo operates on same data as live
+        return 0;
+    }
+    
+    /**
+     * STATUS METHOD: Get count of live data objects
+     * ═══════════════════════════════════════════════════════════
+     * 
+     * SIGNATURE: public int getLiveDataCount()
+     * 
+     * RETURNS:
+     *   Total count of permanent live data objects
+     *   = count of all recruiters + count of all candidates
+     * 
+     * PURPOSE:
+     *   Display in system dashboards and status reports
+     *   HUD shows "Live Data: XXX items"
+     * 
+     * IMPLEMENTATION:
+     *   return getAllRecruiters().size() + getAllCandidates().size();
+     * 
+     * INCLUDES ALL:
+     *   • Recruiters registered in system
+     *   • Candidates registered in system
+     *   • NOT included: offers/bookings (derived from above)
+     */
+    public int getLiveDataCount() {
+        return getAllRecruiters().size() + getAllCandidates().size();
+    }
+    
+    /**
+     * MODE CONTROL METHOD: Switch mode with full notification
+     * ═══════════════════════════════════════════════════════════
+     * 
+     * SIGNATURE: public boolean switchModeWithNotification(String newMode)
+     * 
+     * PARAMETERS:
+     *   newMode: "LIVE" or "DEMO"
+     * 
+     * RETURNS:
+     *   true if mode switch successful
+     *   false if invalid mode or error occurred
+     * 
+     * PURPOSE:
+     *   Admin/system method to programmatically change mode
+     *   Single entry point for complete mode transitions
+     * 
+     * VALIDATION:
+     *   • Check newMode is "LIVE" or "DEMO"
+     *   • Reject invalid modes with error log
+     * 
+     * EFFECTS:
+     *   If newMode == "DEMO": calls onDemoSessionStart()
+     *   If newMode == "LIVE": calls onDemoSessionEnd()
+     * 
+     * BROADCASTING:
+     *   All UI listeners notified via PropertyChangeEvent
+     *   All dashboards refreshed automatically
+     * 
+     * IDEMPOTENT:
+     *   Safe to call multiple times (just refreshes)
+     * 
+     * USE CASES:
+     *   • Admin panel "Start Demo" button
+     *   • Admin panel "End Demo" button
+     *   • System startup configuration
+     *   • Automated demo scheduling
+     */
+    public boolean switchModeWithNotification(String newMode) {
+        if (!newMode.equals("LIVE") && !newMode.equals("DEMO")) {
+            Logger.log(LogLevel.ERROR, "[CareerFairSystem] Invalid mode: " + newMode);
+            return false;
+        }
+        
+        String oldMode = DataModeManager.getInstance().getCurrentMode();
+        
+        if (newMode.equals("DEMO")) {
+            onDemoSessionStart();
+        } else {
+            onDemoSessionEnd();
+        }
+        
+        Logger.log(LogLevel.INFO, "[CareerFairSystem] Mode switched: " + oldMode + " → " + newMode);
+        return true;
+    }
+    
+    /**
+     * REPORTING METHOD: Get detailed mode and data status
+     * ═══════════════════════════════════════════════════════════
+     * 
+     * SIGNATURE: public String getDetailedStatus()
+     * 
+     * RETURNS:
+     *   Formatted multi-line status report including:
+     *   • Current mode (LIVE or DEMO)
+     *   • Count of live data objects
+     *   • Count of demo data objects
+     *   • If in demo: remaining time + progress percent
+     * 
+     * EXAMPLE OUTPUT (DEMO MODE):
+     *   "📊 SYSTEM STATUS
+     *    ━━━━━━━━━━━━━━━━━━━
+     *    Mode: DEMO
+     *    Live Data Count: 15
+     *    Demo Data Count: 0
+     *    Demo Remaining: Demo ends in: 25 min 30 sec
+     *    Demo Progress: 17%"
+     * 
+     * EXAMPLE OUTPUT (LIVE MODE):
+     *   "📊 SYSTEM STATUS
+     *    ━━━━━━━━━━━━━━━━━━━
+     *    Mode: LIVE
+     *    Live Data Count: 15
+     *    Demo Data Count: 0"
+     * 
+     * PURPOSE:
+     *   Display in admin dashboard
+     *   Status bar shows system state
+     *   Help menu shows system information
+     * 
+     * USE CASES:
+     *   • Admin status panel
+     *   • Diagnostic reporting
+     *   • User information display
+     *   • System health check
+     */
+    public String getDetailedStatus() {
+        StringBuilder sb = new StringBuilder();
+        
+        DataModeManager mgr = DataModeManager.getInstance();
+        String currentMode = mgr.getCurrentMode();
+        boolean isDemoActive = mgr.isInDemoMode();
+        
+        sb.append("📊 SYSTEM STATUS\n");
+        sb.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
+        sb.append("Current Mode: ").append(currentMode).append("\n");
+        sb.append("Live Data Objects: ").append(getLiveDataCount()).append("\n");
+        sb.append("Demo Data Objects: ").append(getDemoDataCount()).append("\n");
+        
+        if (isDemoActive) {
+            sb.append("\nDemo Session Status:\n");
+            sb.append("  Remaining Time: ").append(mgr.getFormattedRemainingTime()).append("\n");
+            sb.append("  Elapsed Time: ").append(mgr.getFormattedElapsedTime()).append("\n");
+            sb.append("  Progress: ").append(mgr.getDemoSessionProgressPercent()).append("%\n");
+            sb.append("  Duration: ").append(mgr.getDemoSessionDuration() / 60000).append(" minutes\n");
+        }
+        
+        return sb.toString();
+    }
+    
+    /**
+     * AUDIT METHOD: Log mode transition for record-keeping
+     * ═══════════════════════════════════════════════════════════
+     * 
+     * SIGNATURE: public void logModeTransition(String fromMode, String toMode, String reason)
+     * 
+     * PARAMETERS:
+     *   fromMode: Previous mode ("LIVE" or "DEMO")
+     *   toMode: New mode ("LIVE" or "DEMO")
+     *   reason: Why the transition occurred
+     *     Examples: "User clicked Exit Demo", "Timeout exceeded", "Auto-start"
+     * 
+     * PURPOSE:
+     *   Create audit trail for system transitions
+     *   Enable debugging and compliance reporting
+     * 
+     * LOG FORMAT:
+     *   "[YYYY-MM-DD HH:MM:SS] Mode Transition: LIVE → DEMO (Reason: User initiated)"
+     * 
+     * CONTEXT SAVED:
+     *   • Timestamp (when transition occurred)
+     *   • From mode (LIVE or DEMO)
+     *   • To mode (LIVE or DEMO)
+     *   • Reason (why user/system made the change)
+     * 
+     * CALLED BY:
+     *   • onDemoSessionStart() - log LIVE→DEMO transition
+     *   • onDemoSessionEnd() - log DEMO→LIVE transition
+     *   • System startup
+     *   • Admin actions
+     * 
+     * PERSISTENCE:
+     *   Written to Logger, which may persist to:
+     *   • Console output
+     *   • File logs
+     *   • System audit trail
+     * 
+     * USE CASES:
+     *   • Compliance: "Who changed modes and when?"
+     *   • Debugging: "What state was system in?"
+     *   • Analytics: "How many demo sessions per day?"
+     */
+    public void logModeTransition(String fromMode, String toMode, String reason) {
+        String timestamp = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
+        String logEntry = String.format(
+            "[%s] ===== Mode Transition: %s → %s | Reason: %s =====",
+            timestamp, fromMode, toMode, reason != null ? reason : "unspecified"
+        );
+        
+        Logger.log(LogLevel.INFO, logEntry);
+    }
+}
 

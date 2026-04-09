@@ -37,6 +37,8 @@ import vcfs.models.users.Recruiter;
  */
 public class RecruiterScreen extends JFrame implements RecruiterView, PropertyChangeListener {
 
+    private static final long serialVersionUID = 1L;
+
     private RecruiterController controller;
 
     public RecruiterScreen() {
@@ -135,7 +137,60 @@ public class RecruiterScreen extends JFrame implements RecruiterView, PropertyCh
             JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         pageScroller.getVerticalScrollBar().setUnitIncrement(16);
         
-        add(pageScroller, BorderLayout.CENTER);
+        // ===== ADD CENTER CONTENT WITH COLLAPSIBLE DEMO NOTES =====
+        JPanel centerPanel = new JPanel(new BorderLayout());
+        centerPanel.add(pageScroller, BorderLayout.CENTER);
+        
+        // ===== ADD COLLAPSIBLE DEMO NOTES (BOTTOM) =====
+        String[] recruiterNotesTitles = {
+            "STEP 1: PUBLISH JOB OFFERS",
+            "STEP 2: VIEW INTERVIEW REQUESTS",
+            "STEP 3: SCHEDULE MEETINGS",
+            "STEP 4: MANAGE VIRTUAL ROOMS",
+            "DEMO WORKFLOW"
+        };
+        
+        String[] recruiterNotesContent = {
+            "• Click 'Publish Offer' tab at top\n" +
+            "• Fill in job details: Title, description, requirements\n" +
+            "• Set availability time window (when candidates can book)\n" +
+            "• Click 'Publish' - Offer goes live immediately\n" +
+            "• Offer appears in Candidate portal in real-time",
+            
+            "• Click 'My Requests' tab\n" +
+            "• View all incoming candidate interview requests\n" +
+            "• Each request shows: Candidate name, preferred time slots\n" +
+            "• Status shows if request is 'PENDING', 'ACCEPTED', 'REJECTED'\n" +
+            "• Requests auto-populate as candidates submit them",
+            
+            "• Click 'Schedule Meeting' tab\n" +
+            "• Select a candidate from incoming requests\n" +
+            "• Pick interview time slot (must be within your published availability)\n" +
+            "• System generates virtual meeting room link automatically\n" +
+            "• Confirmation sent to candidate immediately",
+            
+            "• Click 'Virtual Room' tab\n" +
+            "• Shows all scheduled interviews with video meeting links\n" +
+            "• Room ID and join link displayed\n" +
+            "• Interview notes and timestamps recorded\n" +
+            "• Can invite candidates to meetings from here",
+            
+            "□ Start by viewing demo admin setup (organizations, recruiters created)\n" +
+            "□ In Recruiter portal: Create 2-3 job offers with overlapping times\n" +
+            "□ Switch to Candidate Portal: Show offers appearing live\n" +
+            "□ Candidate: Request interviews for available slots\n" +
+            "□ Return to Recruiter: Show incoming requests appearing\n" +
+            "□ Recruiter: Accept/schedule meetings with candidates\n" +
+            "□ Show virtual room links and meeting confirmations\n" +
+            "□ Return to Admin: Show all activities in Audit Log"
+        };
+        
+        vcfs.views.shared.CollapsibleDemoNotesPanel recruiterNotesPanel = new vcfs.views.shared.CollapsibleDemoNotesPanel(
+            "Recruiter Portal", recruiterNotesTitles, recruiterNotesContent
+        );
+        centerPanel.add(recruiterNotesPanel, BorderLayout.SOUTH);
+        
+        add(centerPanel, BorderLayout.CENTER);
         
         // ===== REGISTER AS OBSERVER =====
         // RecruiterScreen receives property change events from CareerFairSystem
@@ -344,6 +399,59 @@ public class RecruiterScreen extends JFrame implements RecruiterView, PropertyCh
             Logger.log(LogLevel.INFO, "[RecruiterScreen] Timeline updated - refreshing display");
             javax.swing.SwingUtilities.invokeLater(() -> refreshDisplay());
         }
+    }
+
+    @Override
+    public void displayOffers(List offers) {
+        if (offers == null) offers = new java.util.ArrayList<>();
+        
+        Logger.log(LogLevel.INFO, "[RecruiterScreen] Displaying " + offers.size() + " offers");
+        
+        // Display count in a message
+        String message = String.format("📊 Total Interview Offers: %d%n", offers.size());
+        if (offers.isEmpty()) {
+            message += "No offers published yet.";
+        } else {
+            java.util.List<String> offerSummaries = new java.util.ArrayList<>();
+            for (Object offer : offers) {
+                if (offer instanceof vcfs.models.booking.Offer) {
+                    vcfs.models.booking.Offer o = (vcfs.models.booking.Offer) offer;
+                    offerSummaries.add(String.format("%s (Capacity: %d)", o.getTitle(), o.getCapacity()));
+                } else {
+                    offerSummaries.add(offer.toString());
+                }
+            }
+            message += java.lang.String.join("\n", offerSummaries);
+        }
+        
+        Logger.log(LogLevel.INFO, "[RecruiterScreen] Offers presentation: " + message);
+    }
+
+    @Override
+    public void displayRequests(List requests) {
+        if (requests == null) requests = new java.util.ArrayList<>();
+        
+        Logger.log(LogLevel.INFO, "[RecruiterScreen] Displaying " + requests.size() + " booking requests");
+        
+        // Display count of candidate requests
+        String message = String.format("📋 Total Booking Requests: %d%n", requests.size());
+        if (requests.isEmpty()) {
+            message += "No booking requests received yet.";
+        } else {
+            java.util.List<String> requestSummaries = new java.util.ArrayList<>();
+            for (Object request : requests) {
+                if (request instanceof vcfs.models.booking.Request) {
+                    vcfs.models.booking.Request r = (vcfs.models.booking.Request) request;
+                    requestSummaries.add(String.format("Request ID: %s (Max Appointments: %d)", 
+                        r.getId(), r.getMaxAppointments()));
+                } else {
+                    requestSummaries.add(request.toString());
+                }
+            }
+            message += java.lang.String.join("\n", requestSummaries);
+        }
+        
+        Logger.log(LogLevel.INFO, "[RecruiterScreen] Requests presentation: " + message);
     }
 }
 

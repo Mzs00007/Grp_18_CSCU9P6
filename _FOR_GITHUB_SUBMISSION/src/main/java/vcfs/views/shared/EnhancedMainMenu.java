@@ -13,6 +13,7 @@ import vcfs.core.PortalFlowGuide;
  * No confusion about the system flow
  */
 public class EnhancedMainMenu extends JFrame {
+
     
     public EnhancedMainMenu() {
         setTitle("VCFS - Role Selection");

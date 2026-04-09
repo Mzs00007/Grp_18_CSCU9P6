@@ -25,6 +25,7 @@ import vcfs.core.LogLevel;
 import vcfs.core.UIEnhancementUtils;
 import vcfs.core.SessionManager;
 import vcfs.models.enums.FairPhase;
+import vcfs.views.shared.CollapsibleDemoNotesPanel;
 
 /**
  * Administrator GUI Screen (Phase 4 - UI Integration).
@@ -40,6 +41,7 @@ import vcfs.models.enums.FairPhase;
  * Adapted to skeleton by: Zaid
  */
 public class AdminScreen extends JFrame implements PropertyChangeListener {
+
 
     // ===== CONTROLLER =====
     private AdminScreenController controller;
@@ -173,7 +175,63 @@ public class AdminScreen extends JFrame implements PropertyChangeListener {
             JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         pageScroller.getVerticalScrollBar().setUnitIncrement(16);
         
-        add(pageScroller, BorderLayout.CENTER);
+        // ===== ADD CENTER CONTENT =====
+        JPanel centerPanel = new JPanel(new BorderLayout());
+        centerPanel.add(pageScroller, BorderLayout.CENTER);
+        
+        // ===== ADD COLLAPSIBLE DEMO NOTES (BOTTOM) =====
+        String[] adminNotesTitles = {
+            "SECTION 1: CREATE ORGANIZATION",
+            "SECTION 2: ADD BOOTH",
+            "SECTION 3: ASSIGN RECRUITER",
+            "SECTION 4: CONFIGURE TIMELINE",
+            "THEN DEMONSTRATE BY:",
+            "WHAT TO SHOW"
+        };
+        
+        String[] adminNotesContent = {
+            "• Enter company name in text field (e.g., 'TechCom Inc')\n" +
+            "• Click 'Create Organization' button\n" +
+            "• You'll see it appear in Organizations table below",
+            
+            "• Select organization from 'Org Dropdown' menu\n" +
+            "• Enter booth life name (e.g., 'Software Engineer', 'Data Scientist')\n" +
+            "• Click 'Create' button - Booth added to that organization\n" +
+            "• Multiple booths per organization = different interview tracks",
+            
+            "• Select organization and booth using dropdowns\n" +
+            "• Enter recruiter email (e.g., 'alice@techcorp.com')\n" +
+            "• Click 'Assign' - Recruiter linked to that booth\n" +
+            "• Recruiter can now login and publish interview offers",
+            
+            "• Set FAIR OPEN DATE: Pick date (default: today) - when booking opens\n" +
+            "• Set FAIR START TIME: Pick time (e.g., '09:00 AM')\n" +
+            "• Set FAIR END TIME: Pick time (e.g., '17:00')\n" +
+            "• Set FAIR CLOSE TIME: Pick time (e.g., '16:00:00 PM') - booking deadline\n" +
+            "• Click 'Set Timeline' button - FAIR GOES LIVE!",
+            
+            "□ Click 'View Recruiter Portal' - Go to Recruiter side\n" +
+            "□ Create interview offers from recruiter side\n" +
+            "□ Click back to Admin - Check Audit Log (all events logged)\n" +
+            "□ Click 'View Candidate Portal' - Show candidate side\n" +
+            "□ In Candidate Portal: book interviews - Check Admin Log\n" +
+            "□ Timeline status shown at bottom",
+            
+            "• Org/Booth/Recruiter creation in real-time\n" +
+            "• Time showing actual simulation time\n" +
+            "• Fair phases: DORMANT →BOOKINGS_OPEN / BOOKINGS_CLOSED → FAIR_LIVE\n" +
+            "• Org/Recruiter Candidate Summary on Each Portal Setup\n" +
+            "• Dashboard showing real metrics (3 organizations, 5 booths all setup)\n" +
+            "• Recruiter Portal creates offers - shows in Admin log\n" +
+            "• Candidate booking - shows as 'Booking Created' in Admin log"
+        };
+        
+        CollapsibleDemoNotesPanel adminNotesPanel = new CollapsibleDemoNotesPanel(
+            "Administrator Portal", adminNotesTitles, adminNotesContent
+        );
+        centerPanel.add(adminNotesPanel, BorderLayout.SOUTH);
+        
+        add(centerPanel, BorderLayout.CENTER);
 
         // ===== REGISTER AS OBSERVER =====
         // This ensures AdminScreen receives property change events from CareerFairSystem

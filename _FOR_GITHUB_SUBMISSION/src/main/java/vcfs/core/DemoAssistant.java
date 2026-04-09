@@ -14,6 +14,7 @@ import java.util.*;
  * - Portal flow explanations
  */
 public class DemoAssistant {
+
     
     private static DemoAssistant instance;
     private int currentStep = 0;

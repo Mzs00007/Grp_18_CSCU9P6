@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("AdminScreenController Test Suite")
 public class AdminScreenControllerTest {
 
+
     private AdminScreenController controller;
 
     @BeforeEach

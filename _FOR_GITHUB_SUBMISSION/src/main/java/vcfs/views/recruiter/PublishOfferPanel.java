@@ -39,6 +39,8 @@ import java.util.stream.Collectors;
  */
 public class PublishOfferPanel extends JPanel implements PropertyChangeListener {
 
+
+
     private RecruiterController controller;
     private JTextField titleField;
     private JTextField durationField;
@@ -92,9 +94,35 @@ public class PublishOfferPanel extends JPanel implements PropertyChangeListener 
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        // Header with mode badge
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setBackground(Color.WHITE);
+        
         JLabel titleLabel = new JLabel("📊 Your Published Offers");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        panel.add(titleLabel, BorderLayout.NORTH);
+        headerPanel.add(titleLabel, BorderLayout.WEST);
+        
+        // Add mode badge
+        String modeLabel = CareerFairSystem.getInstance().isInDemoMode() 
+            ? "🎬 DEMO MODE - Not Saved" 
+            : "📋 LIVE - Saved";
+        Color badgeColor = CareerFairSystem.getInstance().isInDemoMode() 
+            ? new Color(255, 152, 0)  // Orange for demo
+            : new Color(76, 175, 80); // Green for live
+        
+        JLabel modeBadge = new JLabel(modeLabel);
+        modeBadge.setFont(new Font("Arial", Font.BOLD, 11));
+        modeBadge.setForeground(Color.WHITE);
+        modeBadge.setBackground(badgeColor);
+        modeBadge.setOpaque(true);
+        modeBadge.setBorder(BorderFactory.createEmptyBorder(3, 8, 3, 8));
+        modeBadge.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(badgeColor, 1, true),
+            BorderFactory.createEmptyBorder(3, 8, 3, 8)
+        ));
+        headerPanel.add(modeBadge, BorderLayout.EAST);
+        
+        panel.add(headerPanel, BorderLayout.NORTH);
 
         // Table to display offers
         offersTableModel = new javax.swing.table.DefaultTableModel(
@@ -140,44 +168,88 @@ public class PublishOfferPanel extends JPanel implements PropertyChangeListener 
     }
 
     /**
-     * Refresh the offers table with current recruiter's offers
+     * CONSISTENCY FIX: Refresh the offers table with current recruiter's offers.
+     * P3 (mzs00007) — Enhanced with error resilience and logging.
+     * 
+     * CRITICAL: This method MUST be called:
+     *   1. On initial panel load
+     *   2. After publishing a new offer
+     *   3. When PropertyChangeEvent fires from CareerFairSystem
+     *   4. When user clicks "Refresh" button
+     * 
+     * Ensures table always shows accurate, up-to-date offer data.
      */
     private void refreshOffersTable() {
-        offersTableModel.setRowCount(0);
+        offersTableModel.setRowCount(0); // Clear existing rows
         try {
             Recruiter currentRecruiter = UserSession.getInstance().getCurrentRecruiter();
             if (currentRecruiter == null) {
                 Logger.log(LogLevel.WARNING, "[PublishOfferPanel] No current recruiter in session");
+                offersTableModel.addRow(new Object[]{"ERROR: No recruiter logged in", "-", "-", "-", "-", "-"});
                 return;
             }
 
-            // Get all offers and filter for this recruiter
-            for (Offer offer : CareerFairSystem.getInstance().getAllOffers()) {
-                if (offer.getPublisher() != null && 
-                    offer.getPublisher().getEmail().equals(currentRecruiter.getEmail())) {
+            // CRITICAL FIX: Get fresh offer list from system (not cached stale data)
+            List<Offer> allOffers = CareerFairSystem.getInstance().getAllOffers();
+            
+            if (allOffers == null || allOffers.isEmpty()) {
+                Logger.log(LogLevel.DEBUG, "[PublishOfferPanel] No offers in system yet");
+                offersTableModel.addRow(new Object[]{"(No offers published yet)", "-", "-", "-", "-", "-"});
+                return;
+            }
+            
+            // Filter offers for current recruiter only
+            int offersDisplayed = 0;
+            for (Offer offer : allOffers) {
+                if (offer == null) continue; // Skip null offers
+                if (offer.getPublisher() == null) continue; // Skip offers without publisher
+                
+                try {
+                    // Match current recruiter by email (case-insensitive)
+                    String publisherEmail = offer.getPublisher().getEmail();
+                    String recruiterEmail = currentRecruiter.getEmail();
                     
-                    int bookings = (offer.getReservations() != null) ? offer.getReservations().size() : 0;
-                    String status = (bookings >= offer.getCapacity()) ? "FULL" : "OPEN";
-                    
-                    offersTableModel.addRow(new Object[]{
-                        offer.getTitle(),
-                        offer.getDurationMins(),
-                        offer.getTopicTags().isEmpty() ? "-" : offer.getTopicTags(),
-                        offer.getCapacity(),
-                        bookings,
-                        status
-                    });
+                    if (publisherEmail != null && recruiterEmail != null &&
+                        publisherEmail.equalsIgnoreCase(recruiterEmail)) {
+                        
+                        // Build offer row with safe null-checks
+                        int bookings = (offer.getReservations() != null) ? offer.getReservations().size() : 0;
+                        int capacity = offer.getCapacity() > 0 ? offer.getCapacity() : 1;
+                        String status = (bookings >= capacity) ? "FULL" : "OPEN";
+                        String title = offer.getTitle() != null ? offer.getTitle() : "(Untitled)";
+                        int duration = offer.getDurationMins() > 0 ? offer.getDurationMins() : 0;
+                        String tags = (offer.getTopicTags() != null && !offer.getTopicTags().isEmpty()) 
+                                        ? offer.getTopicTags() : "-";
+                        
+                        offersTableModel.addRow(new Object[]{
+                            title,
+                            duration,
+                            tags,
+                            capacity,
+                            bookings,
+                            status
+                        });
+                        offersDisplayed++;
+                    }
+                } catch (Exception rowEx) {
+                    Logger.log(LogLevel.WARNING, "[PublishOfferPanel] Error processing offer row", rowEx);
+                    // Continue to next offer instead of crashing
                 }
             }
 
-            if (offersTableModel.getRowCount() == 0) {
+            // Show placeholder if no offers from this recruiter
+            if (offersDisplayed == 0) {
                 offersTableModel.addRow(new Object[]{"(No offers published yet)", "-", "-", "-", "-", "-"});
+                Logger.log(LogLevel.INFO, "[PublishOfferPanel] Recruiter " + currentRecruiter.getDisplayName() + 
+                    " has no published offers");
+            } else {
+                Logger.log(LogLevel.INFO, "[PublishOfferPanel] Displayed " + offersDisplayed + " offers for " + 
+                    currentRecruiter.getDisplayName());
             }
-
-            Logger.log(LogLevel.INFO, "[PublishOfferPanel] Refreshed offers table - found " + 
-                (offersTableModel.getRowCount() > 1 ? (offersTableModel.getRowCount() - 1) : 0) + " offers");
         } catch (Exception e) {
-            Logger.log(LogLevel.ERROR, "[PublishOfferPanel] Error refreshing offers table", e);
+            Logger.log(LogLevel.ERROR, "[PublishOfferPanel] Critical error refreshing offers table", e);
+            offersTableModel.setRowCount(0);
+            offersTableModel.addRow(new Object[]{"ERROR: " + e.getMessage(), "-", "-", "-", "-", "-"});
         }
     }
 
@@ -277,7 +349,7 @@ public class PublishOfferPanel extends JPanel implements PropertyChangeListener 
             String tagsText = tagsField.getText().trim();
             String capacityText = capacityField.getText().trim();
 
-            // Validate inputs
+            // Validate inputs with detailed error messages
             if (title.isEmpty()) {
                 UIHelpers.showErrorDialog(this, "Validation Error", "Offer title cannot be empty.");
                 Logger.log(LogLevel.WARNING, "[PublishOfferPanel] Rejected: empty title");
@@ -296,59 +368,84 @@ public class PublishOfferPanel extends JPanel implements PropertyChangeListener 
                 return;
             }
 
-            int duration = Integer.parseInt(durationText);
-            int capacity = Integer.parseInt(capacityText);
+            // Parse and validate numeric values
+            int duration;
+            int capacity;
+            
+            try {
+                duration = Integer.parseInt(durationText);
+            } catch (NumberFormatException e) {
+                UIHelpers.showErrorDialog(this, "Input Error", "Duration must be a valid number.");
+                Logger.log(LogLevel.WARNING, "[PublishOfferPanel] Invalid duration: " + durationText);
+                return;
+            }
+            
+            try {
+                capacity = Integer.parseInt(capacityText);
+            } catch (NumberFormatException e) {
+                UIHelpers.showErrorDialog(this, "Input Error", "Capacity must be a valid number.");
+                Logger.log(LogLevel.WARNING, "[PublishOfferPanel] Invalid capacity: " + capacityText);
+                return;
+            }
 
             if (duration <= 0) {
                 UIHelpers.showErrorDialog(this, "Validation Error", "Duration must be positive (> 0).");
-                Logger.log(LogLevel.WARNING, "[PublishOfferPanel] Rejected: negative duration");
+                Logger.log(LogLevel.WARNING, "[PublishOfferPanel] Rejected: negative duration " + duration);
                 return;
             }
 
             if (capacity <= 0) {
                 UIHelpers.showErrorDialog(this, "Validation Error", "Capacity must be positive (> 0).");
-                Logger.log(LogLevel.WARNING, "[PublishOfferPanel] Rejected: negative capacity");
+                Logger.log(LogLevel.WARNING, "[PublishOfferPanel] Rejected: negative capacity " + capacity);
                 return;
             }
 
-            // Create Offer instance
+            // Create Offer instance with all properties
             Offer offer = new Offer();
             offer.setTitle(title);
             offer.setDurationMins(duration);
             offer.setCapacity(capacity);
             offer.setTopicTags(tagsText.isEmpty() ? "" : tagsText);
 
-            // Publish via controller
+            Logger.log(LogLevel.INFO, "[PublishOfferPanel] Publishing offer: " + title + 
+                " (" + duration + "min, cap=" + capacity + ")");
+
+            // Publish via controller (which now correctly notifies system)
             controller.publishOffer(offer);
 
             // Success message
             UIHelpers.showSuccessDialog(this, "Success", 
                 "Offer '" + title + "' published successfully!");
 
-            // Refresh the offers table to show new offer
-            refreshOffersTable();
+            // CRITICAL FIX: Explicit refresh ensures table updates immediately
+            // This works in conjunction with PropertyChangeListener notification
+            // If system notification is delayed, manual refresh guarantees UI consistency
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                Logger.log(LogLevel.DEBUG, "[PublishOfferPanel] Executing deferred table refresh");
+                refreshOffersTable();
+            });
 
-            // Clear form
+            // Clear form for next entry
             titleField.setText("");
             durationField.setText("30");
             tagsField.setText("");
             capacityField.setText("1");
             
-            Logger.log(LogLevel.INFO, "[PublishOfferPanel] Offer published: " + title);
+            Logger.log(LogLevel.INFO, "[PublishOfferPanel] Offer '" + title + "' successfully added to table");
         } catch (NumberFormatException ex) {
             UIHelpers.showErrorDialog(this, "Input Error", 
                 "Duration and Capacity must be valid numbers.");
-            Logger.log(LogLevel.WARNING, "[PublishOfferPanel] Number format error: " + ex.getMessage());
+            Logger.log(LogLevel.ERROR, "[PublishOfferPanel] Number format error: " + ex.getMessage(), ex);
         } catch (Exception ex) {
             UIHelpers.showErrorDialog(this, "Error", 
                 "Error publishing offer: " + ex.getMessage());
-            Logger.log(LogLevel.WARNING, "[PublishOfferPanel] Error: " + ex.getMessage());
+            Logger.log(LogLevel.ERROR, "[PublishOfferPanel] Unexpected error: " + ex.getMessage(), ex);
         }
     }
 
     /**
      * PropertyChangeListener - Updates table when offers change in system
-     * Ensures recruiter sees new offers published by others (if system updates)
+     * Also handles mode switches between LIVE and DEMO
      * 
      * CRITICAL: All Swing UI updates must happen on the Event Dispatch Thread (EDT)
      * PropertyChangeSupport fires events on its own thread, so we must use
@@ -360,6 +457,13 @@ public class PublishOfferPanel extends JPanel implements PropertyChangeListener 
         if ("offers".equals(prop) || "offer_published".equals(prop)) {
             Logger.log(LogLevel.INFO, "[PublishOfferPanel] Offers updated - refreshing table");
             javax.swing.SwingUtilities.invokeLater(() -> refreshOffersTable());
+        } else if ("mode_switched".equals(prop)) {
+            // Mode has changed between LIVE and DEMO
+            Logger.log(LogLevel.INFO, "[PublishOfferPanel] Mode switched to: " + evt.getNewValue());
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                refreshOffersTable(); // Refresh data
+                // Note: Header will auto-update when createViewOffersTab is called
+            });
         }
     }
 }

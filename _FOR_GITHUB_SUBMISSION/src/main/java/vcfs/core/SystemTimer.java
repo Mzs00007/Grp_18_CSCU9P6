@@ -30,8 +30,7 @@ import java.beans.PropertyChangeSupport;
  * Implemented by: Zaid — VCFS-001
  */
 public class SystemTimer {
-
-    // =========================================================
+    // ===========================================================
     // SINGLETON INFRASTRUCTURE
     // =========================================================
 
@@ -168,6 +167,38 @@ public class SystemTimer {
 
         // Broadcast to all registered listeners
         support.firePropertyChange("time", oldTime, this.now);
+    }
+
+    /**
+     * Get the current simulated time (static method for convenience).
+     * @return The current LocalDateTime value
+     */
+    public static LocalDateTime now() {
+        return getInstance().now;
+    }
+
+    public static void setSimulatedTime(LocalDateTime initialTime) {
+        SystemTimer timer = getInstance();
+        if (initialTime != null) {
+            timer.now = initialTime;
+            timer.support.firePropertyChange("time", null, initialTime);
+        }
+    }
+
+    /**
+     * Advance the simulated time by a number of minutes and notify observers.
+     * @param minutes The number of minutes to advance
+     */
+    public static void advanceTime(int minutes) {
+        if (minutes > 0) {
+            SystemTimer timer = getInstance();
+            timer.now = timer.now.plusMinutes(minutes);
+            timer.support.firePropertyChange("time", null, timer.now);
+        }
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
     }
 }
 

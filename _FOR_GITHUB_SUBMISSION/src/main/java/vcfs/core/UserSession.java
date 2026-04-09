@@ -31,8 +31,7 @@ import vcfs.models.users.Recruiter;
  * Implemented by: Zaid
  */
 public class UserSession {
-
-    // =========================================================
+    // ==========================================================
     // SINGLETON INFRASTRUCTURE
     // =========================================================
 
@@ -92,7 +91,7 @@ public class UserSession {
 
     private Recruiter currentRecruiter;
     private Candidate currentCandidate;
-    private String currentAdmin;  // Can be extended to Admin class later
+    private Object currentAdmin;  // Can be extended to Admin class later
     private UserRole currentRole;
 
     // =========================================================
@@ -152,21 +151,21 @@ public class UserSession {
     /**
      * Set the currently logged-in admin.
      *
-     * @param adminName The admin user name (can be null to clear)
+     * @param admin The admin user (can be null to clear)
      */
-    public void setCurrentAdmin(String adminName) {
-        this.currentAdmin = adminName;
-        if (adminName != null) {
-            Logger.log(LogLevel.INFO, "[UserSession] Admin logged in: " + adminName);
+    public void setCurrentAdmin(Object admin) {
+        this.currentAdmin = admin;
+        if (admin != null) {
+            Logger.log(LogLevel.INFO, "[UserSession] Admin logged in: " + admin);
         }
     }
 
     /**
-     * Get the currently logged-in admin name.
+     * Get the currently logged-in admin.
      *
-     * @return The admin name, or null if not logged in as admin
+     * @return The admin, or null if not logged in as admin
      */
-    public String getCurrentAdmin() {
+    public Object getCurrentAdmin() {
         return this.currentAdmin;
     }
 
@@ -261,7 +260,7 @@ public class UserSession {
             case CANDIDATE:
                 return currentCandidate != null ? currentCandidate.getDisplayName() : "(Candidate not set)";
             case ADMIN:
-                return currentAdmin != null ? currentAdmin : "(Admin not set)";
+                return currentAdmin != null ? currentAdmin.toString() : "(Admin not set)";
             default:
                 return "(Unknown user)";
         }

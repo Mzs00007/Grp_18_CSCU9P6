@@ -1,13 +1,5 @@
 package vcfs.models.booking;
 
-/**
- * Virtual Career Fair System (VCFS)
- * Group 9 - CSCU9P6
- * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
- * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
- */
-
-
 import java.util.*;
 import vcfs.models.users.Candidate;
 import vcfs.core.Logger;
@@ -17,6 +9,7 @@ import vcfs.core.LogLevel;
  * Per-session waiting area for candidates who attempt to join early.
  */
 public class Lobby {
+
 
 	private MeetingSession session;
 	private List<Candidate> waitingQueue;
