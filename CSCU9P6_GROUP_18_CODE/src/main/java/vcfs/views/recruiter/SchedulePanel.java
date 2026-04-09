@@ -13,10 +13,14 @@ import vcfs.core.UIHelpers;
 import vcfs.core.Logger;
 import vcfs.core.LogLevel;
 import vcfs.models.booking.MeetingSession;
+import vcfs.models.booking.Reservation;
+import vcfs.models.users.Candidate;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import java.util.Collection;
 
 /**
  * Schedule Panel - Recruiter interface for viewing and managing scheduled meetings.
@@ -51,8 +55,8 @@ public class SchedulePanel extends JPanel {
 
 
     private RecruiterController controller;
-    private DefaultListModel<String> listModel;
-    private JList<String> scheduleList;
+    private DefaultTableModel scheduleTableModel;
+    private JTable scheduleTable;
 
     public SchedulePanel(RecruiterController controller) {
         this.controller = controller;
@@ -78,12 +82,22 @@ public class SchedulePanel extends JPanel {
         // ============================================
         // LIST PANEL
         // ============================================
-        listModel = new DefaultListModel<>();
-        scheduleList = new JList<>(listModel);
-        scheduleList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        scheduleList.setFont(new Font("Arial", Font.PLAIN, 12));
+        scheduleTableModel = new DefaultTableModel(
+            new String[]{"Candidate", "Email", "Interview", "Status", "Scheduled Time", "Details"}, 0);
+        scheduleTable = new JTable(scheduleTableModel);
+        scheduleTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        scheduleTable.setFont(new Font("Arial", Font.PLAIN, 12));
+        scheduleTable.setRowHeight(25);
+        
+        // Set column widths
+        scheduleTable.getColumnModel().getColumn(0).setPreferredWidth(120);  // Candidate
+        scheduleTable.getColumnModel().getColumn(1).setPreferredWidth(160);  // Email
+        scheduleTable.getColumnModel().getColumn(2).setPreferredWidth(150);  // Interview
+        scheduleTable.getColumnModel().getColumn(3).setPreferredWidth(90);   // Status
+        scheduleTable.getColumnModel().getColumn(4).setPreferredWidth(150);  // Scheduled Time
+        scheduleTable.getColumnModel().getColumn(5).setPreferredWidth(80);   // Details
 
-        JScrollPane scrollPane = new JScrollPane(scheduleList);
+        JScrollPane scrollPane = new JScrollPane(scheduleTable);
         scrollPane.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
         add(scrollPane, BorderLayout.CENTER);
 
@@ -109,21 +123,30 @@ public class SchedulePanel extends JPanel {
         // ============================================
         refreshBtn.addActionListener(e -> {
             Logger.log(LogLevel.INFO, "[SchedulePanel] Refresh clicked");
-            this.controller.viewMeetingHistory();
+            refreshScheduleTable();
             UIHelpers.showInfoDialog(SchedulePanel.this, "Refreshed", "Schedule updated successfully.");
         });
 
         viewSessionBtn.addActionListener(e -> {
-            int selectedIndex = scheduleList.getSelectedIndex();
-            if (selectedIndex < 0) {
+            int selectedRow = scheduleTable.getSelectedRow();
+            if (selectedRow < 0) {
                 UIHelpers.showWarningDialog(SchedulePanel.this, "Selection Required", 
                     "Please select a session to view details.");
                 Logger.log(LogLevel.WARNING, "[SchedulePanel] View clicked with no selection");
                 return;
             }
-            Logger.log(LogLevel.INFO, "[SchedulePanel] View session details clicked for index: " + selectedIndex);
-            UIHelpers.showInfoDialog(SchedulePanel.this, "Session Details", 
-                "Session: " + scheduleList.getSelectedValue());
+            String candidate = (String) scheduleTableModel.getValueAt(selectedRow, 0);
+            String interview = (String) scheduleTableModel.getValueAt(selectedRow, 2);
+            String time = (String) scheduleTableModel.getValueAt(selectedRow, 4);
+            String status = (String) scheduleTableModel.getValueAt(selectedRow, 3);
+            
+            String details = "Candidate: " + candidate + "\n" +
+                           "Interview: " + interview + "\n" +
+                           "Time: " + time + "\n" +
+                           "Status: " + status;
+            
+            Logger.log(LogLevel.INFO, "[SchedulePanel] View session details clicked for: " + candidate);
+            UIHelpers.showInfoDialog(SchedulePanel.this, "Session Details", details);
         });
         
         // Load initial schedule
@@ -133,7 +156,8 @@ public class SchedulePanel extends JPanel {
     private void loadSchedule() {
         try {
             if (controller != null) {
-                this.controller.viewMeetingHistory();
+                Logger.log(LogLevel.INFO, "[SchedulePanel] Loading initial schedule");
+                refreshScheduleTable();
             }
         } catch (Exception e) {
             Logger.log(LogLevel.ERROR, "[SchedulePanel] Failed to load initial schedule", e);
@@ -141,11 +165,76 @@ public class SchedulePanel extends JPanel {
     }
 
     public void updateSchedule(List<MeetingSession> sessions) {
-        listModel.clear();
+        scheduleTableModel.setRowCount(0);
         for (MeetingSession session : sessions) {
             String startTime = (session.getReservation() != null && session.getReservation().getScheduledStart() != null) 
                                 ? session.getReservation().getScheduledStart().toString() : "TBD";
-            listModel.addElement(session.getTitle() + " - " + startTime);
+            String candidate = "Unknown";
+            String email = "N/A";
+            String status = "UNKNOWN";
+            
+            if (session.getReservation() != null && session.getReservation().getCandidate() != null) {
+                candidate = session.getReservation().getCandidate().getDisplayName();
+                email = session.getReservation().getCandidate().getEmail();
+                status = session.getReservation().getStatus();
+            }
+            
+            scheduleTableModel.addRow(new Object[]{
+                candidate,
+                email,
+                session.getTitle(),
+                status,
+                startTime,
+                "View"
+            });
+        }
+    }
+    
+    public void refreshScheduleTable() {
+        try {
+            scheduleTableModel.setRowCount(0);
+            
+            if (controller != null && controller.getCurrentRecruiter() != null) {
+                Logger.log(LogLevel.INFO, "[SchedulePanel] Refreshing schedule table for recruiter");
+                
+                // Get all offers from recruiter
+                Collection<vcfs.models.booking.Offer> offers = controller.getCurrentRecruiter().getOffers();
+                
+                for (vcfs.models.booking.Offer offer : offers) {
+                    // *** CRITICAL: Always query UserSession for fresh candidate data ***
+                    if (offer.getReservations() != null) {
+                        for (Reservation reservation : offer.getReservations()) {
+                            Candidate candidate = reservation.getCandidate();
+                            
+                            if (candidate != null) {
+                                String candidateName = candidate.getDisplayName() != null ? 
+                                    candidate.getDisplayName() : "Unknown";
+                                String email = candidate.getEmail() != null ? 
+                                    candidate.getEmail() : "N/A";
+                                String interviewTitle = offer.getTitle() != null ? 
+                                    offer.getTitle() : "N/A";
+                                String status = reservation.getStatus() != null ? 
+                                    reservation.getStatus() : "PENDING";
+                                String scheduledTime = reservation.getScheduledStart() != null ? 
+                                    reservation.getScheduledStart().toString() : "TBD";
+                                
+                                scheduleTableModel.addRow(new Object[]{
+                                    candidateName,
+                                    email,
+                                    interviewTitle,
+                                    status,
+                                    scheduledTime,
+                                    "View"
+                                });
+                            }
+                        }
+                    }
+                }
+                Logger.log(LogLevel.INFO, "[SchedulePanel] Schedule table refreshed with " + 
+                    scheduleTableModel.getRowCount() + " interviews");
+            }
+        } catch (Exception e) {
+            Logger.log(LogLevel.WARNING, "[SchedulePanel] Error refreshing schedule: " + e.getMessage());
         }
     }
 }

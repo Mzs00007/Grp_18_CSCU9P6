@@ -2,12 +2,33 @@
 out/
 target/
 *.class
+bin/
+build/
 
-# Ignore diagnostic log files, but keep the directory
-logs/*.log
+# Ignore local build and test directories
+_LOCAL_BUILD/
+_LOCAL_REFERENCE/
+SUBMISSION_GUIDES/
 
-# IDE specific settings
+# Ignore ForGitHub submission folders
+_FOR_GITHUB_SUBMISSION/
+
+# Ignore IDE specific settings
 .idea/
 *.iml
 .settings/
 .vscode/
+.vs/
+
+# Ignore diagnostic log files
+logs/*.log
+*.log
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore temporary files
+*.tmp
+*.bak
+*~

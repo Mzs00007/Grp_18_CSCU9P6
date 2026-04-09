@@ -9,8 +9,8 @@ public interface RecruiterView {
     void displayError(String message);
     void displayMessage(String message);
     void displaySessions(List<MeetingSession> sessions);
-    void displayOffers(List offers);
-    void displayRequests(List requests);
+    void displayOffers(List<Object> offers);
+    void displayRequests(List<Object> requests);
 }
 
 

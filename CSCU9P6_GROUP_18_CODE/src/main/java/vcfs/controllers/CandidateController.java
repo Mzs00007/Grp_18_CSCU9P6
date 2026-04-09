@@ -1,13 +1,6 @@
 package vcfs.controllers;
 
 /**
- * Virtual Career Fair System (VCFS)
- * Group 9 - CSCU9P6  
- * Original Author: Zaid Siddiqui (Project Manager ^& Lead Developer)
- * Collaborators: Taha, YAMI, MJAMishkat, Mohamed
- */
-
-/**
  * CandidateController — Handles all candidate-related business logic.
  * REFACTORED to eliminate code duplication by extending BaseController.
  * 
@@ -42,6 +35,8 @@ import vcfs.core.SessionManager;
 import vcfs.models.booking.Request;
 import vcfs.models.booking.MeetingSession;
 import vcfs.models.booking.Lobby;
+import vcfs.models.booking.Offer;
+import vcfs.models.booking.Reservation;
 import vcfs.models.users.Candidate;
 import vcfs.views.candidate.CandidateView;
 
@@ -125,12 +120,219 @@ public class CandidateController extends BaseController {
             return;
         }
         
-        Request req = new Request();
-        req.setDesiredTags(desiredTags.trim());
-        req.setMaxAppointments(maxAppointments);
-        req.setPreferredOrgs("Any");
+        if (!validateLoggedIn(currentCandidate, "Candidate", "Auto-book interview")) {
+            view.displayError("Error: No candidate logged in. Please log in to book interviews.");
+            return;
+        }
         
-        submitMeetingRequest(req);
+        String candidateName = getUserName(currentCandidate);
+        String[] tags = desiredTags.trim().toLowerCase().split(",");
+        
+        try {
+            // CRITICAL FIX P3: Actually book matching offers instead of just creating a request
+            CareerFairSystem system = CareerFairSystem.getInstance();
+            List<Offer> allOffers = system.getAllOffers();
+            
+            int booked = 0;
+            int maxToBook = maxAppointments;
+            
+            logOperation(LogLevel.INFO, "CandidateController", 
+                "Auto-booking started for " + candidateName + " - tags: " + desiredTags + ", max: " + maxToBook);
+            
+            // Search for matching offers
+            for (Offer offer : allOffers) {
+                if (booked >= maxToBook) break;
+                
+                // Check if offer matches tags
+                String offerTags = (offer.getTopicTags() != null) ? offer.getTopicTags().toLowerCase() : "";
+                boolean matches = false;
+                
+                for (String tag : tags) {
+                    tag = tag.trim();
+                    if (!tag.isEmpty() && offerTags.contains(tag)) {
+                        matches = true;
+                        break;
+                    }
+                }
+                
+                // Check if offer has capacity
+                int offeredBooked = (offer.getReservations() != null) ? offer.getReservations().size() : 0;
+                int available = offer.getCapacity() - offeredBooked;
+                
+                if (matches && available > 0) {
+                    // Create reservation
+                    Reservation reservation = new Reservation();
+                    reservation.setCandidate(currentCandidate);
+                    reservation.setOffer(offer);
+                    reservation.setStatus("CONFIRMED");
+                    
+                    // Create MeetingSession
+                    MeetingSession session = new MeetingSession();
+                    session.setTitle(offer.getTitle() + " with " + 
+                        (offer.getPublisher() != null ? offer.getPublisher().getDisplayName() : "Recruiter"));
+                    session.setReservation(reservation);
+                    
+                    reservation.setSession(session);
+                    
+                    // Add to offer's reservations
+                    offer.addReservation(reservation);
+                    
+                    // Add to candidate's reservations so it appears in getMeetingSchedule()
+                    currentCandidate.addReservation(reservation);
+                    
+                    // Register in system
+                    system.registerBooking(reservation, currentCandidate.getEmail(), offer.getTitle());
+                    
+                    logOperation(LogLevel.INFO, "CandidateController", 
+                        "[AUTO-BOOK] ✓ Booked: " + offer.getTitle() + " with " + 
+                        (offer.getPublisher() != null ? offer.getPublisher().getDisplayName() : "Recruiter"));
+                    
+                    booked++;
+                }
+            }
+            
+            if (booked == 0) {
+                logOperation(LogLevel.WARNING, "CandidateController", 
+                    "Auto-book found NO matching offers for tags: " + desiredTags);
+                view.displayMessage("✓ Auto-book request submitted.\nℹ️ No matching offers found for tags: " + desiredTags + 
+                    "\nBookings may become available as recruiters publish more offers.");
+                return;
+            }
+            
+            // RECORD: Track successful auto-bookings
+            SystemStateManager.getInstance().recordStateChange("AUTO_BOOKING", 
+                candidateName + " auto-booked " + booked + " interviews", true);
+            
+            SessionManager.getInstance().recordActivity(candidateName, "Candidate", 
+                "AUTO_BOOKING_SUCCESS", "Auto-booked " + booked + " interviews for tags: " + desiredTags);
+            
+            view.displayMessage("✓ Success! Auto-booked " + booked + " interview(s)!\n" +
+                "Check 'My Schedule' tab to see your confirmed bookings.\n" +
+                "Interviews: " + booked + "/" + maxToBook + " slots filled");
+            
+            // SYNC FIX: Update UserSession candidate before refreshing UI
+            vcfs.core.UserSession.getInstance().setCurrentCandidate(currentCandidate);
+            
+            // CRITICAL FIX P4: Force refresh of schedule table immediately
+            // This ensures the candidate sees their bookings right away
+            viewMeetingSchedule();
+            view.refreshScheduleTable();  // NEW: Directly update schedule table model
+            view.refreshVirtualRoomTable();
+            
+        } catch (Exception e) {
+            logError("CandidateController", "Failed to auto-book interviews for " + candidateName, e);
+            
+            SystemStateManager.getInstance().recordStateChange("AUTO_BOOKING_FAILED", 
+                candidateName + " auto-booking failed: " + e.getMessage(), false);
+            
+            view.displayError("Error during auto-booking: " + e.getMessage());
+        }
+    }
+
+    /**
+     * BOOKING FIX P1: Book a specific offer directly for the current candidate.
+     * Called when candidate selects an offer and clicks "Book Now".
+     * 
+     * @param offer The offer to book
+     * @throws IllegalArgumentException if offer is null or fully booked
+     */
+    public void bookOffer(Offer offer) {
+        if (!validateLoggedIn(currentCandidate, "Candidate", "Book interview offer")) {
+            view.displayError("Error: No candidate logged in. Please log in to book interviews.");
+            return;
+        }
+        
+        String candidateName = getUserName(currentCandidate);
+        
+        if (!validateNotNull(offer, "Offer")) {
+            logOperation(LogLevel.WARNING, "CandidateController", "Book offer attempted with null offer by candidate: " + candidateName);
+            view.displayError("Error: Offer data is missing.");
+            return;
+        }
+        
+        try {
+            // Check if offer still has capacity
+            int booked = (offer.getReservations() != null) ? offer.getReservations().size() : 0;
+            int available = offer.getCapacity() - booked;
+            
+            if (available <= 0) {
+                logOperation(LogLevel.WARNING, "CandidateController", 
+                    "Book offer attempted but offer is FULL: " + offer.getTitle() + " (capacity: " + offer.getCapacity() + ")");
+                view.displayError("Error: This interview slot is fully booked. Please select another offer.");
+                return;
+            }
+            
+            // Create reservation linking candidate to offer
+            Reservation reservation = new Reservation();
+            reservation.setCandidate(currentCandidate);
+            reservation.setOffer(offer);
+            reservation.setStatus("CONFIRMED");
+            
+            // CRITICAL FIX P2: Create MeetingSession for the reservation
+            // This allows the reservation to show up in getMeetingSchedule()
+            MeetingSession session = new MeetingSession();
+            session.setTitle(offer.getTitle() + " with " + 
+                (offer.getPublisher() != null ? offer.getPublisher().getDisplayName() : "Recruiter"));
+            session.setReservation(reservation);
+            reservation.setSession(session);
+            
+            // Add reservation to offer's list
+            offer.addReservation(reservation);
+            
+            // CRITICAL FIX P2: Add reservation to candidate's personal collection
+            // This ensures candidate.getReservations() returns the booking
+            currentCandidate.addReservation(reservation);
+            
+            // SYNC FIX: Update UserSession candidate to reflect booking
+            // This ensures UI always gets the same candidate reference with updated reservations
+            vcfs.core.UserSession.getInstance().setCurrentCandidate(currentCandidate);
+            
+            // DEBUG LOGGING - Verify reservation was added AND synced to UserSession
+            int reservationCount = currentCandidate.getReservations().size();
+            logOperation(LogLevel.INFO, "CandidateController", 
+                "[BOOKING DEBUG] Reservation added. Candidate now has " + reservationCount + " reservations.");
+            
+            logOperation(LogLevel.INFO, "CandidateController", 
+                "Interview booking created by " + candidateName + " for offer: " + offer.getTitle());
+            
+            // CONSISTENCY FIX: Notify system so booking appears in all portals
+            // This ensures all three portals see the booking immediately
+            CareerFairSystem.getInstance().registerBooking(reservation, currentCandidate.getEmail(), 
+                offer.getTitle());
+            
+            // RECORD OPERATION: Track this booking in system state manager
+            SystemStateManager.getInstance().recordStateChange("CANDIDATE_BOOKING", 
+                candidateName + " booked interview: " + offer.getTitle(), true);
+            
+            // RECORD SESSION ACTIVITY: Track in session manager for live monitoring
+            SessionManager.getInstance().recordActivity(candidateName, "Candidate", 
+                "OFFER_BOOKED", "Booked interview: " + offer.getTitle() + " with " + 
+                (offer.getPublisher() != null ? offer.getPublisher().getDisplayName() : "recruiter"));
+            
+            view.displayMessage("✓ You have successfully booked this interview!\n" +
+                "Interview: " + offer.getTitle() + "\n" +
+                "Recruiter: " + (offer.getPublisher() != null ? offer.getPublisher().getDisplayName() : "Unknown") + "\n" +
+                "Duration: " + offer.getDurationMins() + " minutes\n" +
+                "Check 'My Schedule' for details.");
+            
+            // CRITICAL FIX: Refresh schedule AND virtual room table immediately after booking
+            logOperation(LogLevel.INFO, "CandidateController", "[BOOKING COMPLETE] About to refresh UI...");
+            viewMeetingSchedule();
+            logOperation(LogLevel.INFO, "CandidateController", "[BOOKING COMPLETE] Calling refreshScheduleTable()...");
+            view.refreshScheduleTable();  // NEW: Directly update schedule table model
+            logOperation(LogLevel.INFO, "CandidateController", "[BOOKING COMPLETE] About to refresh virtual room...");
+            view.refreshVirtualRoomTable();
+            logOperation(LogLevel.INFO, "CandidateController", "[BOOKING COMPLETE] UI refresh finished");
+            
+        } catch (Exception e) {
+            logError("CandidateController", "Failed to book offer by " + candidateName, e);
+            
+            // RECORD FAILURE
+            SystemStateManager.getInstance().recordStateChange("BOOKING_FAILED", 
+                candidateName + " booking attempt failed: " + e.getMessage(), false);
+            
+            view.displayError("Error booking interview: " + e.getMessage());
+        }
     }
 
     public void viewAvailableLobbies() {
@@ -182,7 +384,37 @@ public class CandidateController extends BaseController {
         String candidateName = getUserName(currentCandidate);
         
         try {
-            List<MeetingSession> schedule = currentCandidate.getMeetingSchedule();
+            // DEBUG: Check what we have BEFORE getting fresh candidate
+            logOperation(LogLevel.INFO, "CandidateController", 
+                "[SCHEDULE DEBUG-1] currentCandidate.getReservations().size() = " + 
+                (currentCandidate != null ? currentCandidate.getReservations().size() : "NULL CANDIDATE"));
+            
+            // CRITICAL FIX: Get fresh candidate from UserSession to ensure all reservations are visible
+            Candidate freshCandidate = vcfs.core.UserSession.getInstance().getCurrentCandidate();
+            
+            // DEBUG: Check what we got from UserSession
+            logOperation(LogLevel.INFO, "CandidateController", 
+                "[SCHEDULE DEBUG-2] UserSession freshCandidate = " + 
+                (freshCandidate != null ? "EXISTS (" + freshCandidate.getDisplayName() + ")" : "NULL"));
+            
+            if (freshCandidate == null) {
+                logOperation(LogLevel.WARNING, "CandidateController", 
+                    "[SCHEDULE DEBUG] UserSession returned NULL - using currentCandidate instead");
+                freshCandidate = currentCandidate;
+            }
+            
+            // DEBUG: Check reservation count from fresh candidate
+            logOperation(LogLevel.INFO, "CandidateController", 
+                "[SCHEDULE DEBUG-3] freshCandidate.getReservations().size() = " + 
+                (freshCandidate != null ? freshCandidate.getReservations().size() : "NULL"));
+            
+            List<MeetingSession> schedule = freshCandidate.getMeetingSchedule();
+            
+            // DEBUG: Check what getMeetingSchedule() returned
+            logOperation(LogLevel.INFO, "CandidateController", 
+                "[SCHEDULE DEBUG-4] freshCandidate.getMeetingSchedule().size() = " + 
+                (schedule != null ? schedule.size() : "NULL LIST"));
+            
             logOperation(LogLevel.INFO, "CandidateController", "Viewing meeting schedule for " + candidateName + " (" + schedule.size() + " sessions)");
             
             // RECORD SESSION ACTIVITY: Track schedule views in real-time

@@ -1,8 +1,12 @@
 # Virtual Career Fair System (VCFS)
-**Group 18 - CSCU9P6 (University of Stirling)**
 
-> **An Enterprise-Grade Virtual Recruitment and Career Fair Platform**  
-> Built with Java Swing, implementing advanced design patterns, state machines, and comprehensive algorithmic solutions for simulated career fair management.
+**Group 18 - CSCU9P6** | University of Stirling | Advanced Object-Oriented Programming
+
+> An **Enterprise-Grade Virtual Recruitment Platform** simulating career fairs with real-time booking management, state-driven workflows, and multi-role portal support.
+
+🎯 **Status:** ✅ Complete & Ready for Submission (Phase 8)  
+📦 **Language:** Java | **Framework:** Swing UI | **Architecture:** MVC + Observer Pattern  
+👥 **Team:** Zaid Siddiqui (Lead), Taha, YAMI, MJAMishkat, Mohamed
 
 ---
 

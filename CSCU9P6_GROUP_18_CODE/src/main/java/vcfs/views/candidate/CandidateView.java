@@ -21,6 +21,8 @@ public interface CandidateView {
     void displaySchedule(List<MeetingSession> schedule);
     void displayRequestHistory(List<Request> requests);
     void displaySessions(List<MeetingSession> sessions);
+    void refreshScheduleTable();  // NEW: Force refresh of schedule table after booking
+    void refreshVirtualRoomTable();
 }
 
 

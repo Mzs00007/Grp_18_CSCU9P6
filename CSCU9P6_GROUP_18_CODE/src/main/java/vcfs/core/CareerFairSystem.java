@@ -1832,7 +1832,7 @@ public class CareerFairSystem implements PropertyChangeListener {
      * 
      * PURPOSE:
      *   Display in system dashboards and status reports
-     *   HUD shows "Live Data: XXX items"
+     *   HUD shows "Live Data: X items"
      * 
      * IMPLEMENTATION:
      *   return getAllRecruiters().size() + getAllCandidates().size();

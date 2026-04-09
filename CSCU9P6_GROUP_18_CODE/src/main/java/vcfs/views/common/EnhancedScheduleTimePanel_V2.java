@@ -62,6 +62,13 @@ public class EnhancedScheduleTimePanel_V2 extends JPanel {
         durationSelectors = new JComboBox[3];
         demoHints = new JLabel[3];
         
+        @SuppressWarnings("unchecked")
+        JComboBox<String>[] dateSel = (JComboBox<String>[]) dateSelectors;
+        @SuppressWarnings("unchecked")
+        JComboBox<String>[] timeSel = (JComboBox<String>[]) timeSelectors;
+        @SuppressWarnings("unchecked")
+        JComboBox<String>[] durationSel = (JComboBox<String>[]) durationSelectors;
+        
         for (int i = 0; i < 3; i++) {
             addTimeSlot(i);
             addVerticalGap(15);
