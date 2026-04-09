@@ -284,10 +284,6 @@ public class RecruiterController extends BaseController {
         return currentRecruiter.getPublishedOffers();
     }
 
-    public Recruiter getCurrentRecruiter() {
-        return currentRecruiter;
-    }
-
     /**
      * Create a new offer for candidates.
      * This method publishes an offer from the current recruiter.
